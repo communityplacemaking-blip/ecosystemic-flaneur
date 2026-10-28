@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>המשוטט האקוסיסטמי</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#F7F2E8; --surface:#FFFDF8; --ink:#0F2D4A; --muted:#4F6377; --line:#D9CFBD;
+  --navy:#0F2D4A; --mustard:#D4A72C; --teal:#1E8C86; --teal-soft:#DDEFEC; --mustard-soft:#F5E7BE;
+  --on-navy:#F7F2E8;
+  --t-doc:#1E6B48; --t-dec:#0F2D4A; --t-ext:#6A4C93; --t-prop:#9A6B00; --t-open:#1E7A75; --t-check:#A2442F; --t-wait:#7A6A55;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
+  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --teal-soft:#16343A; --mustard-soft:#3A3220;
+  --on-navy:#EDE6D6;
+  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-open:#7ED8D2; --t-check:#F0A08E; --t-wait:#CDBFA8;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
+  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --teal-soft:#16343A; --mustard-soft:#3A3220;
+  --on-navy:#EDE6D6;
+  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-open:#7ED8D2; --t-check:#F0A08E; --t-wait:#CDBFA8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Assistant","Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.7;margin:0}
+h1,h2,h3{font-family:"Frank Ruhl Libre","Times New Roman",serif;font-weight:500;line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,5vw,3.4rem)}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem)}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+a{color:var(--teal)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.prose{max-width:66ch}
+.stack{display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:700}
+
+/* language */
+html[lang="he"] [data-l="en"]{display:none!important}
+html[lang="en"] [data-l="he"]{display:none!important}
+[data-l="en"]{font-family:"Assistant","Segoe UI",Arial,sans-serif}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:"Frank Ruhl Libre",serif;font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* draft notice */
+.draft{background:var(--mustard-soft);border-bottom:1px solid var(--line);font-size:.9rem}
+.draft .wrap{padding-block:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.legend{display:flex;gap:6px;flex-wrap:wrap}
+
+/* source tags */
+.tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.02em;border:1px solid currentColor;border-radius:4px;padding:0 6px;line-height:1.6;vertical-align:.15em;margin-inline:2px;white-space:nowrap}
+.t-doc{color:var(--t-doc)} .t-dec{color:var(--t-dec)} .t-ext{color:var(--t-ext)} .t-prop{color:var(--t-prop)}
+.t-open{color:var(--t-open)} .t-check{color:var(--t-check)} .t-wait{color:var(--t-wait)}
+body.clean .tag, body.clean .draft, body.clean .wait-only{display:none!important}
+
+/* hero */
+.hero{padding-block:clamp(40px,8vw,88px) 24px}
+.hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.hero-grid > *{min-width:0}
+.lede{font-size:1.2rem;color:var(--muted)}
+.abc svg{width:100%;height:auto;max-width:440px;display:block;margin-inline:auto}
+.abc figcaption{font-size:.92rem;color:var(--muted);margin-top:8px}
+
+section{padding-block:clamp(40px,7vw,72px);border-top:1px solid var(--line)}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+
+/* movement */
+.move-grid{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:40px;align-items:start}
+.move-grid > *{min-width:0}
+.cycle svg{width:100%;height:auto;max-width:340px;display:block}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.step{display:grid;grid-template-columns:2.2rem 1fr;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.step .n{font-family:"Frank Ruhl Libre",serif;font-size:1.4rem;color:var(--mustard);line-height:1.2}
+.step h3 span.en{font-family:"Assistant",sans-serif;font-weight:400;color:var(--muted);font-size:.9rem;margin-inline-start:6px}
+.step p{color:var(--muted)}
+.step .why{color:var(--ink);font-size:.95rem;margin-top:2px}
+.step.celebrate{background:var(--teal-soft);border-radius:10px;padding:14px;border-bottom:none;margin-top:8px}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{font-size:1.1rem}
+.card p{color:var(--muted);font-size:.97rem}
+
+/* gateway */
+.gate{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;max-width:720px}
+.gate figure{margin:0;text-align:center}
+.gate svg{width:100%;max-width:200px;height:auto}
+.gate figcaption{font-family:"Frank Ruhl Libre",serif;font-size:1.1rem;margin-top:6px}
+.arrow{font-size:1.8rem;color:var(--mustard)}
+
+/* roots timeline */
+.timeline{list-style:none;margin:0;padding:0;border-inline-start:2px solid var(--mustard);display:flex;flex-direction:column;gap:22px}
+.timeline li{padding-inline-start:22px;position:relative}
+.timeline li::before{content:"";position:absolute;inset-inline-start:-7px;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--mustard)}
+.year{font-family:"Frank Ruhl Libre",serif;font-weight:700;color:var(--teal)}
+.thinkers{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.thinkers span{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 12px;font-size:.92rem}
+
+/* questions */
+.qs{counter-reset:q;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.qs li{counter-increment:q;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
+.qs li::before{content:counter(q,decimal-leading-zero);display:block;font-family:"Frank Ruhl Libre",serif;color:var(--mustard);font-size:1.2rem;margin-bottom:4px}
+
+/* try */
+.try{background:var(--navy);color:var(--on-navy);border-top:none}
+.try h2{color:var(--on-navy)}
+.try .lede{color:var(--on-navy);opacity:.85}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;border-radius:999px;padding:10px 20px;border:2px solid var(--mustard)}
+.btn.primary{background:var(--mustard);color:#0F2D4A}
+.btn.ghost{color:var(--on-navy)}
+.small{font-size:.88rem;opacity:.85}
+
+footer{padding-block:40px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;flex-direction:column;gap:8px}
+
+@media (max-width:760px){
+  .hero-grid,.move-grid{grid-template-columns:1fr}
+  .cycle svg{max-width:280px;margin-inline:auto}
+  .gate{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);text-align:center}
+}
+html[lang="en"] .arrow{transform:scaleX(-1)}
+@media (max-width:760px){html[lang="en"] .arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 18c3-1 3-6 7-6s3 5 6 4 2-7 3-10" stroke-linecap="round"/><circle cx="4" cy="18" r="1.6" fill="currentColor"/><circle cx="20" cy="6" r="1.6" fill="var(--mustard)" stroke="none"/></svg>
+      <span data-l="he">המשוטט האקוסיסטמי</span><span data-l="en">The Ecosystemic Flâneur</span>
+    </div>
+    <div class="controls">
+      <button class="chip" id="lang-he" aria-pressed="true">עברית</button>
+      <button class="chip" id="lang-en" aria-pressed="false">English</button>
+      <button class="chip" id="marks" aria-pressed="true"><span data-l="he">סימוני מקור</span><span data-l="en">Source marks</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="draft">
+  <div class="wrap">
+    <strong data-l="he">טיוטה לבדיקה, 28.10.2026.</strong><strong data-l="en">Review draft, 28 Oct 2026.</strong>
+    <span data-l="he">כל קטע מסומן לפי מקורו. אפשר לכבות את הסימונים כדי לראות את העמוד כפי שייראה לציבור.</span>
+    <span data-l="en">Every passage is marked by its source. Turn the marks off to see the page as the public would.</span>
+    <span class="legend">
+      <span class="tag t-doc" data-l="he">מתועד</span><span class="tag t-doc" data-l="en">documented</span>
+      <span class="tag t-dec" data-l="he">החלטה של תומר</span><span class="tag t-dec" data-l="en">Tomer's decision</span>
+      <span class="tag t-ext" data-l="he">מקור חיצוני</span><span class="tag t-ext" data-l="en">external source</span>
+      <span class="tag t-prop" data-l="he">הצעת ניסוח</span><span class="tag t-prop" data-l="en">proposed wording</span>
+      <span class="tag t-open" data-l="he">שאלה פתוחה</span><span class="tag t-open" data-l="en">open question</span>
+      <span class="tag t-check" data-l="he">לבדיקה</span><span class="tag t-check" data-l="en">to verify</span>
+    </span>
+  </div>
+</div>
+
+<main>
+<!-- 1 invitation -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <p class="eyebrow" data-l="he">פרקטיקה מתפתחת</p><p class="eyebrow" data-l="en">A developing practice</p>
+      <h1 data-l="he">ללכת בעולם בלי לדעת מראש מה יימצא</h1>
+      <h1 data-l="en">Moving through the world without knowing in advance what will be found</h1>
+      <p class="lede prose" data-l="he"><span class="tag t-prop">הצעת ניסוח</span><span class="tag t-wait">מחכה לנוסח של תומר</span> שוטטות היא דרך ללכת בעולם בלי לדעת מראש מה יימצא. יוצאים מערך שחשוב לנו, משחררים לרגע את הצורך לשלוט, ונותנים למקום, לאנשים ולמה שביניהם לפגוש אותנו. זו פרקטיקה מתפתחת, ולא תאוריה מוכחת.</p>
+      <p class="lede prose" data-l="en"><span class="tag t-prop">proposed wording</span><span class="tag t-wait">awaiting Tomer's wording</span> Wandering is a way of moving through the world without knowing in advance what will be found. We set out from a value that matters to us, loosen the need to control, and let the place, the people and what lies between them meet us. It is a developing practice, not a proven theory.</p>
+    </div>
+    <figure class="abc" style="margin:0">
+      <svg viewBox="0 0 440 260" role="img" aria-labelledby="abc-t">
+        <title id="abc-t">A, B, C</title>
+        <path d="M60 200 L380 200" stroke="var(--line)" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
+        <path d="M60 200 C 110 120, 150 230, 200 150 S 260 40, 300 90 S 330 190, 380 200" stroke="var(--teal)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="200" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <circle cx="380" cy="200" r="9" fill="var(--bg)" stroke="var(--ink)" stroke-width="2"/>
+        <circle cx="262" cy="62" r="13" fill="var(--mustard)"/>
+        <g font-family="Frank Ruhl Libre, serif" font-size="22" fill="var(--ink)" text-anchor="middle">
+          <text x="380" y="236" data-l="he">א׳</text><text x="60" y="236" data-l="he">ב׳</text><text x="262" y="34" data-l="he">ג׳</text>
+          <text x="60" y="236" data-l="en">A</text><text x="380" y="236" data-l="en">B</text><text x="262" y="34" data-l="en">C</text>
+        </g>
+      </svg>
+      <figcaption data-l="he"><span class="tag t-doc">מתועד</span> יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.</figcaption>
+      <figcaption data-l="en"><span class="tag t-doc">documented</span> We set out from A toward B, and what turns out to matter is often C. Wandering creates conditions for discovering C. It is not a promise, and it is not giving up on planning.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<!-- 2 movement -->
+<section id="movement">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">תנועת השיטה</p><p class="eyebrow" data-l="en">The movement</p>
+      <h2 data-l="he">שבע תנועות, ברצף חי וחוזר</h2><h2 data-l="en">Seven movements, a living and recurring sequence</h2>
+      <p class="prose" data-l="he"><span class="tag t-dec">החלטה של תומר, 28.10</span> זה לא נוהל לינארי קשיח. התנועות יכולות להשתנות בצורתן ובאורכן לפי ההקשר, והחגיגה פותחת חזרה אל הערך.</p>
+      <p class="prose" data-l="en"><span class="tag t-dec">Tomer's decision, 28 Oct</span> This is not a rigid linear procedure. The movements may vary in form and length by context, and Celebration opens a return to Value.</p>
+    </div>
+    <div class="move-grid">
+      <figure class="cycle" style="margin:0">
+        <svg viewBox="-40 0 420 340" direction="ltr" role="img" aria-labelledby="cyc-t">
+          <title id="cyc-t" data-l="he">מעגל שבע התנועות</title>
+          <circle cx="170" cy="170" r="122" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+          <path d="M170 48 A122 122 0 1 1 74.6 94" fill="none" stroke="var(--teal)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+          <path d="M74.6 94 A122 122 0 0 1 170 48" fill="none" stroke="var(--mustard)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M160 42 L172 48 L160 55" fill="none" stroke="var(--mustard)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <g id="cyc-nodes"></g>
+          <text x="170" y="164" text-anchor="middle" font-family="Frank Ruhl Libre, serif" font-size="19" fill="var(--ink)" data-l="he">שוטטות</text>
+          <text x="170" y="164" text-anchor="middle" font-family="Frank Ruhl Libre, serif" font-size="19" fill="var(--ink)" data-l="en">Wandering</text>
+          <text x="170" y="188" text-anchor="middle" font-size="12" fill="var(--muted)" data-l="he">חוזר, לא קווי</text>
+          <text x="170" y="188" text-anchor="middle" font-size="12" fill="var(--muted)" data-l="en">recurring, not linear</text>
+        </svg>
+      </figure>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><div>
+          <h3><span data-l="he">ערך</span><span data-l="en">Value</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> מעניק כיוון.</p><p data-l="en"><span class="tag t-doc">documented</span> Gives direction.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי שוטטות בלי מה שחשוב לנו הופכת לשיטוט סתמי.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because wandering without what matters to us becomes aimless drifting.</p>
+        </div></li>
+        <li class="step"><span class="n">2</span><div>
+          <h3><span data-l="he">שחרור</span><span data-l="en">Release</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> משהה את הצורך לשלוט ולמצוא תשובה מיד.</p><p data-l="en"><span class="tag t-doc">documented</span> Suspends the need to control and to find an answer at once.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי מי שמחפש תשובה מיד לא פוגש את מה שלא ציפה לו.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because whoever looks for an answer at once does not meet the unexpected.</p>
+        </div></li>
+        <li class="step"><span class="n">3</span><div>
+          <h3><span data-l="he">שוטטות</span><span data-l="en">Wandering</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> פותחת מפגש עם העולם.</p><p data-l="en"><span class="tag t-doc">documented</span> Opens an encounter with the world.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי ג׳ מתגלה רק למי שיוצא מהדרך שבין א׳ לב׳.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because C appears only to someone who leaves the road between A and B.</p>
+        </div></li>
+        <li class="step"><span class="n">4</span><div>
+          <h3><span data-l="he">קשב</span><span data-l="en">Attention</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> מאפשר לשים לב: לעצמי, לאחר, למרחב, ולמה שביניהם.</p><p data-l="en"><span class="tag t-doc">documented</span> Makes noticing possible: self, other, space, and what lies between them.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי העולם מדבר בשקט.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because the world speaks quietly.</p>
+        </div></li>
+        <li class="step"><span class="n">5</span><div>
+          <h3><span data-l="he">הבחנה</span><span data-l="en">Discernment</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> מזהה קשר או אפשרות.</p><p data-l="en"><span class="tag t-doc">documented</span> Recognizes a connection or a possibility.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי לא כל מה שנראה הוא משמעותי, והבחנה היא בחירה.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because not all that is seen is meaningful; discernment is a choice.</p>
+        </div></li>
+        <li class="step"><span class="n">6</span><div>
+          <h3><span data-l="he">יצירה</span><span data-l="en">Creation</span></h3>
+          <p data-l="he"><span class="tag t-doc">מתועד</span> נותנת ביטוי למה שהתגלה.</p><p data-l="en"><span class="tag t-doc">documented</span> Gives expression to what appeared.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> כי מה שלא מקבל ביטוי נשאר פרטי ונשכח.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> Because what is not expressed stays private and is forgotten.</p>
+        </div></li>
+        <li class="step celebrate"><span class="n">7</span><div class="stack" style="gap:6px">
+          <h3><span data-l="he">חגיגה</span><span data-l="en">Celebration</span></h3>
+          <p data-l="he" style="color:var(--ink)"><span class="tag t-dec">החלטה של תומר, 28.10</span> תנועה מסיימת שנשענת על הכרת תודה. רפלקציה שמכירה במה שנפגש, במה שהתאפשר, במה שנלמד, ובאנשים, ביחסים ובנסיבות שתרמו לכך. היא לא דוח ולא הערכה, והיא שומרת את האפשרות לחזור אל הערך המקורי בהבנה שהשתנתה.</p>
+          <p data-l="en" style="color:var(--ink)"><span class="tag t-dec">Tomer's decision, 28 Oct</span> A concluding movement grounded in gratitude: reflection that recognizes what was encountered, what became possible, what was learned, and the people, relationships or circumstances that contributed. It is not a report or an evaluation, and it keeps open the return to the original value with a changed understanding.</p>
+          <p class="why" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> אחרי שיצרנו, עוצרים להודות. לא כדי לסכם מה הצלחנו, אלא כדי לראות מה ניתן לנו בדרך ומי היה שותף לו. מתוך התודה הזו הערך שממנו יצאנו נראה קצת אחרת, וממנו אפשר לצאת שוב.</p>
+          <p class="why" data-l="en"><span class="tag t-prop">proposed</span> After creating, we pause to give thanks. Not to sum up what we achieved, but to see what was given along the way and who took part in it. From that gratitude, the value we set out from looks a little different, and we can set out again.</p>
+          <p class="small" data-l="he"><span class="tag t-open">שאלה פתוחה</span> עדיין אין תרגיל מבוסס לחגיגה, ולא צירפנו לה מקור.</p>
+          <p class="small" data-l="en"><span class="tag t-open">open question</span> There is no established exercise for Celebration yet, and no source is attached to it.</p>
+        </div></li>
+      </ol>
+    </div>
+    <div class="note prose" style="margin-top:28px">
+      <p data-l="he"><span class="tag t-doc">מתועד</span> <strong>המכוון</strong> הוא עוגן שמחזיקים ברפיון ומותר לשחרר, ולא המטרה של השוטטות. הכוונה מנוסחת כשאלה, ואפשר גם לצאת בלי כוונה.</p>
+      <p data-l="en"><span class="tag t-doc">documented</span> <strong>The intention</strong> is a loosely held anchor, not the goal of wandering. It is phrased as a question, and one may also set out without one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 gateway -->
+<section id="gateway">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">השער</p><p class="eyebrow" data-l="en">The gateway</p>
+      <h2 data-l="he">מהמכונית אל הכלב</h2><h2 data-l="en">From the car to the dog</h2>
+      <p class="prose" data-l="he"><span class="tag t-doc">מתועד</span> המעבר מתפיסת עולם מכניסטית לתפיסה אקוסיסטמית. במעבר הזה נפתחים שלושת המפגשים הראשונים בקורסים של תומר באוניברסיטה. זה משל ולא טענה מדעית, וסינרגיה היא אפשרות ולא הבטחה.</p>
+      <p class="prose" data-l="en"><span class="tag t-doc">documented</span> A shift from a mechanistic to an ecosystemic way of seeing; the opening of the first three sessions of Tomer's university courses. It is a metaphor, not a scientific claim, and synergy is a possibility, not a guarantee.</p>
+    </div>
+    <div class="gate">
+      <figure>
+        <svg viewBox="0 0 200 120" aria-hidden="true" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 82 H180 V66 L150 62 L128 40 H70 L50 62 L20 66 Z"/><circle cx="58" cy="84" r="14" fill="var(--bg)"/><circle cx="148" cy="84" r="14" fill="var(--bg)"/><path d="M76 46 H98 V62 H58 Z M106 46 H124 L140 62 H106 Z"/>
+        </svg>
+        <figcaption data-l="he">מכונית: מפרקים, מתקנים, צופים</figcaption><figcaption data-l="en">Car: take apart, repair, predict</figcaption>
+      </figure>
+      <div class="arrow" aria-hidden="true">←</div>
+      <figure>
+        <svg viewBox="0 0 200 120" aria-hidden="true" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 60 C 40 44, 60 40, 80 46 H128 C 140 46, 146 38, 150 28 L 162 24 L 166 34 C 176 36, 180 44, 172 50 L 158 52 C 152 62, 150 70, 148 80 V 100 M 136 66 V 100 M 82 64 V 100 M 70 62 V 100 M 40 60 C 30 56, 24 46, 26 36"/>
+          <circle cx="160" cy="34" r="1.8" fill="var(--teal)"/>
+        </svg>
+        <figcaption data-l="he">כלב: מתייחסים, מקשיבים, מופתעים</figcaption><figcaption data-l="en">Dog: relate, listen, be surprised</figcaption>
+      </figure>
+    </div>
+    <p class="small prose" style="margin-top:16px" data-l="he"><span class="tag t-prop">הצעת ניסוח</span> הכיתובים מתחת לציורים הם שלי. <span class="tag t-wait">מחכה לנוסח של תומר</span> הנוסח המלא של המשל, ודימוי EGO–ECO המקורי שעוד לא הגיע.</p>
+    <p class="small prose" style="margin-top:16px" data-l="en"><span class="tag t-prop">proposed</span> The captions are mine. <span class="tag t-wait">awaiting Tomer</span> The full wording of the metaphor, and the original EGO–ECO image.</p>
+  </div>
+</section>
+
+<!-- 4 roots -->
+<section id="roots">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">מאיפה זה בא</p><p class="eyebrow" data-l="en">Roots</p>
+      <h2 data-l="he">מכלי מחקר עירוני לפרקטיקה חיה</h2><h2 data-l="en">From an urban research tool to a living practice</h2>
+    </div>
+    <ol class="timeline prose">
+      <li>
+        <p class="year">2007</p>
+        <p data-l="he"><span class="tag t-doc">מתועד</span> התזה "המשוטט העירוני ככלי למחקר עירוני". המושג המרכזי בה הוא "גישה מבחינה", ומתוכו צמח "המשוטט המבחין". <span class="tag t-ext">מקור חיצוני</span> המושג בעקבות סוזן באק-מורס.</p>
+        <p data-l="en"><span class="tag t-doc">documented</span> The thesis "The Urban Flâneur as a Tool for Urban Research" <span class="tag t-check">title translation to verify</span>. Its core concept is a discerning attitude, from which "the discerning flâneur" grew. <span class="tag t-ext">external source</span> The concept follows Susan Buck-Morss.</p>
+      </li>
+      <li>
+        <p class="year">2014–2015</p>
+        <p data-l="he"><span class="tag t-doc">מתועד</span> סדנאות "הזמנה ללכת לאיבוד" בתל אביב.</p>
+        <p data-l="en"><span class="tag t-doc">documented</span> "An Invitation to Get Lost" workshops in Tel Aviv.</p>
+      </li>
+      <li>
+        <p class="year" data-l="he">היום</p><p class="year" data-l="en">Now</p>
+        <p data-l="he"><span class="tag t-doc">מתועד</span> מהפלאנר ככלי מחקר, השיטה התפתחה לפרקטיקה אישית, חינוכית, קבוצתית וקהילתית.</p>
+        <p data-l="en"><span class="tag t-doc">documented</span> From the flâneur as a research tool, the method developed into a personal, educational, group and community practice.</p>
+      </li>
+    </ol>
+    <div class="cards" style="margin-top:32px">
+      <div class="card">
+        <h3 data-l="he">שיחות עם הגות</h3><h3 data-l="en">Conversations with thought</h3>
+        <p data-l="he"><span class="tag t-ext">מקור חיצוני</span> התכתבויות פילוסופיות, ולא מקורות של כלים. <span class="tag t-dec">ההכרעה של תומר</span></p>
+        <p data-l="en"><span class="tag t-ext">external source</span> Philosophical dialogues, not sources of tools. <span class="tag t-dec">Tomer's ruling</span></p>
+        <div class="thinkers">
+          <span data-l="he">השל: הפליאה הרדיקלית</span><span data-l="en">Heschel: radical amazement</span>
+          <span data-l="he">דבור: הספקטקל והדריווה</span><span data-l="en">Debord: the spectacle and the dérive</span>
+          <span data-l="he">בנימין והפלאנר</span><span data-l="en">Benjamin and the flâneur</span>
+          <span data-l="he">בובר <span class="tag t-open">מקומו פתוח</span></span><span data-l="en">Buber <span class="tag t-open">place open</span></span>
+          <span data-l="he">סר <span class="tag t-check">לבדיקה</span></span><span data-l="en">Serres <span class="tag t-check">to verify</span></span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-l="he">תחומי שיחה</h3><h3 data-l="en">Fields in conversation</h3>
+        <p data-l="he"><span class="tag t-ext">מקור חיצוני</span> Art of Hosting, חוכמה קולקטיבית, מורכבות, התהוות וארגון עצמי, מחקר שיתופי ופלייסמייקינג. השיטה משוחחת איתם, והם לא בסיס מוכח שלה.</p>
+        <p data-l="en"><span class="tag t-ext">external source</span> Art of Hosting, collective intelligence, complexity, emergence and self-organization, participatory inquiry, placemaking. The method is in conversation with them; they are not its proven foundation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 questions -->
+<section id="questions">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">שאלות מחקר פתוחות</p><p class="eyebrow" data-l="en">Open research questions</p>
+      <h2 data-l="he">מה עוד לא ידוע</h2><h2 data-l="en">What is not yet known</h2>
+      <p class="prose" data-l="he"><span class="tag t-open">שאלה פתוחה</span><span class="tag t-prop">הצעת ניסוח</span> השאלות מנוסחות כשאלות, ולא כטענות.</p>
+      <p class="prose" data-l="en"><span class="tag t-open">open question</span><span class="tag t-prop">proposed wording</span> Phrased as questions, not claims.</p>
+    </div>
+    <ol class="qs">
+      <li><span data-l="he">האם, וכיצד, שוטטות מכוונת משנה את איכות הקשב למקום?</span><span data-l="en">Does guided wandering change the quality of attention to a place, and how?</span></li>
+      <li><span data-l="he">איך התבוננות אישית הופכת לתובנה משותפת, בלי לפרש מוקדם מדי?</span><span data-l="en">How do individual observations become shared insight without premature interpretation?</span></li>
+      <li><span data-l="he">מה הקשר, אם יש, בין שוטטות לבין התהוות וארגון עצמי בקבוצות ובקהילות?</span><span data-l="en">What, if anything, links wandering to emergence and self-organization in groups and communities?</span></li>
+      <li><span data-l="he">האם כלי דיגיטלי תומך בשוטטות, או מפריע לה?</span><span data-l="en">Does a digital tool support wandering or interrupt it?</span></li>
+      <li><span data-l="he">מה נשמר מהפלאנר הביקורתי כשהשוטטות הופכת לכלי מעשי?</span><span data-l="en">What remains of the critical flâneur when wandering becomes a practical tool?</span></li>
+      <li><span data-l="he">מה משתנה בלמידה כשהתנסות נחתמת בהכרת תודה, ולא בהערכה?</span><span data-l="en">What changes in learning when an experience closes with gratitude rather than evaluation?</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6 workshops -->
+<section id="workshops">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">סדנאות ושיתופי פעולה</p><p class="eyebrow" data-l="en">Workshops and collaboration</p>
+      <h2 data-l="he">פורמטים שכבר קיימים</h2><h2 data-l="en">Formats that already exist</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 data-l="he">"הזמנה ללכת לאיבוד"</h3><h3 data-l="en">"An Invitation to Get Lost"</h3>
+        <p data-l="he"><span class="tag t-doc">מתועד</span> ארבעה שלבים: נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור.</p>
+        <p data-l="en"><span class="tag t-doc">documented</span> Four stages: be exposed to inspiration, go out to wander, return to tell, create.</p>
+      </div>
+      <div class="card">
+        <h3 data-l="he">"סיפור המקום" עם עדשות 5R</h3><h3 data-l="en">"The Story of the Place" with 5R lenses</h3>
+        <p><span class="tag t-doc" data-l="he">מתועד</span><span class="tag t-doc" data-l="en">documented</span> REFEEL · REVIEW · RESPECT · RECONNECT · RECREATE</p>
+      </div>
+      <div class="card">
+        <h3 data-l="he">שוטטות קצרה בתוך מפגש קיים</h3><h3 data-l="en">A short wandering inside an existing meeting</h3>
+        <p data-l="he"><span class="tag t-doc">מתועד</span> למשל "תמונה אחת שמספרת משהו עליי": צילום בדרך לארוחה, ואחריו מעגל שיתוף.</p>
+        <p data-l="en"><span class="tag t-doc">documented</span> For example "one photo that tells something about me": a photo on the way to lunch, then a sharing circle.</p>
+      </div>
+    </div>
+    <div class="note prose wait-only" style="margin-top:20px">
+      <p data-l="he"><span class="tag t-wait">מחכה לנוסח של תומר</span> מה מוצע למארגני כנסים ולשותפים: אורכי סדנה, גודל קבוצה, שפות, סוגי שיתוף פעולה, ודרך ליצור קשר.</p>
+      <p data-l="en"><span class="tag t-wait">awaiting Tomer</span> What is offered to conference organizers and partners: workshop lengths, group size, languages, kinds of collaboration, and how to get in touch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 try -->
+<section id="try" class="try">
+  <div class="wrap stack">
+    <p class="eyebrow" style="color:var(--mustard)" data-l="he">לנסות</p><p class="eyebrow" style="color:var(--mustard)" data-l="en">Try it</p>
+    <h2 data-l="he">המשוטט: מנגנון לשוטטות</h2><h2 data-l="en">The Wanderer: a mechanism for wandering</h2>
+    <p class="lede prose" data-l="he">אב-טיפוס מתפתח של הביטוי החווייתי של השיטה. הוא לא מתכנן מסלול. ההתקדמות נשמרת רק בדפדפן שלך. כרגע יש שתי גרסאות להשוואה.</p>
+    <p class="lede prose" data-l="en">A developing prototype of the method's experiential side. It is not a route planner, and your progress stays in your own browser. Two versions are open for comparison.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://claude.ai/artifact/NnvE7dypBE4YW5F99kxHQf" target="_blank" rel="noopener"><span data-l="he">בחירת גרסה</span><span data-l="en">Choose a version</span></a>
+      <a class="btn ghost" href="https://claude.ai/artifact/7WkkqUV2iWYGggVu3rDX5n" target="_blank" rel="noopener"><span data-l="he">גרסה A, המקורית</span><span data-l="en">Version A, original</span></a>
+      <a class="btn ghost" href="https://claude.ai/artifact/3YV5WiYkRE8hczvnHAqvgu" target="_blank" rel="noopener"><span data-l="he">גרסה B</span><span data-l="en">Version B</span></a>
+    </div>
+    <p class="small prose" data-l="he"><span class="tag t-open" style="color:var(--mustard)">שאלה פתוחה</span> איזו גרסה תעלה לציבור תוחלט אחרי ההשוואה. הגרסאות עוד בנויות על חמש משבצות, ולא על שבע התנועות.</p>
+    <p class="small prose" data-l="en"><span class="tag t-open" style="color:var(--mustard)">open question</span> Which version goes public will be decided after comparison. Both still run on five slots, not on the seven movements.</p>
+  </div>
+</section>
+
+<!-- 8 fields -->
+<section id="fields">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-l="he">שדות יישום</p><p class="eyebrow" data-l="en">Fields of practice</p>
+      <h2 data-l="he">תפיסת עולם, ודרכים להפעיל אותה</h2><h2 data-l="en">A way of seeing, and ways to put it to work</h2>
+      <p class="prose" data-l="he"><span class="tag t-doc">מתועד</span> השוטטות היא קודם כל תפיסת עולם ודרך למידה. חינוך, יצירה, הנחיית קבוצות, קהילה וארגונים הם דרכים להפעיל אותה.</p>
+      <p class="prose" data-l="en"><span class="tag t-doc">documented</span> Wandering is first a way of seeing and of learning. Education, creative work, group facilitation, community and organizations are ways to put it to work.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 data-l="he">עושים קהילה</h3><h3 data-l="en">Osim Kehila</h3>
+        <p data-l="he"><span class="tag t-prop">הצעת ניסוח</span> דוגמה אחת ליישום קהילתי: מפות קהילתיות ופרויקטים בשטח. זה פרויקט נפרד, שמשתמש בשוטטות כאחת מדרכיו.</p>
+        <p data-l="en"><span class="tag t-prop">proposed</span> One example of community application: community maps and projects on the ground. A separate project that uses wandering as one of its ways.</p>
+        <a href="https://osimkehila.co.il" target="_blank" rel="noopener">osimkehila.co.il</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-l="he">שוטטות היא פרקטיקה מתפתחת, ולא תאוריה מתוקפת מדעית.</p>
+    <p data-l="en">Wandering is a developing practice, not a scientifically validated theory.</p>
+    <p data-l="he">תומר · טיוטה, אוקטובר 2026</p><p data-l="en">Tomer · draft, October 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function setLang(l){
+    root.lang=l; root.dir=(l==='he')?'rtl':'ltr';
+    document.getElementById('lang-he').setAttribute('aria-pressed',l==='he');
+    document.getElementById('lang-en').setAttribute('aria-pressed',l==='en');
+    document.title=(l==='he')?'המשוטט האקוסיסטמי':'The Ecosystemic Flâneur';
+    try{localStorage.setItem('ef-lang',l)}catch(e){}
+  }
+  function setMarks(on){
+    document.body.classList.toggle('clean',!on);
+    document.getElementById('marks').setAttribute('aria-pressed',on);
+    try{localStorage.setItem('ef-marks',on?'1':'0')}catch(e){}
+  }
+  var l='he',m=true;
+  try{l=localStorage.getItem('ef-lang')||'he';m=localStorage.getItem('ef-marks')!=='0'}catch(e){}
+  setLang(l); setMarks(m);
+  document.getElementById('lang-he').onclick=function(){setLang('he')};
+  document.getElementById('lang-en').onclick=function(){setLang('en')};
+  document.getElementById('marks').onclick=function(){setMarks(document.body.classList.contains('clean'))};
+
+  // seven nodes on the cycle, clockwise from top; Celebration sits just before the return to Value
+  var he=['ערך','שחרור','שוטטות','קשב','הבחנה','יצירה','חגיגה'];
+  var en=['Value','Release','Wandering','Attention','Discernment','Creation','Celebration'];
+  var g=document.getElementById('cyc-nodes'),NS='http://www.w3.org/2000/svg';
+  for(var i=0;i<7;i++){
+    var a=-Math.PI/2+i*2*Math.PI/7, x=170+122*Math.cos(a), y=170+122*Math.sin(a);
+    var c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',i===6?8:6);
+    c.setAttribute('fill',i===6?'var(--teal)':(i===0?'var(--mustard)':'var(--bg)'));
+    c.setAttribute('stroke','var(--ink)');c.setAttribute('stroke-width','1.5');g.appendChild(c);
+    var ca=Math.cos(a), lx=170+136*ca, ly=170+142*Math.sin(a)+5;
+    var anc=ca>0.25?'start':(ca<-0.25?'end':'middle');
+    [['he',he[i]],['en',en[i]]].forEach(function(p){
+      var t=document.createElementNS(NS,'text');
+      t.setAttribute('x',lx);t.setAttribute('y',ly);t.setAttribute('text-anchor',anc);
+      t.setAttribute('font-size','14');t.setAttribute('fill','var(--ink)');t.setAttribute('data-l',p[0]);
+      t.textContent=p[1];g.appendChild(t);
+    });
+  }
+})();
+</script>
+</body>
+</html>
