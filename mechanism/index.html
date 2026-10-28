@@ -9,7 +9,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellefair&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
 <style>
 /* Layout: a planning panel beside a walking-trail process card; the trail line ties the five places of the process together. */
 :root {
@@ -22,9 +22,9 @@
   --accent-soft: #dcebe5;
   --seam: #a65a24;
   --seam-soft: #f4e4d7;
-  --f-display: "Bellefair", "Frank Ruhl Libre", "David", serif;
-  --f-body: "IBM Plex Sans Hebrew", "Arial Hebrew", "Segoe UI", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-display: "Heebo", "Arial Hebrew", "Segoe UI", sans-serif;
+  --f-body: "Heebo", "Arial Hebrew", "Segoe UI", sans-serif;
+  --f-mono: "Heebo", "Arial Hebrew", sans-serif;
   --r: 10px;
 }
 @media (prefers-color-scheme: dark) {
@@ -210,6 +210,10 @@ select { font: inherit; background: var(--surface); color: var(--ink); border: 1
 .ctx-desc { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--muted); margin: 0; padding: 0; list-style: none; }
 .ctx-desc b { color: var(--ink); font-weight: 600; }
 @media (prefers-reduced-motion: no-preference) { .slot { animation: rise .35s ease both; } @keyframes rise { from { transform: translateY(4px); } to { transform: none; } } }
+/* One font, as on Osim Kehila: Heebo headings read better bold than at 400. */
+h1, .step-h, .journal h2, .lib h2, .lcard h3, .gate h2 { font-weight: 700; }
+h1 { font-size: 38px; }
+.mins, .j-list .t, .step-h .n { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
@@ -879,7 +883,7 @@ function profileSvg() {
   const h = Math.min(.95, Math.max(.25, peak + plus * .06 - minus * .06));
   const W = 360, H = 90, base = 78, top = base - h * 66;
   const d = `M8 ${base - 6} C 90 ${base - 6}, 120 ${top}, 180 ${top} C 240 ${top}, 270 ${base - 6}, 352 ${base - 6}`;
-  const ticks = SLOTS.map((s, i) => { const x = 8 + i * 86; return `<line x1="${x}" x2="${x}" y1="${base}" y2="${base + 4}" stroke="var(--line)"/><text x="${x}" y="${H - 1}" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="IBM Plex Sans Hebrew, sans-serif">${s.name}</text>`; }).join('');
+  const ticks = SLOTS.map((s, i) => { const x = 8 + i * 86; return `<line x1="${x}" x2="${x}" y1="${base}" y2="${base + 4}" stroke="var(--line)"/><text x="${x}" y="${H - 1}" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="Heebo, sans-serif">${s.name}</text>`; }).join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="פרופיל המגוון לאורך הזמן"><path d="${d} L352 ${base} L8 ${base} Z" fill="var(--accent)" fill-opacity=".14"/><path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2"/><line x1="8" x2="352" y1="${base}" y2="${base}" stroke="var(--line)"/>${ticks}</svg>`;
 }
 
