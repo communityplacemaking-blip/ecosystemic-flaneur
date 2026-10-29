@@ -200,6 +200,27 @@ nav.tabs button[aria-selected="true"] { border-bottom: 3px solid var(--mustard);
 .compose:hover { background: var(--accent); color: var(--on-strong); }
 .card { border-top: 4px solid var(--strong); }
 .chip[aria-pressed="true"] { background: var(--mustard-soft); border-color: var(--mustard); }
+
+/* Grid + fractal layer (site variant B, 2026-10-29): the urban grid shows faintly behind the page head and inside the
+   main panels, and a fractal branch grows from the head toward the text. Decoration only; nothing here takes clicks. */
+:root { --grid-op: .32; --grid-filter: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --grid-op: .16; --grid-filter: invert(1); } }
+:root[data-theme="dark"] { --grid-op: .16; --grid-filter: invert(1); }
+.wrap { position: relative; isolation: isolate; }
+.wrap::before { content: ""; position: absolute; inset: 0 0 auto; height: 460px; z-index: -1; pointer-events: none;
+  background: url("../../fx/quadgrid.svg") center top/1200px auto; opacity: var(--grid-op); filter: var(--grid-filter);
+  -webkit-mask: linear-gradient(#000 30%, transparent); mask: linear-gradient(#000 30%, transparent); }
+header.top { position: relative; }
+header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width: min(34%, 360px); height: 150%; z-index: -1; pointer-events: none;
+  background: url("../../fx/branch.svg") left bottom/contain no-repeat; opacity: .4; }
+.card, .journal, .lcard, .mod { position: relative; isolation: isolate; }
+.card::before, .journal::before, .mod::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  background: url("../../fx/quadgrid.svg") center/1000px auto; opacity: calc(var(--grid-op) * .35); filter: var(--grid-filter);
+  -webkit-mask: linear-gradient(to left, #000, transparent 70%); mask: linear-gradient(to left, #000, transparent 70%); }
+@media (max-width: 700px) {
+  header.top::after { display: none; }
+  .card::before, .journal::before, .mod::before { -webkit-mask: linear-gradient(#000, transparent 60%); mask: linear-gradient(#000, transparent 60%); }
+}
 </style>
 </head>
 <body>
