@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>המשוטט · גרסה B</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
+<style>
+/* Layout: a planning panel beside a walking-trail process card; the trail line ties the five places of the process together. */
+:root {
+  --bg: #f1f3ef;
+  --surface: #fbfcfa;
+  --ink: #1c2420;
+  --muted: #5b6760;
+  --line: #d2d9d3;
+  --accent: #2c6a5b;
+  --accent-soft: #dcebe5;
+  --seam: #a65a24;
+  --seam-soft: #f4e4d7;
+  --f-display: "Heebo", "Arial Hebrew", "Segoe UI", sans-serif;
+  --f-body: "Heebo", "Arial Hebrew", "Segoe UI", sans-serif;
+  --f-mono: "Heebo", "Arial Hebrew", sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121714; --surface: #1a201c; --ink: #e5eae6; --muted: #9aa69f; --line: #2d3631;
+    --accent: #72b8a5; --accent-soft: #1f3530; --seam: #df935a; --seam-soft: #3a2a1e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121714; --surface: #1a201c; --ink: #e5eae6; --muted: #9aa69f; --line: #2d3631;
+  --accent: #72b8a5; --accent-soft: #1f3530; --seam: #df935a; --seam-soft: #3a2a1e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: 44px; line-height: 1.05; margin: 0; text-wrap: balance; }
+.lede { margin: 6px 0 0; color: var(--muted); max-width: 62ch; }
+.proto { font-size: 12px; letter-spacing: .04em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+nav.tabs { display: flex; gap: 4px; margin: 18px 0 22px; }
+nav.tabs button { font: inherit; font-weight: 500; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted); padding: 6px 10px; cursor: pointer; }
+nav.tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--accent); }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.panel { display: flex; flex-direction: column; gap: 22px; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+legend { padding: 0; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.step-h { display: flex; align-items: baseline; gap: 10px; margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 24px; }
+.step-h .n { font-family: var(--f-mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 8px; }
+.step { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 13.5px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-weight: 500; }
+input[type=text], textarea { font: inherit; width: 100%; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+textarea { resize: vertical; min-height: 64px; }
+.compose { font: inherit; font-weight: 600; background: var(--accent); color: var(--surface); border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; align-self: flex-start; }
+.compose:hover { filter: brightness(1.05); }
+
+/* process card */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px 22px 26px; min-width: 0; }
+.backbone { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.backbone ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.backbone li { font-size: 14px; }
+.backbone li + li::before { content: "←"; color: var(--muted); margin-inline-end: 6px; }
+.backbone li.cel { font-weight: 600; }
+.backbone p { font-size: 13px; color: var(--muted); margin: 0; }
+.card-head { display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+.kicker { font-size: 12px; letter-spacing: .06em; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.kicker b { color: var(--ink); font-weight: 600; }
+.kavana { font-family: var(--f-display); font-size: 30px; line-height: 1.2; margin: 0; text-wrap: balance; }
+.cmp-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 860px) { .cmp-grid { grid-template-columns: minmax(0, 1fr); } }
+.cmp-fig svg { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; }
+.cmp-fig text { font-family: var(--f-body); }
+.cmp-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.cmp-anchor { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+.cmp-anchor .kavana { font-size: 24px; margin-top: 6px; }
+.cmp-stage { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; min-height: 150px; }
+.cmp-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.cmp-legend { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 6px 12px; font-size: 13.5px; margin: 0; }
+.cmp-legend dt { display: flex; align-items: center; gap: 6px; font-weight: 600; white-space: nowrap; }
+.cmp-legend dd { margin: 0; color: var(--muted); }
+.sw { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+.sw-hub { background: var(--seam); }
+.sw-needle { background: var(--accent); border-radius: 2px; height: 4px; }
+.sw-ring { border: 3px solid var(--seam); }
+.sw-outer { border: 2px dashed var(--muted); }
+.sw-petal { background: var(--accent); opacity: .35; border-radius: 50% 0; }
+.sw-seam { background: var(--seam); width: 8px; height: 8px; }
+.stage-hit { cursor: pointer; }
+.stage-hit:focus-visible { outline: none; }
+.stage-hit:focus-visible circle.hit { stroke: var(--accent); stroke-width: 2; }
+#cmp-needle { transition: transform .6s cubic-bezier(.3,.7,.3,1); transform-origin: 200px 200px; }
+@media (prefers-reduced-motion: reduce) { #cmp-needle { transition: none; } }
+.anchor { display: flex; flex-direction: column; gap: 2px; border-inline-start: 3px solid var(--seam); padding: 4px 10px; font-size: 15px; }
+.anchor .a-lbl { font-size: 11.5px; letter-spacing: .06em; color: var(--seam); font-weight: 600; }
+.anchor .a-b { font-size: 13.5px; color: var(--muted); }
+.anchor .missing { color: var(--seam); }
+.slot.ended { opacity: .45; }
+.mechaven { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 4px 12px; font-size: 14px; margin: 0; }
+.mechaven dt { color: var(--muted); }
+.mechaven dd { margin: 0; }
+.profile { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; margin-top: 4px; }
+.profile svg { width: 100%; height: auto; display: block; }
+.profile .legend { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
+
+.trail { list-style: none; margin: 18px 0 0; padding: 0; position: relative; }
+.slot { position: relative; padding-inline-start: 34px; padding-block: 4px 18px; }
+.slot::before { content: ""; position: absolute; inset-inline-start: 9px; top: 18px; bottom: -4px; border-inline-start: 2px dashed var(--line); }
+.slot:last-child::before { display: none; }
+.slot .dot { position: absolute; inset-inline-start: 2px; top: 6px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--accent); background: var(--surface); }
+.slot.empty .dot { border-style: dashed; border-color: var(--muted); }
+.slot-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.slot-name { font-size: 12px; letter-spacing: .06em; color: var(--accent); font-weight: 600; }
+.mins { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.pname { font-family: var(--f-display); font-size: 22px; line-height: 1.25; margin: 2px 0 4px; }
+.invite { margin: 0 0 6px; max-width: 64ch; }
+.why { font-size: 13px; color: var(--muted); margin: 0; }
+.facil { font-size: 13.5px; margin: 6px 0 0; padding: 8px 10px; border-inline-start: 3px solid var(--accent); background: var(--accent-soft); border-radius: 4px; max-width: 64ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: 11.5px; border: 1px solid var(--line); border-radius: 4px; padding: 1px 7px; color: var(--muted); }
+.tag.st-workshop, .tag.st-chapter { border-color: var(--accent); color: var(--accent); }
+.tag.st-chapterAI, .tag.st-idea { border-style: dashed; }
+.tag.st-external { color: var(--seam); border-color: var(--seam); }
+
+.seam { margin: -6px 0 14px; padding-inline-start: 34px; }
+.seam-box { border: 1px dashed var(--seam); background: var(--seam-soft); border-radius: 8px; padding: 8px 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; }
+.seam-box .lbl { color: var(--seam); font-weight: 600; }
+.seam-box button { font: inherit; font-size: 13px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+.seam-box .done { color: var(--muted); }
+.refine { display: flex; gap: 6px; width: 100%; }
+.refine input { flex: 1; }
+.quiet-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-top: 14px; }
+.ethics { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 6px; padding-top: 12px; }
+
+.journal { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 22px; }
+.journal h2, .lib h2 { font-family: var(--f-display); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
+.j-form { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 8px; margin-top: 10px; }
+@media (max-width: 560px) { .j-form { grid-template-columns: minmax(0,1fr); } }
+select { font: inherit; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; }
+.j-add { font: inherit; background: var(--surface); color: var(--accent); border: 1px solid var(--accent); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+.j-list { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.j-list li { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: baseline; font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.j-list .t { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+.j-list .x { font: inherit; background: none; border: 0; color: var(--muted); cursor: pointer; }
+.open-q { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+
+/* library */
+.lib-intro { color: var(--muted); max-width: 70ch; margin: 0 0 16px; }
+.lib-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 14px; }
+.lcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.lcard h3 { font-family: var(--f-display); font-weight: 400; font-size: 21px; margin: 0; }
+.lcard p { margin: 0; font-size: 14px; }
+.lcard .src { font-size: 12.5px; color: var(--muted); }
+.lcard dl { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 2px 10px; font-size: 12.5px; margin: 4px 0 0; }
+.lcard dt { color: var(--muted); }
+.lcard dd { margin: 0; }
+.addr { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.addr .chips { justify-content: flex-end; }
+.addr .hint { text-align: end; }
+.ver { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.ver a { color: var(--accent); }
+.chip.soon { border-style: dashed; }
+.mod { border: 1px dashed var(--accent); border-radius: var(--r); padding: 14px 16px 16px; background: var(--surface); }
+.mod .step-h .n { border-style: dashed; }
+.rec { display: flex; flex-direction: column; gap: 6px; border-inline-start: 3px solid var(--accent); padding: 4px 12px; }
+.rec .a-lbl { font-size: 11.5px; letter-spacing: .06em; color: var(--accent); font-weight: 600; }
+.rec .pname { margin: 0; }
+.rec p { margin: 0; }
+.rec .meta { margin-top: 4px; }
+.lead { font-family: var(--f-display); font-size: 19px; line-height: 1.35; margin: 0; }
+.sub { display: flex; flex-direction: column; gap: 6px; }
+.qhelp { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; background: var(--accent-soft); border-radius: 6px; padding: 8px 10px; margin: 0; }
+.qhelp p { margin: 0; }
+.slot-ai { border: 1px dashed var(--line); border-radius: 6px; padding: 8px 10px; font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.slot-ai q { color: var(--ink); }
+.subq { margin: -4px 0 0; padding-inline-start: 18px; font-size: 14.5px; color: var(--muted); }
+.not-goal { font-size: 13px; color: var(--muted); margin: 0; }
+[hidden] { display: none !important; }
+.gate { display: flex; flex-direction: column; gap: 28px; max-width: 760px; }
+.gate .skip { align-self: flex-start; }
+.gate h2 { font-family: var(--f-display); font-weight: 400; font-size: 28px; margin: 0; }
+.gate section { display: flex; flex-direction: column; gap: 12px; }
+.gate .screen { display: flex; flex-direction: column; gap: 6px; border-inline-start: 2px solid var(--line); padding-inline-start: 14px; }
+.gate .screen p { margin: 0; max-width: 64ch; }
+.gate .big { font-family: var(--f-display); font-size: 22px; line-height: 1.35; }
+.gate blockquote { margin: 0; padding: 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+.gate .src { font-size: 12.5px; color: var(--muted); }
+.img-slot { aspect-ratio: 16 / 7; max-width: 100%; border: 2px dashed var(--line); border-radius: 8px; display: grid; place-items: center; color: var(--muted); font-size: 14px; text-align: center; padding: 8px; }
+.screen > .st { align-self: flex-start; margin-inline-start: 0; }
+.st { font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 6px; color: var(--muted); margin-inline-start: 6px; white-space: nowrap; }
+.aoh { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.aoh details { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.aoh summary { cursor: pointer; font-weight: 500; }
+.aoh dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; font-size: 14px; margin: 8px 0 2px; }
+.aoh dt { color: var(--muted); }
+.aoh dd { margin: 0; }
+.ctx-desc { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--muted); margin: 0; padding: 0; list-style: none; }
+.ctx-desc b { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) { .slot { animation: rise .35s ease both; } @keyframes rise { from { transform: translateY(4px); } to { transform: none; } } }
+/* One font, as on Osim Kehila: Heebo headings read better bold than at 400. */
+h1, .step-h, .journal h2, .lib h2, .lcard h3, .gate h2 { font-weight: 700; }
+h1 { font-size: 38px; }
+.mins, .j-list .t, .step-h .n { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="he">
+  <header class="top">
+    <div>
+      <h1>מנגנון השיטוט</h1>
+      <p class="lede">מזינים מי יוצאים לשוטט, איזה ערך מנחה את השוטטות ומה הגבולות שלה, ומה הכוונה. המנגנון מרכיב תהליך מתוך ספריית התרגולים, ומשאיר מקום למה שיופיע בדרך.</p>
+      <p class="ver"><span class="proto">גרסה B · המשוטט החדש · בבנייה</span><span>חמשת השלבים הראשונים: לשון פנייה, הקשרי כניסה, המנחה (בלי AI), המכוון, השער</span><a href="../">חזרה לאתר</a> · <a href="a/">לגרסה A, המקורית</a></p>
+    </div>
+    <fieldset class="addr"><legend>איך נכון לפנות?</legend><div class="chips" id="c-addr"></div><p class="hint" id="addr-hint"></p></fieldset>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-gate" aria-selected="true" data-view="gate">שער</button>
+    <button role="tab" id="tab-engine" aria-selected="false" data-view="engine">המנגנון</button>
+    <button role="tab" id="tab-compass" aria-selected="false" data-view="compass">מצפן</button>
+    <button role="tab" id="tab-library" aria-selected="false" data-view="library">ספריית התרגולים</button>
+  </nav>
+
+  <section id="view-gate" class="gate">
+    <button type="button" class="chip skip" id="gate-skip">ישר לניסוח המכוון ←</button>
+
+    <section aria-labelledby="g1-h">
+      <h2 id="g1-h">לשנות את הדרך שבה אני רואה</h2>
+      <div class="screen"><p class="big" id="g-open"></p><span class="st">הצעה</span></div>
+      <div class="screen">
+        <div class="img-slot" role="img" aria-label="מקום לדימוי EGO–ECO, עדיין ריק">דימוי EGO–ECO<br>כאן ייכנס הדימוי הקיים של תומר, כמו שהוא. לא נוצר תחליף.</div>
+        <blockquote>בתפיסת EGO האדם עומד במרכז. העולם נתפס כאוסף של משאבים שיש לנהל, לנצל או לשלוט בהם. בתפיסת ECO האדם מבין שהוא חלק ממערכת רחבה יותר של חיים. העולם נתפס כרשת של קשרים.</blockquote>
+        <p class="src">מתוך "חכמת המשוטט המבחין", בקיצור של משפט אחד מכל צד.<span class="st">מתועד</span></p>
+      </div>
+      <div class="screen">
+        <p class="big">מכונית אפשר לפרק לחלקים, לתקן חלק אחד ולהרכיב מחדש, והיא תיסע. כלב אי אפשר לפרק ולהרכיב. מה שהופך אותו לכלב נמצא בין החלקים.</p>
+        <button type="button" class="chip" id="g-apart" style="align-self:flex-start">לפרק את שניהם</button>
+        <p id="g-apart-out" hidden>המכונית חוזרת למקומה. בכלב משהו נעלם.</p>
+        <p class="src">המטפורה של תומר מהקורסים. הנוסח זמני, עד שיגיע הנוסח הכתוב מהשיעורים.<span class="st">הצעה</span></p>
+      </div>
+      <div class="screen"><p class="big">כשחלקים נפגשים, לפעמים נוצר משהו שאין באף אחד מהם לבד. זו אפשרות, לא הבטחה.</p><p class="src">זו מטפורה לדרך מבט, לא טענה מדעית.<span class="st">הצעה</span></p></div>
+      <div class="screen"><p class="big">אם המקום דומה יותר לכלב מאשר למכונית, איננו יכולים לדעת מראש מה נמצא בו. כשפוגשים מקום כמערכת חיה של קשרים, ולא כחפץ או כבעיה, קשרים סמויים מתחילים להיראות.</p><p class="src">הרעיון של תומר, הנוסח זמני.<span class="st">הצעה</span></p></div>
+    </section>
+
+    <section aria-labelledby="g2-h">
+      <h2 id="g2-h">אז איך נכנסים למפגש כזה?</h2>
+      <p>לפני שיוצאים, הנה שש הנחות יסוד מתוך Art of Hosting, פרקטיקה של אירוח שיחות משמעותיות. הן לא עקרונות השוטטות. הן מכינות את הדרך שבה נפגשים.</p>
+      <p class="src">מקור: "חוברת אמנות האירוח של השל", עמוד 7, "הנחות היסוד של Art of Hosting". השמות מועתקים מילה במילה, וההסברים מקוצרים. הקשר לשוטטות הוא פרשנות, והשאלות הן הצעה.</p>
+      <ol class="aoh" id="g-aoh"></ol>
+    </section>
+
+    <button type="button" class="compose" id="gate-go" style="align-self:flex-start">לנסח את המכוון</button>
+  </section>
+
+  <section id="view-engine" hidden>
+    <div class="grid">
+      <form class="panel" id="panel" novalidate>
+        <div class="step">
+          <h2 class="step-h"><span class="n">1</span>הקשר</h2>
+          <fieldset><legend>מאיזה עולם באים?</legend><div class="chips" id="c-ctx"></div><p class="hint">השמות מתארים דרכי כניסה, לא את מי שמשוטטים. אפשר לבחור כמה, ואפשר לא לבחור.</p><ul class="ctx-desc" id="ctx-desc"></ul></fieldset>
+          <fieldset><legend>מי משוטט?</legend><div class="chips" id="c-identity"></div><p class="hint" id="mode-hint"></p></fieldset>
+          <fieldset><legend>איפה?</legend><div class="chips" id="c-place"></div></fieldset>
+          <fieldset><legend>כמה זמן?</legend><div class="chips" id="c-time"></div></fieldset>
+          <fieldset><legend>תנאי שטח</legend><input type="text" id="f-geo" aria-label="גבולות המרחב" placeholder="גבולות המרחב, למשל: בתוך השכונה"><input type="text" id="f-when" aria-label="גבולות הזמן" style="margin-top:6px"></fieldset>
+          <fieldset><legend>כמה מקום לבלתי צפוי?</legend><div class="chips" id="c-open"></div></fieldset>
+          <fieldset><legend>גבולות מעשיים</legend><div class="chips" id="c-moral"></div><p class="hint">הגבולות לא נעקפים. תרגול שמתנגש בגבול לא מוצע.</p></fieldset>
+        </div>
+
+        <div class="step mod" id="mod">
+          <h2 class="step-h"><span class="n">מנחה</span>מאיפה להתחיל?</h2>
+          <fieldset><legend id="mod-q"></legend><textarea id="f-now" rows="3"></textarea><p class="hint">אפשר גם לשאול: מה מבקש תשומת לב עכשיו? במילים שלך, ואפשר גם לדלג. בשלב הזה, בלי AI, המנחה לא קורא את הטקסט: ההמלצה נשענת רק על הבחירות כאן ובשלב הקודם.</p></fieldset>
+          <fieldset><legend>מה יש כרגע?</legend><div class="chips" id="c-has"></div></fieldset>
+          <button type="button" class="j-add" id="mod-go" style="align-self:flex-start">לקבל המלצה לנקודת התחלה</button>
+          <div id="mod-rec" aria-live="polite"></div>
+        </div>
+
+        <div class="step">
+          <h2 class="step-h"><span class="n">2</span>המכוון</h2>
+          <p class="lead">לפני שיוצאים, ננסח יחד מכוון. לא יעד, אלא עוגן לתשומת הלב.</p>
+          <fieldset><legend>מצב הכוונה</legend><div class="chips" id="c-state"></div><p class="hint" id="state-hint"></p></fieldset>
+          <fieldset id="fs-question"><legend id="q-legend"></legend><input type="text" id="f-question">
+            <button type="button" class="chip" id="q-help-btn" aria-expanded="false" style="align-self:flex-start">איך השאלה שלי?</button>
+            <div class="qhelp" id="q-help" hidden>
+              <p><b>מטרה או שאלה?</b> "אני רוצה להכיר אנשים מעניינים..." היא מטרה. "כיצד אוכל לאפשר לעצמי להתמלא באנרגיית חיים...?" היא שאלה.</p>
+              <p><b>תוצאה קבועה או חקירה פתוחה?</b> "כיצד אשכנע את כולם לתמוך ברעיון שלי?" מכוונת לתוצאה. "כיצד אוכל לגלות מה הרעיון הזה עשוי להפוך להיות במפגש עם אנשים ועם המקום?" נשארת פתוחה.</p>
+              <p>ושאלה אחת לבדוק: אם השוטטות תסתיים במשהו שלא ציפית, האם השאלה שלך עדיין תקבל תשובה?</p>
+            </div>
+          </fieldset>
+          <fieldset id="fs-sub"><legend>יש עוד שאלה אחת או שתיים שמסתובבות סביב השאלה הגדולה?</legend><div class="sub"><input type="text" id="f-sub-0" aria-label="תת-שאלה ראשונה"><input type="text" id="f-sub-1" aria-label="תת-שאלה שנייה"><input type="text" id="f-sub-2" aria-label="תת-שאלה שלישית"></div><p class="hint">לא חובה. אפשר עד שלוש, ואפשר אף אחת.</p></fieldset>
+          <fieldset id="fs-type"><legend>מה סוג הכוונה?</legend><div class="chips" id="c-type"></div></fieldset>
+          <fieldset><legend id="value-legend"></legend><p class="hint" id="value-hint"></p><input type="text" id="f-value">
+            <div class="slot-ai" id="value-slot"></div></fieldset>
+          <fieldset><legend>על מה חשוב לך לשמור, גם אם השוטטות תיקח אותך למקומות לא צפויים?</legend><input type="text" id="f-boundary" placeholder="גבול אחד, במילים שלך"><p class="hint">הגבול נכתב בנפרד מהערך, ולא נעקף.</p></fieldset>
+        </div>
+
+        <button type="submit" class="compose">להרכיב תהליך</button>
+      </form>
+
+      <div>
+        <article class="card" id="card" aria-live="polite"></article>
+        <section class="journal" aria-labelledby="j-h">
+          <h2 id="j-h">יומן עקבות</h2>
+          <p class="hint">נשמר רק בדפדפן הזה. אפשר לא לתעד כלום.</p>
+          <div class="j-form">
+            <select id="j-tag" aria-label="סוג העקבה">
+              <option value="obs">תצפית</option>
+              <option value="interp">פרשנות שלי</option>
+              <option value="heard">מילה ששמעתי</option>
+            </select>
+            <input type="text" id="j-text" aria-label="העקבה">
+            <button type="button" class="j-add" id="j-add">להוסיף</button>
+          </div>
+          <ul class="j-list" id="j-list"></ul>
+          <div class="open-q">
+            <label for="j-open"><b id="j-open-lbl"></b></label>
+            <input type="text" id="j-open">
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-compass" hidden>
+    <div class="cmp-grid">
+      <div class="cmp-fig">
+        <svg id="cmp-svg" viewBox="0 0 400 400" role="img" aria-label="מצפן התהליך"></svg>
+      </div>
+      <div class="cmp-side">
+        <div class="cmp-anchor" id="cmp-anchor"></div>
+        <div class="cmp-stage" id="cmp-stage" aria-live="polite"></div>
+        <div class="cmp-nav"><button type="button" class="chip" id="cmp-prev">→ השלב הקודם</button><button type="button" class="chip" id="cmp-next">השלב הבא ←</button></div>
+        <dl class="cmp-legend">
+          <dt><span class="sw sw-hub"></span>צפון</dt><dd>הערך שיוצאים איתו. אחריו באים הכוונה והשלבים, והמסלול חוזר אליו.</dd>
+          <dt><span class="sw sw-needle"></span>מחוג</dt><dd>מצביע על המקום שבו נמצאים. לחזור לעוגן פירושו להחזיר אותו לצפון.</dd>
+          <dt><span class="sw sw-ring"></span>טבעת</dt><dd>הגבולות האתיים. לא נעקפים.</dd>
+          <dt><span class="sw sw-outer"></span>טבעת חיצונית</dt><dd>תנאי השטח: זמן ומקום. אפשר להתאים.</dd>
+          <dt><span class="sw sw-petal"></span>עלי הוורד</dt><dd>המגוון בכל שלב. עלה ארוך מרחיב, עלה קצר מעמיק.</dd>
+          <dt><span class="sw sw-seam"></span>נקודות</dt><dd>נקודות התפר, שבהן אפשר לחזור לעוגן.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-library" class="lib" hidden>
+    <h2>ספריית התרגולים</h2>
+    <p class="lib-intro">כל תרגול כאן לקוח מהחומרים, עם המקור והסטטוס שלו. המנגנון לא ממציא תרגולים. עדשות שעדיין אין להן נוסח מופיעות כאן, אבל המנגנון לא משתמש בהן.</p>
+    <div class="lib-filters" id="lib-filters"></div>
+    <div class="lib-grid" id="lib-grid"></div>
+  </section>
+</div>
+
+<script>
+document.documentElement.setAttribute('dir', 'rtl');
+document.documentElement.setAttribute('lang', 'he');
+
+/* Tomer's methodological backbone, decided 2026-10-28. Shown, not yet wired to the route. */
+const MOVEMENTS = ['ערך', 'שחרור', 'שוטטות', 'קשב', 'הבחנה', 'יצירה', 'חגיגה'];
+const SLOTS = [
+  { key: 'entry', name: 'כניסה', share: .1 },
+  { key: 'move', name: 'תנועה', share: .4 },
+  { key: 'discern', name: 'הבחנה', share: .3 },
+  { key: 'trace', name: 'עקבה', share: .1 },
+  { key: 'return', name: 'חזרה', share: .1 }
+];
+const STATUS = {
+  workshop: 'מתועד בסדנה, 2015',
+  chapter: 'מתועד בפרק "איך משוטטים"',
+  chapterAI: 'מתועד בפרק, ייתכן שנוסח עם AI',
+  idea: 'רעיון מתועד, טרם נוסה',
+  external: 'מקור חיצוני',
+  nameonly: 'שם בלבד, חסר נוסח',
+  told: 'מבוסס, לפי תיאור של תומר'
+};
+/* proposed field, not decided: a practice may carry several. Filled only where a source says so. */
+const MODES = { standalone: 'שוטטות עצמאית', embedded: 'שוטטות קצרה משולבת', group: 'שוטטות קבוצתית', ongoing: 'שוטטות מתמשכת או חוזרת' };
+const IDS = { solo: 'יחיד', artist: 'יצירה ואמנות', group: 'קבוצה', community: 'קהילה', class: 'כיתה וצוות חינוכי', org: 'ארגון או צוות' };
+const PLACES = { city: 'עיר ורחוב', neighborhood: 'שכונה', nature: 'טבע או גינה', institution: 'מוסד', any: 'כל מקום' };
+const TIMES = { 30: '30 דקות', 60: 'שעה', 120: 'שעתיים', 240: 'חצי יום', multi: 'כמה מפגשים' };
+const OPEN = { low: 'מעט', mid: 'בינוני', high: 'הרבה' };
+const STATES = { clear: 'ברורה', refine: 'טעונה חידוד', emerge: 'צריכה להתהוות', none: 'בלי כוונה' };
+const STATE_HINT = {
+  clear: 'המנגנון עובר ישר לגבולות הגזרה.',
+  refine: { n: 'אפשר לנסח את השאלה במשפט אחד. אין צורך שתהיה מדויקת.', f: 'נסחי את השאלה במשפט אחד. אין צורך שתהיה מדויקת.', m: 'נסח את השאלה במשפט אחד. אין צורך שתהיה מדויקת.', p: 'נסחו את השאלה במשפט אחד. אין צורך שתהיה מדויקת.' },
+  emerge: 'המנגנון יתחיל בתרגול פתיחה, והשאלה תנוסח רק אחריו.',
+  none: 'יוצאים עם גבולות גזרה בלבד. אפשר לאפשר יציאה בלי שאלה.'
+};
+const TYPES = { creative: 'יצירה', dilemma: 'התלבטות', calm: 'השקטת הנפש', learning: 'למידה וחינוך', community: 'קהילה ומקום', org: 'כיוון לצוות או ארגון' };
+const MORAL = {
+  noSolution: { label: 'לא מחפשים פתרון', excl: null },
+  noPhone: { label: 'הטלפון בכיס', excl: null },
+  noPhotoPeople: { label: 'לא מצלמים אנשים בלי רשות', excl: null },
+  noStrangers: { label: 'לא פונים לאנשים זרים', excl: 'strangers' },
+  onFoot: { label: 'נשארים ברגל', excl: 'transit' }
+};
+const GROUP_IDS = ['group', 'community', 'class', 'org'];
+
+/* six entry contexts: a world one comes from, separate from "who is wandering". Names and descriptions follow
+   Tomer's brief of 2026-10-28. Adding a context is adding a row. prefer = practices that get a light extra
+   weight (they are preferred, never required). question = the moderator's first question (used from stage 3).
+   reflect = closing questions; left empty until there is content from Tomer. */
+const CONTEXTS = [
+  { id: 'edu', name: 'המשוטט החינוכי', desc: 'חקירה חינוכית ולמידה מתוך התנסות.', active: false, prefer: [], question: null, reflect: [] },
+  { id: 'community', name: 'המשוטט הקהילתי', desc: 'הקשבה למקום ולאנשים בו, גילוי ידע מקומי, קשרים ואפשרויות.', active: true,
+    prefer: ['five-r', 'shared-map', 'together-apart', 'tell-create'], question: 'איזה מקום ואילו אנשים קשורים למה שמביא אותך?', reflect: [] },
+  { id: 'artist', name: 'המשוטט האמן', desc: 'התבוננות יוצרת, אסוציאציה, השראה ועשייה.', active: false, prefer: [], question: null, reflect: [] },
+  { id: 'scientist', name: 'המשוטט המדען', desc: 'תצפית, חקירה, ראיות ובדיקת הנחות.', active: false, prefer: [], question: null, reflect: [] },
+  { id: 'business', name: 'המשוטט העסקי', desc: 'בחינת צרכים, קשרים, הזדמנויות וכיוונים חדשים.', active: false, prefer: [], question: null, reflect: [] },
+  { id: 'solo', name: 'המשוטט היחיד', desc: 'שוטטות אישית, קשב, רפלקציה ושאלות שאולי עוד אין להן שם.', active: true, prefer: [], question: 'מה מביא אותך לשוטטות הזאת?', reflect: [] }
+];
+const ctxById = Object.fromEntries(CONTEXTS.map(c => [c.id, c]));
+
+/* gateway texts. AOH names and "source" are from the Heschel booklet p.7 (shortened); "toWander" is interpretation;
+   the questions are proposals. */
+const GATE_OPEN = { n: 'כשמסתכלים על השכונה, מה רואים: דבר שצריך לתקן, או משהו שחי?', f: 'כשאת מסתכלת על השכונה שלך, מה את רואה: דבר שצריך לתקן, או משהו שחי?', m: 'כשאתה מסתכל על השכונה שלך, מה אתה רואה: דבר שצריך לתקן, או משהו שחי?', p: 'כשאתם מסתכלים על השכונה שלכם, מה אתם רואים: דבר שצריך לתקן, או משהו שחי?' };
+const AOH = [
+  { name: 'דרושים פתרונות חדשים', source: 'רמת המורכבות של הבעיות עולה ומחייבת פתרונות מסוג אחר. קבוצה מגוונת של בעלי עניין באתגר משותף יכולה להוביל לרעיונות מקיפים ולמחויבות ליישם אותם.',
+    toWander: 'אם הדרכים המוכרות לא מספיקות, יש טעם ללכת בדרך שלא תוכננה.',
+    q: { n: 'איפה מחפשים פתרון בדרך שכבר ניסו?', f: 'איפה אני מחפשת פתרון בדרך שכבר ניסיתי?', m: 'איפה אני מחפש פתרון בדרך שכבר ניסיתי?' } },
+  { name: 'פתרונות חדשים צומחים בין כאוס לסדר', source: 'הדרך לשינוי משמעותי עוברת דרך אי-ידיעה. צריך לוותר על מה שיודעים ולצעוד אל מה שאינו ידוע. חדשנות נמצאת בקצה של מה שמכירים, על הגבול בין סדר לכאוס.',
+    toWander: 'קרוב מאוד לשלב "שחרור" ברצף של השוטטות: להשהות את הצורך לשלוט ולמצוא תשובה מיד.',
+    q: { n: 'מה אפשר להרשות לעצמי לא לדעת היום?', f: 'מה אני מוכנה לא לדעת היום?', m: 'מה אני מוכן לא לדעת היום?' } },
+  { name: 'שיחות משמעותיות מובילות לשינוי', source: 'שיחה היא הדרך שבה יוצרים משמעות יחד ובונים יחסים שמאפשרים שיתוף פעולה אמיתי. אנשים נותנים תשומת לב למה שמשמעותי עבורם.',
+    toWander: 'השיחה הקצרה עם מי שפוגשים בדרך מופיעה ב"איך משוטטים" כאחת מדרכי פתיחת הקשב. ההנחה הזו נותנת לה משקל.',
+    q: { n: 'עם מי הייתי רוצה לדבר, ועל מה באמת חשוב לי?', f: 'עם מי אני רוצה לדבר, ועל מה באמת חשוב לי?', m: 'עם מי אני רוצה לדבר, ועל מה באמת חשוב לי?' } },
+  { name: 'כל ארגון הוא מערכת חיה', source: 'קבוצה של אנשים דומה יותר למערכת חיה מאשר למכונה. מערכות חיות הן אינטליגנטיות ומארגנות את עצמן, והדרך "להוביל" אותן שונה מאוד מתפעול מכונה. הרחבה בעמוד 8.',
+    toWander: 'זו הנקודה שמחברת ישירות למכונית ולכלב. שכונה היא אולי גם כזו.',
+    q: 'מה במקום הזה קורה בלי שמישהו מנהל אותו?' },
+  { name: 'הפתרונות הטובים ביותר לא נמצאים אצל אנשים פרטיים – אלא בשדה שנוצר כאשר מפגישים אנשים ומעודדים למידה הדדית ויצירה משותפת', source: 'היכולת להתחבר לפוטנציאל שקיים בכל מערכת היא הכרחית, ומגיעים אליה דרך תהליכים מבוססי דיאלוג שיוצרים הבנה משותפת.',
+    toWander: 'לא מביאים את התשובה מהבית. מה שמתגלה נוצר במפגש עם אנשים ועם המקום.',
+    q: 'מה אי אפשר לגלות לבד?' },
+  { name: 'אנו חיים במציאות של ניגודים משלימים', source: 'מציאות מורכבת מייצרת "פרדוקסים" שלא מצייתים ל"טוב או רע", למשל סדר ואי-סדר, אישי וקהילתי, תוכן מול תהליך. בתהליך טוב נותנים מקום לכל הניגודים, ושומרים על איזון ועל תנועה ביניהם.',
+    toWander: 'המתח בין כוונה לבין היסחפות הוא אולי ניגוד משלים כזה, ולא בעיה לפתרון.',
+    q: { n: 'בין אילו שני דברים נעים כשיוצאים?', f: 'בין אילו שני דברים אני נעה כשאני יוצאת?', m: 'בין אילו שני דברים אני נע כשאני יוצא?' } }
+];
+function renderGate() {
+  $('g-open').textContent = say(GATE_OPEN);
+  $('g-aoh').innerHTML = AOH.map(a => `<li><details><summary>${esc(a.name)}</summary><dl>
+    <dt>במקור</dt><dd>${esc(a.source)}<span class="st">מתועד</span></dd>
+    <dt>לשוטטות</dt><dd>${esc(a.toWander)}<span class="st">פרשנות</span></dd>
+    <dt>שאלה</dt><dd>${esc(say(a.q))}<span class="st">הצעה</span></dd></dl></details></li>`).join('');
+}
+const SHARED_QUESTION = 'מה מביא אותך לשוטטות הזאת?';
+/* moderator, layer A: recommends one starting point from explicit answers only. The six starting points come from
+   Tomer's brief; the rules that pick one are a first technical stage, to be replaced by the full moderator. */
+const HAS = { clear: 'שאלה ברורה', topic: 'נושא', feeling: 'תחושה או צורך', unknown: 'עוד לא יודעים' };
+const STARTS = {
+  dwell: { name: 'שהייה באי-ידיעה', desc: 'תרגול פתיחה קודם, בלי למהר לנסח. השאלה תנוסח אחריו.', istate: 'emerge', why: 'אפשר להתחיל בשהייה, בלי למהר לנסח שאלה.' },
+  question: { name: 'ניסוח שאלה', desc: 'מנסחים את מה שמעסיק כשאלת "כיצד" פתוחה, ואז יוצאים.', istate: 'refine', why: 'אפשר להתחיל בניסוח הנושא כשאלת "כיצד" פתוחה.' },
+  values: { name: 'בירור ערכים', desc: 'השאלה כבר כאן. מבררים איזה ערך מנחה אותה ואיזה גבול שומר עליה.', istate: 'clear', why: 'השאלה כבר כאן, אז אפשר להתחיל בבירור הערך שמנחה אותה.' },
+  encounter: { name: 'מפגש או תצפית', desc: 'מתחילים במפגש אחד או בתצפית אחת, בלי לנסח מראש.', istate: 'emerge', why: 'עם זמן קצר אפשר להתחיל במפגש אחד או בתצפית אחת.' },
+  group: { name: 'תהליך קבוצתי מובנה', desc: 'פתיחה משותפת, שוטטות, וחזרה למעגל, עם מי שמנחה.', istate: 'refine', why: 'בתהליך עם קבוצה אפשר להתחיל בפתיחה משותפת ובתהליך מובנה.' },
+  free: { name: 'לצאת בלי יעד', desc: 'יוצאים עם גבולות בלבד, בלי שאלה.', istate: 'none', why: 'אפשר לצאת בלי יעד ולראות מה מופיע.' }
+};
+function recommend(has, facil, time) {
+  if (has === 'clear') return 'values';
+  if (has === 'topic') return facil ? 'group' : 'question';
+  if (has === 'feeling') return time === '30' ? 'encounter' : 'dwell';
+  return 'free';
+}
+function recReason(has, key) {
+  const said = ['בחרת "' + HAS[has] + '"'];
+  if (isFacil()) said.push('התהליך הוא ל' + IDS[state.identity]);
+  said.push(state.time === 'multi' ? 'יש כמה מפגשים' : 'יש ' + TIMES[state.time]);
+  return said.join(', ') + '. לכן ' + STARTS[key].why;
+}
+function modQuestion() {
+  const c = state.contexts.map(id => ctxById[id]).find(c => c.question);
+  return c ? c.question : SHARED_QUESTION;
+}
+
+function ctxBoost(p) {
+  const hit = (state.contexts || []).map(id => ctxById[id]).filter(c => c.prefer.includes(p.id));
+  return hit.length ? { s: 1, why: 'מתאים להקשר: ' + hit.map(c => c.name).join(', ') } : null;
+}
+
+const LIB = [
+  { id: 'attention-now', name: 'מה מבקש תשומת לב עכשיו?', slots: ['entry'], status: 'idea',
+    source: 'מסמך הרקע: הזמנת הפתיחה של אב-הטיפוס',
+    invite: 'עצרו לפני שיוצאים ושאלו: מה מבקש תשומת לב עכשיו? אל תענו מהר. המשפט הראשון שעולה הוא טיוטה.',
+    facil: 'שאלו את הקבוצה בשקט. כל אחד ואחת כותבים לעצמם משפט אחד, בלי לשתף בשלב הזה.',
+    axis: 'קשב', dim: 'עצמי', intents: 'all', ids: 'all', places: 'all', min: 5, div: 0, depth: 1, tags: [] },
+  { id: 'question-release', name: 'השאלה והשחרור ממנה', slots: ['entry'], status: 'chapter',
+    source: '"איך משוטטים", שלבים 1 ו-2: ניסוח השאלה ושחרור השליטה',
+    invite: 'אמרו את השאלה פעם אחת, בקול או בלב. אחר כך שחררו את הצורך למצוא לה תשובה עכשיו. אם תובנה תופיע, היא תופיע בהמשך הדרך.',
+    facil: 'כל אחד ואחת אומרים את השאלה שלהם בשקט לעצמם. מזכירים לקבוצה שאין צורך לענות עליה.',
+    axis: 'קשב', dim: 'עצמי', intents: ['creative', 'dilemma', 'calm', 'learning', 'community', 'org'], ids: 'all', places: 'all', min: 5, div: 0, depth: 1, tags: [] },
+  { id: 'count-ten', name: 'ספירה עד 10', slots: ['entry'], status: 'workshop',
+    source: 'תרגילי הקשבה, סדנת "הזמנה ללכת לאיבוד"',
+    invite: 'ספירה עד 10 בהקשבה לאחר, בקבוצה. אסור ליד ואסור ביחד.',
+    facil: 'פירוט הכללים לבירור עם תומר. המטרה המתועדת: הקשבה לאחר בתוך הקבוצה.',
+    axis: 'קשב', dim: 'אחר', intents: 'all', ids: GROUP_IDS, places: 'all', min: 10, div: 0, depth: 1, tags: [], facilOnly: true },
+  { id: 'brown-green', name: 'חומים וירוקים', slots: ['entry'], status: 'workshop',
+    source: 'תרגילי הקשבה, סדנת "הזמנה ללכת לאיבוד"',
+    invite: 'חפשו במרחב כמה שיותר דברים חומים. אחר כך עצמו עיניים: כמה דברים ירוקים ראיתם?',
+    facil: 'אחרי שפוקחים עיניים, שואלים מה הקשב סינן בלי שהרגשנו.',
+    axis: 'קשב', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 10, div: 0, depth: 1, tags: [] },
+  { id: 'slow-walk', name: 'הליכה איטית', slots: ['move'], status: 'chapter',
+    source: '"איך משוטטים", שלב 3: פתיחת הקשב',
+    invite: 'לכו לאט במרחב, לאט יותר ממה שנוח. שימו לב לפרטים קטנים שבדרך כלל לא מושכים את העין.',
+    facil: null,
+    axis: 'זמן', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 15, div: 0, depth: 2, tags: [] },
+  { id: 'derive', name: 'דריווה: בכל צומת לפי סקרנות', slots: ['move'], status: 'chapterAI',
+    source: 'מפת התרגילים, "איך משוטטים", בעקבות דבור והסיטואציוניסטים',
+    invite: 'צאו להליכה בלי יעד. בכל צומת בחרו כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך.',
+    facil: null,
+    axis: 'מרחב', dim: 'מרחב', intents: 'all', ids: 'all', places: ['city', 'neighborhood'], min: 30, div: 1, depth: 1, tags: [] },
+  { id: 'urban-safari', name: 'ספארי עירוני', slots: ['move'], status: 'external',
+    source: 'Flaneur Society, Guide to Getting Lost (בתיקייה)',
+    invite: 'סדרת חוקים במקום מפה: עלו לאוטובוס הבא לכיוון מרכז העיר, רדו אחרי 12 תחנות, פנו שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין.',
+    facil: null,
+    axis: 'מרחב', dim: 'מרחב', intents: ['creative', 'calm', 'learning'], ids: ['solo', 'artist', 'group'], places: ['city'], min: 60, div: 1, depth: 0, tags: ['transit'] },
+  { id: 'third-space', name: 'אזור המעבר', slots: ['move', 'discern'], status: 'chapterAI',
+    source: 'מפת התרגילים, "איך משוטטים", בעקבות מישל סר (הייחוס לבדיקה)',
+    invite: 'בחרו מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבוננו במה שקורה באזור המעבר. מה נולד בין הדברים?',
+    facil: null,
+    axis: 'מרחב', dim: 'בין', intents: ['creative', 'community', 'org', 'learning'], ids: 'all', places: ['city', 'neighborhood', 'nature'], min: 20, div: 1, depth: 1, tags: [] },
+  { id: 'together-apart', name: 'יחד ולחוד', slots: ['move'], status: 'workshop',
+    source: 'הזמנת 2015: "מוזמנים להנות יחד ולחוד מן התנאים לגלוי"',
+    invite: 'הקבוצה נפרדת. כל אחד ואחת, או כל זוג, הולכים במסלול משלהם, וכולם נפגשים שוב בשעה ובמקום שנקבעו מראש.',
+    facil: 'המנגנון המדויק של "יחד ולחוד" עדיין פתוח. הנוסח כאן הוא הצעה: לקבוע נקודת מפגש ושעה לפני היציאה.',
+    axis: 'זמן', dim: 'אחר', intents: 'all', ids: GROUP_IDS, places: 'all', min: 30, div: 1, depth: 1, tags: [], facilOnly: true },
+  { id: 'resonance-text', name: 'טקסט ההדהוד', slots: ['discern'], status: 'chapter', core: true,
+    source: '"איך משוטטים": התרגיל שתומר תיאר כ"לב השיטה". מוצע, טרם הוכרע',
+    invite: 'מצאו מקום במרחב. הביאו לתודעה את השאלה או התחושה שאיתה יצאתם. פתחו קשב לצלילים, לאנשים, לאור. הישארו רגע עם שני העולמות יחד, הפנימי והחיצוני, ושימו לב למה שמופיע. רשמו את מה שהופיע.',
+    facil: 'נותנים לכל מי שמשתתף זמן לבד. לא משתפים מיד. הטקסט שייך למי שכתב אותו.',
+    axis: 'קשב', dim: 'בין', intents: 'all', ids: 'all', places: 'all', min: 20, div: -1, depth: 2, tags: [], includesTrace: true },
+  { id: 'wonder', name: 'פליאה', slots: ['discern'], status: 'chapterAI',
+    source: 'מפת התרגילים, בעקבות אברהם יהושע השל',
+    invite: 'מצאו מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבוננו בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבונן בלי מטרה?',
+    facil: null,
+    axis: 'קשב', dim: 'מרחב', intents: ['calm', 'creative', 'learning', 'dilemma'], ids: 'all', places: 'all', min: 10, div: -1, depth: 2, tags: [] },
+  { id: 'encounter', name: 'רגע של מפגש', slots: ['discern'], status: 'chapterAI',
+    source: 'מפת התרגילים, בעקבות מרטין בובר',
+    invite: 'נסו ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטו בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגש את העולם ולא רק עובר דרכו?',
+    facil: null,
+    axis: 'קשב', dim: 'אחר', intents: ['community', 'learning', 'creative', 'dilemma'], ids: 'all', places: 'all', min: 10, div: 0, depth: 2, tags: ['strangers'] },
+  { id: 'read-city', name: 'קריאת העיר', slots: ['discern', 'move'], status: 'chapterAI',
+    source: 'מפת התרגילים, בעקבות וולטר בנימין',
+    invite: 'בחרו רחוב והלכו לאט. שימו לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?',
+    facil: null,
+    axis: 'מרחב', dim: 'מרחב', intents: ['learning', 'community', 'creative', 'org'], ids: 'all', places: ['city', 'neighborhood'], min: 20, div: 1, depth: 1, tags: [] },
+  { id: 'potential', name: 'מה מבקש להיוולד כאן?', slots: ['discern'], status: 'chapterAI',
+    source: 'מפת התרגילים, בעקבות אוטו שארמר',
+    invite: 'במהלך השיטוט עצרו מדי פעם ושאלו: מה מבקש להיוולד כאן? הקשיבו למקום, לאנשים ולתחושות שעולות בכם.',
+    facil: 'בצוות: כל אחד ואחת עוצרים לבד. השאלה לא נענית בקול עד החזרה.',
+    axis: 'קשב', dim: 'בין', intents: ['org', 'community', 'dilemma', 'creative'], ids: 'all', places: 'all', min: 10, div: 0, depth: 2, tags: [] },
+  { id: 'city-listening', name: 'הקשבת העיר', slots: ['discern', 'entry'], status: 'workshop',
+    source: 'מפת התרגילים ותרגיל ההקשבה בעיניים עצומות מסדנת 2015',
+    invite: 'עמדו והקשיבו. הפרידו בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשיבו שוב, הפעם כאל יצירה מוזיקלית.',
+    facil: 'אפשר בעיניים עצומות, כמו בסדנת 2015, כדי לבודד רעשים.',
+    axis: 'קשב', dim: 'מרחב', intents: ['calm', 'creative', 'learning'], ids: 'all', places: 'all', min: 10, div: -1, depth: 2, tags: [] },
+  { id: 'five-r', name: '5R: משקפי סיפור המקום', slots: ['discern'], status: 'workshop',
+    source: 'סדנת "סיפור המקום בשילוב צא ולמד"',
+    invite: 'REFEEL: ההרגשה והסיפור, את מי ואת מה. REVIEW: ראייה מחודשת, מפה של הידוע המשותף. RESPECT: מיפוי אודות האחר, מי האנשים. RECONNECT: איך מתקשרים שם. RECREATE: יצירה משותפת, ביטוי למקום.',
+    facil: 'הצעה: כל זוג יוצא עם עדשה אחת. סיפורים ותמונות של אנשים נאספים רק ברשות.',
+    axis: 'מרחב', dim: 'אחר', intents: ['community', 'learning', 'org'], ids: GROUP_IDS, places: ['neighborhood', 'institution', 'city'], min: 45, div: 1, depth: 1, tags: ['strangers'], facilOnly: true },
+  { id: 'one-line', name: 'שורה אחת', slots: ['trace'], status: 'chapter',
+    source: '"איך משוטטים", שלב 6 (רישום במחברת), ו"להוסיף שורה לעולם"',
+    invite: 'רשמו שורה אחת ממה שהופיע. אפשר גם לא לרשום כלום.',
+    facil: null,
+    axis: 'קשב', dim: 'עצמי', intents: 'all', ids: 'all', places: 'all', min: 5, div: 0, depth: 1, tags: [] },
+  { id: 'small-action', name: 'פעולה קטנה', slots: ['trace'], status: 'chapter',
+    source: '"איך משוטטים", שלב 6',
+    invite: 'תנו להבחנה ביטוי קטן: רישום, שיחה עם אדם נוסף, או צעד קטן במציאות.',
+    facil: null,
+    axis: 'זמן', dim: 'עצמי', intents: ['dilemma', 'org', 'community'], ids: 'all', places: 'all', min: 5, div: 0, depth: 1, tags: [] },
+  { id: 'what-appeared', name: 'מה הופיע שלא תכננתי?', slots: ['return'], status: 'idea',
+    source: 'המדרג: תמונת א/ב/ג',
+    invite: 'לפני שסוגרים: מה הופיע שלא תכננתי? מותר לסיים בשאלה פתוחה.',
+    facil: null,
+    axis: 'קשב', dim: 'בין', intents: 'all', ids: 'all', places: 'all', min: 5, div: 0, depth: 1, tags: [] },
+  { id: 'tell-create', name: 'נחזור לספר, ניצור', slots: ['return'], status: 'workshop',
+    source: 'מבנה סדנת "הזמנה ללכת לאיבוד": נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור',
+    invite: 'חוזרים למעגל. כל אחד ואחת מספרים דבר אחד שהופיע, ואז יוצרים יחד מתוך מה שנאסף.',
+    facil: 'שומרים שהסיפורים לא יפורשו מיד. קודם מקשיבים, אחר כך יוצרים.',
+    axis: 'זמן', dim: 'אחר', intents: ['creative', 'community', 'learning', 'org'], ids: GROUP_IDS, places: 'all', min: 15, div: 0, depth: 1, tags: [], facilOnly: true },
+  { id: 'shared-map', name: 'מפה של הידוע המשותף', slots: ['return'], status: 'workshop',
+    source: 'סדנת "סיפור המקום": REVIEW, מפה של הידוע המשותף',
+    invite: 'משרטטים יחד מפה של מה שידענו לפני היציאה ומה שגילינו בדרך.',
+    facil: 'המפה לא צריכה להיות מדויקת. מה שחשוב הוא מה שנוסף לה.',
+    axis: 'מרחב', dim: 'אחר', intents: ['community', 'learning'], ids: ['community', 'class', 'group'], places: 'all', min: 20, div: 0, depth: 1, tags: [], facilOnly: true },
+  { id: 'lens-transience', name: 'עדשה: ארעיות', slots: [], status: 'nameonly', source: 'נושאי סדנת "הזמנה ללכת לאיבוד", 2015', invite: 'אין עדיין נוסח הזמנה.', axis: 'זמן', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 0, div: 0, depth: 1, tags: [] },
+  { id: 'lens-rhythms', name: 'עדשה: מקצבי העיר', slots: [], status: 'nameonly', source: 'נושאי סדנת "הזמנה ללכת לאיבוד", 2015', invite: 'אין עדיין נוסח הזמנה.', axis: 'זמן', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 0, div: 0, depth: 1, tags: [] },
+  { id: 'lens-traces', name: 'עדשה: עקבות', slots: [], status: 'nameonly', source: 'נושאי סדנת "הזמנה ללכת לאיבוד", 2015', invite: 'אין עדיין נוסח הזמנה.', axis: 'מרחב', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 0, div: 0, depth: 1, tags: [] }
+];
+LIB.push({ id: 'one-photo', name: 'תמונה אחת שמספרת משהו עליי', slots: [], status: 'told', modes: ['embedded'],
+  source: 'המפגש הראשון של "משיבי הרוח" (האיות לבדיקה), לפי התיאור של תומר',
+  invite: 'בהליכה לארוחת הצהריים, כל אחד ואחת מצלמים תמונה אחת שהדהדה אצלם ומגלה משהו על מי שהם. במעגל שיתוף מאוחר יותר, כל אחד ואחת מציגים את התמונה ומסבירים מה היא אומרת.',
+  facil: 'זה אפשר ביטוי אישי, ועזר למשתתפים להכיר זה את זה דרך התמונות שבחרו. משך, גודל קבוצה וחומרים לא מופיעים בתיאור, ולכן לא מולאו.',
+  axis: 'קשב', dim: 'עצמי', intents: 'all', ids: GROUP_IDS, places: 'all', min: 0, div: 0, depth: 1, tags: [], facilOnly: true });
+const byId = Object.fromEntries(LIB.map(p => [p.id, p]));
+
+/* form of address: chosen by the user, never inferred. n = without gendered address (default), f, m.
+   p = plural, used when a facilitator plans for a group. The invitation text in LIB stays as written
+   and is the group form; FORMS holds only the grammatical change for one person. */
+const ADDR_OPTS = { f: 'בלשון נקבה', m: 'בלשון זכר', n: 'בלי לשון מגדרית' };
+const AKEY = 'shitut-v2-addr';
+let ADDR = 'n';
+try { const a = localStorage.getItem(AKEY); if (a && ADDR_OPTS[a]) ADDR = a; } catch (e) {}
+function say(x) {
+  if (typeof x === 'string') return x;
+  if (isFacil() && x.p) return x.p;
+  return x[ADDR] || x.n;
+}
+const FORMS = {
+  'attention-now': { f: 'עצרי לפני שיוצאים ושאלי: מה מבקש תשומת לב עכשיו? אל תעני מהר. המשפט הראשון שעולה הוא טיוטה.', m: 'עצור לפני שיוצאים ושאל: מה מבקש תשומת לב עכשיו? אל תענה מהר. המשפט הראשון שעולה הוא טיוטה.' },
+  'question-release': { f: 'אמרי את השאלה פעם אחת, בקול או בלב. אחר כך שחררי את הצורך למצוא לה תשובה עכשיו. אם תובנה תופיע, היא תופיע בהמשך הדרך.', m: 'אמור את השאלה פעם אחת, בקול או בלב. אחר כך שחרר את הצורך למצוא לה תשובה עכשיו. אם תובנה תופיע, היא תופיע בהמשך הדרך.' },
+  'brown-green': { f: 'חפשי במרחב כמה שיותר דברים חומים. אחר כך עצמי עיניים: כמה דברים ירוקים ראית?', m: 'חפש במרחב כמה שיותר דברים חומים. אחר כך עצום עיניים: כמה דברים ירוקים ראית?' },
+  'slow-walk': { f: 'לכי לאט במרחב, לאט יותר ממה שנוח. שימי לב לפרטים קטנים שבדרך כלל לא מושכים את העין.', m: 'לך לאט במרחב, לאט יותר ממה שנוח. שים לב לפרטים קטנים שבדרך כלל לא מושכים את העין.' },
+  'derive': { f: 'צאי להליכה בלי יעד. בכל צומת בחרי כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך.', m: 'צא להליכה בלי יעד. בכל צומת בחר כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך.' },
+  'urban-safari': { f: 'סדרת חוקים במקום מפה: עלי לאוטובוס הבא לכיוון מרכז העיר, רדי אחרי 12 תחנות, פני שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין.', m: 'סדרת חוקים במקום מפה: עלה לאוטובוס הבא לכיוון מרכז העיר, רד אחרי 12 תחנות, פנה שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין.' },
+  'third-space': { f: 'בחרי מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבונני במה שקורה באזור המעבר. מה נולד בין הדברים?', m: 'בחר מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבונן במה שקורה באזור המעבר. מה נולד בין הדברים?' },
+  'resonance-text': { f: 'מצאי מקום במרחב. הביאי לתודעה את השאלה או התחושה שאיתה יצאת. פתחי קשב לצלילים, לאנשים, לאור. הישארי רגע עם שני העולמות יחד, הפנימי והחיצוני, ושימי לב למה שמופיע. רשמי את מה שהופיע.', m: 'מצא מקום במרחב. הבא לתודעה את השאלה או התחושה שאיתה יצאת. פתח קשב לצלילים, לאנשים, לאור. הישאר רגע עם שני העולמות יחד, הפנימי והחיצוני, ושים לב למה שמופיע. רשום את מה שהופיע.' },
+  'wonder': { n: 'מצאו מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבוננו בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשמתבוננים בלי מטרה?', f: 'מצאי מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבונני בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבוננת בלי מטרה?', m: 'מצא מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבונן בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבונן בלי מטרה?' },
+  'encounter': { n: 'נסו ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטו בו בלי למהר לפרש או להשתמש. מה קורה כשפוגשים את העולם ולא רק עוברים דרכו?', f: 'נסי ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטי בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגשת את העולם ולא רק עוברת דרכו?', m: 'נסה ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הבט בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגש את העולם ולא רק עובר דרכו?' },
+  'read-city': { f: 'בחרי רחוב ולכי לאט. שימי לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?', m: 'בחר רחוב ולך לאט. שים לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?' },
+  'potential': { f: 'במהלך השיטוט עצרי מדי פעם ושאלי: מה מבקש להיוולד כאן? הקשיבי למקום, לאנשים ולתחושות שעולות בך.', m: 'במהלך השיטוט עצור מדי פעם ושאל: מה מבקש להיוולד כאן? הקשב למקום, לאנשים ולתחושות שעולות בך.' },
+  'city-listening': { f: 'עמדי והקשיבי. הפרידי בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשיבי שוב, הפעם כאל יצירה מוזיקלית.', m: 'עמוד והקשב. הפרד בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשב שוב, הפעם כאל יצירה מוזיקלית.' },
+  'one-line': { f: 'רשמי שורה אחת ממה שהופיע. אפשר גם לא לרשום כלום.', m: 'רשום שורה אחת ממה שהופיע. אפשר גם לא לרשום כלום.' },
+  'small-action': { f: 'תני להבחנה ביטוי קטן: רישום, שיחה עם אדם נוסף, או צעד קטן במציאות.', m: 'תן להבחנה ביטוי קטן: רישום, שיחה עם אדם נוסף, או צעד קטן במציאות.' }
+};
+function inviteOf(p) {
+  const fm = FORMS[p.id];
+  if (!fm || isFacil()) return p.invite;
+  return fm[ADDR] || p.invite;
+}
+const UI = {
+  empty: { n: 'אפשר לבחור את הפרטים וללחוץ "להרכיב תהליך".', f: 'בחרי את הפרטים ולחצי "להרכיב תהליך".', m: 'בחר את הפרטים ולחץ "להרכיב תהליך".', p: 'בחרו את הפרטים ולחצו "להרכיב תהליך".' },
+  noQuestion: { n: 'עוד אין שאלה. אפשר לנסח אותה במשפט אחד.', f: 'עוד אין שאלה. נסחי אותה במשפט אחד.', m: 'עוד אין שאלה. נסח אותה במשפט אחד.', p: 'עוד אין שאלה. נסחו אותה במשפט אחד.' },
+  reread: { n: 'כדאי לקרוא שוב את העוגן{v}. מה מזה עדיין נכון, ומה השתנה? ואז לבחור מה לעשות עם מה שהופיע: ליצור, לקחת איתי, להשאיר פתוח, או לעשות צעד.', f: 'קראי שוב את העוגן{v}. מה מזה עדיין נכון, ומה השתנה? ואז בחרי מה לעשות עם מה שהופיע: ליצור, לקחת איתי, להשאיר פתוח, או לעשות צעד.', m: 'קרא שוב את העוגן{v}. מה מזה עדיין נכון, ומה השתנה? ואז בחר מה לעשות עם מה שהופיע: ליצור, לקחת איתי, להשאיר פתוח, או לעשות צעד.', p: 'קראו שוב את העוגן{v}. מה מזה עדיין נכון, ומה השתנה? ואז בחרו מה לעשות עם מה שהופיע: ליצור, לקחת, להשאיר פתוח, או לעשות צעד.' },
+  pull: { n: 'מה שמושך עכשיו: בוחרים בו, או שהוא סוחף?', f: 'מה שמושך אותי עכשיו: אני בוחרת בו, או שהוא סוחף אותי?', m: 'מה שמושך אותי עכשיו: אני בוחר בו, או שהוא סוחף אותי?', p: 'מה שמושך עכשיו: בוחרים בו, או שהוא סוחף?' },
+  myValue: { n: 'הערך שאיתו יוצאים', f: 'הערך שאני יוצאת איתו', m: 'הערך שאני יוצא איתו' },
+  openQ: { n: 'שאלה פתוחה לקחת איתי', f: 'שאלה פתוחה שאני לוקחת איתי', m: 'שאלה פתוחה שאני לוקח איתי' },
+  facilHint: 'מצב: תכנון תהליך מונחה. המנגנון מציע, ומי שמנחה מחליט.',
+  qLegend: { n: 'שאלת הקריאה: אפשר לנסח את מה שמביא אותך כשאלה שמתחילה ב"כיצד...?"', f: 'שאלת הקריאה: נסי לנסח את מה שמביא אותך כשאלה שמתחילה ב"כיצד...?"', m: 'שאלת הקריאה: נסה לנסח את מה שמביא אותך כשאלה שמתחילה ב"כיצד...?"', p: 'שאלת הקריאה: נסחו את מה שמביא אתכם כשאלה שמתחילה ב"כיצד...?"' },
+  valueLater: 'מוקדם לשאלה, ולכן גם לערכים. אפשר להשאיר את הערך ריק עכשיו ולחזור אליו בחזרה.',
+  addrHint: 'הבחירה נשמרת רק בדפדפן הזה. המערכת לא מסיקה אותה משום דבר, ואפשר לשנות בכל רגע.',
+  addrGroup: 'בתכנון לקבוצה ההזמנות כתובות ברבים, כמו בחומרים המקוריים.'
+};
+/* the opening example text, per form of address; replaced only while untouched */
+const SAMPLE = {
+  now: { n: 'יש החלטה שקשה לי לראות מבחוץ', f: 'אני תקועה מול החלטה ולא מצליחה לראות אותה מבחוץ', m: 'אני תקוע מול החלטה ולא מצליח לראות אותה מבחוץ' },
+  value: { n: 'להישאר בכנות עם עצמי, גם כשהתשובה לא נוחה', f: 'להישאר כנה עם עצמי, גם כשהתשובה לא נוחה', m: 'להישאר כן עם עצמי, גם כשהתשובה לא נוחה' },
+  boundary: { n: 'לא מקבלים את ההחלטה בתוך השוטטות עצמה', f: 'לא מקבלת את ההחלטה בתוך השוטטות עצמה', m: 'לא מקבל את ההחלטה בתוך השוטטות עצמה' }
+};
+
+const state = {
+  now: SAMPLE.now[ADDR],
+  identity: 'solo', place: 'city', time: '60', open: 'mid',
+  istate: 'refine', question: 'מה אני עוד לא רואה במצב הזה?', type: 'dilemma',
+  moral: ['noSolution', 'noPhone'], geo: 'בתוך השכונה והרחובות הסמוכים', when: '',
+  value: SAMPLE.value[ADDR], boundary: SAMPLE.boundary[ADDR],
+  quiet: false, plan: null, picks: {}, seams: {}, refining: null, endedAfter: null, contexts: [],
+  mod: { has: null, rec: null, status: null, chosen: null }
+};
+
+const $ = id => document.getElementById(id);
+const isFacil = () => GROUP_IDS.includes(state.identity);
+const totalMinutes = () => state.time === 'multi' ? 90 : Number(state.time);
+
+function chips(el, options, key, multi) {
+  el.innerHTML = '';
+  Object.entries(options).forEach(([k, v]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.id = el.id + '-' + k;
+    b.textContent = typeof v === 'string' ? v : v.label;
+    const on = multi ? state[key].includes(k) : state[key] === k;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.addEventListener('click', () => {
+      if (multi) { state[key] = state[key].includes(k) ? state[key].filter(x => x !== k) : [...state[key], k]; }
+      else { state[key] = k; }
+      renderPanel();
+    });
+    el.appendChild(b);
+  });
+}
+
+function renderPanel() {
+  chips($('c-identity'), IDS, 'identity');
+  chips($('c-place'), PLACES, 'place');
+  chips($('c-time'), TIMES, 'time');
+  chips($('c-open'), OPEN, 'open');
+  chips($('c-state'), STATES, 'istate');
+  chips($('c-type'), TYPES, 'type');
+  chips($('c-moral'), MORAL, 'moral', true);
+  $('mode-hint').textContent = isFacil() ? UI.facilHint : 'מצב: שוטטות אישית.';
+  renderAddr();
+  renderContexts();
+  renderMod();
+  renderGate();
+  $('state-hint').textContent = say(STATE_HINT[state.istate]);
+  $('value-legend').textContent = isFacil() ? 'מה הערך שמנחה את הקבוצה בתהליך הזה?' : 'מה היית רוצה שהשוטטות הזאת תאפשר לך לגלות או לחוות?';
+  $('q-legend').textContent = say(UI.qLegend);
+  $('fs-sub').hidden = state.istate === 'none' || state.istate === 'emerge';
+  $('value-hint').textContent = isFacil()
+    ? 'הקבוצה מגדירה יחד את ליבת הערכים בפתיחת התהליך. כשגבול אישי מתנגש בה, הליבה המשותפת מכריעה.'
+    : 'משפט אחד מספיק. הוא העוגן שאליו אפשר לחזור בכל שלב.';
+  $('fs-question').hidden = state.istate === 'none' || state.istate === 'emerge';
+  $('fs-type').hidden = state.istate === 'none';
+  const t = totalMinutes();
+  $('f-when').placeholder = state.time === 'multi' ? 'למשל: שלושה מפגשים של 90 דקות' : 'למשל: חוזרים אחרי ' + TIMES[state.time];
+  renderValueSlot();
+}
+
+function renderValueSlot() {
+  const early = state.istate === 'none' || state.istate === 'emerge';
+  const story = $('f-now').value.trim();
+  $('value-slot').innerHTML = (early ? `<span>${esc(UI.valueLater)}</span>` : '')
+    + (story ? `<span>מה שכתבת בפתיחה: <q>${esc(story)}</q></span>` : '')
+    + '<span>כשיחובר המנחה המלא, יופיעו כאן הצעות לערכים מתוך המילים שלך, עם הציטוט שממנו עלו. כל הצעה אפשר לקבל, לנסח אחרת או לדחות. בינתיים הערך נכתב ביד.</span>';
+}
+
+function renderMod() {
+  $('mod-q').textContent = modQuestion();
+  const el = $('c-has'); el.innerHTML = '';
+  Object.entries(HAS).forEach(([k, v]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.id = 'c-has-' + k; b.textContent = v;
+    b.setAttribute('aria-pressed', state.mod.has === k ? 'true' : 'false');
+    b.addEventListener('click', () => { state.mod.has = state.mod.has === k ? null : k; if (state.mod.status === 'shown') state.mod.status = null; renderMod(); });
+    el.appendChild(b);
+  });
+  const box = $('mod-rec'), m = state.mod;
+  if (m.status === 'need') { box.innerHTML = '<p class="hint">כדי להמליץ, המנחה צריך תשובה אחת: מה יש כרגע?</p>'; return; }
+  if (m.status === 'declined') { box.innerHTML = '<p class="hint">בסדר. ממשיכים בלי המלצה, והבחירות למטה נשארות כמו שהן.</p>'; return; }
+  if (m.status === 'accepted') {
+    box.innerHTML = `<div class="rec"><span class="a-lbl">נקודת ההתחלה</span><h3 class="pname">${esc(STARTS[m.chosen].name)}</h3><p class="why">מצב הכוונה עודכן ל"${esc(STATES[STARTS[m.chosen].istate])}". אפשר לשנות אותו בשלב 3.</p><div class="meta"><button type="button" class="chip" id="mod-again">לבחור מחדש</button></div></div>`;
+    $('mod-again').addEventListener('click', () => { m.status = 'changing'; renderMod(); });
+    return;
+  }
+  if (!m.rec || !m.status) { box.innerHTML = ''; return; }
+  const r = STARTS[m.rec];
+  let html = `<div class="rec"><span class="a-lbl">המלצה</span><h3 class="pname">${esc(r.name)}</h3><p>${esc(r.desc)}</p><p class="why">למה: ${esc(recReason(m.has, m.rec))}</p>
+    <div class="meta"><button type="button" class="chip" id="mod-yes">מתאים</button><button type="button" class="chip" id="mod-change" aria-pressed="${m.status === 'changing'}">לשנות</button><button type="button" class="chip" id="mod-no">לא עכשיו</button></div>`;
+  if (m.status === 'changing') html += `<div class="chips" id="mod-all">${Object.entries(STARTS).map(([k, s]) => `<button type="button" class="chip" data-start="${k}" aria-pressed="${k === m.rec}">${esc(s.name)}</button>`).join('')}</div>`;
+  box.innerHTML = html + '</div>';
+  $('mod-yes').addEventListener('click', () => acceptStart(m.rec));
+  $('mod-change').addEventListener('click', () => { m.status = m.status === 'changing' ? 'shown' : 'changing'; renderMod(); });
+  $('mod-no').addEventListener('click', () => { m.status = 'declined'; renderMod(); });
+  box.querySelectorAll('[data-start]').forEach(b => b.addEventListener('click', () => acceptStart(b.dataset.start)));
+}
+function acceptStart(key) {
+  state.mod.chosen = key; state.mod.status = 'accepted';
+  state.istate = STARTS[key].istate;
+  renderPanel();
+}
+
+function renderContexts() {
+  const el = $('c-ctx'); el.innerHTML = '';
+  CONTEXTS.forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip' + (c.active ? '' : ' soon'); b.id = 'c-ctx-' + c.id; b.textContent = c.name;
+    b.setAttribute('aria-pressed', state.contexts.includes(c.id) ? 'true' : 'false');
+    b.addEventListener('click', () => {
+      state.contexts = state.contexts.includes(c.id) ? state.contexts.filter(x => x !== c.id) : [...state.contexts, c.id];
+      renderPanel();
+    });
+    el.appendChild(b);
+  });
+  $('ctx-desc').innerHTML = state.contexts.map(id => ctxById[id]).map(c =>
+    `<li><b>${esc(c.name)}:</b> ${esc(c.desc)}${c.active ? '' : ' תרגולים ייעודיים בהכנה. בינתיים עובדים עם המתודולוגיה המשותפת.'}</li>`).join('');
+}
+
+function renderAddr() {
+  const el = $('c-addr'); el.innerHTML = '';
+  Object.entries(ADDR_OPTS).forEach(([k, v]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.id = 'c-addr-' + k; b.textContent = v;
+    b.setAttribute('aria-pressed', ADDR === k ? 'true' : 'false');
+    b.addEventListener('click', () => setAddr(k));
+    el.appendChild(b);
+  });
+  $('addr-hint').textContent = isFacil() ? UI.addrGroup : UI.addrHint;
+  $('j-open-lbl').textContent = say(UI.openQ);
+}
+function setAddr(k) {
+  const prev = ADDR;
+  ADDR = k;
+  try { localStorage.setItem(AKEY, k); } catch (e) {}
+  // swap the example text only where it was never edited
+  [['f-now', 'now'], ['f-value', 'value'], ['f-boundary', 'boundary']].forEach(([id, key]) => {
+    if ($(id).value === SAMPLE[key][prev]) { $(id).value = SAMPLE[key][k]; state[key] = SAMPLE[key][k]; }
+  });
+  renderPanel(); renderCard(); renderLibrary();
+  if (!$('view-compass').hidden) renderCompass();
+}
+
+function fits(p, slot, budget) {
+  if (!p.slots.includes(slot) || p.status === 'nameonly') return false;
+  if (p.facilOnly && !isFacil()) return false;
+  if (p.ids !== 'all' && !p.ids.includes(state.identity)) return false;
+  if (p.places !== 'all' && state.place !== 'any' && !p.places.includes(state.place)) return false;
+  if (p.places !== 'all' && state.place === 'any') return false;
+  const excl = state.moral.map(m => MORAL[m].excl).filter(Boolean);
+  if (p.tags.some(t => excl.includes(t))) return false;
+  if (p.min > budget * 1.5 + 5) return false;
+  return true;
+}
+
+function score(p, slot) {
+  let s = 0; const why = [];
+  const type = state.istate === 'none' ? null : state.type;
+  if (type && p.intents !== 'all' && p.intents.includes(type)) { s += 3; why.push('מתאים לכוונה: ' + TYPES[type]); }
+  else if (p.intents === 'all') s += 1;
+  if (p.ids !== 'all') { s += 1; why.push('נבנה עבור ' + IDS[state.identity]); }
+  if (p.places !== 'all') { s += 1; why.push('מתאים למרחב: ' + PLACES[state.place]); }
+  if (state.open === 'high' && p.div > 0) { s += 2; why.push('מרחיב את המגוון'); }
+  if (state.open === 'low' && p.div < 0) { s += 2; why.push('מצמצם את המגוון ומעמיק'); }
+  if (state.open === 'low' && p.div > 0) s -= 2;
+  if (state.open === 'mid' && p.depth === 2) { s += 1; why.push('מעמיק את הקשב'); }
+  const cb = ctxBoost(p);
+  if (cb) { s += cb.s; why.push(cb.why); }
+  if (p.core) s += 1;
+  if (p.status === 'workshop' || p.status === 'chapter') s += 1;
+  if (slot === 'entry' && state.istate === 'emerge' && p.id === 'attention-now') { s += 10; why.unshift('הכוונה צריכה להתהוות, אז מתחילים בשאלה פתוחה'); }
+  if (slot === 'entry' && state.istate === 'none' && p.id === 'question-release') s -= 10;
+  if (slot === 'trace' && state.picks.discern && byId[state.picks.discern]?.includesTrace) s -= 1;
+  return { s, why };
+}
+
+function compose(keepPicks) {
+  state.now = $('f-now').value.trim();
+  state.question = $('f-question').value.trim();
+  state.geo = $('f-geo').value.trim();
+  state.when = $('f-when').value.trim();
+  state.value = $('f-value').value.trim();
+  state.boundary = $('f-boundary').value.trim();
+  const T = totalMinutes();
+  const plan = [];
+  if (!keepPicks) { state.picks = {}; state.seams = {}; state.endedAfter = null; }
+  SLOTS.forEach(sl => {
+    const budget = Math.max(5, Math.round(T * sl.share / 5) * 5);
+    const ranked = LIB.filter(p => fits(p, sl.key, budget)).map(p => ({ p, ...score(p, sl.key) }))
+      .filter(r => !plan.some(x => x.pick && x.pick.p.id === r.p.id))
+      .sort((a, b) => b.s - a.s);
+    let idx = 0;
+    if (keepPicks && state.picks[sl.key]) { const i = ranked.findIndex(r => r.p.id === state.picks[sl.key]); if (i >= 0) idx = i; }
+    let pick = ranked[idx] || null;
+    let skipped = null;
+    if (sl.key === 'trace' && plan.find(x => x.key === 'discern')?.pick?.p.includesTrace && !keepPicks) { pick = null; skipped = 'העקבה כבר כלולה בטקסט ההדהוד.'; }
+    if (pick) state.picks[sl.key] = pick.p.id;
+    plan.push({ key: sl.key, name: sl.name, budget, ranked, pick, skipped });
+  });
+  // silent rule: at least one element that widens rather than confirms, within the boundaries
+  if (!keepPicks && !plan.some(x => x.pick && x.pick.p.div > 0)) {
+    const mv = plan.find(x => x.key === 'move');
+    const alt = mv && mv.ranked.find(r => r.p.div > 0);
+    if (alt) { mv.pick = { ...alt, why: [...alt.why, 'פותח מקום למה שלא תכננתי'] }; state.picks.move = alt.p.id; }
+  }
+  state.plan = plan;
+  renderCard();
+}
+
+function swap(slotKey) {
+  const s = state.plan.find(x => x.key === slotKey);
+  if (!s || !s.ranked.length) return;
+  const cur = s.pick ? s.ranked.findIndex(r => r.p.id === s.pick.p.id) : -1;
+  const next = s.ranked[(cur + 1) % s.ranked.length];
+  s.pick = next; s.skipped = null; state.picks[slotKey] = next.p.id;
+  addTrace('interp', 'החלפתי תרגול בשלב ' + s.name + ': ' + next.p.name, true);
+  renderCard();
+}
+
+function profileSvg() {
+  const peak = { low: .38, mid: .62, high: .9 }[state.open];
+  const plus = state.plan.filter(x => x.pick && x.pick.p.div > 0).length;
+  const minus = state.plan.filter(x => x.pick && x.pick.p.div < 0).length;
+  const h = Math.min(.95, Math.max(.25, peak + plus * .06 - minus * .06));
+  const W = 360, H = 90, base = 78, top = base - h * 66;
+  const d = `M8 ${base - 6} C 90 ${base - 6}, 120 ${top}, 180 ${top} C 240 ${top}, 270 ${base - 6}, 352 ${base - 6}`;
+  const ticks = SLOTS.map((s, i) => { const x = 8 + i * 86; return `<line x1="${x}" x2="${x}" y1="${base}" y2="${base + 4}" stroke="var(--line)"/><text x="${x}" y="${H - 1}" font-size="9.5" fill="var(--muted)" text-anchor="middle" font-family="Heebo, sans-serif">${s.name}</text>`; }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="פרופיל המגוון לאורך הזמן"><path d="${d} L352 ${base} L8 ${base} Z" fill="var(--accent)" fill-opacity=".14"/><path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2"/><line x1="8" x2="352" y1="${base}" y2="${base}" stroke="var(--line)"/>${ticks}</svg>`;
+}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+function subqs() { return [0, 1, 2].map(i => $('f-sub-' + i).value.trim()).filter(Boolean); }
+
+function kavanaText() {
+  if (state.istate === 'none') return 'יוצאים בלי כוונה, עם גבולות גזרה בלבד';
+  if (state.istate === 'emerge') return 'הכוונה תנוסח אחרי תרגול הפתיחה';
+  return state.question || say(UI.noQuestion);
+}
+
+function renderCard() {
+  const card = $('card');
+  if (!state.plan) { card.innerHTML = `<p class="hint">${esc(say(UI.empty))}</p>`; return; }
+  const T = state.time === 'multi' ? 'שלושה מפגשים של 90 דקות' : TIMES[state.time];
+  const moral = state.moral.map(m => MORAL[m].label).join(' · ') || 'לא נקבעו';
+  const when = state.when || (state.time === 'multi' ? 'כל מפגש נסגר בזמן שנקבע' : 'חוזרים אחרי ' + TIMES[state.time]);
+  let html = `<div class="card-head">
+    <div class="kicker"><span><b>${isFacil() ? 'תהליך מונחה' : 'שוטטות אישית'}</b></span>${state.contexts.length ? `<span>${esc(state.contexts.map(id => ctxById[id].name).join(' · '))}</span>` : ''}<span>${IDS[state.identity]}</span><span>${PLACES[state.place]}</span><span>${T}</span><span>מקום לבלתי צפוי: ${OPEN[state.open]}</span></div>
+    <div class="anchor"><span class="a-lbl">עוגן</span>${state.value ? esc(state.value) : '<span class="missing">הערך המנחה עוד לא נוסח. משפט אחד מספיק.</span>'}${state.boundary ? `<span class="a-b">גבול: ${esc(state.boundary)}</span>` : ''}</div>
+    <p class="kavana">${esc(kavanaText())}</p>
+    ${subqs().length && state.istate !== 'none' && state.istate !== 'emerge' ? `<ul class="subq">${subqs().map(q => `<li>${esc(q)}</li>`).join('')}</ul>` : ''}
+    <p class="not-goal">זה לא יעד. זה עוגן לתשומת הלב. השוטטות לא מבטיחה תשובה.</p>
+    <dl class="mechaven"><dt>גבולות</dt><dd>${esc(moral)}</dd><dt>מרחב</dt><dd>${esc(state.geo || 'לא הוגדר')}</dd><dt>זמן</dt><dd>${esc(when)}</dd></dl>
+    <div class="profile">${profileSvg()}<div class="legend"><span>פרופיל המגוון</span><span>משוער, לפי הכלים שנבחרו</span></div></div>
+    <div class="backbone" aria-label="שבע התנועות של השיטה">
+      <ol>${MOVEMENTS.map((m, i) => `<li${i === MOVEMENTS.length - 1 ? ' class="cel"' : ''}>${m}</li>`).join('')}</ol>
+      <p>זו תנועת השיטה: רצף חי וחוזר, והחגיגה פותחת חזרה אל הערך. השלבים שלמטה הם מבנה של תרגול אחד, ולא השיטה עצמה. איך הם מתחברים לשבע התנועות עוד לא הוחלט, ולחגיגה עוד אין תרגיל מבוסס.</p>
+    </div>
+  </div><ol class="trail">`;
+  const endIdx = state.endedAfter ? state.plan.findIndex(x => x.key === state.endedAfter) : -1;
+  state.plan.forEach((s, i) => {
+    const p = s.pick && s.pick.p;
+    const mins = state.time === 'multi' ? '' : `<span class="mins">כ-${s.budget} דק'</span>`;
+    if (endIdx >= 0 && i > endIdx && s.key !== 'return') {
+      html += `<li class="slot empty ended"><span class="dot"></span><div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="why">דילגת. עוברים ישר לחזרה.</p></li>`;
+      return;
+    }
+    if (!p) {
+      html += `<li class="slot empty"><span class="dot"></span><div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="why">${esc(s.skipped || 'אין בספרייה תרגול שמתאים לכאן, והמקום נשאר פתוח.')}</p>${s.ranked.length ? `<div class="meta"><button type="button" class="chip" data-swap="${s.key}">להציע תרגול</button></div>` : ''}</li>`;
+    } else {
+      const why = s.pick.why.length ? s.pick.why.join(' · ') : 'מתאים לכל הקשר';
+      html += `<li class="slot"><span class="dot"></span>
+        <div class="slot-h"><span class="slot-name">${s.name}</span>${mins}</div>
+        <h3 class="pname">${esc(p.name)}</h3>
+        <p class="invite">${esc(inviteOf(p))}</p>
+        ${s.key === 'return' && p.id !== 'what-appeared' ? '<p class="invite">ולפני שסוגרים: מה הופיע שלא תכננו?</p>' : ''}
+        ${s.key === 'return' ? `<p class="invite">${esc(say(UI.reread)).replace('{v}', state.value ? ': "' + esc(state.value) + '"' : '')}</p>` : ''}
+        <p class="why">למה כאן: ${esc(why)}</p>
+        ${isFacil() && p.facil ? `<p class="facil"><b>למנחה:</b> ${esc(p.facil)}</p>` : ''}
+        <div class="meta"><span class="tag st-${p.status}">${STATUS[p.status]}</span><span class="tag">${esc(p.source)}</span><span class="tag">ציר: ${p.axis}</span><span class="tag">קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</span></div>
+      </li>`;
+    }
+    if (i < 3 && !state.quiet) html += seamHtml(s.key, state.plan[i + 1]);
+  });
+  html += `</ol>
+    <label class="quiet-row"><input type="checkbox" id="f-quiet" ${state.quiet ? 'checked' : ''}> מצב שקט: בלי נקודות תפר. המנגנון לא מתערב עד החזרה.</label>
+    ${isFacil() ? '<p class="ethics">לפני שאוספים סיפורים, ציטוטים או תמונות של אנשים, מבקשים רשות. מה שנאסף שייך גם להם.</p>' : ''}`;
+  card.innerHTML = html;
+  card.querySelectorAll('[data-swap]').forEach(b => b.addEventListener('click', () => swap(b.dataset.swap)));
+  card.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => { state.seams[b.dataset.go] = 'go'; renderCard(); }));
+  card.querySelectorAll('[data-anchor]').forEach(b => b.addEventListener('click', () => { state.seams[b.dataset.anchor] = 'anchor'; renderCard(); }));
+  card.querySelectorAll('[data-narrow]').forEach(b => b.addEventListener('click', () => {
+    const key = b.dataset.narrow, i = state.plan.findIndex(x => x.key === key), next = state.plan[i + 1];
+    const calm = next && [...next.ranked].sort((a, c) => a.p.div - c.p.div)[0];
+    if (calm) { next.pick = { ...calm, why: ['בחרת לצמצם מגוון ולחזור לעוגן'] }; state.picks[next.key] = calm.p.id; }
+    state.seams[key] = 'narrowed'; addTrace('interp', 'חזרתי לעוגן וצמצמתי מגוון' + (calm ? ': ' + calm.p.name : ''), true); renderCard();
+  }));
+  card.querySelectorAll('[data-end]').forEach(b => b.addEventListener('click', () => {
+    state.endedAfter = b.dataset.end; state.seams[b.dataset.end] = 'ended'; addTrace('interp', 'חזרתי לעוגן ובחרתי לסיים כאן', true); renderCard();
+  }));
+  card.querySelectorAll('[data-refine]').forEach(b => b.addEventListener('click', () => { state.refining = b.dataset.refine; renderCard(); const inp = $('refine-input'); if (inp) inp.focus(); }));
+  const save = $('refine-save');
+  if (save) save.addEventListener('click', () => {
+    const v = $('refine-input').value.trim();
+    if (v) { const old = kavanaText(); state.question = v; $('f-question').value = v; if (state.istate !== 'clear') state.istate = 'clear'; addTrace('interp', 'השאלה חודדה: "' + old + '" ← "' + v + '"', true); renderPanel(); }
+    state.seams[state.refining] = 'refined'; state.refining = null; renderCard();
+  });
+  $('f-quiet').addEventListener('change', e => { state.quiet = e.target.checked; renderCard(); });
+}
+
+function seamHtml(afterKey, next) {
+  const st = state.seams[afterKey];
+  if (st === 'go') return `<div class="seam"><div class="seam-box"><span class="done">ממשיכים.</span></div></div>`;
+  if (st === 'refined') return `<div class="seam"><div class="seam-box"><span class="done">השאלה חודדה. ממשיכים.</span></div></div>`;
+  if (st === 'narrowed') return `<div class="seam"><div class="seam-box"><span class="done">חזרת לעוגן. השלב הבא שקט יותר.</span></div></div>`;
+  if (st === 'ended') return `<div class="seam"><div class="seam-box"><span class="done">בחרת לסיים כאן. עוברים לחזרה.</span></div></div>`;
+  if (state.endedAfter && state.plan.findIndex(x => x.key === afterKey) > state.plan.findIndex(x => x.key === state.endedAfter)) return '';
+  if (st === 'anchor') return `<div class="seam"><div class="seam-box"><span class="lbl">העוגן</span><span>${state.value ? '"' + esc(state.value) + '"' : 'עוד לא נוסח ערך מנחה.'}</span>
+    <span style="width:100%">${esc(say(UI.pull))}</span>
+    <button type="button" data-go="${afterKey}">להמשיך</button>
+    ${next && next.ranked.length ? `<button type="button" data-narrow="${afterKey}">לצמצם מגוון</button>` : ''}
+    ${next && next.ranked.length > 1 ? `<button type="button" data-swap="${next.key}">לשנות כיוון</button>` : ''}
+    <button type="button" data-end="${afterKey}">לסיים כאן</button></div></div>`;
+  if (state.refining === afterKey) return `<div class="seam"><div class="seam-box"><span class="lbl">לחדד את השאלה</span><div class="refine"><input type="text" id="refine-input" value="${esc(state.question)}" aria-label="השאלה המחודדת"><button type="button" id="refine-save">לשמור</button></div></div></div>`;
+  return `<div class="seam"><div class="seam-box"><span class="lbl">נקודת תפר</span><span>משהו השתנה?</span>
+    <button type="button" data-go="${afterKey}">להמשיך</button>
+    <button type="button" data-refine="${afterKey}">לחדד את השאלה</button>
+    ${next && next.ranked.length > 1 ? `<button type="button" data-swap="${next.key}">להחליף את תרגול ה${next.name}</button>` : ''}
+    <button type="button" data-anchor="${afterKey}">לחזור לעוגן</button></div></div>`;
+}
+
+/* journal: per-viewer convenience only */
+const JKEY = 'shitut-journal-v1';
+let journal = { items: [], open: '' };
+try { const raw = localStorage.getItem(JKEY); if (raw) journal = JSON.parse(raw); } catch (e) {}
+function saveJournal() { try { localStorage.setItem(JKEY, JSON.stringify(journal)); } catch (e) {} }
+const TAGS = { obs: 'תצפית', interp: 'פרשנות שלי', heard: 'מילה ששמעתי' };
+function addTrace(tag, text, auto) {
+  const d = new Date();
+  journal.items.unshift({ tag, text, t: d.toTimeString().slice(0, 5), auto: !!auto });
+  saveJournal(); renderJournal();
+}
+function renderJournal() {
+  const ul = $('j-list');
+  ul.innerHTML = journal.items.length ? '' : '<li class="hint" style="display:block;border:0">עוד אין עקבות.</li>';
+  journal.items.forEach((it, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="tag">${it.auto ? 'שינוי כיוון' : TAGS[it.tag]}</span><span>${esc(it.text)}</span><span><span class="t">${it.t}</span> <button type="button" class="x" aria-label="למחוק" data-i="${i}">×</button></span>`;
+    ul.appendChild(li);
+  });
+  ul.querySelectorAll('[data-i]').forEach(b => b.addEventListener('click', () => { journal.items.splice(Number(b.dataset.i), 1); saveJournal(); renderJournal(); }));
+  $('j-open').value = journal.open || '';
+}
+$('j-add').addEventListener('click', () => { const v = $('j-text').value.trim(); if (!v) return; addTrace($('j-tag').value, v); $('j-text').value = ''; });
+$('j-text').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('j-add').click(); } });
+$('j-open').addEventListener('input', e => { journal.open = e.target.value; saveJournal(); });
+
+/* library view */
+let libFilter = 'all';
+function renderLibrary() {
+  const f = $('lib-filters'); f.innerHTML = '';
+  const opts = { all: 'הכול', entry: 'כניסה', move: 'תנועה', discern: 'הבחנה', trace: 'עקבה', return: 'חזרה', embedded: 'שוטטות קצרה משולבת', nameonly: 'חסר נוסח' };
+  Object.entries(opts).forEach(([k, v]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.id = 'lf-' + k; b.textContent = v;
+    b.setAttribute('aria-pressed', libFilter === k ? 'true' : 'false');
+    b.addEventListener('click', () => { libFilter = k; renderLibrary(); }); f.appendChild(b);
+  });
+  const g = $('lib-grid'); g.innerHTML = '';
+  LIB.filter(p => libFilter === 'all' || (libFilter === 'nameonly' ? p.status === 'nameonly' : libFilter === 'embedded' ? (p.modes || []).includes('embedded') : p.slots.includes(libFilter))).forEach(p => {
+    const slotNames = p.slots.map(k => SLOTS.find(s => s.key === k).name).join(', ') || '—';
+    const ids = p.ids === 'all' ? 'כולם' : p.ids.map(k => IDS[k]).join(', ');
+    const places = p.places === 'all' ? 'כל מקום' : p.places.map(k => PLACES[k]).join(', ');
+    const intents = p.intents === 'all' ? 'כל כוונה' : p.intents.map(k => TYPES[k]).join(', ');
+    const el = document.createElement('article'); el.className = 'lcard';
+    el.innerHTML = `<h3>${esc(p.name)}</h3><div class="meta" style="margin:0"><span class="tag st-${p.status}">${STATUS[p.status]}</span>${p.facilOnly ? '<span class="tag">מונחה בלבד</span>' : ''}</div>
+      <p>${esc(inviteOf(p))}</p><p class="src">מקור: ${esc(p.source)}</p>
+      <dl><dt>מקום בתהליך</dt><dd>${slotNames}</dd><dt>ציר</dt><dd>${p.axis} · קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</dd><dt>כוונות</dt><dd>${intents}</dd><dt>למי</dt><dd>${ids}</dd>${CONTEXTS.some(c => c.prefer.includes(p.id)) ? `<dt>הקשרים</dt><dd>${CONTEXTS.filter(c => c.prefer.includes(p.id)).map(c => c.name).join(', ')}</dd>` : ''}<dt>מרחב</dt><dd>${places}</dd>${p.modes ? `<dt>אופן שילוב</dt><dd>${p.modes.map(m => MODES[m]).join(', ')}</dd>` : ''}<dt>משך מינימלי</dt><dd>${p.min ? p.min + ' דקות' : '—'}</dd><dt>מגוון</dt><dd>${p.div > 0 ? 'מרחיב' : p.div < 0 ? 'מצמצם' : 'ניטרלי'}</dd>${p.facil ? `<dt>למנחה</dt><dd>${esc(p.facil)}</dd>` : ''}</dl>`;
+    g.appendChild(el);
+  });
+}
+
+/* compass view: north is the value one sets out with, then the intention, then the five process steps, returning north */
+let cmpIdx = 0;
+const C = 200;
+const polar = (r, a) => [C + r * Math.sin(a), C - r * Math.cos(a)];
+function cmpPoints() {
+  return [{ kind: 'value', name: 'ערך' }, { kind: 'intent', name: 'כוונה' }, ...state.plan.map(s => ({ kind: 'slot', name: s.name, s }))];
+}
+function renderCompass() {
+  if (!state.plan) return;
+  const svg = $('cmp-svg');
+  const pts = cmpPoints(), n = pts.length, step = 2 * Math.PI / n;
+  const endIdx = state.endedAfter ? state.plan.findIndex(x => x.key === state.endedAfter) : -1;
+  const live = s => { const i = state.plan.indexOf(s); return s.pick && !(endIdx >= 0 && i > endIdx && s.key !== 'return'); };
+  const openBoost = { low: -8, mid: 0, high: 10 }[state.open];
+  let g = '';
+  g += `<circle cx="${C}" cy="${C}" r="188" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 6"/>`;
+  g += `<rect x="${C - 44}" y="${C + 178}" width="88" height="20" rx="10" fill="var(--bg)"/><text x="${C}" y="${C + 192}" text-anchor="middle" font-size="11" fill="var(--muted)">תנאי שטח</text>`;
+  g += `<circle cx="${C}" cy="${C}" r="164" fill="var(--surface)" stroke="var(--seam)" stroke-width="5"/>`;
+  g += `<rect x="${C + 112}" y="${C - 132}" width="64" height="20" rx="10" fill="var(--seam)" transform="rotate(45 ${C + 144} ${C - 122})"/><text x="${C + 144}" y="${C - 118}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--surface)" transform="rotate(45 ${C + 144} ${C - 122})">גבולות</text>`;
+  for (let t = 0; t < 60; t++) { const a = t * Math.PI / 30; const [x1, y1] = polar(156, a), [x2, y2] = polar(t % 5 ? 152 : 146, a); g += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--line)" stroke-width="1"/>`; }
+  // north mark
+  const [nx, ny] = polar(150, 0);
+  g += `<path d="M${C} ${C - 172} L${C + 8} ${C - 158} L${C - 8} ${C - 158} Z" fill="var(--seam)"/>`;
+  // petals: diversity per process step
+  pts.forEach((pt, i) => {
+    if (pt.kind !== 'slot') return;
+    const a = i * step, div = live(pt.s) ? pt.s.pick.p.div : -1.6;
+    const len = Math.min(92, Math.max(34, 70 + div * 20 + openBoost));
+    const [tx, ty] = polar(len, a), [lx, ly] = polar(28, a - step * .3), [rx, ry] = polar(28, a + step * .3);
+    g += `<path d="M${C} ${C} L${lx} ${ly} L${tx} ${ty} L${rx} ${ry} Z" fill="var(--accent)" fill-opacity="${i === cmpIdx ? .42 : .18}" stroke="var(--accent)" stroke-opacity=".5" stroke-width="1"/>`;
+  });
+  // value petal (north) in seam colour
+  { const [tx, ty] = polar(96, 0), [lx, ly] = polar(28, -step * .28), [rx, ry] = polar(28, step * .28);
+    g += `<path d="M${C} ${C} L${lx} ${ly} L${tx} ${ty} L${rx} ${ry} Z" fill="var(--seam)" fill-opacity="${cmpIdx === 0 ? .5 : .25}"/>`; }
+  // seam points between the first four process steps
+  for (let k = 0; k < SLOTS.length - 1; k++) { const i = k + 2; const [x, y] = polar(140, (i + .5) * step); const done = state.seams[SLOTS[k].key]; g += `<circle cx="${x}" cy="${y}" r="4.5" fill="${done ? 'var(--surface)' : 'var(--seam)'}" stroke="var(--seam)" stroke-width="1.5"/>`; }
+  pts.forEach((pt, i) => {
+    const a = i * step, [x, y] = polar(120, a), on = i === cmpIdx;
+    let sub = '';
+    if (pt.kind === 'value') sub = state.value || 'עוד לא נוסח';
+    else if (pt.kind === 'intent') sub = kavanaText();
+    else sub = live(pt.s) ? pt.s.pick.p.name : (pt.s.pick ? 'דילגת' : '—');
+    const short = sub.length > 14 ? sub.slice(0, 13) + '…' : sub;
+    const col = pt.kind === 'value' ? 'var(--seam)' : on ? 'var(--accent)' : 'var(--ink)';
+    g += `<g class="stage-hit" data-i="${i}" tabindex="0" role="button" aria-label="${esc(pt.name + ': ' + sub)}">
+      <circle class="hit" cx="${x}" cy="${y}" r="30" fill="${on ? (pt.kind === 'value' ? 'var(--seam-soft)' : 'var(--accent-soft)') : 'transparent'}"/>
+      <text x="${x}" y="${y - 2}" text-anchor="middle" font-size="16" font-weight="600" fill="${col}">${pt.name}</text>
+      <text x="${x}" y="${y + 15}" text-anchor="middle" font-size="11" fill="var(--muted)">${esc(short)}</text></g>`;
+  });
+  const ang = cmpIdx * 360 / n;
+  g += `<g id="cmp-needle" style="transform: rotate(${ang}deg)">
+    <path d="M${C} ${C - 90} L${C + 9} ${C} L${C - 9} ${C} Z" fill="var(--accent)"/>
+    <path d="M${C} ${C + 52} L${C + 7} ${C} L${C - 7} ${C} Z" fill="var(--line)"/></g>`;
+  g += `<circle cx="${C}" cy="${C}" r="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>`;
+  svg.innerHTML = g;
+  svg.querySelectorAll('.stage-hit').forEach(el => {
+    el.addEventListener('click', () => { cmpIdx = Number(el.dataset.i); renderCompass(); });
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cmpIdx = Number(el.dataset.i); renderCompass(); } });
+  });
+  const moral = state.moral.map(m => MORAL[m].label);
+  $('cmp-anchor').innerHTML = `<div class="anchor"><span class="a-lbl">צפון · ${isFacil() ? 'ליבת הערכים של הקבוצה' : say(UI.myValue)}</span>${state.value ? esc(state.value) : '<span class="missing">עוד לא נוסח. משפט אחד מספיק.</span>'}<span class="a-b">גבולות: ${esc([state.boundary, ...moral].filter(Boolean).join(' · ') || 'לא נקבעו')}</span><span class="a-b">תנאי שטח: ${esc([state.geo, state.when || (state.time === 'multi' ? 'כמה מפגשים' : TIMES[state.time])].filter(Boolean).join(' · '))}</span></div><p class="kavana">${esc(kavanaText())}</p>`;
+  const pt = pts[cmpIdx];
+  let html;
+  if (pt.kind === 'value') html = `<div class="slot-h"><span class="slot-name" style="color:var(--seam)">ערך</span></div><h3 class="pname">${state.value ? esc(state.value) : 'הערך המנחה עוד לא נוסח'}</h3><p class="why">זה הצפון. בכל נקודת תפר אפשר לחזור אליו, והמחוג חוזר לכאן.</p>`;
+  else if (pt.kind === 'intent') html = `<div class="slot-h"><span class="slot-name">כוונה</span><span class="mins">${STATES[state.istate]}</span></div><h3 class="pname">${esc(kavanaText())}</h3><p class="why">השאלה מנוסחת אחרי הערך, ונשארת קשורה אליו גם כשהיא משתנה בדרך.</p>`;
+  else {
+    const s = pt.s, p = live(s) ? s.pick.p : null;
+    html = p
+      ? `<div class="slot-h"><span class="slot-name">${s.name}</span>${state.time === 'multi' ? '' : `<span class="mins">כ-${s.budget} דק'</span>`}</div><h3 class="pname">${esc(p.name)}</h3><p class="invite">${esc(inviteOf(p))}</p><p class="why">מגוון: ${p.div > 0 ? 'מרחיב' : p.div < 0 ? 'מעמיק ומצמצם' : 'ניטרלי'} · ${STATUS[p.status]}</p>`
+      : `<div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="why">${s.pick ? 'דילגת על השלב הזה.' : esc(s.skipped || 'אין תרגול מתאים בספרייה. המקום נשאר פתוח.')}</p>`;
+  }
+  $('cmp-stage').innerHTML = html;
+}
+$('cmp-prev').addEventListener('click', () => { const n = SLOTS.length + 2; cmpIdx = (cmpIdx + n - 1) % n; renderCompass(); });
+$('cmp-next').addEventListener('click', () => { const n = SLOTS.length + 2; cmpIdx = (cmpIdx + 1) % n; renderCompass(); });
+
+/* tabs */
+function showView(v) {
+  ['gate', 'engine', 'compass', 'library'].forEach(k => {
+    $('view-' + k).hidden = v !== k;
+    $('tab-' + k).setAttribute('aria-selected', v === k);
+  });
+  if (v === 'compass') renderCompass();
+}
+document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
+
+$('panel').addEventListener('submit', e => { e.preventDefault(); compose(false); });
+$('q-help-btn').addEventListener('click', () => { const h = $('q-help'); h.hidden = !h.hidden; $('q-help-btn').setAttribute('aria-expanded', String(!h.hidden)); });
+$('f-now').addEventListener('input', renderValueSlot);
+$('mod-go').addEventListener('click', () => {
+  const m = state.mod;
+  if (!m.has) { m.status = 'need'; renderMod(); return; }
+  m.rec = recommend(m.has, isFacil(), state.time); m.status = 'shown'; renderMod();
+});
+$('f-now').value = state.now; $('f-question').value = state.question; $('f-geo').value = state.geo;
+$('f-value').value = state.value; $('f-boundary').value = state.boundary;
+renderPanel(); compose(false); renderJournal(); renderLibrary();
+showView(location.hash === '#library' ? 'library' : location.hash === '#compass' ? 'compass' : location.hash === '#engine' ? 'engine' : 'gate');
+const toEngine = () => { showView('engine'); $('mod').scrollIntoView({ block: 'start' }); $('f-now').focus({ preventScroll: true }); };
+$('gate-skip').addEventListener('click', toEngine);
+$('gate-go').addEventListener('click', toEngine);
+$('g-apart').addEventListener('click', () => { $('g-apart-out').hidden = !$('g-apart-out').hidden; });
+</script>
+
+</body>
+</html>
