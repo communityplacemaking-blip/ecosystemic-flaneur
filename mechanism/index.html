@@ -154,6 +154,21 @@ select { font: inherit; background: var(--surface); color: var(--ink); border: 1
 .j-list li { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: baseline; font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 .j-list .t { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
 .j-list .x { font: inherit; background: none; border: 0; color: var(--muted); cursor: pointer; }
+.vt { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.vt h3 { margin: 0; font-size: 16px; }
+.vt-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.vt-pane { display: flex; flex-direction: column; gap: 10px; }
+.vt-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.vt-file { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.gallery { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.gallery li { position: relative; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); aspect-ratio: 1; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery .x { position: absolute; top: 4px; inset-inline-end: 4px; font: inherit; font-size: 14px; line-height: 1; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; width: 24px; height: 24px; cursor: pointer; }
+.gallery .kind { position: absolute; bottom: 4px; inset-inline-start: 4px; font-size: 11px; background: var(--surface); border-radius: 4px; padding: 0 5px; color: var(--muted); }
+.vt canvas { width: 100%; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fffdf8; display: block; }
+#vt-pad { touch-action: none; cursor: crosshair; }
+.swatch { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
+.swatch[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--surface) inset; }
 .open-q { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
 
 /* library */
@@ -363,6 +378,45 @@ nav.tabs button[aria-selected="true"] { border-bottom: 3px solid var(--mustard);
           <div class="open-q">
             <label for="j-open"><b id="j-open-lbl"></b></label>
             <input type="text" id="j-open">
+          </div>
+          <div class="vt" aria-labelledby="vt-h">
+            <h3 id="vt-h">עקבות חזותיות</h3>
+            <p class="hint">צילומים, קולאז' וציור. הכול נשמר רק בדפדפן הזה ולא נשלח לשום מקום.</p>
+            <div class="vt-tabs" role="group" aria-label="סוג העקבה החזותית">
+              <button type="button" class="chip" data-vt="photos" aria-pressed="true">צילומים</button>
+              <button type="button" class="chip" data-vt="collage" aria-pressed="false">קולאז'</button>
+              <button type="button" class="chip" data-vt="draw" aria-pressed="false">ציור</button>
+            </div>
+            <div class="vt-pane" id="vt-photos">
+              <div class="vt-row">
+                <label class="j-add" for="vt-file">להוסיף צילומים</label>
+                <input type="file" id="vt-file" class="vt-file" accept="image/*" multiple>
+                <span class="hint" id="vt-count"></span>
+              </div>
+              <ul class="gallery" id="vt-gallery"></ul>
+            </div>
+            <div class="vt-pane" id="vt-collage" hidden>
+              <p class="hint">הקולאז' נבנה מכל הצילומים והציורים שבגלריה. אפשר לערבב מחדש עד שזה מרגיש נכון.</p>
+              <div class="vt-row">
+                <button type="button" class="j-add" id="vt-shuffle">לערבב</button>
+                <button type="button" class="j-add" id="vt-collage-keep">לשמור בגלריה</button>
+                <a class="j-add" id="vt-collage-dl" download="kolaz.jpg" href="#">להוריד כתמונה</a>
+              </div>
+              <canvas id="vt-collage-cv" width="1200" height="900" aria-label="קולאז' מהעקבות"></canvas>
+            </div>
+            <div class="vt-pane" id="vt-draw" hidden>
+              <div class="vt-row" role="group" aria-label="צבע">
+                <button type="button" class="swatch" data-c="#0F2D4A" aria-label="כחול כהה" aria-pressed="true" style="background:#0F2D4A"></button>
+                <button type="button" class="swatch" data-c="#B5573A" aria-label="טרקוטה" aria-pressed="false" style="background:#B5573A"></button>
+                <button type="button" class="swatch" data-c="#D4A72C" aria-label="חרדל" aria-pressed="false" style="background:#D4A72C"></button>
+                <button type="button" class="swatch" data-c="#1E8C86" aria-label="טורקיז" aria-pressed="false" style="background:#1E8C86"></button>
+                <button type="button" class="chip" id="vt-thick" aria-pressed="false">קו עבה</button>
+                <button type="button" class="chip" id="vt-undo">לבטל</button>
+                <button type="button" class="chip" id="vt-clear">לנקות</button>
+                <button type="button" class="j-add" id="vt-draw-keep">לשמור בגלריה</button>
+              </div>
+              <canvas id="vt-pad" width="1200" height="800" aria-label="לוח ציור"></canvas>
+            </div>
           </div>
         </section>
       </div>
@@ -1047,6 +1101,147 @@ function renderJournal() {
 $('j-add').addEventListener('click', () => { const v = $('j-text').value.trim(); if (!v) return; addTrace($('j-tag').value, v); $('j-text').value = ''; });
 $('j-text').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('j-add').click(); } });
 $('j-open').addEventListener('input', e => { journal.open = e.target.value; saveJournal(); });
+
+/* visual traces: photos, collage, drawing. Stored only in this browser (IndexedDB); never uploaded. */
+const VT = { db: null, items: [], urls: [] };
+function vtOpen() {
+  return new Promise(res => {
+    try {
+      const r = indexedDB.open('shitut-traces', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('img', { keyPath: 'id' });
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => res(null);
+    } catch (e) { res(null); }
+  });
+}
+function vtTx(mode, fn) {
+  return new Promise(res => {
+    if (!VT.db) return res(null);
+    try { const tx = VT.db.transaction('img', mode); const out = fn(tx.objectStore('img')); tx.oncomplete = () => res(out && out.result); tx.onerror = () => res(null); } catch (e) { res(null); }
+  });
+}
+async function vtLoad() {
+  const all = VT.db ? await vtTx('readonly', s => s.getAll()) : null;
+  if (all) VT.items = all.sort((a, b) => b.id - a.id);
+  vtRender();
+}
+async function vtAdd(blob, kind) {
+  const it = { id: Date.now() + Math.random(), kind, blob, t: new Date().toTimeString().slice(0, 5) };
+  VT.items.unshift(it);
+  await vtTx('readwrite', s => s.put(it));
+  vtRender();
+}
+async function vtDel(id) {
+  VT.items = VT.items.filter(it => it.id !== id);
+  await vtTx('readwrite', s => s.delete(id));
+  vtRender();
+}
+function vtRender() {
+  VT.urls.forEach(u => URL.revokeObjectURL(u)); VT.urls = [];
+  const ul = $('vt-gallery');
+  ul.innerHTML = VT.items.length ? '' : '<li class="hint" style="aspect-ratio:auto;border:0;background:none">עוד אין עקבות חזותיות.</li>';
+  const KIND = { photo: '', collage: "קולאז'", drawing: 'ציור' };
+  VT.items.forEach(it => {
+    const u = URL.createObjectURL(it.blob); VT.urls.push(u);
+    const li = document.createElement('li');
+    li.innerHTML = `<img src="${u}" alt="עקבה חזותית, ${it.t}">${KIND[it.kind] ? `<span class="kind">${KIND[it.kind]}</span>` : ''}<button type="button" class="x" aria-label="למחוק">×</button>`;
+    li.querySelector('.x').addEventListener('click', () => vtDel(it.id));
+    ul.appendChild(li);
+  });
+  $('vt-count').textContent = VT.items.length ? `${VT.items.length} בגלריה` : '';
+  if (!$('vt-collage').hidden) vtCollage();
+}
+function vtShrink(file, max) {
+  return new Promise(res => {
+    const u = URL.createObjectURL(file); const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height));
+      const c = document.createElement('canvas'); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u);
+      c.toBlob(b => res(b), 'image/jpeg', 0.85);
+    };
+    im.onerror = () => { URL.revokeObjectURL(u); res(null); };
+    im.src = u;
+  });
+}
+$('vt-file').addEventListener('change', async e => {
+  for (const f of e.target.files) { const b = await vtShrink(f, 1600); if (b) await vtAdd(b, 'photo'); }
+  e.target.value = '';
+});
+document.querySelectorAll('[data-vt]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-vt]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  ['photos', 'collage', 'draw'].forEach(k => { $('vt-' + k).hidden = k !== b.dataset.vt; });
+  if (b.dataset.vt === 'collage') vtCollage();
+}));
+
+/* collage: a loose grid of the gallery images on cream paper, slightly turned, like prints on a table */
+let vtSeed = 1;
+function vtRand() { vtSeed = (vtSeed * 16807) % 2147483647; return vtSeed / 2147483647; }
+function vtImg(blob) { return new Promise(res => { const u = URL.createObjectURL(blob); const im = new Image(); im.onload = () => res({ im, u }); im.onerror = () => res(null); im.src = u; }); }
+let vtCollageRun = 0;
+async function vtCollage() {
+  const run = ++vtCollageRun;
+  const cv = $('vt-collage-cv'), g = cv.getContext('2d');
+  const pics = VT.items.filter(it => it.kind !== 'collage').slice(0, 12);
+  const loaded = (await Promise.all(pics.map(p => vtImg(p.blob)))).filter(Boolean);
+  if (run !== vtCollageRun) { loaded.forEach(l => URL.revokeObjectURL(l.u)); return; }
+  g.fillStyle = '#F7F2E8'; g.fillRect(0, 0, cv.width, cv.height);
+  if (!loaded.length) {
+    g.fillStyle = '#4F6377'; g.font = '32px Heebo, sans-serif'; g.textAlign = 'center';
+    g.fillText('כדי ליצור קולאז\' צריך קודם להוסיף צילומים', cv.width / 2, cv.height / 2);
+    $('vt-collage-dl').removeAttribute('href'); return;
+  }
+  vtSeed = vtSeed || 1;
+  const n = loaded.length, cols = Math.ceil(Math.sqrt(n * 4 / 3)), rows = Math.ceil(n / cols);
+  const cw = cv.width / cols, ch = cv.height / rows;
+  const order = loaded.map((l, i) => [vtRand(), l]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+  order.forEach(({ im }, i) => {
+    const cx = (i % cols + 0.5) * cw, cy = (Math.floor(i / cols) + 0.5) * ch;
+    const k = Math.min((cw * 0.84) / im.width, (ch * 0.84) / im.height);
+    const w = im.width * k, h = im.height * k;
+    g.save(); g.translate(cx + (vtRand() - 0.5) * cw * 0.12, cy + (vtRand() - 0.5) * ch * 0.12); g.rotate((vtRand() - 0.5) * 0.14);
+    g.shadowColor = 'rgba(15,45,74,0.22)'; g.shadowBlur = 14; g.shadowOffsetY = 4;
+    g.fillStyle = '#FFFDF8'; g.fillRect(-w / 2 - 10, -h / 2 - 10, w + 20, h + 20);
+    g.shadowColor = 'transparent'; g.drawImage(im, -w / 2, -h / 2, w, h); g.restore();
+  });
+  loaded.forEach(l => URL.revokeObjectURL(l.u));
+  try { $('vt-collage-dl').href = cv.toDataURL('image/jpeg', 0.9); } catch (e) {}
+}
+$('vt-shuffle').addEventListener('click', () => { vtSeed = Math.floor(Math.random() * 2147483646) + 1; vtCollage(); });
+$('vt-collage-keep').addEventListener('click', () => {
+  if (!VT.items.some(it => it.kind !== 'collage')) return;
+  $('vt-collage-cv').toBlob(b => b && vtAdd(b, 'collage'), 'image/jpeg', 0.9);
+});
+
+/* drawing pad: pointer strokes, kept as a list so the last one can be undone */
+const PAD = { strokes: [], cur: null, color: '#0F2D4A', w: 4 };
+function padDraw() {
+  const cv = $('vt-pad'), g = cv.getContext('2d');
+  g.fillStyle = '#FFFDF8'; g.fillRect(0, 0, cv.width, cv.height);
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  PAD.strokes.forEach(s => {
+    g.strokeStyle = s.color; g.lineWidth = s.w; g.beginPath();
+    s.pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]));
+    if (s.pts.length === 1) g.lineTo(s.pts[0][0] + 0.1, s.pts[0][1]);
+    g.stroke();
+  });
+}
+function padPt(e) { const cv = $('vt-pad'), r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; }
+$('vt-pad').addEventListener('pointerdown', e => { e.preventDefault(); try { e.target.setPointerCapture(e.pointerId); } catch (x) {} PAD.cur = { color: PAD.color, w: PAD.w, pts: [padPt(e)] }; PAD.strokes.push(PAD.cur); padDraw(); });
+$('vt-pad').addEventListener('pointermove', e => { if (!PAD.cur) return; PAD.cur.pts.push(padPt(e)); padDraw(); });
+['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => $('vt-pad').addEventListener(ev, () => { PAD.cur = null; }));
+document.querySelectorAll('.swatch').forEach(b => b.addEventListener('click', () => {
+  PAD.color = b.dataset.c; document.querySelectorAll('.swatch').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+}));
+$('vt-thick').addEventListener('click', e => { PAD.w = PAD.w === 4 ? 12 : 4; e.target.setAttribute('aria-pressed', String(PAD.w === 12)); });
+$('vt-undo').addEventListener('click', () => { PAD.strokes.pop(); padDraw(); });
+$('vt-clear').addEventListener('click', () => { PAD.strokes = []; padDraw(); });
+$('vt-draw-keep').addEventListener('click', () => {
+  if (!PAD.strokes.length) return;
+  $('vt-pad').toBlob(b => { if (b) { vtAdd(b, 'drawing'); PAD.strokes = []; padDraw(); } }, 'image/png');
+});
+padDraw();
+vtOpen().then(db => { VT.db = db; vtLoad(); });
 
 /* library view */
 let libFilter = 'all';
