@@ -9,281 +9,140 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
-<style>
-/* Layout: one calm reading column; each idea = heading, one paragraph, one illustration; Liel's line figure opens and closes the walk */
-html{-webkit-text-size-adjust:100%}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  --bg:#F7F2E8; --surface:#FFFDF8; --ink:#0F2D4A; --muted:#4F6377; --line:#D9CFBD;
-  --navy:#0F2D4A; --mustard:#D4A72C; --teal:#1E8C86; --terra:#B5573A; --on-navy:#F7F2E8;
-  --t-doc:#1E6B48; --t-dec:#0F2D4A; --t-ext:#6A4C93; --t-prop:#9A6B00; --t-check:#A2442F;
-  --display:"Heebo",system-ui,sans-serif;
-  --body:"Heebo",system-ui,sans-serif;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
-  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --on-navy:#EDE6D6;
-  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-check:#F0A08E; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
-  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --on-navy:#EDE6D6;
-  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-check:#F0A08E; color-scheme:dark}
-*{box-sizing:border-box}
-html{direction:rtl}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17.5px;line-height:1.75;margin:0}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.2;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.4rem,6.4vw,4.2rem);letter-spacing:-.015em}
-h2{font-size:clamp(1.7rem,3.6vw,2.4rem)}
-h3{font-size:1.25rem;font-weight:700}
-p{margin:0}
-a{color:var(--teal)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.prose{max-width:62ch}
-.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--teal);font-weight:700}
-
-/* bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:10px;flex-wrap:wrap}
-.brand{font-family:var(--display);font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none}
-.brand i{width:16px;height:22px;background:var(--ink);-webkit-mask:url("img/flaneur-figure.png") center/contain no-repeat;mask:url("img/flaneur-figure.png") center/contain no-repeat}
-.nav{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font:inherit;font-size:.88rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 13px;cursor:pointer;text-decoration:none}
-.chip[aria-current="page"],.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-
-/* preview notice */
-.note{border:1px dashed var(--line);border-radius:6px;padding:12px 16px;font-size:.92rem;color:var(--muted);background:var(--surface)}
-.note strong{color:var(--ink)}
-
-/* source tags: hidden for the public reading, shown with the toggle */
-.tag{display:none;font-size:.7rem;font-weight:700;letter-spacing:.03em;padding:1px 7px;border-radius:3px;border:1px solid currentColor;margin-inline-end:6px;vertical-align:2px;white-space:nowrap}
-html.marks .tag{display:inline-block}
-.t-doc{color:var(--t-doc)} .t-dec{color:var(--t-dec)} .t-ext{color:var(--t-ext)} .t-prop{color:var(--t-prop)} .t-check{color:var(--t-check)}
-
-section{padding-block:clamp(48px,8vw,96px);border-top:1px solid var(--line)}
-section:first-of-type{border-top:none}
-.head{display:grid;gap:14px;margin-bottom:28px}
-.head h2::after{content:"";display:block;width:56px;border-top:1.5px solid var(--teal);margin-top:14px}
-.lead{font-size:1.08em}
-figure{margin:0;display:grid;gap:10px}
-figure img{display:block;width:100%;height:auto;border-radius:4px}
-figcaption{font-size:.85rem;color:var(--muted);line-height:1.5}
-
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end;padding-top:clamp(40px,8vw,88px)}
-.hero .copy{display:grid;gap:20px;padding-bottom:36px;min-width:0}
-.hero .walker{display:flex;justify-content:center;align-self:end;min-width:0}
-.figure{width:min(300px,80%);aspect-ratio:480/415;background:var(--ink);-webkit-mask:url("img/flaneur-figure.png") center bottom/contain no-repeat;mask:url("img/flaneur-figure.png") center bottom/contain no-repeat}
-.ground{border-top:1.5px solid var(--teal)}
-.credit{font-size:.78rem;color:var(--muted);padding-top:8px}
-.quiet{color:var(--muted)}
-
-/* abc */
-.abc{display:flex;gap:16px;align-items:baseline;font-family:var(--display);font-size:2rem;margin-bottom:12px}
-.abc .c{color:var(--teal);font-weight:700}
-
-/* two-up text beside image on wide screens */
-.pair{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
-
-/* movements */
-.moves{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1.5px solid var(--teal)}
-.moves li{padding:14px 8px 0;position:relative;min-width:0}
-.moves li::before{content:"";position:absolute;top:-6px;inset-inline-start:8px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--teal)}
-.moves li:last-child::before{background:var(--mustard);border-color:var(--mustard)}
-.moves b{font-family:var(--display);font-size:1.2rem;font-weight:700;display:block}
-.moves span{font-size:.88rem;color:var(--muted);line-height:1.45;display:block}
-.loop{font-size:.88rem;color:var(--muted);margin-top:14px}
-
-/* deep link card */
-.deeplink{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 24px;border:1px solid var(--line);border-radius:6px;background:var(--surface);text-decoration:none;color:var(--ink)}
-.deeplink b{font-family:var(--display);font-size:1.35rem;font-weight:500;display:block}
-.deeplink span{color:var(--muted);font-size:.95rem}
-.deeplink em{font-style:normal;color:var(--teal);font-weight:700;white-space:nowrap}
-
-/* formats */
-.formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-.formats div{display:grid;gap:6px;align-content:start;min-width:0}
-.formats h3{font-family:var(--display);font-weight:500;font-size:1.3rem}
-
-/* invitation */
-.invite{background:var(--navy);color:var(--on-navy);border-top:none}
-.invite .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:36px;align-items:center}
-.invite h2{color:var(--on-navy)}
-.invite .copy{display:grid;gap:16px;min-width:0}
-.invite .label{font-family:var(--display);font-size:1rem;letter-spacing:.04em;color:var(--mustard);direction:ltr;text-align:right}
-.invite figure img{border-radius:4px}
-.invite figcaption{color:var(--on-navy);opacity:.75}
-.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.btn{font:inherit;font-weight:700;font-size:.98rem;padding:11px 20px;border-radius:3px;text-decoration:none;border:1.5px solid var(--mustard)}
-.btn.primary{background:var(--mustard);color:#0F2D4A}
-.btn.ghost{color:var(--on-navy);border-color:var(--on-navy)}
-
-/* deep page */
-.src-box{border-inline-start:3px solid var(--t-ext);background:var(--surface);padding:20px 24px;border-radius:0 4px 4px 0;display:grid;gap:12px}
-.src-box ul{margin:0;padding-inline-start:1.2em;display:grid;gap:6px}
-.src-line{font-size:.85rem;color:var(--muted)}
-.label-chip{display:inline-block;justify-self:start;font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px}
-.lc-src{color:var(--t-ext);border:1px solid var(--t-ext)}
-.lc-ours{color:var(--bg);background:var(--teal)}
-.bridge{font-family:var(--display);font-size:1.25rem;line-height:1.55;max-width:56ch;padding-block:8px}
-.principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.pr{display:grid;gap:6px;padding:18px 20px;border:1px solid var(--line);border-radius:6px;background:var(--surface);min-width:0}
-.pr h3{font-family:var(--display);font-weight:700;font-size:1.25rem}
-.pr.center{grid-column:1 / -1;border-color:var(--mustard);border-width:1.5px}
-.pr.center h3{font-size:1.6rem}
-.roots{font-size:.88rem;color:var(--muted)}
-.slot{border:1.5px dashed var(--line);border-radius:6px;min-height:160px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.92rem;padding:20px}
-.page[hidden]{display:none}
-footer{padding-block:28px 40px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px}
-
-@media (max-width:760px){
-  .hero,.invite .grid{grid-template-columns:minmax(0,1fr)}
-  .hero .walker{order:-1;justify-content:flex-start}
-  .figure{width:160px}
-  .hero .copy{padding-bottom:24px}
-  .moves{grid-template-columns:minmax(0,1fr);border-top:none;border-inline-start:1.5px solid var(--teal)}
-  .moves li{padding:0 18px 16px}
-  .moves li::before{top:8px;inset-inline-start:-6px}
-  .formats,.principles{grid-template-columns:minmax(0,1fr)}
-}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-.mech-soon{font-size:.92rem;opacity:.8}
-.qs{margin:0;padding-inline-start:1.3em;display:grid;gap:10px}
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:16px}
-.timeline b{color:var(--teal);display:block}
-/* v3: text beside each illustration, compact rhythm */
-section{padding-block:clamp(36px,6vw,64px)}
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,48px);align-items:center}
-.split.flip .copy{order:2}
-.split .copy{display:grid;gap:14px;min-width:0;align-content:center}
-.split.narrow{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);margin-bottom:28px;align-items:end}
-.art img{border-radius:6px;box-shadow:0 1px 0 var(--line)}
-.hero.split{padding-top:clamp(28px,5vw,56px);padding-bottom:clamp(28px,5vw,48px);align-items:center}
-.hero .copy{padding-bottom:0;gap:16px}
-.hero .abc{margin:4px 0 -6px;font-size:1.6rem}
-.gl{font-weight:700;color:var(--ink);letter-spacing:.03em}
-.walker{display:grid;justify-items:center;align-self:end}
-.walker .ground{width:100%}
-.walker .figure{width:min(170px,70%)}
-.btn.line{color:var(--ink);border-color:var(--ink)}
-.invite-head{display:grid;gap:10px;margin-bottom:26px;max-width:62ch}
-.invite .formats h3{color:var(--mustard)}
-.invite .formats{margin-bottom:26px}
-@media (max-width:760px){
-  .split,.split.narrow{grid-template-columns:minmax(0,1fr)}
-  .split .art{order:-1}
-  .split.flip .copy{order:0}
-  .walker{justify-items:start}
-}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href=""><i aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
+    <a class="brand" href=""><i class="walker-fig" aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
     <nav class="nav" aria-label="עמודים">
       <a class="chip" href="" aria-current="page">המשוטט</a>
       <a class="chip" href="method/">לעומק השיטה</a>
+      <button class="chip marks-btn" type="button" aria-pressed="false">סימוני מקור</button>
+      <a class="chip go" href="mechanism/">לצאת לשוטט</a>
     </nav>
   </div>
 </header>
 
 <main>
 
+<section class="hero">
+  <div class="gridbg" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero split">
+    <div class="hero-in">
       <div class="copy">
-        <p class="eyebrow"><span class="tag t-doc">מתועד</span>פרקטיקה מתפתחת</p>
-        <h1>להניח את המפה</h1>
-        <p class="lead"><span class="tag t-dec">הניסוח שלך, מתפתח</span>אנחנו לא הולכים לאיבוד רק כדי לאבד את הדרך. אנחנו משחררים לזמן מה את הצורך לדעת, לשלוט ולתכנן הכול מראש, כדי לפגוש את מה שלא יכולנו לצפות.</p>
-        <div class="abc" aria-hidden="true"><span>א׳</span><span>←</span><span>ב׳</span><span>…</span><span class="c">ג׳</span></div>
-        <p class="quiet"><span class="tag t-doc">מתועד</span>יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.</p>
-        <div class="btns"><a class="btn primary" href="#moves">איך זה עובד</a><a class="btn line" href="method/">לעומק השיטה</a></div>
+        <p class="kicker"><span class="tag t-doc">מתועד</span>פרקטיקה מתפתחת של שוטטות</p>
+        <h1><span class="s">להניח את</span><span class="l">המפה</span></h1>
+        <p class="lead prose"><span class="tag t-dec">הניסוח שלך, מתפתח</span>אנחנו לא הולכים לאיבוד רק כדי לאבד את הדרך. אנחנו משחררים לזמן מה את הצורך לדעת, לשלוט ולתכנן הכול מראש, כדי לפגוש את מה שלא יכולנו לצפות.</p>
+        <div class="abc" aria-hidden="true"><span>א׳</span><svg viewBox="0 0 220 34" preserveAspectRatio="none"><path d="M216 17 C190 2 170 32 146 17 S100 2 80 20 S36 30 4 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/></svg><span class="quiet">ב׳</span><span class="c">ג׳</span></div>
+        <p class="quiet prose"><span class="tag t-doc">מתועד</span>יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.</p>
+        <div class="btns"><a class="btn primary" href="mechanism/">לצאת עם המשוטט <small>(בבנייה)</small></a><a class="btn" href="#moves">שבע התנועות</a></div>
       </div>
-      <figure class="art">
-        <img src="img/getting-lost.jpg" alt="הדמות ההולכת של ליאל, בקו כחול, על שביל מתפתל בעיר מצוירת בצבעי מים" width="1000" height="699">
-        <figcaption><span class="gl" dir="ltr">Getting Lost Workshop</span> · על פי איור מקורי של ליאל</figcaption>
+      <figure class="blob">
+        <img src="img/getting-lost.jpg" alt="הדמות ההולכת של ליאל, בקו כחול, על שביל מתפתל בעיר מצוירת בצבעי מים" width="1000" height="699" fetchpriority="high">
+        <figcaption class="stamp"><b>Getting Lost Workshop</b><span>על פי איור מקורי של ליאל</span></figcaption>
       </figure>
     </div>
   </div>
+  <div class="wrap"><div class="groundline"><i class="walker-fig" aria-hidden="true"></i><p class="credit">איור: ליאל</p></div></div>
+</section>
 
-  <section>
-    <div class="wrap split">
-      <div class="copy">
-        <p class="eyebrow">המבט האקוסיסטמי</p>
+<svg class="route" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M1080 0 C1060 60 860 30 760 70 S420 110 300 120"/><circle cx="760" cy="70" r="4"/></svg>
+
+<section class="chapter">
+  <div class="wrap">
+    <div class="weave">
+      <figure class="art">
+        <img src="img/ego-eco.jpg" alt="משמאל: EGO, האדם בראש פירמידה של בעלי חיים וצמחים. מימין: ECO, האדם אחד מתוך מעגל של יצורים הקשורים בקווים." width="1200" height="800" loading="lazy">
+        <figcaption>איור מושגי, לא תרשים מדעי.</figcaption>
+      </figure>
+      <div class="card">
+        <p class="num">01 · המבט האקוסיסטמי</p>
         <h2>חלק מרשת חיה</h2>
         <p><span class="tag t-dec">מתוך ההנחיה שלך</span>אנחנו לא יחידים נפרדים בעולם של חפצים נפרדים ומשאבים בלי סוף. אנחנו חלק מרשת חיה של קשרים: תלויים בה, תורמים לה, ומושפעים מהתנאים שמקיימים אותה.</p>
         <p class="quiet">בתמונת EGO האדם עומד בראש פירמידה. בתמונת ECO הוא אחד מתוך רשת, תלוי בה כמו שהיא תלויה בו.</p>
       </div>
-      <figure class="art">
-        <img src="img/ego-eco.jpg" alt="משמאל: EGO, האדם בראש פירמידה של בעלי חיים וצמחים. מימין: ECO, האדם אחד מתוך מעגל של יצורים הקשורים בקווים." width="1200" height="800">
-        <figcaption>איור מושגי, לא תרשים מדעי.</figcaption>
-      </figure>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="wrap split flip">
-      <div class="copy">
-        <p class="eyebrow">מכונה ויצור חי</p>
+<svg class="route" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 C340 70 600 40 700 80 S980 100 1000 120"/><circle cx="700" cy="80" r="4"/></svg>
+
+<section class="chapter">
+  <div class="wrap">
+    <div class="weave flip">
+      <figure class="art">
+        <img src="img/machine-living.jpg" alt="משמאל: מכונית מפורקת לחלקיה, השלם שווה לסכום חלקיו. מימין: עץ עם שורשים, ציפורים ופטריות, השלם גדול מסכום חלקיו." width="1200" height="800" loading="lazy">
+        <figcaption>מכני מול אקוסיסטמי. איור מושגי.</figcaption>
+      </figure>
+      <div class="card">
+        <p class="num">02 · מכונה ויצור חי</p>
         <h2>כשהשלם גדול מסכום חלקיו</h2>
         <p><span class="tag t-prop">הצעת ניסוח</span>מכונה אפשר להבין לרוב דרך החלקים שלה. ליצור חי יש איכויות שצומחות מהקשרים בין החלקים: התהוות וסינרגיה. השוטטות שמה לב לרגעים שבהם המכלול מפתיע.</p>
         <p class="quiet"><span class="tag t-doc">מתועד</span>במעבר הזה נפתחים שלושת המפגשים הראשונים בקורסים של תומר באוניברסיטה. זה משל, לא טענה מדעית.</p>
       </div>
-      <figure class="art">
-        <img src="img/machine-living.jpg" alt="משמאל: מכונית מפורקת לחלקיה, השלם שווה לסכום חלקיו. מימין: עץ עם שורשים, ציפורים ופטריות, השלם גדול מסכום חלקיו." width="1200" height="800">
-        <figcaption>מכני מול אקוסיסטמי. איור מושגי.</figcaption>
-      </figure>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="moves">
-    <div class="wrap">
-      <div class="split narrow">
-        <div class="copy">
-          <p class="eyebrow">תנועת השיטה</p>
-          <h2>שבע תנועות, ברצף חי וחוזר</h2>
-          <p class="quiet"><span class="tag t-dec">החלטה של תומר, 28.10</span>לא נוהל לינארי קשיח. התנועות משתנות בצורתן ובאורכן לפי ההקשר, והחגיגה פותחת חזרה אל הערך.</p>
-        </div>
-        <div class="walker"><div class="figure" role="img" aria-label="דמות משוטטת מצוירת ביד"></div><div class="ground"></div><p class="credit">איור: ליאל</p></div>
+<section class="moves-sec" id="moves">
+  <div class="wrap">
+    <div class="moves-in">
+      <div class="copy">
+        <p class="kicker">03 · תנועת השיטה</p>
+        <h2>שבע תנועות, ברצף חי וחוזר</h2>
+        <p class="prose"><span class="tag t-dec">החלטה של תומר, 28.10</span>זה לא נוהל לינארי קשיח. התנועות משתנות בצורתן ובאורכן לפי ההקשר. אפשר ללחוץ על כל תנועה.</p>
+        <p class="back"><span class="tag t-doc">מתועד</span>מהחגיגה חוזרים אל הערך, בהבנה שהשתנתה.</p>
       </div>
-      <ol class="moves">
-        <li><b>ערך</b><span>מעניק כיוון.</span></li>
-        <li><b>שחרור</b><span>משהה את הצורך לשלוט ולמצוא תשובה מיד.</span></li>
-        <li><b>שוטטות</b><span>פותחת מפגש עם העולם.</span></li>
-        <li><b>קשב</b><span>לעצמי, לאחר, למרחב, ולמה שביניהם.</span></li>
-        <li><b>הבחנה</b><span>מזהה קשר או אפשרות.</span></li>
-        <li><b>יצירה</b><span>נותנת ביטוי למה שהתגלה.</span></li>
-        <li><b>חגיגה</b><span>רפלקציה שנשענת על הכרת תודה.</span></li>
-      </ol>
+      <div>
+        <ol class="loop" aria-label="שבע התנועות">
+<li style="--x:50.00%;--y:8.00%"><button type="button" data-d="מעניק כיוון." aria-pressed="true"><i>1</i><b>ערך</b></button></li>
+<li style="--x:82.84%;--y:23.81%"><button type="button" data-d="משהה את הצורך לשלוט ולמצוא תשובה מיד." aria-pressed="false"><i>2</i><b>שחרור</b></button></li>
+<li style="--x:90.95%;--y:59.35%"><button type="button" data-d="פותחת מפגש עם העולם." aria-pressed="false"><i>3</i><b>שוטטות</b></button></li>
+<li style="--x:68.22%;--y:87.84%"><button type="button" data-d="לעצמי, לאחר, למרחב, ולמה שביניהם." aria-pressed="false"><i>4</i><b>קשב</b></button></li>
+<li style="--x:31.78%;--y:87.84%"><button type="button" data-d="מזהה קשר או אפשרות." aria-pressed="false"><i>5</i><b>הבחנה</b></button></li>
+<li style="--x:9.05%;--y:59.35%"><button type="button" data-d="נותנת ביטוי למה שהתגלה." aria-pressed="false"><i>6</i><b>יצירה</b></button></li>
+<li style="--x:17.16%;--y:23.81%"><button type="button" data-d="רפלקציה שנשענת על הכרת תודה." aria-pressed="false"><i>7</i><b>חגיגה</b></button></li>
+          <li class="hub" aria-live="polite" style="left:auto;top:auto;transform:none"><i class="walker-fig" aria-hidden="true"></i><b id="hub-n">ערך</b><span id="hub-d">מעניק כיוון.</span></li>
+        </ol>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="invite">
-    <div class="wrap">
-      <div class="invite-head">
-        <h2>לצאת לשוטט</h2>
-        <p><span class="tag t-prop">הצעת ניסוח</span>שלוש דרכים שכבר קיימות, ומנגנון אינטראקטיבי בבנייה, שאפשר כבר לנסות.</p>
-      </div>
-      <div class="formats">
-        <div><h3>"הזמנה ללכת לאיבוד"</h3><p><span class="tag t-doc">מתועד</span>נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור.</p></div>
-        <div><h3>"סיפור המקום" עם עדשות 5R</h3><p dir="ltr" style="text-align:right"><span class="tag t-doc">מתועד</span>REFEEL · REVIEW · RESPECT · RECONNECT · RECREATE</p></div>
-        <div><h3>שוטטות קצרה בתוך מפגש</h3><p><span class="tag t-doc">מתועד</span>"תמונה אחת שמספרת משהו עליי": צילום בדרך לארוחה, ואחריו מעגל שיתוף.</p></div>
-      </div>
-      <div class="btns">
-        <a class="btn primary" href="method/">לעומק השיטה</a>
-        <a class="btn ghost" href="mechanism/">לצאת עם המשוטט (בבנייה)</a>
-        <a class="btn ghost" href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">סדנאות בעושים קהילה</a>
-      </div>
+<section class="invite">
+  <div class="wrap">
+    <div class="invite-in">
+      <p class="kicker">04 · לצאת לשוטט</p>
+      <h2>שלוש דרכים שכבר קיימות, ואחת שנבנית</h2>
+      <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>אפשר להזמין סדנה לקבוצה, לשלב שוטטות קצרה במפגש קיים, או לצאת לבד עם המנגנון האינטראקטיבי, שנמצא בבנייה ואפשר כבר לנסות.</p>
     </div>
-  </section>
+    <div class="formats">
+      <article class="card-post"><span class="yr">מאז 2014</span><h3>"הזמנה ללכת לאיבוד"</h3><p><span class="tag t-doc">מתועד</span>נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור.</p></article>
+      <article class="card-post"><span class="yr">עדשות 5R</span><h3>"סיפור המקום"</h3><p dir="ltr" style="text-align:right"><span class="tag t-doc">מתועד</span>REFEEL · REVIEW · RESPECT · RECONNECT · RECREATE</p></article>
+      <article class="card-post"><span class="yr">בתוך מפגש</span><h3>שוטטות קצרה</h3><p><span class="tag t-doc">מתועד</span>"תמונה אחת שמספרת משהו עליי": צילום בדרך לארוחה, ואחריו מעגל שיתוף.</p></article>
+    </div>
+    <div class="btns" style="margin-top:44px">
+      <a class="btn primary" href="mechanism/">לצאת עם המשוטט <small>(בבנייה)</small></a>
+      <a class="btn light" href="method/">לעומק השיטה</a>
+      <a class="btn light" href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">סדנאות בעושים קהילה</a>
+    </div>
+    <div class="walk"><i class="walker-fig" aria-hidden="true"></i><p>איור: ליאל</p></div>
+  </div>
+</section>
 
 </main>
 
-
 <footer><div class="wrap"><span>המשוטט האקוסיסטמי · פרקטיקה מתפתחת</span><span>איור הדמות: ליאל</span><a href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">The Ecosystemic Flâneur בעושים קהילה</a></div></footer>
+
+<script>
+(function(){
+  var m=document.querySelector('.marks-btn');
+  m.addEventListener('click',function(){var on=document.documentElement.classList.toggle('marks');m.setAttribute('aria-pressed',on)});
+  var bs=document.querySelectorAll('.loop button'),n=document.getElementById('hub-n'),d=document.getElementById('hub-d');
+  bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');n.textContent=b.querySelector('b').textContent;d.textContent=b.dataset.d})});
+})();
+</script>
 </body>
 </html>

@@ -1,270 +1,139 @@
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" class="sub">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>לעומק השיטה | המשוטט האקוסיסטמי</title>
-<meta name="description" content="המבט האקוסיסטמי שמאחורי השוטטות: EGO ו־ECO, מכונה ויצור חי, הנחות היסוד של Art of Hosting, חמישה עקרונות חיים והמרחב הכאורדי.">
+<meta name="description" content="המבט האקוסיסטמי שמאחורי השוטטות: EGO ו־ECO, מכונה ויצור חי, הנחות היסוד של Art of Hosting, חמישה עקרונות, שורשים ושאלות פתוחות.">
 <link rel="canonical" href="https://communityplacemaking-blip.github.io/ecosystemic-flaneur/method/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
-<style>
-/* Layout: one calm reading column; each idea = heading, one paragraph, one illustration; Liel's line figure opens and closes the walk */
-html{-webkit-text-size-adjust:100%}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  --bg:#F7F2E8; --surface:#FFFDF8; --ink:#0F2D4A; --muted:#4F6377; --line:#D9CFBD;
-  --navy:#0F2D4A; --mustard:#D4A72C; --teal:#1E8C86; --terra:#B5573A; --on-navy:#F7F2E8;
-  --t-doc:#1E6B48; --t-dec:#0F2D4A; --t-ext:#6A4C93; --t-prop:#9A6B00; --t-check:#A2442F;
-  --display:"Heebo",system-ui,sans-serif;
-  --body:"Heebo",system-ui,sans-serif;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
-  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --on-navy:#EDE6D6;
-  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-check:#F0A08E; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0C1A28; --surface:#12263A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
-  --navy:#0A1724; --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --on-navy:#EDE6D6;
-  --t-doc:#7FD1A4; --t-dec:#B9CCE0; --t-ext:#C7AEEB; --t-prop:#E9C46A; --t-check:#F0A08E; color-scheme:dark}
-*{box-sizing:border-box}
-html{direction:rtl}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17.5px;line-height:1.75;margin:0}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.2;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.4rem,6.4vw,4.2rem);letter-spacing:-.015em}
-h2{font-size:clamp(1.7rem,3.6vw,2.4rem)}
-h3{font-size:1.25rem;font-weight:700}
-p{margin:0}
-a{color:var(--teal)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.prose{max-width:62ch}
-.eyebrow{font-size:.8rem;letter-spacing:.08em;color:var(--teal);font-weight:700}
-
-/* bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:10px;flex-wrap:wrap}
-.brand{font-family:var(--display);font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none}
-.brand i{width:16px;height:22px;background:var(--ink);-webkit-mask:url("../img/flaneur-figure.png") center/contain no-repeat;mask:url("../img/flaneur-figure.png") center/contain no-repeat}
-.nav{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font:inherit;font-size:.88rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 13px;cursor:pointer;text-decoration:none}
-.chip[aria-current="page"],.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-
-/* preview notice */
-.note{border:1px dashed var(--line);border-radius:6px;padding:12px 16px;font-size:.92rem;color:var(--muted);background:var(--surface)}
-.note strong{color:var(--ink)}
-
-/* source tags: hidden for the public reading, shown with the toggle */
-.tag{display:none;font-size:.7rem;font-weight:700;letter-spacing:.03em;padding:1px 7px;border-radius:3px;border:1px solid currentColor;margin-inline-end:6px;vertical-align:2px;white-space:nowrap}
-html.marks .tag{display:inline-block}
-.t-doc{color:var(--t-doc)} .t-dec{color:var(--t-dec)} .t-ext{color:var(--t-ext)} .t-prop{color:var(--t-prop)} .t-check{color:var(--t-check)}
-
-section{padding-block:clamp(48px,8vw,96px);border-top:1px solid var(--line)}
-section:first-of-type{border-top:none}
-.head{display:grid;gap:14px;margin-bottom:28px}
-.head h2::after{content:"";display:block;width:56px;border-top:1.5px solid var(--teal);margin-top:14px}
-.lead{font-size:1.08em}
-figure{margin:0;display:grid;gap:10px}
-figure img{display:block;width:100%;height:auto;border-radius:4px}
-figcaption{font-size:.85rem;color:var(--muted);line-height:1.5}
-
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end;padding-top:clamp(40px,8vw,88px)}
-.hero .copy{display:grid;gap:20px;padding-bottom:36px;min-width:0}
-.hero .walker{display:flex;justify-content:center;align-self:end;min-width:0}
-.figure{width:min(300px,80%);aspect-ratio:480/415;background:var(--ink);-webkit-mask:url("../img/flaneur-figure.png") center bottom/contain no-repeat;mask:url("../img/flaneur-figure.png") center bottom/contain no-repeat}
-.ground{border-top:1.5px solid var(--teal)}
-.credit{font-size:.78rem;color:var(--muted);padding-top:8px}
-.quiet{color:var(--muted)}
-
-/* abc */
-.abc{display:flex;gap:16px;align-items:baseline;font-family:var(--display);font-size:2rem;margin-bottom:12px}
-.abc .c{color:var(--teal);font-weight:700}
-
-/* two-up text beside image on wide screens */
-.pair{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
-
-/* movements */
-.moves{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1.5px solid var(--teal)}
-.moves li{padding:14px 8px 0;position:relative;min-width:0}
-.moves li::before{content:"";position:absolute;top:-6px;inset-inline-start:8px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--teal)}
-.moves li:last-child::before{background:var(--mustard);border-color:var(--mustard)}
-.moves b{font-family:var(--display);font-size:1.2rem;font-weight:700;display:block}
-.moves span{font-size:.88rem;color:var(--muted);line-height:1.45;display:block}
-.loop{font-size:.88rem;color:var(--muted);margin-top:14px}
-
-/* deep link card */
-.deeplink{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 24px;border:1px solid var(--line);border-radius:6px;background:var(--surface);text-decoration:none;color:var(--ink)}
-.deeplink b{font-family:var(--display);font-size:1.35rem;font-weight:500;display:block}
-.deeplink span{color:var(--muted);font-size:.95rem}
-.deeplink em{font-style:normal;color:var(--teal);font-weight:700;white-space:nowrap}
-
-/* formats */
-.formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
-.formats div{display:grid;gap:6px;align-content:start;min-width:0}
-.formats h3{font-family:var(--display);font-weight:500;font-size:1.3rem}
-
-/* invitation */
-.invite{background:var(--navy);color:var(--on-navy);border-top:none}
-.invite .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:36px;align-items:center}
-.invite h2{color:var(--on-navy)}
-.invite .copy{display:grid;gap:16px;min-width:0}
-.invite .label{font-family:var(--display);font-size:1rem;letter-spacing:.04em;color:var(--mustard);direction:ltr;text-align:right}
-.invite figure img{border-radius:4px}
-.invite figcaption{color:var(--on-navy);opacity:.75}
-.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.btn{font:inherit;font-weight:700;font-size:.98rem;padding:11px 20px;border-radius:3px;text-decoration:none;border:1.5px solid var(--mustard)}
-.btn.primary{background:var(--mustard);color:#0F2D4A}
-.btn.ghost{color:var(--on-navy);border-color:var(--on-navy)}
-
-/* deep page */
-.src-box{border-inline-start:3px solid var(--t-ext);background:var(--surface);padding:20px 24px;border-radius:0 4px 4px 0;display:grid;gap:12px}
-.src-box ul{margin:0;padding-inline-start:1.2em;display:grid;gap:6px}
-.src-line{font-size:.85rem;color:var(--muted)}
-.label-chip{display:inline-block;justify-self:start;font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px}
-.lc-src{color:var(--t-ext);border:1px solid var(--t-ext)}
-.lc-ours{color:var(--bg);background:var(--teal)}
-.bridge{font-family:var(--display);font-size:1.25rem;line-height:1.55;max-width:56ch;padding-block:8px}
-.principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.pr{display:grid;gap:6px;padding:18px 20px;border:1px solid var(--line);border-radius:6px;background:var(--surface);min-width:0}
-.pr h3{font-family:var(--display);font-weight:700;font-size:1.25rem}
-.pr.center{grid-column:1 / -1;border-color:var(--mustard);border-width:1.5px}
-.pr.center h3{font-size:1.6rem}
-.roots{font-size:.88rem;color:var(--muted)}
-.slot{border:1.5px dashed var(--line);border-radius:6px;min-height:160px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.92rem;padding:20px}
-.page[hidden]{display:none}
-footer{padding-block:28px 40px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px}
-
-@media (max-width:760px){
-  .hero,.invite .grid{grid-template-columns:minmax(0,1fr)}
-  .hero .walker{order:-1;justify-content:flex-start}
-  .figure{width:160px}
-  .hero .copy{padding-bottom:24px}
-  .moves{grid-template-columns:minmax(0,1fr);border-top:none;border-inline-start:1.5px solid var(--teal)}
-  .moves li{padding:0 18px 16px}
-  .moves li::before{top:8px;inset-inline-start:-6px}
-  .formats,.principles{grid-template-columns:minmax(0,1fr)}
-}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-.mech-soon{font-size:.92rem;opacity:.8}
-.qs{margin:0;padding-inline-start:1.3em;display:grid;gap:10px}
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:16px}
-.timeline b{color:var(--teal);display:block}
-</style>
+<link rel="stylesheet" href="../site.css">
 </head>
-<body>
+<body class="sub">
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="../"><i aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
+    <a class="brand" href="../"><i class="walker-fig" aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
     <nav class="nav" aria-label="עמודים">
       <a class="chip" href="../">המשוטט</a>
-      <a class="chip" href="../method/" aria-current="page">לעומק השיטה</a>
+      <a class="chip" href="" aria-current="page">לעומק השיטה</a>
+      <button class="chip marks-btn" type="button" aria-pressed="false">סימוני מקור</button>
+      <a class="chip go" href="../mechanism/">לצאת לשוטט</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-<div class="page">
+<section class="deep-hero">
+  <div class="gridbg" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker">לעומק השיטה · המבט האקוסיסטמי</p>
+    <h1>לראות מקום וחיים דרך הקשרים שביניהם</h1>
+    <p class="lead"><span class="tag t-dec">מתוך ההנחיה שלך</span>אנחנו לא יחידים נפרדים בעולם של חפצים נפרדים ומשאבים בלי סוף. אנחנו חלק מרשת חיה של קשרים, תלויים בה, תורמים לה ומושפעים מהתנאים שמקיימים אותה. מכאן השאלה משתנה: לא רק איך להשיג עוד, אלא איך לחיות ולפעול בדרך שמכירה בתלות ההדדית ושומרת על התנאים לחיים.</p>
+  </div>
+</section>
 
-  <section>
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">המבט האקוסיסטמי</p>
-        <h1 style="font-size:clamp(2.2rem,5.4vw,3.6rem)">לראות מקום וחיים דרך הקשרים שביניהם</h1>
-        <p class="prose lead"><span class="tag t-dec">מתוך ההנחיה שלך</span>אנחנו לא יחידים נפרדים בעולם של חפצים נפרדים ומשאבים בלי סוף. אנחנו חלק מרשת חיה של קשרים, תלויים בה, תורמים לה ומושפעים מהתנאים שמקיימים אותה. מכאן השאלה משתנה: לא רק איך להשיג עוד, אלא איך לחיות ולפעול בדרך שמכירה בתלות ההדדית ושומרת על התנאים לחיים.</p>
+<div class="wrap deep-layout">
+  <nav class="toc" aria-label="תחנות בעמוד">
+    <a href="#ego"><bdi>מ־</bdi><span dir="ltr">EGO</span> <bdi>ל־</bdi><span dir="ltr">ECO</span></a>
+    <a href="#machine">מכונה ויצור חי</a>
+    <a href="#aoh">שש הנחות היסוד</a>
+    <a href="#five">חמישה עקרונות</a>
+    <a href="#chaord">בין כאוס לסדר</a>
+    <a href="#roots">מאיפה זה בא</a>
+    <a href="#questions">שאלות פתוחות</a>
+  </nav>
+
+  <div class="deep-main">
+
+    <section id="ego">
+      <div class="duo">
+        <div class="txt">
+          <p class="num">01</p>
+          <h2><bdi>מ־</bdi><span dir="ltr">EGO</span> <bdi>ל־</bdi><span dir="ltr">ECO</span></h2>
+          <p><span class="tag t-prop">הצעת ניסוח</span>בתמונת EGO האדם עומד בראש פירמידה, וכל השאר מסודר מתחתיו. בתמונת ECO האדם הוא אחד מתוך רשת של יצורים וקשרים.</p>
+          <p class="quiet">זה איור מושגי שמציע דרך אחרת להסתכל, ולא תיאור מדעי של הטבע.</p>
+        </div>
+        <img src="../img/ego-eco.jpg" alt="משמאל: EGO, האדם בראש פירמידה של בעלי חיים וצמחים. מימין: ECO, האדם אחד מתוך מעגל של יצורים הקשורים בקווים." width="1200" height="800" loading="lazy">
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="wrap">
-      <div class="head"><h2>מ־EGO ל־ECO</h2>
-        <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>בתמונת EGO האדם עומד בראש פירמידה, וכל השאר מסודר מתחתיו. בתמונת ECO האדם הוא אחד מתוך רשת של יצורים וקשרים. זה איור מושגי שמציע דרך אחרת להסתכל, ולא תיאור מדעי של הטבע.</p></div>
-      <figure><img src="../img/ego-eco.jpg" alt="EGO מול ECO" width="1200" height="800"></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><h2>מכונה ויצור חי</h2>
-        <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>מכונה אפשר לפרק, לתקן ולצפות. ביצור חי צומחות מהקשרים בין החלקים איכויות חדשות: התארגנות מלמטה, הסתגלות, תופעות מתהוות. סינרגיה היא אפשרות, ולא הבטחה.</p>
-        <p class="prose quiet" style="font-size:.95rem">מהמכונית אל הכלב: במעבר הזה, מתפיסה מכניסטית לתפיסה אקוסיסטמית, נפתחים שלושת המפגשים הראשונים בקורסים של תומר באוניברסיטה. זה משל ולא טענה מדעית.</p>
-        <p class="src-line"><span class="tag t-ext">מקור חיצוני</span>ההבחנה בין מכונה למערכת חיה מופיעה גם בעמוד 8 בחוברת אמנות האירוח של מרכז השל.</p></div>
-      <figure><img src="../img/machine-living.jpg" alt="מכני מול אקוסיסטמי" width="1200" height="800"></figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head">
-        <span class="label-chip lc-src">מקור: Art of Hosting</span>
-        <h2>שש הנחות היסוד</h2>
-        <p class="prose">Art of Hosting מנסחת שש הנחות יסוד על מערכות חיות ועל שיחה. הן מובאות כאן כלשונן, מתוך החוברת בעברית.</p>
+    <section id="machine">
+      <div class="duo">
+        <div class="txt">
+          <p class="num">02</p>
+          <h2>מכונה ויצור חי</h2>
+          <p><span class="tag t-prop">הצעת ניסוח</span>מכונה אפשר לפרק, לתקן ולצפות. ביצור חי צומחות מהקשרים בין החלקים איכויות חדשות: התארגנות מלמטה, הסתגלות, תופעות מתהוות. סינרגיה היא אפשרות, ולא הבטחה.</p>
+          <p class="quiet">מהמכונית אל הכלב: במעבר הזה, מתפיסה מכניסטית לתפיסה אקוסיסטמית, נפתחים שלושת המפגשים הראשונים בקורסים של תומר באוניברסיטה. זה משל ולא טענה מדעית.</p>
+          <p class="src-line"><span class="tag t-ext">מקור חיצוני</span>ההבחנה בין מכונה למערכת חיה מופיעה גם בעמוד 8 בחוברת אמנות האירוח של מרכז השל.</p>
+        </div>
+        <img src="../img/machine-living.jpg" alt="משמאל: מכונית מפורקת לחלקיה, השלם שווה לסכום חלקיו. מימין: עץ עם שורשים, ציפורים ופטריות, השלם גדול מסכום חלקיו." width="1200" height="800" loading="lazy">
       </div>
-      <div class="src-box">
-        <ul>
+    </section>
+
+    <section id="aoh">
+      <p class="num">03</p>
+      <span class="label-chip lc-src">מקור: Art of Hosting</span>
+      <h2>שש הנחות היסוד</h2>
+      <p class="prose">Art of Hosting מנסחת שש הנחות יסוד על מערכות חיות ועל שיחה. הן מובאות כאן כלשונן, מתוך החוברת בעברית.</p>
+      <div class="quote">
+        <ol>
           <li>דרושים פתרונות חדשים</li>
           <li>פתרונות חדשים צומחים בין כאוס לסדר</li>
           <li>שיחות משמעותיות מובילות לשינוי</li>
           <li>כל ארגון הוא מערכת חיה</li>
-          <li>הפתרונות הטובים ביותר לא נמצאים אצל אנשים פרטיים, אלא בשדה… <span class="tag t-check" style="display:inline-block">להשלמה מהחוברת</span></li>
+          <li><span>הפתרונות הטובים ביותר לא נמצאים אצל אנשים פרטיים, אלא בשדה… <span class="tag t-check" style="display:inline-block">להשלמה מהחוברת</span></span></li>
           <li>אנו חיים במציאות של ניגודים משלימים</li>
-        </ul>
+        </ol>
         <p class="src-line">מתוך: חוברת אמנות האירוח, מרכז השל, עמ׳ 7. <span class="tag t-check">שם מדויק ושנה לבדיקה</span></p>
       </div>
-      <p class="bridge" style="margin-top:36px">ההנחות של Art of Hosting מתארות מערכות חיות. מתוכן, ומתוך המבט האקוסיסטמי, זיקקנו חמישה עקרונות לחיים. הם שלנו ולא של Art of Hosting, והם לא מחליפים את שבע התנועות.</p>
-    </div>
-  </section>
+      <p class="bridge">ההנחות של Art of Hosting מתארות מערכות חיות. מתוכן, ומתוך המבט האקוסיסטמי, זיקקנו חמישה עקרונות לחיים. הם שלנו ולא של Art of Hosting, והם לא מחליפים את שבע התנועות.</p>
+    </section>
 
-  <section>
-    <div class="wrap">
-      <div class="head">
-        <span class="label-chip lc-ours">תובנות שלנו</span>
-        <h2>חמישה עקרונות מתוך מבט אקוסיסטמי</h2>
-        <p class="prose"><span class="tag t-dec">החלטה של תומר</span>אלה לא צווים. הם כיוונים לקשב, לשיקול דעת ולפעולה בעולם חי ומקושר.</p>
-      </div>
-      <div class="principles">
-        <div class="pr center"><h3>מידת האמצע</h3><p>לזהות את המידה הנכונה, בלי לצבור, לצרוך או לקחת יותר ממה שצריך. זו לא בינוניות ולא פשרה אוטומטית, אלא שיקול דעת בכל מצב, מתוך התלות שלנו ברשת החיים והתרומה שלנו לה.</p><p class="roots"><span class="tag t-check" style="display:inline-block">לבדיקה</span>שורשים: תורת המידה האמצעית של אריסטו, והדרך הממוצעת של הרמב״ם. הפרשנות האקוסיסטמית היא שלנו.</p></div>
+    <section id="five">
+      <p class="num">04</p>
+      <span class="label-chip lc-ours">תובנות שלנו</span>
+      <h2>חמישה עקרונות מתוך מבט אקוסיסטמי</h2>
+      <p class="prose"><span class="tag t-dec">החלטה של תומר</span>אלה לא צווים. הם כיוונים לקשב, לשיקול דעת ולפעולה בעולם חי ומקושר. במרכז, מידת האמצע.</p>
+      <div class="constel">
         <div class="pr"><h3>חכמת רבים</h3><p>אף אחד לא רואה את כל התמונה. כשאנשים שונים משתפים במה שהם יודעים, יכולה לצמוח הבנה שאף אחד מהם לא היה מגיע אליה לבד.</p></div>
         <div class="pr"><h3>מגוון זה חיים</h3><p>מגוון של אנשים, מינים, נקודות מבט ודרכי ידיעה נותן למערכת חיה עושר, יכולת הסתגלות ואפשרויות. זה לא רק משהו שצריך לסבול.</p></div>
+        <div class="pr mean"><h3>מידת האמצע</h3><p>לזהות את המידה הנכונה, בלי לצבור, לצרוך או לקחת יותר ממה שצריך. זו לא בינוניות ולא פשרה אוטומטית, אלא שיקול דעת בכל מצב, מתוך התלות שלנו ברשת החיים והתרומה שלנו לה.</p><p class="roots"><span class="tag t-check">לבדיקה</span>שורשים: תורת המידה האמצעית של אריסטו, והדרך הממוצעת של הרמב״ם. הפרשנות האקוסיסטמית היא שלנו.</p></div>
         <div class="pr"><h3>הקשבה זו חכמה</h3><p>להקשיב זה להכיר בכך שנקודת המבט שלנו חלקית. כשמקשיבים לאחרים, למקום, לטבע ולמה שעוד לא מבינים, לומדים את מה שלא נראה מנקודת מבט אחת.</p></div>
         <div class="pr"><h3>הוקרת היש</h3><p>לפני שמחפשים עוד, לשים לב למה שכבר כאן ולהוקיר אותו: אנשים, קשרים, מקומות והזדמנויות. הכרת תודה מאזנת את הלחץ לצבור עוד ועוד.</p></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="wrap">
-      <div class="head"><h2>המרחב הכאורדי והשוטטות</h2>
-        <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>ההנחה השנייה של Art of Hosting אומרת שפתרונות חדשים צומחים בין כאוס לסדר. השוטטות מתרגמת את זה לצעד: לשחרר לזמן מה את השליטה, להישאר בתוך אי הוודאות בלי לקרוס, ולשים לב למה שמתחיל לצמוח שם.</p></div>
-      <figure><img src="../img/chaordic-space.jpg" alt="קריסה, כאוס, סדר ושליטה ברצף, ובמרכז, בין כאוס לסדר, המרחב הכאורדי ודמות שהולכת בשביל" width="1400" height="700"><figcaption>איור פרשני שלנו, בהשראת ה־Chaordic Path של קהילת Art of Hosting. אין זה המודל המקורי. המונח chaordic נטבע בידי די הוק (Dee Hock).</figcaption></figure>
-    </div>
-  </section>
+    <section id="chaord">
+      <p class="num">05</p>
+      <h2>בין כאוס לסדר</h2>
+      <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>ההנחה השנייה של Art of Hosting אומרת שפתרונות חדשים צומחים בין כאוס לסדר. השוטטות מתרגמת את זה לצעד: לשחרר לזמן מה את השליטה, להישאר בתוך אי הוודאות בלי לקרוס, ולשים לב למה שמתחיל לצמוח שם.</p>
+      <div class="chaord" aria-hidden="true"><span>קריסה</span><span>כאוס</span><span class="mid">המרחב הכאורדי</span><span>סדר</span><span>שליטה</span></div>
+      <p class="src-line"><span class="tag t-ext">מקור חיצוני</span>בהשראת ה־Chaordic Path של קהילת Art of Hosting. המונח chaordic נטבע בידי די הוק (Dee Hock). <span class="tag t-check">לבדיקה</span></p>
+    </section>
 
-  <section>
-    <div class="wrap">
-      <div class="head"><p class="eyebrow">מאיפה זה בא</p><h2>מכלי מחקר עירוני לפרקטיקה חיה</h2></div>
-      <ol class="timeline prose">
-        <li><b>2007</b>התזה "המשוטט העירוני ככלי למחקר עירוני". המושג המרכזי בה הוא "גישה מבחינה", ומתוכו צמח "המשוטט המבחין". המושג בעקבות סוזן באק-מורס.</li>
-        <li><b>2014–2015</b>סדנאות "הזמנה ללכת לאיבוד" בתל אביב.</li>
-        <li><b>היום</b>מהפלאנר ככלי מחקר, השיטה התפתחה לפרקטיקה אישית, חינוכית, קבוצתית וקהילתית.</li>
+    <section id="roots">
+      <p class="num">06</p>
+      <h2>מכלי מחקר עירוני לפרקטיקה חיה</h2>
+      <ol class="time">
+        <li><b>2007</b><p>התזה "המשוטט העירוני ככלי למחקר עירוני". המושג המרכזי בה הוא "גישה מבחינה", ומתוכו צמח "המשוטט המבחין". המושג בעקבות סוזן באק-מורס.</p></li>
+        <li><b>2014–2015</b><p>סדנאות "הזמנה ללכת לאיבוד" בתל אביב.</p></li>
+        <li><b>היום</b><p>מהפלאנר ככלי מחקר, השיטה התפתחה לפרקטיקה אישית, חינוכית, קבוצתית וקהילתית.</p></li>
       </ol>
-      <div class="principles" style="margin-top:32px">
-        <div class="pr"><h3>שיחות עם הגות</h3><p>התכתבויות פילוסופיות, ולא מקורות של כלים: השל והפליאה הרדיקלית, דבור והדריווה, בנימין והפלאנר, בובר, סר.</p></div>
-        <div class="pr"><h3>תחומי שיחה</h3><p>Art of Hosting, חוכמה קולקטיבית, מורכבות, התהוות וארגון עצמי, מחקר שיתופי ופלייסמייקינג. השיטה משוחחת איתם, והם לא בסיס מוכח שלה.</p></div>
+      <div class="pair2">
+        <div class="pr"><h3>שיחות עם הגות</h3><p class="quiet">התכתבויות פילוסופיות, ולא מקורות של כלים: השל והפליאה הרדיקלית, דבור והדריווה, בנימין והפלאנר, בובר, סר.</p></div>
+        <div class="pr"><h3>תחומי שיחה</h3><p class="quiet">Art of Hosting, חוכמה קולקטיבית, מורכבות, התהוות וארגון עצמי, מחקר שיתופי ופלייסמייקינג. השיטה משוחחת איתם, והם לא בסיס מוכח שלה.</p></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="wrap">
-      <div class="head"><p class="eyebrow">שאלות מחקר פתוחות</p><h2>מה עוד לא ידוע</h2><p class="prose">השאלות מנוסחות כשאלות, ולא כטענות.</p></div>
-      <ol class="qs prose">
+    <section id="questions">
+      <p class="num">07</p>
+      <h2>מה עוד לא ידוע</h2>
+      <p class="quiet">השאלות מנוסחות כשאלות, ולא כטענות.</p>
+      <ol class="qs">
         <li>האם, וכיצד, שוטטות מכוונת משנה את איכות הקשב למקום?</li>
         <li>איך התבוננות אישית הופכת לתובנה משותפת, בלי לפרש מוקדם מדי?</li>
         <li>מה הקשר, אם יש, בין שוטטות לבין התהוות וארגון עצמי בקבוצות ובקהילות?</li>
@@ -272,23 +141,30 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px}
         <li>מה נשמר מהפלאנר הביקורתי כשהשוטטות הופכת לכלי מעשי?</li>
         <li>מה משתנה בלמידה כשהתנסות נחתמת בהכרת תודה, ולא בהערכה?</li>
       </ol>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="wrap" style="display:grid;gap:18px;justify-items:start">
-      <div class="figure" style="width:130px" role="img" aria-label="דמות משוטטת מצוירת ביד"></div>
-      <div class="ground" style="width:100%"></div>
+    <section class="end">
+      <div class="walk"><i class="walker-fig" aria-hidden="true"></i></div>
       <h2>ומכאן, לצאת לדרך</h2>
       <p class="prose">העקרונות יכולים להזין את השוטטות, אבל השיטה עצמה היא שבע התנועות.</p>
-      <div class="btns"><a class="chip" href="../">לשבע התנועות</a></div>
-      <p class="mech-soon">המנגנון האינטראקטיבי, "לצאת עם המשוטט", ייפתח כאן בקרוב.</p>
-      <div></div>
-    </div>
-  </section>
+      <div class="btns"><a class="btn primary" href="../mechanism/">לצאת עם המשוטט <small>(בבנייה)</small></a><a class="btn" href="../#moves">לשבע התנועות</a></div>
+    </section>
+
+  </div>
 </div>
+
 </main>
 
 <footer><div class="wrap"><span>המשוטט האקוסיסטמי · פרקטיקה מתפתחת</span><span>איור הדמות: ליאל</span><a href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">The Ecosystemic Flâneur בעושים קהילה</a></div></footer>
+
+<script>
+(function(){
+  var m=document.querySelector('.marks-btn');
+  m.addEventListener('click',function(){var on=document.documentElement.classList.toggle('marks');m.setAttribute('aria-pressed',on)});
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
+  links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t)io.observe(t)})}
+})();
+</script>
 </body>
 </html>
