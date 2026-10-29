@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>דוגמה א׳: המלבנים מתמוססים | המשוטט האקוסיסטמי</title>
+<meta name="description" content="המשוטט האקוסיסטמי: פרקטיקה מתפתחת של שוטטות, קשב ויצירה, מתוך מבט אקוסיסטמי על מקום וחיים.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../site.css">
+<style>
+
+.pv{background:var(--ink);color:var(--bg);font-size:.88rem}
+.pv .wrap{display:flex;flex-wrap:wrap;gap:6px 18px;padding-block:8px;align-items:center}
+.pv a{color:var(--mustard)}
+.hero .gridbg{background-image:url("../fractal/quadgrid.svg");-webkit-mask:linear-gradient(to left,#000 0%,#000 55%,rgba(0,0,0,.35) 100%);mask:linear-gradient(to left,#000 0%,#000 55%,rgba(0,0,0,.35) 100%)}
+.hero .gridbg{opacity:calc(var(--grid-op)*.6)}
+@media (max-width:860px){.hero .gridbg{opacity:calc(var(--grid-op)*.35)}}
+.moves-sec,.invite{isolation:isolate}
+.moves-sec::before,.invite::before{content:"";position:absolute;inset:0;z-index:-1;background:url("../fractal/quadgrid.svg") center/cover;opacity:.5;transform:scaleX(-1)}
+.invite::before{filter:invert(1);opacity:.22}
+.route{display:none}
+.chapter{padding-block:clamp(40px,6vw,80px)}
+
+/* A: the text boxes dissolve into the grid where they meet the illustration */
+.weave .card{box-shadow:none;border:none;background:linear-gradient(color-mix(in srgb,var(--paper) 62%,transparent),color-mix(in srgb,var(--paper) 62%,transparent)),url("../fractal/quadgrid.svg") center/1200px auto,var(--paper);
+  padding-inline-start:calc(clamp(22px,3vw,40px) + 110px);
+  -webkit-mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("../fractal/fringe-r.svg") right/150px auto repeat-y;
+          mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("../fractal/fringe-r.svg") right/150px auto repeat-y}
+.weave.flip .card{padding-inline-start:clamp(22px,3vw,40px);padding-inline-end:calc(clamp(22px,3vw,40px) + 110px);
+  -webkit-mask:linear-gradient(#000 0 0) right/calc(100% - 150px) 100% no-repeat,url("../fractal/fringe-l.svg") left/150px auto repeat-y;
+          mask:linear-gradient(#000 0 0) right/calc(100% - 150px) 100% no-repeat,url("../fractal/fringe-l.svg") left/150px auto repeat-y}
+.weave .card{grid-column:6 / span 7}.weave.flip .card{grid-column:1 / span 7}
+.blob img{border-radius:0;box-shadow:none;
+  -webkit-mask:linear-gradient(#000 0 0) left/calc(100% - 140px) 100% no-repeat,url("../fractal/fringe-r.svg") right/140px auto repeat-y;
+          mask:linear-gradient(#000 0 0) left/calc(100% - 140px) 100% no-repeat,url("../fractal/fringe-r.svg") right/140px auto repeat-y}
+@media (max-width:860px){
+  .weave .card,.weave.flip .card{grid-column:1 / -1;padding:calc(clamp(22px,3vw,40px) + 70px) 22px 24px;margin:-110px 0 0;
+    -webkit-mask:linear-gradient(#000 0 0) bottom/100% calc(100% - 100px) no-repeat,url("../fractal/fringe-t.svg") top/auto 100px repeat-x;
+            mask:linear-gradient(#000 0 0) bottom/100% calc(100% - 100px) no-repeat,url("../fractal/fringe-t.svg") top/auto 100px repeat-x}
+  .blob img{-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("../fractal/fringe-b.svg") bottom/auto 90px repeat-x;
+            mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("../fractal/fringe-b.svg") bottom/auto 90px repeat-x}
+}
+
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="../../"><i class="walker-fig" aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
+    <nav class="nav" aria-label="עמודים">
+      <a class="chip" href="../../" aria-current="page">המשוטט</a>
+      <a class="chip" href="../../method/">לעומק השיטה</a>
+      <button class="chip marks-btn" type="button" aria-pressed="false">סימוני מקור</button>
+      <a class="chip go" href="../../mechanism/">לצאת לשוטט</a>
+    </nav>
+  </div>
+</header>
+
+<div class="pv"><div class="wrap"><b>דוגמה א׳: המלבנים מתמוססים</b><span>טיוטה להשוואה. העמוד החי לא השתנה.</span><a href="../fractal-b/">לדוגמה ב׳ ←</a><a href="../../">העמוד החי</a></div></div>
+<main>
+
+<section class="hero">
+  <div class="gridbg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-in">
+      <div class="copy">
+        <p class="kicker"><span class="tag t-doc">מתועד</span>פרקטיקה מתפתחת של שוטטות</p>
+        <h1><span class="s">להניח את</span><span class="l">המפה</span></h1>
+        <p class="lead prose"><span class="tag t-dec">הניסוח שלך, מתפתח</span>אנחנו לא הולכים לאיבוד רק כדי לאבד את הדרך. אנחנו משחררים לזמן מה את הצורך לדעת, לשלוט ולתכנן הכול מראש, כדי לפגוש את מה שלא יכולנו לצפות.</p>
+        <div class="abc" aria-hidden="true"><span>א׳</span><svg viewBox="0 0 220 34" preserveAspectRatio="none"><path d="M216 17 C190 2 170 32 146 17 S100 2 80 20 S36 30 4 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/></svg><span class="quiet">ב׳</span><span class="c">ג׳</span></div>
+        <p class="quiet prose"><span class="tag t-doc">מתועד</span>יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.</p>
+        <div class="btns"><a class="btn primary" href="../../mechanism/">לצאת עם המשוטט <small>(בבנייה)</small></a><a class="btn" href="#moves">שבע התנועות</a></div>
+      </div>
+      <figure class="blob">
+        <img src="../../img/getting-lost.jpg" alt="הדמות ההולכת של ליאל, בקו כחול, על שביל מתפתל בעיר מצוירת בצבעי מים" width="1000" height="699" fetchpriority="high">
+        <figcaption class="stamp"><b>Getting Lost Workshop</b><span>על פי איור מקורי של ליאל</span></figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="wrap"><div class="groundline"><i class="walker-fig" aria-hidden="true"></i><p class="credit">איור: ליאל</p></div></div>
+</section>
+
+<svg class="route" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M1080 0 C1060 60 860 30 760 70 S420 110 300 120"/><circle cx="760" cy="70" r="4"/></svg>
+
+<section class="chapter">
+  <div class="wrap">
+    <div class="weave">
+      <figure class="art">
+        <img src="../../img/ego-eco.jpg" alt="משמאל: EGO, האדם בראש פירמידה של בעלי חיים וצמחים. מימין: ECO, האדם אחד מתוך מעגל של יצורים הקשורים בקווים." width="1200" height="800" loading="lazy">
+        <figcaption>איור מושגי, לא תרשים מדעי.</figcaption>
+      </figure>
+      <div class="card">
+        <p class="num">01 · המבט האקוסיסטמי</p>
+        <h2>חלק מרשת חיה</h2>
+        <p><span class="tag t-dec">מתוך ההנחיה שלך</span>אנחנו לא יחידים נפרדים בעולם של חפצים נפרדים ומשאבים בלי סוף. אנחנו חלק מרשת חיה של קשרים: תלויים בה, תורמים לה, ומושפעים מהתנאים שמקיימים אותה.</p>
+        <p class="quiet">בתמונת EGO האדם עומד בראש פירמידה. בתמונת ECO הוא אחד מתוך רשת, תלוי בה כמו שהיא תלויה בו.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="route" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 C340 70 600 40 700 80 S980 100 1000 120"/><circle cx="700" cy="80" r="4"/></svg>
+
+<section class="chapter">
+  <div class="wrap">
+    <div class="weave flip">
+      <figure class="art">
+        <img src="../../img/machine-living.jpg" alt="משמאל: מכונית מפורקת לחלקיה, השלם שווה לסכום חלקיו. מימין: עץ עם שורשים, ציפורים ופטריות, השלם גדול מסכום חלקיו." width="1200" height="800" loading="lazy">
+        <figcaption>מכני מול אקוסיסטמי. איור מושגי.</figcaption>
+      </figure>
+      <div class="card">
+        <p class="num">02 · מכונה ויצור חי</p>
+        <h2>כשהשלם גדול מסכום חלקיו</h2>
+        <p><span class="tag t-prop">הצעת ניסוח</span>מכונה אפשר להבין לרוב דרך החלקים שלה. ליצור חי יש איכויות שצומחות מהקשרים בין החלקים: התהוות וסינרגיה. השוטטות שמה לב לרגעים שבהם המכלול מפתיע.</p>
+        <p class="quiet"><span class="tag t-doc">מתועד</span>במעבר הזה נפתחים שלושת המפגשים הראשונים בקורסים של תומר באוניברסיטה. זה משל, לא טענה מדעית.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="moves-sec" id="moves">
+  <div class="wrap">
+    <div class="moves-in">
+      <div class="copy">
+        <p class="kicker">03 · תנועת השיטה</p>
+        <h2>שבע תנועות, ברצף חי וחוזר</h2>
+        <p class="prose"><span class="tag t-dec">החלטה של תומר, 28.10</span>זה לא נוהל לינארי קשיח. התנועות משתנות בצורתן ובאורכן לפי ההקשר. אפשר ללחוץ על כל תנועה.</p>
+        <p class="back"><span class="tag t-doc">מתועד</span>מהחגיגה חוזרים אל הערך, בהבנה שהשתנתה.</p>
+      </div>
+      <div>
+        <ol class="loop" aria-label="שבע התנועות">
+<li style="--x:50.00%;--y:8.00%"><button type="button" data-d="מעניק כיוון." aria-pressed="true"><i>1</i><b>ערך</b></button></li>
+<li style="--x:82.84%;--y:23.81%"><button type="button" data-d="משהה את הצורך לשלוט ולמצוא תשובה מיד." aria-pressed="false"><i>2</i><b>שחרור</b></button></li>
+<li style="--x:90.95%;--y:59.35%"><button type="button" data-d="פותחת מפגש עם העולם." aria-pressed="false"><i>3</i><b>שוטטות</b></button></li>
+<li style="--x:68.22%;--y:87.84%"><button type="button" data-d="לעצמי, לאחר, למרחב, ולמה שביניהם." aria-pressed="false"><i>4</i><b>קשב</b></button></li>
+<li style="--x:31.78%;--y:87.84%"><button type="button" data-d="מזהה קשר או אפשרות." aria-pressed="false"><i>5</i><b>הבחנה</b></button></li>
+<li style="--x:9.05%;--y:59.35%"><button type="button" data-d="נותנת ביטוי למה שהתגלה." aria-pressed="false"><i>6</i><b>יצירה</b></button></li>
+<li style="--x:17.16%;--y:23.81%"><button type="button" data-d="רפלקציה שנשענת על הכרת תודה." aria-pressed="false"><i>7</i><b>חגיגה</b></button></li>
+          <li class="hub" aria-live="polite" style="left:auto;top:auto;transform:none"><i class="walker-fig" aria-hidden="true"></i><b id="hub-n">ערך</b><span id="hub-d">מעניק כיוון.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="invite">
+  <div class="wrap">
+    <div class="invite-in">
+      <p class="kicker">04 · לצאת לשוטט</p>
+      <h2>שלוש דרכים שכבר קיימות, ואחת שנבנית</h2>
+      <p class="prose"><span class="tag t-prop">הצעת ניסוח</span>אפשר להזמין סדנה לקבוצה, לשלב שוטטות קצרה במפגש קיים, או לצאת לבד עם המנגנון האינטראקטיבי, שנמצא בבנייה ואפשר כבר לנסות.</p>
+    </div>
+    <div class="formats">
+      <article class="card-post"><span class="yr">מאז 2014</span><h3>"הזמנה ללכת לאיבוד"</h3><p><span class="tag t-doc">מתועד</span>נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור.</p></article>
+      <article class="card-post"><span class="yr">עדשות 5R</span><h3>"סיפור המקום"</h3><p dir="ltr" style="text-align:right"><span class="tag t-doc">מתועד</span>REFEEL · REVIEW · RESPECT · RECONNECT · RECREATE</p></article>
+      <article class="card-post"><span class="yr">בתוך מפגש</span><h3>שוטטות קצרה</h3><p><span class="tag t-doc">מתועד</span>"תמונה אחת שמספרת משהו עליי": צילום בדרך לארוחה, ואחריו מעגל שיתוף.</p></article>
+    </div>
+    <div class="btns" style="margin-top:44px">
+      <a class="btn primary" href="../../mechanism/">לצאת עם המשוטט <small>(בבנייה)</small></a>
+      <a class="btn light" href="../../method/">לעומק השיטה</a>
+      <a class="btn light" href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">סדנאות בעושים קהילה</a>
+    </div>
+    <div class="walk"><i class="walker-fig" aria-hidden="true"></i><p>איור: ליאל</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>המשוטט האקוסיסטמי · פרקטיקה מתפתחת</span><span>איור הדמות: ליאל</span><a href="https://osimkehila.co.il/ecosystemic-flaneur/" target="_blank" rel="noopener">The Ecosystemic Flâneur בעושים קהילה</a></div></footer>
+
+<script>
+(function(){
+  var m=document.querySelector('.marks-btn');
+  m.addEventListener('click',function(){var on=document.documentElement.classList.toggle('marks');m.setAttribute('aria-pressed',on)});
+  var bs=document.querySelectorAll('.loop button'),n=document.getElementById('hub-n'),d=document.getElementById('hub-d');
+  bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');n.textContent=b.querySelector('b').textContent;d.textContent=b.dataset.d})});
+})();
+</script>
+</body>
+</html>
