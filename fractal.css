@@ -1,0 +1,54 @@
+/* Grid + fractal layer (variant B, chosen 2026-10-29): illustrations dissolve into a subdividing urban grid toward the text; fractal branches carry the dialogue */
+
+.hero .gridbg{background-image:url("fx/quadgrid.svg");-webkit-mask:linear-gradient(to left,#000 0%,#000 55%,rgba(0,0,0,.35) 100%);mask:linear-gradient(to left,#000 0%,#000 55%,rgba(0,0,0,.35) 100%)}
+.hero .gridbg{opacity:calc(var(--grid-op)*.6)}
+@media (max-width:860px){.hero .gridbg{opacity:calc(var(--grid-op)*.35)}}
+.moves-sec,.invite{isolation:isolate}
+.moves-sec::before,.invite::before{content:"";position:absolute;inset:0;z-index:-1;background:url("fx/quadgrid.svg") center/cover;opacity:.5;transform:scaleX(-1)}
+.invite::before{filter:invert(1);opacity:.22}
+.route{display:none}
+.chapter{padding-block:clamp(40px,6vw,80px)}
+
+/* B: the illustrations dissolve into the grid toward the text; text sits on open paper; fractal branches carry the dialogue */
+.weave{position:relative}
+.weave .art{grid-column:1 / span 7;position:relative;z-index:1}
+.weave .card{grid-column:8 / span 5;background:transparent;border:none;box-shadow:none;padding:0 clamp(8px,2vw,24px);position:relative;z-index:2}
+.weave.flip .art{grid-column:6 / span 7}
+.weave.flip .card{grid-column:1 / span 5}
+.weave .art img{border-radius:0;
+  -webkit-mask:linear-gradient(#000 0 0) right/calc(100% - 160px) 100% no-repeat,url("fx/fringe-l.svg") left/160px auto repeat-y;
+          mask:linear-gradient(#000 0 0) right/calc(100% - 160px) 100% no-repeat,url("fx/fringe-l.svg") left/160px auto repeat-y}
+.weave.flip .art img{
+  -webkit-mask:linear-gradient(#000 0 0) left/calc(100% - 160px) 100% no-repeat,url("fx/fringe-r.svg") right/160px auto repeat-y;
+          mask:linear-gradient(#000 0 0) left/calc(100% - 160px) 100% no-repeat,url("fx/fringe-r.svg") right/160px auto repeat-y}
+.weave::before{content:"";position:absolute;z-index:0;top:4%;bottom:4%;left:22%;width:36%;background:url("fx/branch.svg") right center/contain no-repeat;opacity:.45;pointer-events:none}
+.weave.flip::before{left:auto;right:22%;transform:scaleX(-1)}
+.weave .card::before{content:"";position:absolute;inset:-30px -10px;z-index:-1;background:url("fx/quadgrid.svg") center/1000px auto;opacity:.45;
+  -webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent)}
+.blob img{border-radius:0;box-shadow:none;
+  -webkit-mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("fx/fringe-r.svg") right/150px auto repeat-y;
+          mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("fx/fringe-r.svg") right/150px auto repeat-y}
+.blob::after{content:"";position:absolute;top:10%;bottom:10%;right:-38%;width:50%;background:url("fx/branch.svg") left center/contain no-repeat;transform:scaleX(-1);opacity:.6;pointer-events:none;z-index:-1}
+@media (max-width:860px){
+  .weave .art,.weave.flip .art,.weave .card,.weave.flip .card{grid-column:1 / -1}
+  .weave .card,.weave.flip .card{grid-row:2;margin:0;padding:8px 4px 0}
+  .weave .art img,.weave.flip .art img{-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x;
+            mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x}
+  .weave::before,.blob::after{display:none}
+  .blob img{-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x;
+            mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x}
+}
+
+/* deep page */
+
+.deep-hero .gridbg{background-image:url("fx/quadgrid.svg");opacity:calc(var(--grid-op)*.6)}
+.duo{position:relative;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
+.duo img{border-radius:0;-webkit-mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("fx/fringe-r.svg") right/150px auto repeat-y;mask:linear-gradient(#000 0 0) left/calc(100% - 150px) 100% no-repeat,url("fx/fringe-r.svg") right/150px auto repeat-y;position:relative;z-index:1}
+.duo .txt{position:relative;z-index:2}
+.duo::before{content:"";position:absolute;top:0;bottom:0;left:30%;width:34%;background:url("fx/branch.svg") left center/contain no-repeat;transform:scaleX(-1);opacity:.4;pointer-events:none}
+.quote,.constel .pr,.pair2 .pr{background:linear-gradient(color-mix(in srgb,var(--paper) 70%,transparent),color-mix(in srgb,var(--paper) 70%,transparent)),url("fx/quadgrid.svg") center/1100px auto,var(--paper)}
+.constel .mean{background:linear-gradient(color-mix(in srgb,var(--mustard) 10%,var(--paper)),color-mix(in srgb,var(--mustard) 10%,var(--paper)))}
+.deep-main > section{position:relative}
+#questions::before,#roots::before{content:"";position:absolute;inset:-40px 0;z-index:-1;background:url("fx/quadgrid.svg") center/1200px auto;opacity:.35;-webkit-mask:radial-gradient(closest-side,#000 20%,transparent);mask:radial-gradient(closest-side,#000 20%,transparent)}
+.deep-main{isolation:isolate}
+@media (max-width:860px){.duo img{-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x;mask:linear-gradient(#000 0 0) top/100% calc(100% - 90px) no-repeat,url("fx/fringe-b.svg") bottom/auto 90px repeat-x}.duo::before{display:none}.duo img{order:-1}}
