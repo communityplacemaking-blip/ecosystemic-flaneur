@@ -226,3 +226,4 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px}
   .loop .hub .walker-fig{display:none}
 }
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+[hidden]{display:none!important}
