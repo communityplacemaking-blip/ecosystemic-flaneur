@@ -41,7 +41,6 @@ html.marks .tag{display:inline-block}
 
 /* Liel's figure, coloured by tokens through a mask */
 .walker-fig{aspect-ratio:480/415;background:var(--ink);-webkit-mask:url("img/flaneur-figure.png") center bottom/contain no-repeat;mask:url("img/flaneur-figure.png") center bottom/contain no-repeat}
-.sub .walker-fig{-webkit-mask-image:url("../img/flaneur-figure.png");mask-image:url("../img/flaneur-figure.png")}
 
 /* bar */
 .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
