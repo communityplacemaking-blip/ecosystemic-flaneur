@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="he" dir="rtl" class="sub">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הספרייה | המשוטט האקוסיסטמי</title>
+<meta name="description" content="ספריית הידע של המשוטט האקוסיסטמי, עיצוב ראשון: רעיונות לשוטטות בדיאלוג עם המקום, מאגר כלים משתתפים, ותבניות מסע שמחברות ביניהם.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="library.css">
+</head>
+<body class="sub lib">
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="../"><i class="walker-fig" aria-hidden="true"></i>המשוטט האקוסיסטמי</a>
+    <nav class="nav" aria-label="עמודים">
+      <a class="chip" href="../">בית</a>
+      <a class="chip" href="../method/">השיטה</a>
+      <a class="chip" href="" aria-current="page">הספרייה</a>
+      <a class="chip go" href="../mechanism/">לצאת לשוטט</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="lib-hero">
+  <div class="wrap">
+    <p class="kicker">הספרייה · <span class="state s-proto">אב-טיפוס עיצובי</span></p>
+    <h1>ספריית הידע של המשוטט</h1>
+    <p class="lead">שני מאגרים עצמאיים, ותבניות מסע שמחברות ביניהם. אפשר להשתמש ברעיון או בכלי גם לבד, מחוץ לכל מסע.</p>
+    <p class="legend" aria-label="מקרא"><span class="state s-live">חי</span> עובד היום באתר <span class="state s-proto">אב-טיפוס</span> עיצוב לבדיקה, לקריאה בלבד <span class="state s-plan">מתוכנן</span> עוד לא קיים</p>
+
+    <div class="tri" role="navigation" aria-label="שלושת המבנים">
+      <a class="door d-a" href="#ideas">
+        <span class="door-l">א</span>
+        <b>רעיונות לשוטטות בדיאלוג עם המקום</b>
+        <span class="door-c"><span id="count-a">25</span> רשומות · <span class="state s-proto">אב-טיפוס</span></span>
+      </a>
+      <a class="door d-b" href="#tools">
+        <span class="door-l">ב</span>
+        <b>מאגר הכלים המשתתפים</b>
+        <span class="door-c">מחכה לרשומות ראשונות · <span class="state s-plan">מתוכנן</span></span>
+      </a>
+      <svg class="tri-lines" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="la" d="M300 0 C300 50 220 40 205 90"/>
+        <path class="lb" d="M100 0 C100 50 180 40 195 90"/>
+      </svg>
+      <a class="door d-c" href="#journeys">
+        <span class="door-l">ג</span>
+        <b>תבניות מסע</b>
+        <span class="door-c">מרכיבות מסע מתוך א ו־ב · זה לא מאגר שלישי</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- A -->
+<section class="repo repo-a" id="ideas" aria-labelledby="a-h">
+  <div class="wrap">
+    <div class="repo-head">
+      <span class="repo-l" aria-hidden="true">א</span>
+      <div>
+        <p class="kicker">מאגר א · <span class="state s-proto">אב-טיפוס</span></p>
+        <h2 id="a-h">רעיונות לשוטטות בדיאלוג עם המקום</h2>
+        <p class="prose">רעיונות, שאלות, תרגילים ותרגולים שמזמינים לפגוש מקום ולחקור אותו, לבד או בקבוצה.</p>
+      </div>
+    </div>
+
+    <div class="tools-bar">
+      <label class="search"><span class="sr">חיפוש</span><input id="q" type="search" placeholder="חיפוש רעיון…" autocomplete="off"></label>
+      <div class="filt" role="group" aria-label="סוג">
+        <button type="button" class="f on" data-k="all" aria-pressed="true">הכול</button>
+        <button type="button" class="f" data-k="practice" aria-pressed="false">תרגולים</button>
+        <button type="button" class="f" data-k="lens" aria-pressed="false">עדשות</button>
+      </div>
+      <div class="filt" role="group" aria-label="מרחב">
+        <button type="button" class="p on" data-p="all" aria-pressed="true">כל מרחב</button>
+        <button type="button" class="p" data-p="city" aria-pressed="false">עיר ורחוב</button>
+        <button type="button" class="p" data-p="neighborhood" aria-pressed="false">שכונה</button>
+        <button type="button" class="p" data-p="nature" aria-pressed="false">טבע או גינה</button>
+        <button type="button" class="p" data-p="institution" aria-pressed="false">מוסד</button>
+      </div>
+    </div>
+    <p class="shown" aria-live="polite"><span id="shown">25</span> מתוך <span id="total">25</span></p>
+
+    <div class="ideas" id="ideas-grid"></div>
+    <noscript><p>כדי לראות את הרשומות צריך JavaScript.</p></noscript>
+
+    <p class="repo-foot">אלה 25 התרגולים שהמשוטט משתמש בהם היום, מוצגים לקריאה בלבד. <span class="verify">שיוך למאגר בבדיקה</span> מסמן ארבע רשומות שעוד לא הוחלט אם הן שייכות למאגר א, למאגר ב או לשניהם. סימון המקור של כל רשומה נשאר פתוח עד שיתועד.</p>
+  </div>
+</section>
+
+<!-- B -->
+<section class="repo repo-b" id="tools" aria-labelledby="b-h">
+  <div class="wrap">
+    <div class="repo-head">
+      <span class="repo-l" aria-hidden="true">ב</span>
+      <div>
+        <p class="kicker">מאגר ב · <span class="state s-plan">מתוכנן</span></p>
+        <h2 id="b-h">מאגר הכלים המשתתפים</h2>
+        <p class="prose">מאגר עצמאי של כלים ומתודולוגיות שמעוררים תבונה קולקטיבית. הוא נפרד ממאגר א, ופתוח לתוספות.</p>
+      </div>
+    </div>
+
+    <div class="b-grid">
+      <div class="petals-wrap">
+        <div class="petals" role="group" aria-label="שש המטרות המרכזיות">
+          <button type="button" class="petal" style="left:50%;top:16%" data-i="0" aria-pressed="true"><i>1</i><span>הקשבה ושיח משותפים</span></button>
+          <button type="button" class="petal" style="left:79.4%;top:33%" data-i="1" aria-pressed="false"><i>2</i><span>העלאת ידע מבוזר ומקומי</span></button>
+          <button type="button" class="petal" style="left:79.4%;top:67%" data-i="2" aria-pressed="false"><i>3</i><span>למידה הדדית</span></button>
+          <button type="button" class="petal" style="left:50%;top:84%" data-i="3" aria-pressed="false"><i>4</i><span>חקירה ורפלקציה משותפות</span></button>
+          <button type="button" class="petal" style="left:20.6%;top:67%" data-i="4" aria-pressed="false"><i>5</i><span>יצירה ועשייה משותפות</span></button>
+          <button type="button" class="petal" style="left:20.6%;top:33%" data-i="5" aria-pressed="false"><i>6</i><span>גילוי מה שנוצר בין אנשים</span></button>
+          <div class="petals-hub"><b>תבונה<br>קולקטיבית</b><span>שש מטרות מרכזיות לתיוג</span></div>
+        </div>
+      </div>
+
+      <div class="shelf" aria-live="polite">
+        <div class="shelf-top">
+          <p class="kicker" id="shelf-n">מטרה 1</p>
+          <h3 id="shelf-t">הקשבה ושיח משותפים</h3>
+          <div class="seg" role="group" aria-label="סוג רשומה">
+            <button type="button" class="sg on" data-t="tool" aria-pressed="true">כלים <small>0</small></button>
+            <button type="button" class="sg" data-t="method" aria-pressed="false">מתודולוגיות שלמות <small>0</small></button>
+          </div>
+        </div>
+        <div class="shelf-empty">
+          <div class="slot-ghost" aria-hidden="true"></div><div class="slot-ghost" aria-hidden="true"></div><div class="slot-ghost" aria-hidden="true"></div>
+          <p><b>המדף הזה עוד ריק.</b> <span id="shelf-kind">כלים</span> ייכנסו אליו כשהמחבר יוסיף אותם, כל אחד עם מקור רשום ועם המהלך כפי שהוא מתואר במקור.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="anat">
+      <h3>איך תיראה רשומה במאגר</h3>
+      <p class="quiet">שתי תבניות ריקות. אין בהן תוכן, רק המבנה.</p>
+      <div class="anat-pair">
+        <article class="rec-tpl">
+          <header><span class="kind k-tool">כלי</span><span class="ph">שם הכלי</span></header>
+          <p class="def">פעילות עם מהלך מוגדר, שנכנסת לתוך מפגש. <span class="verify">הגדרה מוצעת</span></p>
+          <dl>
+            <div class="req"><dt>מטרות מרכזיות</dt><dd><span class="ph-chip">אחת או יותר מתוך השש</span></dd></div>
+            <div><dt>תפקיד בתהליך <small>(משני)</small></dt><dd class="roles"><span>הקשבה</span><span>חקירה</span><span>שיח</span><span>יצירה</span><span>עשייה</span></dd></div>
+            <div class="req"><dt>מקור וייחוס</dt><dd><span class="ph"></span></dd></div>
+            <div class="req"><dt>המהלך, כפי שמתואר במקור</dt><dd><span class="ph"></span></dd></div>
+            <div><dt>תנאי הנחיה</dt><dd><span class="ph"></span></dd></div>
+            <div><dt>מה נשאר לקציר המשותף</dt><dd><span class="ph"></span></dd></div>
+          </dl>
+        </article>
+        <article class="rec-tpl">
+          <header><span class="kind k-method">מתודולוגיה שלמה</span><span class="ph">שם המתודולוגיה</span></header>
+          <p class="def">גישה שלמה עם עקרונות משלה, שיכולה להכיל כמה כלים. <span class="verify">הגדרה מוצעת</span></p>
+          <dl>
+            <div class="req"><dt>מטרות מרכזיות</dt><dd><span class="ph-chip">אחת או יותר מתוך השש</span></dd></div>
+            <div class="req"><dt>תיאור, מתוך המקור</dt><dd><span class="ph"></span></dd></div>
+            <div class="req"><dt>מקור וייחוס</dt><dd><span class="ph"></span></dd></div>
+            <div class="req"><dt>הכלים שבה</dt><dd class="linked"><span class="ph-chip">כלי</span><span class="ph-chip">כלי</span><span class="ph-chip">…</span></dd></div>
+            <div><dt>המהלך, היכן שמתועד</dt><dd><span class="ph"></span></dd></div>
+            <div><dt>תנאי הנחיה</dt><dd><span class="ph"></span></dd></div>
+          </dl>
+        </article>
+      </div>
+      <div class="invite-add">
+        <span class="plus" aria-hidden="true">+</span>
+        <div><b>הזמנה להוסיף כלי</b><p>המאגר נבנה בהדרגה. כל כלי ייכנס עם מקור רשום ועם מהלך מתועד, ויתויג לפי שש המטרות המרכזיות. התפקיד בתהליך הוא שדה משני, ואינו מחליף אותן.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C -->
+<section class="repo repo-c" id="journeys" aria-labelledby="c-h">
+  <div class="wrap">
+    <div class="repo-head">
+      <span class="repo-l" aria-hidden="true">ג</span>
+      <div>
+        <p class="kicker">תבניות מסע</p>
+        <h2 id="c-h">מסע שמורכב משני המאגרים</h2>
+        <p class="prose">תבנית מסע איננה מאגר נוסף. היא בוחרת רעיונות ממאגר א וכלים ממאגר ב, ומסדרת אותם למסע שמתאים למקום, למשתתפים, למטרה ולהקשר.</p>
+      </div>
+    </div>
+
+    <div class="modepick">
+      <span>אופן המסע נבחר בתחילתו:</span>
+      <div class="seg big" role="tablist" aria-label="אופן המסע">
+        <button type="button" role="tab" class="mt on" id="tab-solo" aria-controls="jt-solo" aria-selected="true">שוטטות אישית</button>
+        <button type="button" role="tab" class="mt" id="tab-group" aria-controls="jt-group" aria-selected="false">שוטטות משתתפת</button>
+      </div>
+    </div>
+
+    <div class="band" aria-label="שבע התנועות חוצות את המסע כולו">
+      <ol><li>ערך</li><li>שחרור</li><li>שוטטות</li><li>קשב</li><li>הבחנה</li><li>יצירה</li><li>חגיגה</li></ol>
+      <p>שבע התנועות חוצות את המסע כולו. הן לא ממופות אחת לאחת לשלבים, למפגשים או לכלים.</p>
+    </div>
+
+    <!-- individual template -->
+    <div class="jt" id="jt-solo" role="tabpanel" aria-labelledby="tab-solo">
+      <div class="jt-head"><h3>המשוטט: יציאה אחת</h3><span class="state s-live">חי</span></div>
+      <p class="quiet">התבנית הראשונה לשוטטות אישית. המשוטט שואל כמה שאלות, ובכל שלב בוחר רעיון אחד ממאגר א.</p>
+      <ol class="path solo" id="solo-path"></ol>
+      <a class="btn primary" href="../mechanism/">לצאת עם המשוטט</a>
+    </div>
+
+    <!-- participatory template -->
+    <div class="jt" id="jt-group" role="tabpanel" aria-labelledby="tab-group" hidden>
+      <div class="jt-head"><h3>שוטטות בדיאלוג משתתף</h3><span class="state s-plan">תבנית עתידית · לא ממומשת</span></div>
+      <p class="quiet">תבנית ראשונה לשוטטות משתתפת. מסע של מפגשים, שבכל אחד מהם נפגשים רעיון לשוטטות במקום וכלי משתתף, וביניהם עובר קציר משותף.</p>
+      <div class="gj">
+        <div class="gj-prep"><b>הכנה עם המנחה</b><span>המקום או הקהילה, הסיפור והזהות, הכוחות והקשרים, האתגרים והמתחים, האנשים והקבוצות, המטרה, והעבודה שכבר נעשתה.</span></div>
+        <div class="gj-meet">
+          <b>מפגש</b>
+          <span class="sock s-a">רעיון ממאגר א</span>
+          <span class="sock s-b">כלי ממאגר ב</span>
+        </div>
+        <div class="gj-harvest" aria-label="קציר משותף"><span>קציר משותף</span></div>
+        <div class="gj-meet">
+          <b>מפגש</b>
+          <span class="sock s-a">רעיון ממאגר א</span>
+          <span class="sock s-b">כלי ממאגר ב</span>
+        </div>
+        <div class="gj-harvest" aria-label="קציר משותף"><span>קציר משותף</span></div>
+        <div class="gj-meet more-m"><b>…</b><span class="quiet small">מספר המפגשים נקבע בתכנון</span></div>
+      </div>
+      <ul class="open-q">
+        <li>הקציר המשותף נפרד מהעקבות האישיות. עקבה אישית נכנסת אליו רק אם מי שיצר אותה בחר לשתף.</li>
+        <li>שום קציר לא נשמר באתר. כללי בעלות, גישה, הסכמה ושימור עוד לא נקבעו.</li>
+        <li>עוד פתוח: איך מתבטאים ערך ושחרור בתהליך משתתף, ואיך בנוי מפגש.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="status-sec">
+  <div class="wrap">
+    <h2>מה חי, מה בבדיקה ומה מתוכנן</h2>
+    <div class="status-grid">
+      <div><span class="state s-live">חי</span><ul><li>המשוטט, לשוטטות אישית</li><li>25 התרגולים שבו</li></ul></div>
+      <div><span class="state s-proto">אב-טיפוס</span><ul><li>העמוד הזה: עיצוב הספרייה</li><li>מאגר א, לקריאה בלבד</li></ul></div>
+      <div><span class="state s-plan">מתוכנן</span><ul><li>הרשומות הראשונות במאגר ב</li><li>שוטטות בדיאלוג משתתף</li><li>קציר משותף</li></ul></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>המשוטט האקוסיסטמי · פרקטיקה מתפתחת</span><span>איורים: ליאל</span><a href="../">בית</a><a href="../method/">השיטה</a></div></footer>
+
+<script src="ideas-snapshot.js"></script>
+<script src="library.js"></script>
+</body>
+</html>
