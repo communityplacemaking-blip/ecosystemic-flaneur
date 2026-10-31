@@ -313,14 +313,14 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
         // a constellation: each role finds its own region of the circle; its alternatives sit beside it
         var base = -Math.PI / 2 + (i + .5) * (Math.PI * 2 / n) + (r() - .5) * .3;
         [{ rec: st.rec, why: st.why }].concat(st.alts).forEach(function (o, k) {
-          var a4 = base + (k === 0 ? 0 : (k % 2 ? 1 : -1) * (.32 + .1 * k)), rad = 86 + (k === 0 ? 30 : 8 + r() * 46);
+          var a4 = base + (k === 0 ? 0 : (k % 2 ? 1 : -1) * (.32 + .1 * k)), rad = 96 + (k === 0 ? 30 : 4 + r() * 46);
           out.push({ id: i + ':' + k, i: i, k: k, rec: o.rec, why: o.why, role: st.role, roleName: st.roleName, p: polar(rad, a4) });
         });
       } else {
         var t = n === 1 ? .5 : i / (n - 1);
         var ang = -Math.PI * .62 + t * Math.PI * 1.35 + (r() - .5) * .25;
         out.push({ id: i + ':0', i: i, k: 0, rec: st.rec, why: st.why, alts: st.alts, alt: -1, role: st.role, roleName: st.roleName,
-          p: polar(n === 1 ? 108 : 66 + t * 82 + (r() - .5) * 10, ang) });
+          p: polar(n === 1 ? 118 : 86 + t * 66 + (r() - .5) * 8, ang) });
       }
     });
     if (level === 'l4') relax(out);
@@ -335,7 +335,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
           var dx = b.p[0] - a.p[0], dy = b.p[1] - a.p[1], d = Math.hypot(dx, dy) || 1, min = 38;
           if (d < min) { var m = (min - d) / 2 / d; a.p[0] -= dx * m; a.p[1] -= dy * m; b.p[0] += dx * m; b.p[1] += dy * m; }
         });
-        var r = Math.hypot(a.p[0] - C, a.p[1] - C), ang = Math.atan2(a.p[1] - C, a.p[0] - C), rr = Math.max(72, Math.min(146, r));
+        var r = Math.hypot(a.p[0] - C, a.p[1] - C), ang = Math.atan2(a.p[1] - C, a.p[0] - C), rr = Math.max(90, Math.min(150, r));
         a.p = polar(rr, ang);
       });
     }
@@ -356,7 +356,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
   }
   function posOf(id) {
     var A = angles();
-    if (id === 'core') return [C, C - 34];
+    if (id === 'core') return [C, C - 50];
     if (id === 'magic' || id === 'challenge') return polar(PR, A[id]);
     if (id[0] === 'v') return S.visited[+id.slice(1)].p;
     if (id[0] === 'f') return S.fruits[+id.slice(1)].p;
@@ -493,24 +493,24 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
         if (hot('f' + k)) { el('circle', { cx: p[0], cy: p[1], r: 9, 'class': 'target-ring' }, g); var hit = el('circle', { cx: p[0], cy: p[1], r: 14, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('f' + k) }, g); hit.dataset.t = 'f' + k; }
       });
       ['r1', 'r2', 'r3'].forEach(function (c) { el('circle', { cx: here[0], cy: here[1], r: 6, 'class': 'ripple ' + c }, svg); });
-      if (S.visited.length) { var last = S.visited[S.visited.length - 1].p; el('path', { d: curve(last, [C, C + 40], -.35), 'class': 'ret' }, svg); }
+      if (S.visited.length) { var last = S.visited[S.visited.length - 1].p; el('path', { d: curve(last, [C, C + 58], -.35), 'class': 'ret' }, svg); }
     }
 
     // 3. the person at the centre; the value as a warm core; growth rings after each return
     var tgtP = (walking && openSeeds()[0]) ? openSeeds()[0].p : polar(120, -Math.PI / 2 - .4);
-    var dir = Math.atan2(tgtP[1] - C, tgtP[0] - C), rp = polar(48, dir), rq = polar(Math.max(60, Math.min(130, Math.hypot(tgtP[0] - C, tgtP[1] - C) - 10)), dir);
+    var dir = Math.atan2(tgtP[1] - C, tgtP[0] - C), rp = polar(64, dir), rq = polar(Math.max(76, Math.min(130, Math.hypot(tgtP[0] - C, tgtP[1] - C) - 10)), dir);
     el('line', { x1: rp[0], y1: rp[1], x2: rq[0], y2: rq[1], 'class': 'ray' }, svg);
-    el('circle', { cx: C, cy: C, r: S.a.curiosity && placeKnown ? 70 : 56, fill: 'url(#vglow)', 'class': 'value' }, svg);
-    for (var gr = 0; gr < S.rings; gr++) el('path', { d: ringD(46 + gr * 4.5, gr * 1.7, .5), 'class': 'grow' }, svg);
+    el('circle', { cx: C, cy: C, r: S.a.curiosity && placeKnown ? 92 : 76, fill: 'url(#vglow)', 'class': 'value' }, svg);
+    for (var gr = 0; gr < S.rings; gr++) el('path', { d: ringD(63 + gr * 4.5, gr * 1.7, .5), 'class': 'grow' }, svg);
     var cg = el('g', { 'class': hot('core') ? 'target' : '' }, svg);
-    el('circle', { cx: C, cy: C, r: 41, 'class': 'core' }, cg);
-    el('image', { href: FIG, x: C - 28, y: C - 24, width: 56, height: 48, preserveAspectRatio: 'xMidYMid meet' }, cg);
-    if (hot('core')) { el('circle', { cx: C, cy: C, r: 45, 'class': 'target-ring' }, cg); var ch = el('circle', { cx: C, cy: C, r: 42, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('core') }, cg); ch.dataset.t = 'core'; }
+    el('circle', { cx: C, cy: C, r: 58, 'class': 'core' }, cg);
+    el('image', { href: FIG, x: C - 46, y: C - 40, width: 92, height: 80, preserveAspectRatio: 'xMidYMid meet' }, cg);
+    if (hot('core')) { el('circle', { cx: C, cy: C, r: 62, 'class': 'target-ring' }, cg); var ch = el('circle', { cx: C, cy: C, r: 59, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('core') }, cg); ch.dataset.t = 'core'; }
 
     // the movement alive now, beside where one is
     if (walking && ph !== 'end') {
-      var at = S.cur > -1 ? S.visited[S.cur].p : [C, C + 56];
-      var off = S.cur > -1 ? (at[1] > C + 110 ? -22 : 25) : 0, y0 = S.cur > -1 ? at[1] + off : C + 58;
+      var at = S.cur > -1 ? S.visited[S.cur].p : [C, C + 74];
+      var off = S.cur > -1 ? (at[1] > C + 110 ? -22 : 25) : 0, y0 = S.cur > -1 ? at[1] + off : C + 76;
       txt(at[0], y0, 'mvword', MOVES[S.mv], svg);
       if (L !== 'l4' || S.help) txt(at[0], y0 + 12, 'nextword', 'ואולי: ' + MOVES[(S.mv + 1) % 7], svg);
     }
