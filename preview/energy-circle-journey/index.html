@@ -219,6 +219,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     <button type="button" class="opt small" data-lv="l3" id="lv3">משוטט מיומן</button>
     <button type="button" class="opt small" data-lv="l4" id="lv4">משוטט אקוסיסטמי</button>
     <button type="button" class="opt small voice-b" id="voice" aria-pressed="false">הקול: כבוי</button>
+    <select id="voicesel" class="opt small" aria-label="איזה קול" hidden></select>
   </div>
 </header>
 
@@ -259,7 +260,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
         <li>שוטטות משתתפת לא נכללה. היא עובדת ב-<span dir="ltr">/journey/</span>.</li>
         <li>שום דבר לא נשמר ולא נשלח. סגירת הדף מוחקת הכול.</li>
         <li>העדשות הן שם בלבד, בלי נוסח.</li>
-        <li>הקול הוא קול ההקראה של הדפדפן, בעברית אם יש בטלפון קול עברי. הוא מקריא את דברי האקוסיסטם ואת כותרת הכרטיס.</li>
+        <li>הקול: אם הוקלט קובץ למשפט (תיקייה <span dir="ltr">audio/</span>), הוא מתנגן. אחרת זה קול ההקראה של המכשיר, הקול העברי הטוב ביותר שנמצא בו. עדיין אין הקלטות.</li>
       </ul>
     </details>
   </div>
@@ -840,37 +841,80 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     said.textContent = t;
     if (t === lastLine) return;
     lastLine = t;
-    if (S.voice && synth) return voiceSay();
+    if (S.voice) return voiceSay();
     // without sound the being still speaks: it pulses for as long as it would take to say the line
     S.speaking = true; svg.classList.add('speaking');
     clearTimeout(speakT);
     speakT = setTimeout(function () { S.speaking = false; svg.classList.remove('speaking'); }, Math.min(5200, 1400 + t.length * 38));
   }
-  /* the voice: browser speech, off until tapped */
-  var synth = window.speechSynthesis, heVoice = null;
+  /* the voice. Order of preference:
+     1. a recorded file for this line (audio/<id>.mp3), when one exists: a real human or studio voice;
+     2. the best Hebrew voice the device has (online / natural / Google voices first), spoken sentence by sentence.
+     Off until tapped. */
+  function lineId() {
+    var L = S.level, ph = S.phase;
+    if (ph === 'emerge') return L === 'l4' ? 'emerge-l4' : 'emerge';
+    if (ph === 'walk') { if (S.pending != null) return 'connect'; if (L === 'l4' && !S.help) return 'walk-l4'; return 'walk-mv' + S.mv; }
+    return ph;
+  }
+  var synth = window.speechSynthesis, heVoice = null, heVoices = [], player = null;
+  // the lines that have a recording in audio/ (none yet). Add an id here once its file is uploaded.
+  var RECORDED = {};
+  function rank(v) {
+    var n = (v.name || '') + ' ' + (v.voiceURI || ''), r = 0;
+    if (/natural|neural|online|wavenet|premium|enhanced/i.test(n)) r += 4;
+    if (/google/i.test(n)) r += 2;
+    if (/microsoft|hila|avri/i.test(n)) r += 1;
+    if (!v.localService) r += 1;
+    return r;
+  }
   function pickVoice() {
     if (!synth) return;
-    var vs = synth.getVoices() || [];
-    heVoice = vs.filter(function (v) { return /^(he|iw)/i.test(v.lang); })[0] || null;
+    heVoices = (synth.getVoices() || []).filter(function (v) { return /^(he|iw)/i.test(v.lang); }).sort(function (a, b) { return rank(b) - rank(a); });
+    var keep = heVoice && heVoices.filter(function (v) { return v.voiceURI === heVoice.voiceURI; })[0];
+    heVoice = keep || heVoices[0] || null;
+    var sel = document.getElementById('voicesel');
+    sel.innerHTML = '';
+    heVoices.forEach(function (v, i) { var o = document.createElement('option'); o.value = i; o.textContent = v.name; if (v === heVoice) o.selected = true; sel.appendChild(o); });
+    sel.hidden = !S.voice || heVoices.length < 2;
   }
   if (synth) { pickVoice(); try { synth.onvoiceschanged = pickVoice; } catch (e) {} }
+  document.getElementById('voicesel').addEventListener('change', function (e) { heVoice = heVoices[+e.target.value] || heVoice; voiceSay(); });
+  function on() { S.speaking = true; svg.classList.add('speaking'); }
+  function off() { S.speaking = false; svg.classList.remove('speaking'); }
+  function stopAll() { try { synth && synth.cancel(); } catch (e) {} if (player) { player.pause(); player = null; } }
   function voiceSay() {
-    var h2 = card.querySelector('h2'), t = (lastLine + ' ' + (S.phase === 'walk' && h2 && S.pending == null ? h2.textContent : '')).trim();
-    try { synth.cancel(); } catch (e) {}
-    clearTimeout(speakT);
-    var u = new SpeechSynthesisUtterance(t);
-    u.lang = 'he-IL'; if (heVoice) u.voice = heVoice; u.rate = .92; u.pitch = .95;
-    u.onstart = function () { S.speaking = true; svg.classList.add('speaking'); };
-    u.onend = u.onerror = function () { S.speaking = false; svg.classList.remove('speaking'); };
-    synth.speak(u);
+    stopAll(); clearTimeout(speakT);
+    var id = lineId();
+    if (RECORDED[id]) {
+      var a = new Audio('audio/' + id + '.mp3'); player = a;
+      a.onplaying = on; a.onended = off;
+      a.onerror = function () { if (player === a) { player = null; tts(); } };
+      a.play().catch(function () { if (player === a) { player = null; tts(); } });
+      return;
+    }
+    tts();
+  }
+  function tts() {
+    if (!synth) return off();
+    var h2 = card.querySelector('h2'), t = (lastLine + ' ' + (S.phase === 'walk' && h2 && S.pending == null ? h2.textContent + '.' : '')).trim();
+    // sentence by sentence, with the device's own pause between them: calmer phrasing than one long run
+    var parts = t.split(/(?<=[.?!:])\s+/).map(function (x) { return x.trim(); }).filter(Boolean);
+    parts.forEach(function (x, i) {
+      var u = new SpeechSynthesisUtterance(x);
+      u.lang = heVoice ? heVoice.lang : 'he-IL'; try { if (heVoice) u.voice = heVoice; } catch (e) {} u.rate = .95; u.pitch = 1;
+      if (i === 0) u.onstart = on;
+      if (i === parts.length - 1) { u.onend = off; } u.onerror = off;
+      synth.speak(u);
+    });
   }
   var vb = document.getElementById('voice');
-  if (!synth) { vb.disabled = true; vb.textContent = 'הדפדפן הזה לא מדבר'; }
+  if (!synth && !Object.keys(RECORDED).length) { vb.disabled = true; vb.textContent = 'הדפדפן הזה לא מדבר'; }
   vb.addEventListener('click', function () {
     S.voice = !S.voice;
     vb.setAttribute('aria-pressed', S.voice ? 'true' : 'false');
     vb.textContent = 'הקול: ' + (S.voice ? 'פועל' : 'כבוי');
-    if (S.voice) { pickVoice(); voiceSay(); } else { try { synth.cancel(); } catch (e) {} S.speaking = false; svg.classList.remove('speaking'); }
+    if (S.voice) { pickVoice(); voiceSay(); } else { stopAll(); off(); document.getElementById('voicesel').hidden = true; }
   });
 
   /* ---------- wiring ---------- */
