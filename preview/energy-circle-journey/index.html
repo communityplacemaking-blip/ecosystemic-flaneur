@@ -46,14 +46,21 @@ button,input,textarea{font:inherit;color:inherit}
 @media (max-width:880px){.stage{grid-template-columns:1fr;gap:12px}}
 .circle-box{min-width:0;position:sticky;top:env(safe-area-inset-top,0px)}
 @media (max-width:880px){.circle-box{position:relative}}
-svg.ec{width:100%;max-width:640px;aspect-ratio:1;display:block;margin:0 auto;touch-action:manipulation;user-select:none}
-@media (max-width:880px){svg.ec{max-width:430px}}
+svg.ec{width:100%;max-width:560px;aspect-ratio:1;display:block;margin:0 auto;touch-action:manipulation;user-select:none}
+@media (max-width:880px){svg.ec{max-width:370px}}
 .moves{display:flex;flex-wrap:wrap;gap:4px 2px;justify-content:center;align-items:center;margin-top:8px}
 .moves .mv{border:none;background:none;padding:3px 9px;border-radius:999px;cursor:pointer;color:var(--muted);font-size:.95rem}
 .moves .mv.now{color:var(--ink);font-weight:700;background:color-mix(in srgb,var(--mustard) 26%,transparent)}
 .moves .mv.next{color:var(--ink);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--mustard) 75%,transparent)}
 .moves .mv.hid{display:none}
 .moves .sep{color:var(--line);font-size:.8rem}
+.speech{display:flex;gap:12px;align-items:center;max-width:560px;margin:4px auto 0;padding:10px 14px;background:var(--paper);border:1.5px solid var(--line);border-radius:18px}
+.speech .wanderer{flex:none;width:66px;height:66px;border-radius:50%;background:#F7F2E8;display:grid;place-items:center;overflow:hidden}
+.speech .wanderer img{width:58px;height:auto;display:block}
+.speech .said{margin:0;display:grid;gap:2px;min-width:0}
+.speech .who{font-size:.74rem;letter-spacing:.12em;font-weight:700;color:var(--teal)}
+.speech .words{font-size:1.06rem;line-height:1.45}
+.voice-b[aria-pressed="true"]{border-color:var(--teal);background:color-mix(in srgb,var(--teal) 18%,var(--paper));font-weight:700}
 .voice-of{text-align:center;font-size:.8rem;color:var(--muted);margin:4px 0 0}
 
 .talk{min-width:0;display:grid;gap:12px}
@@ -169,6 +176,21 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
 .ec .city circle:nth-of-type(5n){animation:twinkle 6.5s ease-in-out infinite 1.5s}
 .ec .seed.open{animation:call 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .ec .arc{animation:warm 8s ease-in-out infinite}
+/* the ecosystem as a being: a soft nucleus inside slowly turning membranes of light */
+.ec .aura{animation:glow 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ec .membrane{fill:none;stroke-linecap:round;transform-origin:200px 200px}
+.ec .membrane.m1{stroke:var(--teal-l);stroke-opacity:.55;stroke-width:1.3;animation:drift 38s linear infinite}
+.ec .membrane.m2{stroke:var(--amber);stroke-opacity:.6;stroke-width:1.1;animation:drift 52s linear infinite reverse}
+.ec .membrane.m3{stroke:var(--glow);stroke-opacity:.35;stroke-width:.9;stroke-dasharray:2 5;animation:drift 70s linear infinite}
+.ec .nucleus{animation:glow 4.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ec .voice-ring{fill:none;stroke:var(--amber);stroke-width:1.2;opacity:0}
+.ec.speaking .nucleus{animation:speak .55s ease-in-out infinite}
+.ec.speaking .aura{animation:glow 1.4s ease-in-out infinite}
+.ec.speaking .membrane.m1{animation-duration:9s} .ec.speaking .membrane.m2{animation-duration:13s}
+.ec.speaking .voice-ring{animation:vring 2.1s ease-out infinite}
+.ec.speaking .voice-ring.v2{animation-delay:.7s} .ec.speaking .voice-ring.v3{animation-delay:1.4s}
+@keyframes speak{50%{transform:scale(1.18)}}
+@keyframes vring{0%{opacity:.85;r:30}100%{opacity:0;r:100}}
 @keyframes glow{50%{transform:scale(1.09)}}
 @keyframes drift{to{transform:rotate(360deg)}}
 @keyframes twinkle{50%{fill-opacity:.6}}
@@ -187,8 +209,8 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
 <body>
 <header class="wrap top">
   <div>
-    <p class="kicker">קולה של האקוסיסטם · אב-טיפוס נפרד, לא באתר</p>
-    <h1>מעגל האנרגיה החי</h1>
+    <p class="kicker">אב-טיפוס נפרד, לא באתר</p>
+    <h1>קולה של האקוסיסטם</h1>
   </div>
   <div class="lvbar" role="group" aria-label="להחליף דרגה בכל רגע">
     <span class="lbl">דרגה</span>
@@ -196,12 +218,17 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     <button type="button" class="opt small" data-lv="l2" id="lv2">משוטט מתחיל</button>
     <button type="button" class="opt small" data-lv="l3" id="lv3">משוטט מיומן</button>
     <button type="button" class="opt small" data-lv="l4" id="lv4">משוטט אקוסיסטמי</button>
+    <button type="button" class="opt small voice-b" id="voice" aria-pressed="false">הקול: כבוי</button>
   </div>
 </header>
 
 <main class="wrap stage">
   <div class="circle-box">
-    <svg class="ec" id="ec" viewBox="0 0 400 400" role="img" aria-label="מעגל האנרגיה: אתם במרכז, המקום בטבעת, ומה שמתהווה ביניכם"></svg>
+    <svg class="ec" id="ec" viewBox="0 0 400 400" role="img" aria-label="האקוסיסטם: ישות של אור במרכז, המקום בטבעת, ומה שמתהווה ביניכם"></svg>
+    <div class="speech" id="speech">
+      <div class="wanderer"><img src="../../img/flaneur-figure.png" alt="המשוטט, האיור של ליאל"></div>
+      <p class="said" aria-live="polite"><span class="who">האקוסיסטם</span><span class="words" id="said"></span></p>
+    </div>
     <div class="moves" id="moves" aria-label="שבע התנועות"></div>
     <p class="voice-of" id="voice-of">שבע התנועות משנות את ההתנהגות של המעגל כולו. אפשר לגעת בכל אחת, ולחזור לכל אחת.</p>
   </div>
@@ -221,6 +248,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
       <h3>חדש באב-טיפוס הזה, לבדיקה</h3>
       <ul>
         <li>המעגל עצמו: שלוש השכבות, הזרעים, החוטים, הניצנים וטבעות הצמיחה.</li>
+        <li>האקוסיסטם כישות במרכז, והמשפטים שהוא אומר בכל שלב. הנוסח שלי, לבדיקה.</li>
         <li>החיבורים: נוצרים רק כשאתם בוחרים למה פרי מתחבר. המעגל לא מנחש קשרים.</li>
         <li>התנועה "של עכשיו" זזה מעצמה בכמה רגעים (יציאה לתחנה, פרי, חיבור, חזרה). זה כלל של האב-טיפוס, לא שיוך של תנועה לתחנה.</li>
         <li>בדרגה האקוסיסטמית: כל החלופות שהמנוע מצא מופיעות כקבוצת כוכבים, בלי סדר.</li>
@@ -231,11 +259,12 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
         <li>שוטטות משתתפת לא נכללה. היא עובדת ב-<span dir="ltr">/journey/</span>.</li>
         <li>שום דבר לא נשמר ולא נשלח. סגירת הדף מוחקת הכול.</li>
         <li>העדשות הן שם בלבד, בלי נוסח.</li>
+        <li>הקול הוא קול ההקראה של הדפדפן, בעברית אם יש בטלפון קול עברי. הוא מקריא את דברי האקוסיסטם ואת כותרת הכרטיס.</li>
       </ul>
     </details>
   </div>
 </main>
-<footer><div class="wrap">המשוטט האקוסיסטמי · אב-טיפוס חקירה. לא מחובר לאתר ולא משנה את A, את B, את <span dir="ltr">/journey/</span> או את מאגר א · הדמות במרכז: האיור של ליאל.</div></footer>
+<footer><div class="wrap">המשוטט האקוסיסטמי · אב-טיפוס חקירה. לא מחובר לאתר ולא משנה את A, את B, את <span dir="ltr">/journey/</span> או את מאגר א · הדמות ליד דברי האקוסיסטם: האיור של ליאל.</div></footer>
 
 <script src="../../library/ideas-snapshot.js"></script>
 <script src="../../journey/knowledge.js"></script>
@@ -385,7 +414,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
   function draw() {
     var ph = S.phase, L = S.level || 'l2';
     while (svg.firstChild) svg.firstChild.remove();
-    svg.setAttribute('class', 'ec ' + L + ' mv' + S.mv);
+    svg.setAttribute('class', 'ec ' + L + ' mv' + S.mv + (S.speaking ? ' speaking' : ''));
     var defs = el('defs', {}, svg);
     [['vglow', '.85'], ['nglow', '.7']].forEach(function (g) {
       var rg = el('radialGradient', { id: g[0] }, defs);
@@ -396,7 +425,15 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     el('feGaussianBlur', { stdDeviation: '1.6', result: 'b' }, f);
     var mg = el('feMerge', {}, f); el('feMergeNode', { 'in': 'b' }, mg); el('feMergeNode', { 'in': 'SourceGraphic' }, mg);
 
-    el('circle', { cx: C, cy: C, r: 198, 'class': 'disc' }, svg);
+    var dg = el('radialGradient', { id: 'discg' }, defs);
+    el('stop', { offset: '0%', 'stop-color': 'var(--disc)', 'stop-opacity': '1' }, dg);
+    el('stop', { offset: '82%', 'stop-color': 'var(--disc)', 'stop-opacity': '1' }, dg);
+    el('stop', { offset: '100%', 'stop-color': 'var(--disc)', 'stop-opacity': '0' }, dg);
+    var bg = el('radialGradient', { id: 'beingg' }, defs);
+    [['0%', '#FFF6DF', '.95'], ['30%', '#E3A857', '.75'], ['65%', '#5FC4BC', '.32'], ['100%', '#5FC4BC', '0']].forEach(function (x) { el('stop', { offset: x[0], 'stop-color': x[1], 'stop-opacity': x[2] }, bg); });
+    var ng = el('radialGradient', { id: 'nucg' }, defs);
+    [['0%', '#FFFDF8', '1'], ['60%', '#F7E2B0', '.95'], ['100%', '#E3A857', '.85']].forEach(function (x) { el('stop', { offset: x[0], 'stop-color': x[1], 'stop-opacity': x[2] }, ng); });
+    el('circle', { cx: C, cy: C, r: 198, fill: 'url(#discg)', 'class': 'disc' }, svg);
     var city = el('g', { 'class': 'city' }, svg), r = rng(.4242), pts = [];
     for (var i = 0; i < 70; i++) { var a = r() * Math.PI * 2, d = 50 + Math.sqrt(r()) * 140; pts.push(polar(d, a)); }
     pts.forEach(function (p, i) {
@@ -502,9 +539,13 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     el('line', { x1: rp[0], y1: rp[1], x2: rq[0], y2: rq[1], 'class': 'ray' }, svg);
     el('circle', { cx: C, cy: C, r: S.a.curiosity && placeKnown ? 92 : 76, fill: 'url(#vglow)', 'class': 'value' }, svg);
     for (var gr = 0; gr < S.rings; gr++) el('path', { d: ringD(63 + gr * 4.5, gr * 1.7, .5), 'class': 'grow' }, svg);
-    var cg = el('g', { 'class': hot('core') ? 'target' : '' }, svg);
-    el('circle', { cx: C, cy: C, r: 58, 'class': 'core' }, cg);
-    el('image', { href: FIG, x: C - 46, y: C - 40, width: 92, height: 80, preserveAspectRatio: 'xMidYMid meet' }, cg);
+    ['v1', 'v2', 'v3'].forEach(function (c) { el('circle', { cx: C, cy: C, r: 30, 'class': 'voice-ring ' + c }, svg); });
+    var cg = el('g', { 'class': 'being' + (hot('core') ? ' target' : '') }, svg);
+    el('circle', { cx: C, cy: C, r: 60, fill: 'url(#beingg)', 'class': 'aura' }, cg);
+    el('path', { d: ringD(44, .7, 2.2), 'class': 'membrane m1' }, cg);
+    el('path', { d: ringD(36, 2.9, 1.8), 'class': 'membrane m2' }, cg);
+    el('path', { d: ringD(52, 4.1, 1.4), 'class': 'membrane m3' }, cg);
+    el('circle', { cx: C, cy: C, r: 19, fill: 'url(#nucg)', 'class': 'nucleus' }, cg);
     if (hot('core')) { el('circle', { cx: C, cy: C, r: 62, 'class': 'target-ring' }, cg); var ch = el('circle', { cx: C, cy: C, r: 59, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('core') }, cg); ch.dataset.t = 'core'; }
 
     // the movement alive now, beside where one is
@@ -571,6 +612,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     document.querySelectorAll('[data-lv]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lv === S.level ? 'true' : 'false'); });
     card.innerHTML = '';
     (CARDS[S.phase] || CARDS.path)();
+    speak();
     if (focus) { var t = card.querySelector('h2'); if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); } }
   }
   function head(k, title, sub) {
@@ -599,7 +641,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
       head('להכיר את המשוטט', 'להניח את המפה');
       card.appendChild(h('p', { text: 'אנחנו לא הולכים לאיבוד רק כדי לאבד את הדרך. אנחנו משחררים לזמן מה את הצורך לדעת, לשלוט ולתכנן הכול מראש, כדי לפגוש את מה שלא יכולנו לצפות.' }));
       card.appendChild(h('p', { 'class': 'sub', text: 'יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.' }));
-      card.appendChild(h('p', { 'class': 'sub', text: 'במעגל: אתם במרכז. סביבכם יופיע המקום. מה שיתהווה ביניכם יתגלה בדרך.' }));
+      card.appendChild(h('p', { 'class': 'sub', text: 'במעגל: במרכז האקוסיסטם, ישות של אור שמלווה אתכם. סביבו יופיע המקום. מה שיתהווה ביניכם יתגלה בדרך.' }));
       card.appendChild(h('div', { 'class': 'acts' }, [h('button', { type: 'button', 'class': 'btn primary', onclick: function () { go('level'); } }, ['הלאה'])]));
     },
     level: function () {
@@ -771,6 +813,65 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
     card.appendChild(box);
     lensChips();
   }
+
+  /* ---------- the ecosystem speaks: one line per moment, guiding to the next step ---------- */
+  function utter() {
+    var L = S.level, ph = S.phase;
+    if (ph === 'path') return 'ברוכים הבאים למרחב שלכם. אני האקוסיסטם, ואלווה אתכם בשוטטות. מאיפה תרצו להתחיל?';
+    if (ph === 'intro') return 'לפני שיוצאים, אפשר להניח את המפה. כשתהיו מוכנים, הלאה.';
+    if (ph === 'level') return 'באיזו דרגה תרצו לשוטט איתי היום?';
+    if (ph === 'mode') return 'איך המסע הזה ייראה?';
+    if (ph === 'place') return 'ספרו לי על המקום: מה הקסם שלו, ומה האתגר שלו.';
+    if (ph === 'attract') return 'מה מושך אתכם שם? זה יישב בלב שלי, ואליו נחזור בסוף.';
+    if (ph === 'heard') return 'זה מה ששמעתי מכם. אפשר לתקן אותי.';
+    if (ph === 'emerge') return L === 'l4' ? 'כל מה שמצאתי פתוח לפניכם, בלי סדר. בחרו מה שקורא לכם.' : 'משהו מתהווה סביבי. ' + (openSeeds()[0] ? 'הזרע הראשון מחכה: ' + seedRec(openSeeds()[0]).rec.name + '.' : '');
+    if (ph === 'walk') {
+      if (S.pending != null) return 'נקטף פרי. למה הוא מתחבר אצלכם? געו במשהו שמהבהב.';
+      if (L === 'l4' && !S.help) return 'אני כאן. כל תנועה פתוחה, ואפשר לחזור אליי בכל רגע.';
+      return 'עכשיו חי: ' + MOVES[S.mv] + '. ואני מזמין אתכם אל ' + MOVES[(S.mv + 1) % 7] + '.';
+    }
+    if (ph === 'return') return 'חזרו אל מה שמשך אתכם בהתחלה. מה אתם מבינים עכשיו?';
+    if (ph === 'end') return 'תודה על השוטטות. מה שגיליתם נשאר אצלי, כטבעת צמיחה.';
+    return '';
+  }
+  var said = document.getElementById('said'), lastLine = '', speakT = null;
+  function speak() {
+    var t = utter();
+    said.textContent = t;
+    if (t === lastLine) return;
+    lastLine = t;
+    if (S.voice && synth) return voiceSay();
+    // without sound the being still speaks: it pulses for as long as it would take to say the line
+    S.speaking = true; svg.classList.add('speaking');
+    clearTimeout(speakT);
+    speakT = setTimeout(function () { S.speaking = false; svg.classList.remove('speaking'); }, Math.min(5200, 1400 + t.length * 38));
+  }
+  /* the voice: browser speech, off until tapped */
+  var synth = window.speechSynthesis, heVoice = null;
+  function pickVoice() {
+    if (!synth) return;
+    var vs = synth.getVoices() || [];
+    heVoice = vs.filter(function (v) { return /^(he|iw)/i.test(v.lang); })[0] || null;
+  }
+  if (synth) { pickVoice(); try { synth.onvoiceschanged = pickVoice; } catch (e) {} }
+  function voiceSay() {
+    var h2 = card.querySelector('h2'), t = (lastLine + ' ' + (S.phase === 'walk' && h2 && S.pending == null ? h2.textContent : '')).trim();
+    try { synth.cancel(); } catch (e) {}
+    clearTimeout(speakT);
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'he-IL'; if (heVoice) u.voice = heVoice; u.rate = .92; u.pitch = .95;
+    u.onstart = function () { S.speaking = true; svg.classList.add('speaking'); };
+    u.onend = u.onerror = function () { S.speaking = false; svg.classList.remove('speaking'); };
+    synth.speak(u);
+  }
+  var vb = document.getElementById('voice');
+  if (!synth) { vb.disabled = true; vb.textContent = 'הדפדפן הזה לא מדבר'; }
+  vb.addEventListener('click', function () {
+    S.voice = !S.voice;
+    vb.setAttribute('aria-pressed', S.voice ? 'true' : 'false');
+    vb.textContent = 'הקול: ' + (S.voice ? 'פועל' : 'כבוי');
+    if (S.voice) { pickVoice(); voiceSay(); } else { try { synth.cancel(); } catch (e) {} S.speaking = false; svg.classList.remove('speaking'); }
+  });
 
   /* ---------- wiring ---------- */
   function onHit(t) {
