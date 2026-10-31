@@ -162,10 +162,22 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
 .ec.l1 .thread{stroke-opacity:.45}
 .ec.l2 .thread{stroke-opacity:.4}
 .ec.l4 .suggest{display:none}
+/* ambient life, always on: the circle breathes, the city drifts and twinkles, open seeds call softly */
+.ec .value{animation:glow 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ec .city{animation:drift 300s linear infinite;transform-origin:200px 200px}
+.ec .city circle:nth-of-type(3n){animation:twinkle 4.5s ease-in-out infinite}
+.ec .city circle:nth-of-type(5n){animation:twinkle 6.5s ease-in-out infinite 1.5s}
+.ec .seed.open{animation:call 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ec .arc{animation:warm 8s ease-in-out infinite}
+@keyframes glow{50%{transform:scale(1.09)}}
+@keyframes drift{to{transform:rotate(360deg)}}
+@keyframes twinkle{50%{fill-opacity:.6}}
+@keyframes call{50%{transform:scale(1.35);stroke-opacity:.5}}
+@keyframes warm{50%{stroke-width:6.5}}
 @keyframes march{to{stroke-dashoffset:-24}}
 @keyframes ripple{0%{opacity:.7;r:6}100%{opacity:0;r:48}}
 @keyframes bloom{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
-@keyframes breathe{50%{transform:scale(1.012)}}
+@keyframes breathe{50%{transform:scale(1.025)}}
 @keyframes pulse{50%{opacity:.45}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes appear{from{opacity:0}to{opacity:1}}
@@ -448,7 +460,7 @@ footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px
         if (L === 'l1' && !isOpen) return;
         var g = el('g', { 'class': S.fresh.emerge ? 'appear' : '', style: S.fresh.emerge && !reduce ? 'animation-delay:' + (si * .35) + 's' : null }, svg);
         if (isOpen && L !== 'l4' && !pick) el('path', { d: curve(here, s.p, .2), 'class': 'ahead' }, g);
-        el('circle', { cx: s.p[0], cy: s.p[1], r: isOpen ? (L === 'l4' && s.k > 0 ? 5.5 : 7) : 4.5, 'class': 'seed', 'stroke-opacity': isOpen ? .9 : .32 }, g);
+        el('circle', { cx: s.p[0], cy: s.p[1], r: isOpen ? (L === 'l4' && s.k > 0 ? 5.5 : 7) : 4.5, 'class': 'seed' + (isOpen ? ' open' : ''), 'stroke-opacity': isOpen ? .9 : .32 }, g);
         el('circle', { cx: s.p[0], cy: s.p[1], r: isOpen ? 2.2 : 1.5, 'class': 'seed-dot' }, g);
         var name = seedRec(s).rec.name;
         if (L === 'l1' || L === 'l2' && isOpen) txt(s.p[0], s.p[1] + 18, 'seed-l', words(name, 4), g);
