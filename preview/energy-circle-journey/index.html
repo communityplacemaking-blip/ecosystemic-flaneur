@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מעגל האנרגיה החי</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap">
+<style>
+/* Layout: one living circle is the page; a quiet companion column speaks beside it (below it on a phone).
+   Tokens follow the site's own system: cream paper, navy ink, mustard, turquoise, terracotta, Heebo. */
+:root{
+  --bg:#F7F2E8; --paper:#FFFDF8; --sand:#EFE6D3; --ink:#0F2D4A; --muted:#51657A; --line:#DCD1BD;
+  --mustard:#D4A72C; --teal:#1E8C86; --terra:#B5573A;
+  --disc:#0F2D4A; --glow:#F7F2E8; --amber:#E3A857; --teal-l:#5FC4BC; --terra-l:#E0876A;
+  --font:"Heebo",system-ui,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1A28; --paper:#12263A; --sand:#16304A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
+  --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --disc:#081521; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1A28; --paper:#12263A; --sand:#16304A; --ink:#EDE6D6; --muted:#A9B6C3; --line:#2A4058;
+  --mustard:#E2B947; --teal:#4FC1B9; --terra:#E39478; --disc:#081521; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.65;margin:0;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{line-height:1.15;margin:0;text-wrap:balance}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mustard);outline-offset:2px}
+.top{padding-block:20px 6px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 18px}
+.top h1{font-size:clamp(1.6rem,3.6vw,2.3rem);letter-spacing:-.01em}
+.kicker{font-size:.78rem;letter-spacing:.14em;font-weight:700;color:var(--terra);margin:0}
+.lvbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lvbar .lbl{font-size:.8rem;color:var(--muted)}
+.opt{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 13px;cursor:pointer;font-size:.92rem;line-height:1.3}
+.opt[aria-pressed="true"]{border-color:var(--mustard);background:color-mix(in srgb,var(--mustard) 22%,var(--paper));font-weight:700}
+.opt:hover{border-color:var(--ink)}
+.opt.small{font-size:.82rem;padding:3px 10px}
+
+.stage{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:26px;align-items:start;padding-block:6px 26px}
+@media (max-width:880px){.stage{grid-template-columns:1fr;gap:12px}}
+.circle-box{min-width:0;position:sticky;top:env(safe-area-inset-top,0px)}
+@media (max-width:880px){.circle-box{position:relative}}
+svg.ec{width:100%;max-width:640px;aspect-ratio:1;display:block;margin:0 auto;touch-action:manipulation;user-select:none}
+@media (max-width:880px){svg.ec{max-width:430px}}
+.moves{display:flex;flex-wrap:wrap;gap:4px 2px;justify-content:center;align-items:center;margin-top:8px}
+.moves .mv{border:none;background:none;padding:3px 9px;border-radius:999px;cursor:pointer;color:var(--muted);font-size:.95rem}
+.moves .mv.now{color:var(--ink);font-weight:700;background:color-mix(in srgb,var(--mustard) 26%,transparent)}
+.moves .mv.next{color:var(--ink);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--mustard) 75%,transparent)}
+.moves .mv.hid{display:none}
+.moves .sep{color:var(--line);font-size:.8rem}
+.voice-of{text-align:center;font-size:.8rem;color:var(--muted);margin:4px 0 0}
+
+.talk{min-width:0;display:grid;gap:12px}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px}
+.card .k{font-size:.76rem;letter-spacing:.12em;font-weight:700;color:var(--teal);margin:0}
+.card h2{font-size:1.5rem}
+.card p{margin:0}
+.sub{color:var(--muted);font-size:.95rem}
+.inv{font-size:1.05rem}
+.src{font-size:.8rem;color:var(--muted)}
+.paths,.levels{display:grid;gap:8px}
+.choice{display:grid;gap:2px;text-align:start;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 14px;cursor:pointer}
+.choice b{font-size:1.02rem}
+.choice span{font-size:.88rem;color:var(--muted)}
+.choice em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--terra)}
+.choice:hover{border-color:var(--ink)}
+.choice[aria-pressed="true"]{border-color:var(--mustard);background:color-mix(in srgb,var(--mustard) 14%,var(--paper))}
+.choice[disabled]{opacity:.55;cursor:default}
+label.f{display:grid;gap:3px;font-size:.86rem;color:var(--muted)}
+label.f input,label.f textarea{font-size:1rem;color:var(--ink);padding:8px 11px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);width:100%}
+label.f textarea{min-height:64px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--mustard);border-color:var(--mustard);color:#0F2D4A;font-weight:700}
+.btn.fruit{border-color:var(--amber);font-weight:700}
+.btn.fruit.w{border-color:var(--teal)}
+.linkish{background:none;border:none;padding:2px 0;color:var(--teal);text-decoration:underline;cursor:pointer;font-size:.9rem}
+.why{font-size:.88rem}
+.why summary{cursor:pointer;color:var(--teal)}
+.why ul{margin:6px 0 0;padding-inline-start:18px}
+.next{border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:6px;font-size:.95rem}
+.next b{color:var(--terra)}
+.tip{font-size:.88rem;background:var(--sand);border-radius:10px;padding:8px 12px}
+.heard{display:grid;gap:6px;margin:0}
+.heard div{display:grid;grid-template-columns:76px 1fr;gap:8px;font-size:.92rem}
+.heard dt{color:var(--muted)} .heard dd{margin:0}
+.cel{border-inline-start:3px solid var(--mustard);padding-inline-start:12px;display:grid;gap:6px}
+.cel ul{margin:0;padding-inline-start:18px;font-size:.93rem}
+.two{display:grid;gap:8px}
+.two q{display:block;font-size:1.05rem}
+.status{font-size:.85rem;color:var(--muted)}
+details.real{background:var(--sand);border-radius:14px;padding:12px 16px}
+details.real summary{cursor:pointer;font-weight:700}
+details.real ul{margin:6px 0;padding-inline-start:18px;font-size:.9rem}
+details.real h3{font-size:.95rem;margin-top:8px}
+footer{padding-block:20px 36px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line)}
+
+/* ---------- the circle ---------- */
+.ec .disc{fill:var(--disc)}
+.ec .city line{stroke:var(--glow);stroke-opacity:.07;stroke-width:.6}
+.ec .city circle{fill:var(--glow);fill-opacity:.15}
+.ec .place{fill:none;stroke:var(--teal-l);stroke-opacity:.5;stroke-width:1.4;transition:opacity 1s}
+.ec .place.off{opacity:.12}
+.ec .pname{font-size:9.5px;fill:var(--glow);fill-opacity:.6;font-family:var(--font);text-anchor:middle;letter-spacing:.06em}
+.ec .arc{fill:none;stroke-linecap:round;stroke-width:5;transition:stroke-width .3s}
+.ec .arc.m{stroke:var(--amber)} .ec .arc.c{stroke:var(--terra-l)}
+.ec .arc-l{font-size:9px;fill:var(--glow);fill-opacity:.8;font-family:var(--font);text-anchor:middle}
+.ec .lens{fill:none;stroke:var(--glow);stroke-opacity:.16;stroke-dasharray:2 5;stroke-width:1;transition:stroke-opacity .5s}
+.ec .lens.on{stroke:var(--teal-l);stroke-opacity:.75;stroke-width:1.4}
+.ec .lens-l{font-size:7.5px;fill:var(--glow);fill-opacity:.45;font-family:var(--font);text-anchor:middle}
+.ec .core{fill:var(--glow)}
+.ec .grow{fill:none;stroke:var(--amber);stroke-opacity:.6;stroke-width:1}
+.ec .value{transition:opacity .8s}
+.ec .ray{stroke:var(--amber);stroke-width:1.2;stroke-dasharray:1 4;stroke-linecap:round;opacity:0;transition:opacity .8s}
+.ec .suggest{fill:none;stroke:var(--glow);stroke-opacity:.22;stroke-width:1;stroke-dasharray:1 6;stroke-linecap:round}
+.ec .path{fill:none;stroke:var(--amber);stroke-width:2.2;stroke-linecap:round}
+.ec .ahead{fill:none;stroke:var(--glow);stroke-opacity:.4;stroke-width:1.1;stroke-dasharray:3 5}
+.ec .node{fill:var(--amber)}
+.ec .node.past{fill-opacity:.78}
+.ec .lensmark{fill:none;stroke:var(--teal-l);stroke-width:1.2}
+.ec .seed{fill:none;stroke:var(--glow);stroke-width:1.4}
+.ec .seed-dot{fill:var(--glow);fill-opacity:.6}
+.ec .seed-l{font-size:8.5px;fill:var(--glow);fill-opacity:.88;font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .seed-l.dim{fill-opacity:.5;font-size:7.5px}
+.ec .num{font-size:7px;font-weight:700;fill:#0F2D4A;text-anchor:middle;font-family:var(--font);pointer-events:none}
+.ec .hit{fill:transparent;cursor:pointer}
+.ec .thread{fill:none;stroke:var(--teal-l);stroke-width:1.3;stroke-opacity:.6;transition:stroke-opacity .6s,stroke-width .6s}
+.ec .thread-l{font-size:7.5px;fill:var(--teal-l);font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .spark.a{fill:var(--amber)} .ec .spark.w{fill:var(--teal-l)}
+.ec .spark-l{font-size:8px;fill:var(--glow);fill-opacity:.85;font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .bud{fill:var(--terra-l);stroke:var(--glow);stroke-width:.6;stroke-opacity:.6;transform-box:fill-box;transform-origin:center}
+.ec .ripple{fill:none;stroke:var(--glow);stroke-width:1;opacity:0}
+.ec .ret{fill:none;stroke:var(--amber);stroke-width:1.4;stroke-dasharray:2 4;opacity:0;transition:opacity .8s}
+.ec .mvword{font-size:10px;font-weight:700;fill:var(--amber);font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .nextword{font-size:8.5px;fill:var(--glow);fill-opacity:.7;font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .intent{font-size:8px;fill:#0F2D4A;font-family:var(--font);text-anchor:middle;pointer-events:none}
+.ec .target{animation:pulse 1.6s ease-in-out infinite}
+.ec .target-ring{fill:none;stroke:var(--glow);stroke-width:1.4;stroke-dasharray:2 3;animation:spin 8s linear infinite;transform-box:fill-box;transform-origin:center}
+.ec .breathe{animation:breathe 7s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ec .appear{animation:appear .9s ease-out both}
+/* the seven movements are behaviours of the whole circle, not places on it */
+.ec .value{opacity:.4}
+.ec.mv0 .value{opacity:1} .ec.mv0 .ray{opacity:.9}
+.ec.mv1 .place{stroke-dasharray:6 8} .ec.mv1 .suggest{stroke-opacity:.08}
+.ec.mv2 .path,.ec.mv2 .ahead{stroke-dasharray:6 6;animation:march 2.4s linear infinite}
+.ec.mv3 .ripple{animation:ripple 3.6s ease-out infinite}
+.ec.mv3 .ripple.r2{animation-delay:1.2s} .ec.mv3 .ripple.r3{animation-delay:2.4s}
+.ec.mv3 .city,.ec.mv3 .seed,.ec.mv3 .seed-l{opacity:.35}
+.ec.mv4 .thread{stroke-opacity:1;stroke-width:1.8}
+.ec.mv4 .spark{filter:url(#soft)}
+.ec.mv5 .bud.fresh{animation:bloom 1.4s ease-out both}
+.ec.mv6 .node,.ec.mv6 .spark,.ec.mv6 .bud{filter:url(#soft)}
+.ec.mv6 .ret{opacity:.9} .ec.mv6 .value{opacity:.9}
+/* levels: four ways of relating to the system */
+.ec.l1 .thread{stroke-opacity:.45}
+.ec.l2 .thread{stroke-opacity:.4}
+.ec.l4 .suggest{display:none}
+@keyframes march{to{stroke-dashoffset:-24}}
+@keyframes ripple{0%{opacity:.7;r:6}100%{opacity:0;r:48}}
+@keyframes bloom{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes breathe{50%{transform:scale(1.012)}}
+@keyframes pulse{50%{opacity:.45}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes appear{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ec *{animation:none!important}.ec.mv3 .ripple{opacity:.3;r:22}}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <div>
+    <p class="kicker">קולה של האקוסיסטם · אב-טיפוס נפרד, לא באתר</p>
+    <h1>מעגל האנרגיה החי</h1>
+  </div>
+  <div class="lvbar" role="group" aria-label="להחליף דרגה בכל רגע">
+    <span class="lbl">דרגה</span>
+    <button type="button" class="opt small" data-lv="l1" id="lv1">מתנסה</button>
+    <button type="button" class="opt small" data-lv="l2" id="lv2">משוטט מתחיל</button>
+    <button type="button" class="opt small" data-lv="l3" id="lv3">משוטט מיומן</button>
+    <button type="button" class="opt small" data-lv="l4" id="lv4">משוטט אקוסיסטמי</button>
+  </div>
+</header>
+
+<main class="wrap stage">
+  <div class="circle-box">
+    <svg class="ec" id="ec" viewBox="0 0 400 400" role="img" aria-label="מעגל האנרגיה: אתם במרכז, המקום בטבעת, ומה שמתהווה ביניכם"></svg>
+    <div class="moves" id="moves" aria-label="שבע התנועות"></div>
+    <p class="voice-of" id="voice-of">שבע התנועות משנות את ההתנהגות של המעגל כולו. אפשר לגעת בכל אחת, ולחזור לכל אחת.</p>
+  </div>
+  <div class="talk">
+    <div class="card" id="card" aria-live="polite"></div>
+    <details class="real" id="real">
+      <summary>מה כאן אמיתי ומה מדומה</summary>
+      <h3>אמיתי (מהקוד הקיים, בלי שינוי)</h3>
+      <ul>
+        <li>שלושת מסלולי הכניסה, ארבע הדרגות ושני האופנים, מ-<span dir="ltr">journey/knowledge.js</span>.</li>
+        <li>הרכבת המסע: המנוע של <span dir="ltr">/journey/</span> בוחר את התחנות ממאגר א (25 הרשומות), עם "למה כאן?" והמקור.</li>
+        <li>"מה הבנתי": הנושאים שהמנוע מזהה במילים שלכם, ואפשר להוריד.</li>
+        <li>החגיגה בנוסח של תומר. שבע התנועות ורצפן.</li>
+      </ul>
+      <h3>הצעה שממתינה לאישור</h3>
+      <ul><li>מה משתנה בכל דרגה. התיאורים הקצרים של התנועות (מעמוד השיטה).</li></ul>
+      <h3>חדש באב-טיפוס הזה, לבדיקה</h3>
+      <ul>
+        <li>המעגל עצמו: שלוש השכבות, הזרעים, החוטים, הניצנים וטבעות הצמיחה.</li>
+        <li>החיבורים: נוצרים רק כשאתם בוחרים למה פרי מתחבר. המעגל לא מנחש קשרים.</li>
+        <li>התנועה "של עכשיו" זזה מעצמה בכמה רגעים (יציאה לתחנה, פרי, חיבור, חזרה). זה כלל של האב-טיפוס, לא שיוך של תנועה לתחנה.</li>
+        <li>בדרגה האקוסיסטמית: כל החלופות שהמנוע מצא מופיעות כקבוצת כוכבים, בלי סדר.</li>
+      </ul>
+      <h3>מדומה או חסר</h3>
+      <ul>
+        <li>אין הליכה אמיתית בזמן: לוחצים "הייתי שם" במקום ללכת.</li>
+        <li>שוטטות משתתפת לא נכללה. היא עובדת ב-<span dir="ltr">/journey/</span>.</li>
+        <li>שום דבר לא נשמר ולא נשלח. סגירת הדף מוחקת הכול.</li>
+        <li>העדשות הן שם בלבד, בלי נוסח.</li>
+      </ul>
+    </details>
+  </div>
+</main>
+<footer><div class="wrap">המשוטט האקוסיסטמי · אב-טיפוס חקירה. לא מחובר לאתר ולא משנה את A, את B, את <span dir="ltr">/journey/</span> או את מאגר א · הדמות במרכז: האיור של ליאל.</div></footer>
+
+<script src="../../library/ideas-snapshot.js"></script>
+<script src="../../journey/knowledge.js"></script>
+<script src="../../journey/engine.js"></script>
+<script>
+(function () {
+  'use strict';
+  var K = window.EF_K, E = window.EF_E, IDEAS = window.IDEAS || [];
+  var FIG = '../../img/flaneur-figure.png';
+  var NS = 'http://www.w3.org/2000/svg', C = 200, PR = 172;
+  var MOVES = K.MOVES;
+  var MOVE_LINE = ['מעניק כיוון.', 'משהה את הצורך לשלוט ולמצוא תשובה מיד.', 'פותחת מפגש עם העולם.',
+    'לעצמי, לאחר, למרחב, ולמה שביניהם.', 'מזהה קשר או אפשרות.', 'נותנת ביטוי למה שהתגלה.', 'רפלקציה שנשענת על הכרת תודה.'];
+  var LEVEL_LOOK = {
+    l1: 'מעגל שקט. זרע אחד, עם שם. הסבר בכל צעד.',
+    l2: 'שביל קצר של שלושה זרעים. הבא מואר.',
+    l3: 'חמש תחנות על שביל מוצע, עדשות לבחירה, וקשרים גלויים.',
+    l4: 'בלי שביל. כל האפשרויות מופיעות כקבוצת כוכבים, ואתם בוחרים לאן.'
+  };
+
+  /* ---------- helpers ---------- */
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function txt(x, y, cls, s, p, extra) { var t = el('text', Object.assign({ x: x, y: y, 'class': cls }, extra || {}), p); t.textContent = s; return t; }
+  function h(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    for (var k in attrs || {}) {
+      if (attrs[k] == null || attrs[k] === false) continue;
+      if (k === 'text') e.textContent = attrs[k];
+      else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), attrs[k]);
+      else e.setAttribute(k, attrs[k] === true ? '' : attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c != null) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function hash(s) { var x = 2166136261; s = String(s); for (var i = 0; i < s.length; i++) { x ^= s.charCodeAt(i); x = Math.imul(x, 16777619); } return (x >>> 0) / 4294967295; }
+  function rng(seed) { var x = (seed * 1e9 | 0) || 7; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 10000) / 10000; }; }
+  function polar(r, a) { return [C + r * Math.cos(a), C + r * Math.sin(a)]; }
+  function ringD(R, ph, amp) {
+    var d = ''; amp = amp == null ? 1 : amp;
+    for (var i = 0; i <= 120; i++) {
+      var t = i / 120 * Math.PI * 2, r = R * (1 + amp * (.022 * Math.sin(3 * t + ph) + .014 * Math.sin(5 * t + ph * 1.7)));
+      d += (i ? 'L' : 'M') + (C + r * Math.cos(t)).toFixed(1) + ' ' + (C + r * Math.sin(t)).toFixed(1);
+    }
+    return d + 'Z';
+  }
+  function arcD(r, a0, a1) { var p = polar(r, a0), q = polar(r, a1); return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + 'A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }
+  function curve(p, q, bend) {
+    var mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2, dx = q[0] - p[0], dy = q[1] - p[1];
+    return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + 'Q' + (mx - dy * bend).toFixed(1) + ' ' + (my + dx * bend).toFixed(1) + ' ' + q[0].toFixed(1) + ' ' + q[1].toFixed(1);
+  }
+  function words(t, n) { var w = String(t || '').split(/\s+/).filter(Boolean); return w.slice(0, n).join(' ') + (w.length > n ? '…' : ''); }
+  function byId(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- state ---------- */
+  var DEMO = { place: 'השכונה שלי, רחוב הרא"ה', placeType: 'neighborhood', magic: 'סיפורים בכל פינה, שכנים ותיקים שמכירים כולם',
+    challenge: 'בניינים ישנים נעלמים והתחדשות עירונית', curiosity: 'סיפורים של אנשים ומה משתנה ברחוב', minutes: 45, boundaries: 'לא מצלמים אנשים בלי רשות' };
+  var S = {
+    phase: 'path', path: null, level: null, levelSug: 'l2', a: Object.assign({}, DEMO), themes: null,
+    J: null, seeds: [], visited: [], cur: -1, mv: 0, fruits: [], links: [], buds: [], pending: null, lens: null,
+    rings: 0, changed: '', help: false, fresh: {}, word: ''
+  };
+  function resetWalk() { S.visited = []; S.cur = -1; S.fruits = []; S.links = []; S.buds = []; S.pending = null; S.lens = null; S.help = false; S.changed = ''; }
+
+  /* ---------- composing (the existing engine, untouched) ---------- */
+  function compose() {
+    S.a.themes = S.themes ? S.themes.slice() : undefined;
+    S.J = E.compose({ level: S.level, mode: 'solo' }, S.a, IDEAS);
+    S.seeds = seedsFor(S.level, S.J, S.a);
+  }
+  function seedsFor(level, J, a) {
+    var n = J.stations.length, r = rng(hash(JSON.stringify([a.place, a.magic, a.challenge, a.curiosity])) + .3), out = [];
+    J.stations.forEach(function (st, i) {
+      if (level === 'l4') {
+        // a constellation: each role finds its own region of the circle; its alternatives sit beside it
+        var base = -Math.PI / 2 + (i + .5) * (Math.PI * 2 / n) + (r() - .5) * .3;
+        [{ rec: st.rec, why: st.why }].concat(st.alts).forEach(function (o, k) {
+          var a4 = base + (k === 0 ? 0 : (k % 2 ? 1 : -1) * (.32 + .1 * k)), rad = 86 + (k === 0 ? 30 : 8 + r() * 46);
+          out.push({ id: i + ':' + k, i: i, k: k, rec: o.rec, why: o.why, role: st.role, roleName: st.roleName, p: polar(rad, a4) });
+        });
+      } else {
+        var t = n === 1 ? .5 : i / (n - 1);
+        var ang = -Math.PI * .62 + t * Math.PI * 1.35 + (r() - .5) * .25;
+        out.push({ id: i + ':0', i: i, k: 0, rec: st.rec, why: st.why, alts: st.alts, alt: -1, role: st.role, roleName: st.roleName,
+          p: polar(n === 1 ? 108 : 66 + t * 82 + (r() - .5) * 10, ang) });
+      }
+    });
+    if (level === 'l4') relax(out);
+    return out;
+  }
+  // keep the constellation readable: points push each other apart, inside the ring
+  function relax(pts) {
+    for (var it = 0; it < 120; it++) {
+      pts.forEach(function (a, i) {
+        pts.forEach(function (b, j) {
+          if (j <= i) return;
+          var dx = b.p[0] - a.p[0], dy = b.p[1] - a.p[1], d = Math.hypot(dx, dy) || 1, min = 38;
+          if (d < min) { var m = (min - d) / 2 / d; a.p[0] -= dx * m; a.p[1] -= dy * m; b.p[0] += dx * m; b.p[1] += dy * m; }
+        });
+        var r = Math.hypot(a.p[0] - C, a.p[1] - C), ang = Math.atan2(a.p[1] - C, a.p[0] - C), rr = Math.max(72, Math.min(146, r));
+        a.p = polar(rr, ang);
+      });
+    }
+  }
+  function seedRec(s) { return s.alt > -1 && s.alts && s.alts[s.alt] ? s.alts[s.alt] : { rec: s.rec, why: s.why }; }
+  function visitedRoles() { return S.visited.map(function (v) { return v.i; }); }
+  function openSeeds() {
+    var done = visitedRoles();
+    var free = S.seeds.filter(function (s) { return done.indexOf(s.i) < 0; });
+    if (S.level === 'l4') return free;
+    return free.slice(0, 1);
+  }
+
+  /* ---------- positions of things one can connect to ---------- */
+  function angles() {
+    var am = hash('m' + S.a.magic) * Math.PI * 2;
+    return { magic: am, challenge: am + Math.PI * (.75 + hash('c' + S.a.challenge) * .5) };
+  }
+  function posOf(id) {
+    var A = angles();
+    if (id === 'core') return [C, C - 34];
+    if (id === 'magic' || id === 'challenge') return polar(PR, A[id]);
+    if (id[0] === 'v') return S.visited[+id.slice(1)].p;
+    if (id[0] === 'f') return S.fruits[+id.slice(1)].p;
+    return [C, C];
+  }
+  function labelOf(id) {
+    if (id === 'core') return 'הכוונה: ' + words(S.a.curiosity, 5);
+    if (id === 'magic') return 'הקסם: ' + words(S.a.magic, 5);
+    if (id === 'challenge') return 'האתגר: ' + words(S.a.challenge, 5);
+    if (id[0] === 'v') return 'התחנה: ' + S.visited[+id.slice(1)].rec.name;
+    if (id[0] === 'f') { var f = S.fruits[+id.slice(1)]; return 'הפרי: ' + f.k + (f.w ? ' ' + f.w : ''); }
+    return '';
+  }
+  function targets() {
+    var t = [];
+    if (S.a.curiosity) t.push('core');
+    if (S.a.magic) t.push('magic');
+    if (S.a.challenge) t.push('challenge');
+    S.visited.forEach(function (v, i) { if (i !== S.cur) t.push('v' + i); });
+    if (S.level !== 'l1') S.fruits.forEach(function (f, i) { if (i !== S.pending) t.push('f' + i); });
+    return t;
+  }
+
+  /* ---------- the circle ---------- */
+  var svg = document.getElementById('ec');
+  function draw() {
+    var ph = S.phase, L = S.level || 'l2';
+    while (svg.firstChild) svg.firstChild.remove();
+    svg.setAttribute('class', 'ec ' + L + ' mv' + S.mv);
+    var defs = el('defs', {}, svg);
+    [['vglow', '.85'], ['nglow', '.7']].forEach(function (g) {
+      var rg = el('radialGradient', { id: g[0] }, defs);
+      el('stop', { offset: '0%', 'stop-color': '#E3A857', 'stop-opacity': g[1] }, rg);
+      el('stop', { offset: '100%', 'stop-color': '#E3A857', 'stop-opacity': '0' }, rg);
+    });
+    var f = el('filter', { id: 'soft', x: '-50%', y: '-50%', width: '200%', height: '200%' }, defs);
+    el('feGaussianBlur', { stdDeviation: '1.6', result: 'b' }, f);
+    var mg = el('feMerge', {}, f); el('feMergeNode', { 'in': 'b' }, mg); el('feMergeNode', { 'in': 'SourceGraphic' }, mg);
+
+    el('circle', { cx: C, cy: C, r: 198, 'class': 'disc' }, svg);
+    var city = el('g', { 'class': 'city' }, svg), r = rng(.4242), pts = [];
+    for (var i = 0; i < 70; i++) { var a = r() * Math.PI * 2, d = 50 + Math.sqrt(r()) * 140; pts.push(polar(d, a)); }
+    pts.forEach(function (p, i) {
+      pts.forEach(function (q, j) { if (j > i && (p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1]) < 900) el('line', { x1: p[0], y1: p[1], x2: q[0], y2: q[1] }, city); });
+      el('circle', { cx: p[0], cy: p[1], r: (r() * 1.1 + .4).toFixed(2) }, city);
+    });
+
+    var placeKnown = !!(S.a.place || S.a.magic || S.a.challenge) && ['path', 'intro', 'level', 'mode'].indexOf(ph) < 0;
+    var pick = S.pending != null;
+    var tg = pick ? targets() : [];
+    var hot = function (id) { return tg.indexOf(id) > -1; };
+
+    // 1. the place
+    el('path', { d: ringD(PR, 1.3, S.mv === 1 ? 2.3 : 1), 'class': 'place breathe' + (placeKnown ? '' : ' off') }, svg);
+    if (placeKnown && S.a.place) txt(C, 16, 'pname', words(S.a.place, 5), svg);
+    var A = angles();
+    [['magic', 'm', S.a.magic, .32], ['challenge', 'c', S.a.challenge, .28]].forEach(function (x) {
+      if (!placeKnown || !x[2]) return;
+      var g = el('g', { 'class': hot(x[0]) ? 'target' : '' }, svg);
+      el('path', { d: arcD(PR, A[x[0]] - x[3], A[x[0]] + x[3]), 'class': 'arc ' + x[1] + ' appear' }, g);
+      var lp = polar(PR - 28, A[x[0]]); lp[0] = Math.max(96, Math.min(304, lp[0]));
+      txt(lp[0], lp[1] + 3, 'arc-l', (x[0] === 'magic' ? 'הקסם: ' : 'האתגר: ') + words(x[2], 3), g);
+      if (hot(x[0])) { var hp = polar(PR, A[x[0]]); var hit = el('circle', { cx: hp[0], cy: hp[1], r: 22, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf(x[0]) }, g); hit.dataset.t = x[0]; }
+    });
+    // lenses: name only, optional, for the skilled and ecosystemic levels
+    if (S.J && S.J.lenses && (L === 'l3' || L === 'l4') && ['walk', 'emerge', 'return', 'end'].indexOf(ph) > -1) {
+      S.J.lenses.forEach(function (l, k) {
+        var R = 158 - k * 9, on = S.lens === l.id;
+        el('path', { d: ringD(R, k * 2.1, .6), 'class': 'lens' + (on ? ' on' : '') }, svg);
+        var p = polar(R, -Math.PI / 2 - .95 - k * .13); txt(p[0], p[1] - 2, 'lens-l', l.name.replace('עדשה: ', ''), svg);
+      });
+    }
+
+    // 2. what emerges between the person and the place
+    var walking = ['emerge', 'walk', 'return', 'end'].indexOf(ph) > -1;
+    if (walking) {
+      // the suggested path (not for the ecosystemic level)
+      if (L !== 'l4' && S.seeds.length > 1) {
+        var sp = [[C, C]].concat(S.seeds.map(function (s) { return s.p; })), sd = '';
+        for (var w = 1; w < sp.length; w++) sd += curve(sp[w - 1], sp[w], w % 2 ? .18 : -.18).replace(/^M[^Q]+/, w === 1 ? 'M' + C + ' ' + C : 'L' + sp[w - 1][0].toFixed(1) + ' ' + sp[w - 1][1].toFixed(1));
+        el('path', { d: sd, 'class': 'suggest' }, svg);
+      }
+      // threads: only the ones the person made
+      S.links.forEach(function (lk, n) {
+        var p = posOf(lk.from), q = posOf(lk.to);
+        el('path', { d: curve(p, q, .2), 'class': 'thread' + (S.fresh['l' + n] ? ' appear' : '') }, svg);
+      });
+      // the walked route
+      var wp = [[C, C]].concat(S.visited.map(function (v) { return v.p; }));
+      if (wp.length > 1) {
+        var dd = '';
+        for (var j = 1; j < wp.length; j++) dd += curve(wp[j - 1], wp[j], j % 2 ? .18 : -.18).replace(/^M[^Q]+/, j === 1 ? 'M' + C + ' ' + C : 'L' + wp[j - 1][0].toFixed(1) + ' ' + wp[j - 1][1].toFixed(1));
+        el('path', { d: dd, 'class': 'path' }, svg);
+      }
+      // seeds
+      var here = S.cur > -1 ? S.visited[S.cur].p : [C, C];
+      var open = ph === 'end' ? [] : openSeeds(), openIds = open.map(function (s) { return s.id; }), done = visitedRoles();
+      S.seeds.forEach(function (s, si) {
+        if (done.indexOf(s.i) > -1) return;
+        var isOpen = openIds.indexOf(s.id) > -1;
+        if (L === 'l1' && !isOpen) return;
+        var g = el('g', { 'class': S.fresh.emerge ? 'appear' : '', style: S.fresh.emerge && !reduce ? 'animation-delay:' + (si * .35) + 's' : null }, svg);
+        if (isOpen && L !== 'l4' && !pick) el('path', { d: curve(here, s.p, .2), 'class': 'ahead' }, g);
+        el('circle', { cx: s.p[0], cy: s.p[1], r: isOpen ? (L === 'l4' && s.k > 0 ? 5.5 : 7) : 4.5, 'class': 'seed', 'stroke-opacity': isOpen ? .9 : .32 }, g);
+        el('circle', { cx: s.p[0], cy: s.p[1], r: isOpen ? 2.2 : 1.5, 'class': 'seed-dot' }, g);
+        var name = seedRec(s).rec.name;
+        if (L === 'l1' || L === 'l2' && isOpen) txt(s.p[0], s.p[1] + 18, 'seed-l', words(name, 4), g);
+        else if (L === 'l3') txt(s.p[0], s.p[1] + 16, 'seed-l' + (isOpen ? '' : ' dim'), words(name, 3), g);
+        else if (L === 'l4' && S.help) txt(s.p[0], s.p[1] + 15, 'seed-l dim', words(name, 3), g);
+        if (isOpen && !pick && ph === 'walk' || isOpen && ph === 'emerge') {
+          var hit = el('circle', { cx: s.p[0], cy: s.p[1], r: 15, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'ללכת אל ' + name }, g);
+          hit.dataset.seed = s.id;
+        }
+      });
+      // visited stations
+      S.visited.forEach(function (v, k) {
+        var now = k === S.cur && ph === 'walk', g = el('g', { 'class': hot('v' + k) ? 'target' : '' }, svg);
+        el('circle', { cx: v.p[0], cy: v.p[1], r: now ? 19 : 11, fill: 'url(#nglow)' }, g);
+        el('circle', { cx: v.p[0], cy: v.p[1], r: now ? 6.5 : 5, 'class': 'node' + (now ? '' : ' past') }, g);
+        if (v.lens) el('circle', { cx: v.p[0], cy: v.p[1], r: 9.5, 'class': 'lensmark' }, g);
+        txt(v.p[0], v.p[1] + 2.5, 'num', String(k + 1), g);
+        if (hot('v' + k)) { el('circle', { cx: v.p[0], cy: v.p[1], r: 12, 'class': 'target-ring' }, g); var hit = el('circle', { cx: v.p[0], cy: v.p[1], r: 16, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('v' + k) }, g); hit.dataset.t = 'v' + k; }
+      });
+      // buds: what was created
+      S.buds.forEach(function (b, k) {
+        var p = b.p, q = [p[0] + 12 * Math.cos(b.a), p[1] + 12 * Math.sin(b.a)];
+        el('path', { d: 'M' + q[0] + ' ' + (q[1] - 4.5) + 'Q' + (q[0] + 4.5) + ' ' + q[1] + ' ' + q[0] + ' ' + (q[1] + 4.5) + 'Q' + (q[0] - 4.5) + ' ' + q[1] + ' ' + q[0] + ' ' + (q[1] - 4.5) + 'Z', 'class': 'bud' + (S.fresh['b' + k] ? ' fresh' : '') }, svg);
+      });
+      // fruits
+      S.fruits.forEach(function (fr, k) {
+        var p = fr.p, s = k === S.pending ? 6 : 4.4, g = el('g', { 'class': (hot('f' + k) ? 'target' : '') + (S.fresh['f' + k] ? ' appear' : '') }, svg);
+        el('path', { d: 'M' + p[0] + ' ' + (p[1] - s) + 'L' + (p[0] + s * .28) + ' ' + (p[1] - s * .28) + 'L' + (p[0] + s) + ' ' + p[1] + 'L' + (p[0] + s * .28) + ' ' + (p[1] + s * .28) + 'L' + p[0] + ' ' + (p[1] + s) + 'L' + (p[0] - s * .28) + ' ' + (p[1] + s * .28) + 'L' + (p[0] - s) + ' ' + p[1] + 'L' + (p[0] - s * .28) + ' ' + (p[1] - s * .28) + 'Z', 'class': 'spark ' + (fr.k === 'אה אה!' ? 'a' : 'w') }, g);
+        if (fr.w && L !== 'l4') txt(p[0], p[1] - 9, 'spark-l', words(fr.w, 2), g);
+        if (hot('f' + k)) { el('circle', { cx: p[0], cy: p[1], r: 9, 'class': 'target-ring' }, g); var hit = el('circle', { cx: p[0], cy: p[1], r: 14, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('f' + k) }, g); hit.dataset.t = 'f' + k; }
+      });
+      ['r1', 'r2', 'r3'].forEach(function (c) { el('circle', { cx: here[0], cy: here[1], r: 6, 'class': 'ripple ' + c }, svg); });
+      if (S.visited.length) { var last = S.visited[S.visited.length - 1].p; el('path', { d: curve(last, [C, C + 40], -.35), 'class': 'ret' }, svg); }
+    }
+
+    // 3. the person at the centre; the value as a warm core; growth rings after each return
+    var tgtP = (walking && openSeeds()[0]) ? openSeeds()[0].p : polar(120, -Math.PI / 2 - .4);
+    var dir = Math.atan2(tgtP[1] - C, tgtP[0] - C), rp = polar(48, dir), rq = polar(Math.max(60, Math.min(130, Math.hypot(tgtP[0] - C, tgtP[1] - C) - 10)), dir);
+    el('line', { x1: rp[0], y1: rp[1], x2: rq[0], y2: rq[1], 'class': 'ray' }, svg);
+    el('circle', { cx: C, cy: C, r: S.a.curiosity && placeKnown ? 70 : 56, fill: 'url(#vglow)', 'class': 'value' }, svg);
+    for (var gr = 0; gr < S.rings; gr++) el('path', { d: ringD(46 + gr * 4.5, gr * 1.7, .5), 'class': 'grow' }, svg);
+    var cg = el('g', { 'class': hot('core') ? 'target' : '' }, svg);
+    el('circle', { cx: C, cy: C, r: 41, 'class': 'core' }, cg);
+    el('image', { href: FIG, x: C - 28, y: C - 24, width: 56, height: 48, preserveAspectRatio: 'xMidYMid meet' }, cg);
+    if (hot('core')) { el('circle', { cx: C, cy: C, r: 45, 'class': 'target-ring' }, cg); var ch = el('circle', { cx: C, cy: C, r: 42, 'class': 'hit', tabindex: 0, role: 'button', 'aria-label': 'לחבר אל ' + labelOf('core') }, cg); ch.dataset.t = 'core'; }
+
+    // the movement alive now, beside where one is
+    if (walking && ph !== 'end') {
+      var at = S.cur > -1 ? S.visited[S.cur].p : [C, C + 56];
+      var off = S.cur > -1 ? (at[1] > C + 110 ? -22 : 25) : 0, y0 = S.cur > -1 ? at[1] + off : C + 58;
+      txt(at[0], y0, 'mvword', MOVES[S.mv], svg);
+      if (L !== 'l4' || S.help) txt(at[0], y0 + 12, 'nextword', 'ואולי: ' + MOVES[(S.mv + 1) % 7], svg);
+    }
+    S.fresh = {};
+  }
+
+  /* ---------- the seven movements row ---------- */
+  function movesRow() {
+    var row = document.getElementById('moves'); row.innerHTML = '';
+    var on = ['emerge', 'walk', 'return', 'end'].indexOf(S.phase) > -1;
+    document.getElementById('voice-of').hidden = !on;
+    if (!on) return;
+    var nm = (S.mv + 1) % 7, L = S.level;
+    MOVES.forEach(function (m, i) {
+      if (i && L !== 'l1') row.appendChild(h('span', { 'class': 'sep', 'aria-hidden': 'true', text: '·' }));
+      var cls = 'mv' + (i === S.mv ? ' now' : '') + (i === nm && (L !== 'l4' || S.help) ? ' next' : '');
+      if (L === 'l1' && i !== S.mv && i !== nm && i !== 0) cls += ' hid';
+      row.appendChild(h('button', { type: 'button', 'class': cls, 'aria-pressed': i === S.mv ? 'true' : 'false', onclick: function () { setMove(i); } }, [m]));
+    });
+  }
+  function setMove(m) {
+    S.mv = m;
+    if (m === 5 && S.cur > -1) { var v = S.visited[S.cur]; S.buds.push({ p: v.p, a: hash('b' + S.buds.length) * Math.PI * 2 }); S.fresh['b' + (S.buds.length - 1)] = 1; }
+    render();
+  }
+
+  /* ---------- actions ---------- */
+  function go(phase) { S.phase = phase; render(true); }
+  function visit(seedId) {
+    var s = S.seeds.filter(function (x) { return x.id === seedId; })[0]; if (!s) return;
+    var sr = seedRec(s);
+    S.visited.push({ i: s.i, rec: sr.rec, why: sr.why, roleName: s.roleName, p: s.p, lens: S.lens && S.J.lenses ? (byId(S.J.lenses, S.lens) || {}).name : null });
+    S.cur = S.visited.length - 1; S.mv = 2; S.pending = null; S.word = '';
+    if (S.phase !== 'walk') S.phase = 'walk';
+    render(true);
+  }
+  function fruit(kind) {
+    var v = S.visited[S.cur], r = rng(hash(kind + S.fruits.length + S.cur) + .1), a = r() * Math.PI * 2;
+    var p = [v.p[0] + (19 + r() * 8) * Math.cos(a), v.p[1] + (19 + r() * 8) * Math.sin(a)];
+    S.fruits.push({ k: kind, w: S.word.trim(), p: p, at: S.cur });
+    S.fresh['f' + (S.fruits.length - 1)] = 1;
+    S.pending = S.fruits.length - 1; S.word = ''; S.mv = 3;
+    render(true);
+  }
+  function connect(to) {
+    if (S.pending == null) return;
+    S.links.push({ from: 'f' + S.pending, to: to });
+    S.fresh['l' + (S.links.length - 1)] = 1;
+    S.pending = null; S.mv = 4;
+    render(true);
+  }
+  function skipConnect() { S.pending = null; render(true); }
+
+  /* ---------- the companion card ---------- */
+  var card = document.getElementById('card');
+  function render(focus) {
+    draw(); movesRow();
+    document.querySelectorAll('[data-lv]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lv === S.level ? 'true' : 'false'); });
+    card.innerHTML = '';
+    (CARDS[S.phase] || CARDS.path)();
+    if (focus) { var t = card.querySelector('h2'); if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); } }
+  }
+  function head(k, title, sub) {
+    card.appendChild(h('p', { 'class': 'k', text: k }));
+    card.appendChild(h('h2', { text: title }));
+    if (sub) card.appendChild(h('p', { 'class': 'sub', text: sub }));
+  }
+  function field(label, key, area, id) {
+    var i = h(area ? 'textarea' : 'input', { id: id, autocomplete: 'off', rows: area ? 2 : null });
+    i.value = S.a[key] || '';
+    i.addEventListener('input', function () { S.a[key] = i.value; S.themes = null; draw(); });
+    return h('label', { 'class': 'f', 'for': id }, [label, i]);
+  }
+
+  var CARDS = {
+    path: function () {
+      head('כניסה', 'מאיפה תרצו להתחיל?', 'אלה לא דרגות ולא מבחן. אפשר להחליף בכל רגע.');
+      var list = h('div', { 'class': 'paths' });
+      K.PATHS.forEach(function (p) {
+        list.appendChild(h('button', { type: 'button', 'class': 'choice', 'aria-pressed': S.path === p.id ? 'true' : 'false', onclick: function () {
+          S.path = p.id; S.levelSug = p.level; go(p.id === 'meet' ? 'intro' : 'level'); } }, [h('b', { text: p.label }), h('span', { text: p.say })]));
+      });
+      card.appendChild(list);
+    },
+    intro: function () {
+      head('להכיר את המשוטט', 'להניח את המפה');
+      card.appendChild(h('p', { text: 'אנחנו לא הולכים לאיבוד רק כדי לאבד את הדרך. אנחנו משחררים לזמן מה את הצורך לדעת, לשלוט ולתכנן הכול מראש, כדי לפגוש את מה שלא יכולנו לצפות.' }));
+      card.appendChild(h('p', { 'class': 'sub', text: 'יוצאים מא׳ אל ב׳, ומה שמשמעותי הוא לעיתים ג׳. השוטטות יוצרת תנאים לגלות את ג׳. זו לא הבטחה, וזה גם לא ויתור על תכנון.' }));
+      card.appendChild(h('p', { 'class': 'sub', text: 'במעגל: אתם במרכז. סביבכם יופיע המקום. מה שיתהווה ביניכם יתגלה בדרך.' }));
+      card.appendChild(h('div', { 'class': 'acts' }, [h('button', { type: 'button', 'class': 'btn primary', onclick: function () { go('level'); } }, ['הלאה'])]));
+    },
+    level: function () {
+      head('דרגת השוטטות', 'באיזו דרגה תרצו לשוטט היום?', 'הדרגה משנה את עומק המסע ואת המעגל, לא את השיטה.');
+      var list = h('div', { 'class': 'levels' });
+      K.LEVELS.forEach(function (l) {
+        list.appendChild(h('button', { type: 'button', 'class': 'choice', 'aria-pressed': S.level === l.id ? 'true' : 'false', onclick: function () { S.level = l.id; go('mode'); } },
+          [h('b', { text: l.name }), l.id === S.levelSug ? h('em', { text: 'מוצע לפי המסלול' }) : null, h('span', { text: LEVEL_LOOK[l.id] })]));
+      });
+      card.appendChild(list);
+    },
+    mode: function () {
+      head('אופן השוטטות', 'איך המסע הזה ייראה?');
+      var list = h('div', { 'class': 'paths' });
+      list.appendChild(h('button', { type: 'button', 'class': 'choice', onclick: function () { go('place'); } }, [h('b', { text: K.MODES[0].name }), h('span', { text: K.MODES[0].say })]));
+      list.appendChild(h('button', { type: 'button', 'class': 'choice', disabled: true }, [h('b', { text: K.MODES[1].name }), h('span', { text: 'באב-טיפוס הזה עוד לא. היא עובדת במנגנון האדפטיבי.' })]));
+      card.appendChild(list);
+    },
+    place: function () {
+      head('סיפור המקום', 'איזה מקום תרצו לפגוש?', 'מילאנו מקום לדוגמה. אפשר לכתוב אחר, והמעגל ישתנה.');
+      card.appendChild(field('המקום', 'place', false, 'a-place'));
+      card.appendChild(field('הקסם של המקום', 'magic', true, 'a-magic'));
+      card.appendChild(field('האתגר של המקום', 'challenge', true, 'a-challenge'));
+      if (S.level === 'l1') card.appendChild(h('p', { 'class': 'tip', text: 'לפני שמחפשים בעיה, מכירים במקום כשלם. הקסם נעשה קשת חמה בטבעת, והאתגר קשת טרקוטה.' }));
+      card.appendChild(h('div', { 'class': 'acts' }, [h('button', { type: 'button', 'class': 'btn primary', onclick: function () { go('attract'); } }, ['המשך'])]));
+    },
+    attract: function () {
+      head('הכוונה', 'מה מושך את תשומת הלב שלכם שם?', 'התשובה הזו תשב בליבת המעגל, ואליה תחזרו בסוף.');
+      card.appendChild(field('מה מושך, ומה תרצו לגלות', 'curiosity', true, 'a-cur'));
+      var row = h('div', { 'class': 'chips', role: 'group', 'aria-label': 'זמן' });
+      [[20, 'כ-20 דקות'], [45, 'כ-45 דקות'], [90, 'שעה וחצי']].forEach(function (m) {
+        row.appendChild(h('button', { type: 'button', 'class': 'opt small', 'aria-pressed': S.a.minutes === m[0] ? 'true' : 'false', onclick: function () { S.a.minutes = m[0]; render(); } }, [m[1]]));
+      });
+      card.appendChild(h('div', { 'class': 'chips' }, [h('span', { 'class': 'sub', text: 'כמה זמן: ' }), row]));
+      card.appendChild(h('div', { 'class': 'acts' }, [h('button', { type: 'button', 'class': 'btn primary', onclick: function () { go('heard'); } }, ['המשך'])]));
+    },
+    heard: function () {
+      var u = E.understand(S.a);
+      if (!S.themes) S.themes = u.themes.map(function (t) { return t.id; });
+      head('מה הבנתי', 'הנה מה ששמעתי. נכון?', 'המעגל לא מוסיף ידע על המקום משלו.');
+      card.appendChild(h('dl', { 'class': 'heard' }, [['המקום', S.a.place], ['הקסם', S.a.magic], ['האתגר', S.a.challenge], ['הכוונה', S.a.curiosity], ['זמן', 'כ-' + S.a.minutes + ' דקות']]
+        .map(function (x) { return h('div', {}, [h('dt', { text: x[0] }), h('dd', { text: x[1] || 'לא נאמר' })]); })));
+      var row = h('div', { 'class': 'chips' });
+      u.themes.forEach(function (t) {
+        var on = S.themes.indexOf(t.id) > -1;
+        row.appendChild(h('button', { type: 'button', 'class': 'opt small', 'aria-pressed': on ? 'true' : 'false', title: 'בגלל המילה "' + t.because + '"',
+          onclick: function () { var i = S.themes.indexOf(t.id); if (i > -1) S.themes.splice(i, 1); else S.themes.push(t.id); render(); } }, [t.name + ' · "' + t.because + '"']));
+      });
+      card.appendChild(h('p', { 'class': 'sub', text: 'נושאים שזיהיתי במילים שלכם (אפשר להוריד):' }));
+      card.appendChild(row);
+      card.appendChild(h('div', { 'class': 'acts' }, [
+        h('button', { type: 'button', 'class': 'btn primary', onclick: function () { compose(); resetWalk(); S.mv = 0; S.fresh.emerge = 1; go('emerge'); } }, ['זה נכון. שהמסע יתהווה']),
+        h('button', { type: 'button', 'class': 'linkish', onclick: function () { go('place'); } }, ['לתקן'])]));
+    },
+    emerge: function () {
+      var L = S.level, n = S.J.stations.length, open = openSeeds();
+      head('המסע מתהווה', L === 'l4' ? 'האפשרויות הופיעו.' : n === 1 ? 'זרע אחד הופיע.' : n + ' זרעים הופיעו.',
+        L === 'l4' ? S.seeds.length + ' רעיונות ממאגר א, ל-' + n + ' תחנות. אין סדר. בוחרים זרע במעגל.' :
+        'כל זרע הוא רעיון ממאגר א שהמנוע בחר לפי המקום, הכוונה והזמן. ' + (L === 'l3' ? 'הקו המנוקד הוא שביל מוצע, לא חובה.' : ''));
+      card.appendChild(h('p', { 'class': 'sub' }, ['בליבה: הכוונה שלכם. ', h('b', { text: 'עכשיו חי: ערך. ' }), MOVE_LINE[0]]));
+      lensChips();
+      card.appendChild(h('div', { 'class': 'acts' }, L === 'l4' ? [seedList(open)] :
+        [h('button', { type: 'button', 'class': 'btn primary', onclick: function () { S.mv = 1; visit(open[0].id); } }, ['לצאת: ' + seedRec(open[0]).rec.name])]));
+      if (L === 'l1') card.appendChild(h('p', { 'class': 'tip', text: 'אפשר לגעת בזרע במעגל, או בכפתור.' }));
+    },
+    walk: function () {
+      var L = S.level, v = S.visited[S.cur], r = v.rec;
+      if (S.pending != null) return connectCard();
+      head('תחנה ' + (S.cur + 1) + ' · ' + v.roleName + (r.min ? ' · כ-' + r.min + ' דקות' : ''), r.name);
+      card.appendChild(h('p', { 'class': 'inv', text: r.invite || '' }));
+      if (L === 'l1' && r.note) card.appendChild(h('p', { 'class': 'tip', text: 'טיפ: ' + r.note }));
+      if (L !== 'l4' || S.help) card.appendChild(h('details', { 'class': 'why' }, [h('summary', { text: 'למה כאן?' }),
+        h('ul', {}, (v.why && v.why.length ? v.why : ['מתאים לזמן ולמקום שתיארתם']).map(function (w) { return h('li', { text: w }); })),
+        h('p', { 'class': 'src', text: 'ממאגר א · ' + (r.src || '') })]));
+      if (v.lens) card.appendChild(h('p', { 'class': 'sub', text: 'יצאתם עם העדשה: ' + v.lens.replace('עדשה: ', '') }));
+      // a fruit
+      var inp = h('input', { id: 'fw', autocomplete: 'off', placeholder: 'מילה, אם רוצים' }); inp.value = S.word;
+      inp.addEventListener('input', function () { S.word = inp.value; });
+      card.appendChild(h('div', { 'class': 'next' }, [
+        h('p', { 'class': 'sub', text: L === 'l1' ? 'קרה רגע של הפתעה או של הבנה? נגיעה אחת קוטפת אותו.' : 'רגע של אה אה! או של וואלה!?' }),
+        h('div', { 'class': 'acts' }, [
+          h('button', { type: 'button', 'class': 'btn fruit', onclick: function () { fruit('אה אה!'); } }, ['אה אה!']),
+          h('button', { type: 'button', 'class': 'btn fruit w', onclick: function () { fruit('וואלה!'); } }, ['וואלה!']),
+          h('label', { 'class': 'f', 'for': 'fw', style: 'flex:1;min-width:140px' }, [inp])])]));
+      invitation();
+    },
+    'return': function () {
+      head('חזרה אל הכוונה', 'יצאתם עם:', null);
+      card.appendChild(h('div', { 'class': 'two' }, [h('q', { text: S.a.curiosity || 'לא נאמרה כוונה' })]));
+      var met = S.visited.map(function (v) { return v.rec.name; });
+      var ta = h('textarea', { id: 'changed', rows: 3, placeholder: 'במילים שלכם. אפשר גם להשאיר ריק.' }); ta.value = S.changed;
+      ta.addEventListener('input', function () { S.changed = ta.value; });
+      card.appendChild(h('label', { 'class': 'f', 'for': 'changed' }, ['ומה אתם מבינים עכשיו?', ta]));
+      var cel = h('div', { 'class': 'cel' }, [h('p', { text: K.CELEBRATION })]);
+      if (met.length) cel.appendChild(h('p', { 'class': 'sub', text: 'מה נפגש: ' + met.join(' · ') }));
+      var fw = S.fruits.filter(function (f) { return f.w; }).map(function (f) { return f.k + ' ' + f.w; });
+      if (fw.length) cel.appendChild(h('p', { 'class': 'sub', text: 'פירות: ' + fw.join(' · ') }));
+      if (S.links.length) cel.appendChild(h('ul', {}, S.links.map(function (lk) { return h('li', { text: labelOf(lk.from).replace('הפרי: ', '') + ' ← ' + labelOf(lk.to) }); })));
+      card.appendChild(cel);
+      card.appendChild(h('p', { 'class': 'sub', text: 'השאלה של הדרגה: ' + S.J.depthQ }));
+      card.appendChild(h('div', { 'class': 'acts' }, [
+        h('button', { type: 'button', 'class': 'btn primary', onclick: function () { S.rings = Math.min(S.rings + 1, 5); S.mv = 0; go('end'); } }, ['לחזור אל הערך, בהבנה שהשתנתה']),
+        openSeeds().length ? h('button', { type: 'button', 'class': 'linkish', onclick: function () { S.mv = 2; go('walk'); } }, ['להמשיך לשוטט']) : null]));
+    },
+    end: function () {
+      head('חזרה אל הערך', 'הכוונה, והבנה שהשתנתה');
+      card.appendChild(h('div', { 'class': 'two' }, [
+        h('p', { 'class': 'sub', text: 'יצאתם עם' }), h('q', { text: S.a.curiosity || '…' }),
+        h('p', { 'class': 'sub', text: 'חזרתם עם' }), h('q', { text: S.changed.trim() || 'לא נכתב. גם זה בסדר.' })]));
+      card.appendChild(h('p', { 'class': 'sub', text: 'סביב הליבה נוספה טבעת צמיחה. ' + S.visited.length + ' תחנות, ' + S.fruits.length + ' פירות ו-' + S.links.length + ' חיבורים שיצרתם נשארים במעגל.' }));
+      card.appendChild(h('div', { 'class': 'acts' }, [
+        h('button', { type: 'button', 'class': 'btn primary', onclick: function () { resetWalk(); compose(); S.mv = 0; S.fresh.emerge = 1; go('emerge'); } }, ['מסע נוסף מאותה כוונה']),
+        h('button', { type: 'button', 'class': 'btn', onclick: function () { go('level'); } }, ['לנסות דרגה אחרת']),
+        h('button', { type: 'button', 'class': 'linkish', onclick: function () { S.rings = 0; S.a = Object.assign({}, DEMO); S.themes = null; S.level = null; S.path = null; resetWalk(); S.mv = 0; go('path'); } }, ['להתחיל מההתחלה'])]));
+    }
+  };
+
+  function seedList(open) {
+    var d = h('details', { 'class': 'why' }, [h('summary', { text: 'געו בזרע במעגל, או בחרו מהרשימה' })]);
+    var row = h('div', { 'class': 'chips', style: 'margin-top:6px' });
+    open.forEach(function (s) { row.appendChild(h('button', { type: 'button', 'class': 'opt small', onclick: function () { visit(s.id); } }, [s.rec.name])); });
+    d.appendChild(row); return d;
+  }
+  function lensChips() {
+    if (!(S.level === 'l3' || S.level === 'l4') || !S.J.lenses) return;
+    var row = h('div', { 'class': 'chips', role: 'group', 'aria-label': 'עדשה לדרך' }, [h('span', { 'class': 'sub', text: 'עדשה לדרך, אם רוצים:' })]);
+    S.J.lenses.forEach(function (l) {
+      var on = S.lens === l.id;
+      row.appendChild(h('button', { type: 'button', 'class': 'opt small', 'aria-pressed': on ? 'true' : 'false', onclick: function () { S.lens = on ? null : l.id; render(); } }, [l.name.replace('עדשה: ', '')]));
+    });
+    row.appendChild(h('span', { 'class': 'src', text: 'רק השם מתועד.' }));
+    card.appendChild(row);
+  }
+
+  function connectCard() {
+    var f = S.fruits[S.pending], L = S.level;
+    head('פרי · ' + f.k, f.w ? '"' + f.w + '"' : 'רגע נקטף', L === 'l4' ? 'למה זה מתחבר? געו במעגל.' : 'למה הרגע הזה מתחבר? געו במשהו שמהבהב במעגל, או בחרו כאן.');
+    var row = h('div', { 'class': 'chips' });
+    targets().forEach(function (t) { row.appendChild(h('button', { type: 'button', 'class': 'opt small', onclick: function () { connect(t); } }, [labelOf(t)])); });
+    card.appendChild(row);
+    card.appendChild(h('div', { 'class': 'acts' }, [h('button', { type: 'button', 'class': 'linkish', onclick: skipConnect }, ['עוד לא יודעים. להשאיר את הפרי לבד'])]));
+    if (L === 'l1') card.appendChild(h('p', { 'class': 'tip', text: 'חוט נמתח רק כשאתם בוחרים. המעגל לא מנחש קשרים.' }));
+  }
+
+  function invitation() {
+    var L = S.level, open = openSeeds(), nm = (S.mv + 1) % 7, box = h('div', { 'class': 'next' });
+    if (L === 'l4' && !S.help) {
+      box.appendChild(h('p', { 'class': 'sub', text: open.length ? 'האפשרויות פתוחות במעגל. כל תנועה זמינה.' : 'כל התחנות נפגשו.' }));
+      box.appendChild(h('button', { type: 'button', 'class': 'linkish', onclick: function () { S.help = true; render(); } }, ['מה המעגל מציע?']));
+    } else {
+      box.appendChild(h('p', {}, [h('b', { text: 'עכשיו חי: ' + MOVES[S.mv] + '. ' }), L !== 'l3' ? MOVE_LINE[S.mv] : '']));
+      box.appendChild(h('p', { 'class': 'sub' }, ['המעגל מזמין: ', h('b', { text: MOVES[nm] }), L === 'l1' ? ' · ' + MOVE_LINE[nm] + ' ' : ' ',
+        h('button', { type: 'button', 'class': 'linkish', onclick: function () { setMove(nm); } }, ['לעבור']),
+        S.mv ? ' · ' : '', S.mv ? h('button', { type: 'button', 'class': 'linkish', onclick: function () { setMove(0); } }, ['או לחזור אל הערך']) : null]));
+    }
+    var acts = h('div', { 'class': 'acts' });
+    if (L === 'l4') {
+      if (open.length) acts.appendChild(seedList(open));
+      acts.appendChild(h('button', { type: 'button', 'class': open.length ? 'btn' : 'btn primary', onclick: function () { S.mv = 6; go('return'); } }, ['לחזור כשמרגישים']));
+    } else if (open.length) {
+      var s = open[0];
+      acts.appendChild(h('button', { type: 'button', 'class': 'btn primary', onclick: function () { visit(s.id); } }, ['לתחנה הבאה: ' + seedRec(s).rec.name]));
+      if (L !== 'l1' && s.alts && s.alts.length) acts.appendChild(h('button', { type: 'button', 'class': 'linkish', onclick: function () { s.alt = s.alt + 1 >= s.alts.length ? -1 : s.alt + 1; render(); } }, ['רעיון אחר לתחנה הזו']));
+      if (L === 'l3') acts.appendChild(h('button', { type: 'button', 'class': 'linkish', onclick: function () { S.mv = 6; go('return'); } }, ['לחזור עכשיו']));
+    } else {
+      acts.appendChild(h('button', { type: 'button', 'class': 'btn primary', onclick: function () { S.mv = 6; go('return'); } }, ['כל הזרעים נפגשו. לחזור אל הכוונה']));
+    }
+    box.appendChild(acts);
+    card.appendChild(box);
+    lensChips();
+  }
+
+  /* ---------- wiring ---------- */
+  function onHit(t) {
+    if (!t) return;
+    if (t.dataset.seed) { if (S.phase === 'emerge') S.mv = 1; visit(t.dataset.seed); }
+    else if (t.dataset.t) connect(t.dataset.t);
+  }
+  svg.addEventListener('click', function (e) { onHit(e.target.closest('.hit')); });
+  svg.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var t = e.target.closest('.hit'); if (t) { e.preventDefault(); onHit(t); } } });
+  document.querySelectorAll('[data-lv]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      S.level = b.dataset.lv;
+      if (['path', 'intro', 'level', 'mode'].indexOf(S.phase) > -1) { go('place'); return; }
+      if (['place', 'attract', 'heard'].indexOf(S.phase) > -1) { render(); return; }
+      compose(); resetWalk(); S.mv = 0; S.fresh.emerge = 1; go('emerge');
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
