@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "brown-green",
+  "name": "חומים וירוקים",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "תרגילי הקשבה, סדנת \"הזמנה ללכת לאיבוד\"",
+    "source_refs": [
+      "workshop-getting-lost-2015"
+    ]
+  },
+  "content": {
+    "invite": "חפשו במרחב כמה שיותר דברים חומים. אחר כך עצמו עיניים: כמה דברים ירוקים ראיתם?",
+    "facilitator_note": "אחרי שפוקחים עיניים, שואלים מה הקשב סינן בלי שהרגשנו.",
+    "invite_forms": {
+      "f": "חפשי במרחב כמה שיותר דברים חומים. אחר כך עצמי עיניים: כמה דברים ירוקים ראית?",
+      "m": "חפש במרחב כמה שיותר דברים חומים. אחר כך עצום עיניים: כמה דברים ירוקים ראית?"
+    }
+  },
+  "placement": {
+    "slots": [
+      "entry"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "מרחב",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 10
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 3,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

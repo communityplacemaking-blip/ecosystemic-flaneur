@@ -1,0 +1,23 @@
+{
+  "name": "modes",
+  "label": "אופן שילוב (שדה מוצע, לא הוכרע)",
+  "from_b": true,
+  "values": [
+    {
+      "id": "standalone",
+      "label": "שוטטות עצמאית"
+    },
+    {
+      "id": "embedded",
+      "label": "שוטטות קצרה משולבת"
+    },
+    {
+      "id": "group",
+      "label": "שוטטות קבוצתית"
+    },
+    {
+      "id": "ongoing",
+      "label": "שוטטות מתמשכת או חוזרת"
+    }
+  ]
+}

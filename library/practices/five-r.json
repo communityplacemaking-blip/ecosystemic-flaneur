@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "five-r",
+  "name": "5R: משקפי סיפור המקום",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "סדנת \"סיפור המקום בשילוב צא ולמד\"",
+    "source_refs": [
+      "workshop-place-story"
+    ]
+  },
+  "content": {
+    "invite": "REFEEL: ההרגשה והסיפור, את מי ואת מה. REVIEW: ראייה מחודשת, מפה של הידוע המשותף. RESPECT: מיפוי אודות האחר, מי האנשים. RECONNECT: איך מתקשרים שם. RECREATE: יצירה משותפת, ביטוי למקום.",
+    "facilitator_note": "הצעה: כל זוג יוצא עם עדשה אחת. סיפורים ותמונות של אנשים נאספים רק ברשות."
+  },
+  "placement": {
+    "slots": [
+      "discern"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "אחר",
+    "diversity": 1,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "community",
+      "learning",
+      "org"
+    ],
+    "audiences": [
+      "group",
+      "community",
+      "class",
+      "org"
+    ],
+    "places": [
+      "neighborhood",
+      "institution",
+      "city"
+    ],
+    "min_minutes": 45,
+    "facilitated_only": true
+  },
+  "care": {
+    "boundary_tags": [
+      "strangers"
+    ]
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 15,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

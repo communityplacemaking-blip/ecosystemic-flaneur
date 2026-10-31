@@ -1,0 +1,18 @@
+{
+  "name": "attention-qualities",
+  "label": "איכויות הקשב",
+  "open": true,
+  "note": "אוצר מילים פתוח שמתפתח (החלטה, 31.10). הקטגוריות היציבות משמשות את המנוע. כל רשומה יכולה לשאת לצידן תיאור חופשי, ואיכות חדשה שעולה נכנסת קודם לרשימת 'מתהוות', בלי לשנות את הקטגוריות. הקטגוריות עצמן מוצעות וממתינות לאישור.",
+  "categories": [
+    { "id": "listening", "label": "הקשבה", "status": "proposed" },
+    { "id": "observing", "label": "התבוננות", "status": "proposed" },
+    { "id": "encounter", "label": "מפגש", "status": "proposed" },
+    { "id": "resonance", "label": "הדהוד", "status": "proposed" },
+    { "id": "suspending", "label": "השהיית שיפוט", "status": "proposed" },
+    { "id": "play", "label": "משחק", "status": "proposed" },
+    { "id": "gathering", "label": "ליקוט", "status": "proposed" },
+    { "id": "creating", "label": "יצירה", "status": "proposed" }
+  ],
+  "category_source": "רשימת המרחב המתודולוגי של תומר מ-26.10, כפי שהובאה במסמך ההצעה (סעיף B).",
+  "emerging": []
+}

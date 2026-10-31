@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "together-apart",
+  "name": "יחד ולחוד",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "הזמנת 2015: \"מוזמנים להנות יחד ולחוד מן התנאים לגלוי\"",
+    "source_refs": [
+      "invitation-2015"
+    ]
+  },
+  "content": {
+    "invite": "הקבוצה נפרדת. כל אחד ואחת, או כל זוג, הולכים במסלול משלהם, וכולם נפגשים שוב בשעה ובמקום שנקבעו מראש.",
+    "facilitator_note": "המנגנון המדויק של \"יחד ולחוד\" עדיין פתוח. הנוסח כאן הוא הצעה: לקבוע נקודת מפגש ושעה לפני היציאה."
+  },
+  "placement": {
+    "slots": [
+      "move"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "זמן",
+    "direction": "אחר",
+    "diversity": 1,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": [
+      "group",
+      "community",
+      "class",
+      "org"
+    ],
+    "places": "all",
+    "min_minutes": 30,
+    "facilitated_only": true
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 8,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "third-space",
+  "name": "אזור המעבר",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapterAI",
+    "source_note": "מפת התרגילים, \"איך משוטטים\", בעקבות מישל סר (הייחוס לבדיקה)",
+    "source_refs": [
+      "exercise-map",
+      "how-to-wander",
+      "influence-serres"
+    ]
+  },
+  "content": {
+    "invite": "בחרו מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבוננו במה שקורה באזור המעבר. מה נולד בין הדברים?",
+    "facilitator_note": null,
+    "invite_forms": {
+      "f": "בחרי מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבונני במה שקורה באזור המעבר. מה נולד בין הדברים?",
+      "m": "בחר מקום שבו שני מרחבים נפגשים: טבע ועיר, שקט ורעש, קהילה אחת ואחרת. התבונן במה שקורה באזור המעבר. מה נולד בין הדברים?"
+    }
+  },
+  "placement": {
+    "slots": [
+      "move",
+      "discern"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "בין",
+    "diversity": 1,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "creative",
+      "community",
+      "org",
+      "learning"
+    ],
+    "audiences": "all",
+    "places": [
+      "city",
+      "neighborhood",
+      "nature"
+    ],
+    "min_minutes": 20
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 7,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

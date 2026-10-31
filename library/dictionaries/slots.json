@@ -1,0 +1,32 @@
+{
+  "name": "slots",
+  "label": "חמשת השלבים במנגנון",
+  "from_b": true,
+  "values": [
+    {
+      "id": "entry",
+      "label": "כניסה",
+      "share": 0.1
+    },
+    {
+      "id": "move",
+      "label": "תנועה",
+      "share": 0.4
+    },
+    {
+      "id": "discern",
+      "label": "הבחנה",
+      "share": 0.3
+    },
+    {
+      "id": "trace",
+      "label": "עקבה",
+      "share": 0.1
+    },
+    {
+      "id": "return",
+      "label": "חזרה",
+      "share": 0.1
+    }
+  ]
+}

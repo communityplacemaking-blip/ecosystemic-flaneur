@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "slow-walk",
+  "name": "הליכה איטית",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapter",
+    "source_note": "\"איך משוטטים\", שלב 3: פתיחת הקשב",
+    "source_refs": [
+      "how-to-wander"
+    ]
+  },
+  "content": {
+    "invite": "לכו לאט במרחב, לאט יותר ממה שנוח. שימו לב לפרטים קטנים שבדרך כלל לא מושכים את העין.",
+    "facilitator_note": null,
+    "invite_forms": {
+      "f": "לכי לאט במרחב, לאט יותר ממה שנוח. שימי לב לפרטים קטנים שבדרך כלל לא מושכים את העין.",
+      "m": "לך לאט במרחב, לאט יותר ממה שנוח. שים לב לפרטים קטנים שבדרך כלל לא מושכים את העין."
+    }
+  },
+  "placement": {
+    "slots": [
+      "move"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "זמן",
+    "direction": "מרחב",
+    "diversity": 0,
+    "depth": 2,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 15
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 4,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

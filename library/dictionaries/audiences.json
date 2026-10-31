@@ -1,0 +1,37 @@
+{
+  "name": "audiences",
+  "label": "למי",
+  "from_b": true,
+  "group_ids": [
+    "group",
+    "community",
+    "class",
+    "org"
+  ],
+  "values": [
+    {
+      "id": "solo",
+      "label": "יחיד"
+    },
+    {
+      "id": "artist",
+      "label": "יצירה ואמנות"
+    },
+    {
+      "id": "group",
+      "label": "קבוצה"
+    },
+    {
+      "id": "community",
+      "label": "קהילה"
+    },
+    {
+      "id": "class",
+      "label": "כיתה וצוות חינוכי"
+    },
+    {
+      "id": "org",
+      "label": "ארגון או צוות"
+    }
+  ]
+}

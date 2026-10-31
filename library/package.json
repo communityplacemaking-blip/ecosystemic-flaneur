@@ -1,0 +1,11 @@
+{
+  "name": "ecosystemic-flaneur-library",
+  "private": true,
+  "description": "Practice library foundation (stage 2). Not used by any page.",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "validate": "node tools/validate.js",
+    "build": "node tools/build.js",
+    "report": "node tools/report.js"
+  }
+}

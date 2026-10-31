@@ -1,0 +1,12 @@
+{
+  "name": "origin-types",
+  "label": "סוג המקור",
+  "note": "רק תומר מסמן תרגול כמקורי או כעיבוד, ורק כשיש תיעוד. ברירת המחדל היא 'לא הוכרע'.",
+  "values": [
+    { "id": "unresolved", "label": "לא הוכרע" },
+    { "id": "original", "label": "מקורי", "requires_decision": true },
+    { "id": "adapted", "label": "עיבוד", "requires_decision": true },
+    { "id": "external", "label": "חיצוני, עם ייחוס" },
+    { "id": "developing", "label": "בפיתוח" }
+  ]
+}

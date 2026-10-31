@@ -1,0 +1,66 @@
+{
+  "name": "contexts",
+  "label": "הקשרי כניסה",
+  "from_b": true,
+  "values": [
+    {
+      "id": "edu",
+      "name": "המשוטט החינוכי",
+      "desc": "חקירה חינוכית ולמידה מתוך התנסות.",
+      "active": false,
+      "prefer": [],
+      "question": null,
+      "reflect": []
+    },
+    {
+      "id": "community",
+      "name": "המשוטט הקהילתי",
+      "desc": "הקשבה למקום ולאנשים בו, גילוי ידע מקומי, קשרים ואפשרויות.",
+      "active": true,
+      "prefer": [
+        "five-r",
+        "shared-map",
+        "together-apart",
+        "tell-create"
+      ],
+      "question": "איזה מקום ואילו אנשים קשורים למה שמביא אותך?",
+      "reflect": []
+    },
+    {
+      "id": "artist",
+      "name": "המשוטט האמן",
+      "desc": "התבוננות יוצרת, אסוציאציה, השראה ועשייה.",
+      "active": false,
+      "prefer": [],
+      "question": null,
+      "reflect": []
+    },
+    {
+      "id": "scientist",
+      "name": "המשוטט המדען",
+      "desc": "תצפית, חקירה, ראיות ובדיקת הנחות.",
+      "active": false,
+      "prefer": [],
+      "question": null,
+      "reflect": []
+    },
+    {
+      "id": "business",
+      "name": "המשוטט העסקי",
+      "desc": "בחינת צרכים, קשרים, הזדמנויות וכיוונים חדשים.",
+      "active": false,
+      "prefer": [],
+      "question": null,
+      "reflect": []
+    },
+    {
+      "id": "solo",
+      "name": "המשוטט היחיד",
+      "desc": "שוטטות אישית, קשב, רפלקציה ושאלות שאולי עוד אין להן שם.",
+      "active": true,
+      "prefer": [],
+      "question": "מה מביא אותך לשוטטות הזאת?",
+      "reflect": []
+    }
+  ]
+}

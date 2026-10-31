@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "urban-safari",
+  "name": "ספארי עירוני",
+  "kind": "practice",
+  "origin": {
+    "type": "external",
+    "note": "B מסמן מקור חיצוני.",
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "external",
+    "source_note": "Flaneur Society, Guide to Getting Lost (בתיקייה)",
+    "source_refs": [
+      "guide-getting-lost"
+    ]
+  },
+  "content": {
+    "invite": "סדרת חוקים במקום מפה: עלו לאוטובוס הבא לכיוון מרכז העיר, רדו אחרי 12 תחנות, פנו שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין.",
+    "facilitator_note": null,
+    "invite_forms": {
+      "f": "סדרת חוקים במקום מפה: עלי לאוטובוס הבא לכיוון מרכז העיר, רדי אחרי 12 תחנות, פני שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין.",
+      "m": "סדרת חוקים במקום מפה: עלה לאוטובוס הבא לכיוון מרכז העיר, רד אחרי 12 תחנות, פנה שמאלה. בכל שלב מותר לדלג ולהמשיך לכיוון שמעניין."
+    }
+  },
+  "placement": {
+    "slots": [
+      "move"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "מרחב",
+    "diversity": 1,
+    "depth": 0,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "creative",
+      "calm",
+      "learning"
+    ],
+    "audiences": [
+      "solo",
+      "artist",
+      "group"
+    ],
+    "places": [
+      "city"
+    ],
+    "min_minutes": 60
+  },
+  "care": {
+    "boundary_tags": [
+      "transit"
+    ]
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 6,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

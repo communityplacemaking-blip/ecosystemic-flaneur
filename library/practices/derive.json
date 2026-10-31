@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "id": "derive",
+  "name": "דריווה: בכל צומת לפי סקרנות",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapterAI",
+    "source_note": "מפת התרגילים, \"איך משוטטים\", בעקבות דבור והסיטואציוניסטים",
+    "source_refs": [
+      "exercise-map",
+      "how-to-wander",
+      "influence-debord"
+    ]
+  },
+  "content": {
+    "invite": "צאו להליכה בלי יעד. בכל צומת בחרו כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך.",
+    "facilitator_note": null,
+    "invite_forms": {
+      "f": "צאי להליכה בלי יעד. בכל צומת בחרי כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך.",
+      "m": "צא להליכה בלי יעד. בכל צומת בחר כיוון לפי סקרנות רגעית בלבד. המטרה היא לגלות איך המרחב מוביל את הדרך."
+    }
+  },
+  "placement": {
+    "slots": [
+      "move"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "מרחב",
+    "diversity": 1,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": "all",
+    "places": [
+      "city",
+      "neighborhood"
+    ],
+    "min_minutes": 30
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 5,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

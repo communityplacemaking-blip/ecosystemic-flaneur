@@ -1,0 +1,445 @@
+{
+  "note": "הצעות תיוג לאישור של תומר. לא נכנסו לרשומות. כל הצעה נשענת על מילים מתוך הרשומה (basis).",
+  "date": "2026-10-31",
+  "status": "awaiting-approval",
+  "proposals": [
+    {
+      "id": "attention-now",
+      "movements": [
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "suspending",
+          "text": "אל תענו מהר. המשפט הראשון שעולה הוא טיוטה"
+        }
+      ],
+      "basis": [
+        "מה מבקש תשומת לב עכשיו?",
+        "אל תענו מהר"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "question-release",
+      "movements": [
+        "release"
+      ],
+      "qualities": [
+        {
+          "category": "suspending",
+          "text": "שחררו את הצורך למצוא לה תשובה עכשיו"
+        }
+      ],
+      "basis": [
+        "שחררו את הצורך למצוא לה תשובה עכשיו"
+      ],
+      "confidence": "high",
+      "note": "יכול להתאים גם ל\"ערך\" דרך ניסוח השאלה. לא הצעתי, כי הנוסח מדגיש את השחרור."
+    },
+    {
+      "id": "count-ten",
+      "movements": [
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "listening",
+          "text": "הקשבה לאחר, בקבוצה"
+        }
+      ],
+      "basis": [
+        "בהקשבה לאחר"
+      ],
+      "confidence": "low",
+      "note": "כללי התרגיל לבירור, ולכן הביטחון נמוך."
+    },
+    {
+      "id": "brown-green",
+      "movements": [
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "observing",
+          "text": "מה הקשב סינן בלי שהרגשנו"
+        }
+      ],
+      "basis": [
+        "מה הקשב סינן בלי שהרגשנו"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "slow-walk",
+      "movements": [
+        "wandering",
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "observing",
+          "text": "פרטים קטנים שבדרך כלל לא מושכים את העין"
+        }
+      ],
+      "basis": [
+        "לכו לאט במרחב",
+        "שימו לב לפרטים קטנים"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "derive",
+      "movements": [
+        "wandering"
+      ],
+      "qualities": [
+        {
+          "category": "play",
+          "text": "בכל צומת בחרו כיוון לפי סקרנות רגעית בלבד"
+        }
+      ],
+      "basis": [
+        "צאו להליכה בלי יעד",
+        "סקרנות רגעית"
+      ],
+      "confidence": "medium",
+      "note": "\"משחק\" כאן הוא קריאה שלי של הבחירה בכל צומת. אפשר גם בלי איכות."
+    },
+    {
+      "id": "urban-safari",
+      "movements": [
+        "wandering"
+      ],
+      "qualities": [
+        {
+          "category": "play",
+          "text": "סדרת חוקים במקום מפה"
+        }
+      ],
+      "basis": [
+        "סדרת חוקים במקום מפה"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "third-space",
+      "movements": [
+        "wandering",
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "observing",
+          "text": "התבוננו במה שקורה באזור המעבר"
+        }
+      ],
+      "basis": [
+        "התבוננו במה שקורה באזור המעבר",
+        "מה נולד בין הדברים?"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "together-apart",
+      "movements": [
+        "wandering"
+      ],
+      "qualities": [],
+      "basis": [
+        "הולכים במסלול משלהם, וכולם נפגשים שוב"
+      ],
+      "confidence": "low",
+      "note": "לא מצאתי בנוסח בסיס לאיכות קשב. המנגנון המדויק של התרגיל עדיין פתוח."
+    },
+    {
+      "id": "resonance-text",
+      "movements": [
+        "attention",
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "resonance",
+          "text": "הישארו רגע עם שני העולמות יחד, הפנימי והחיצוני"
+        },
+        {
+          "category": "listening",
+          "text": "פתחו קשב לצלילים, לאנשים, לאור"
+        }
+      ],
+      "basis": [
+        "שני העולמות יחד",
+        "פתחו קשב לצלילים, לאנשים, לאור"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "wonder",
+      "movements": [
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "observing",
+          "text": "התבוננו בדבר אחד בלבד, כאילו זו הפעם הראשונה"
+        },
+        {
+          "category": "suspending",
+          "text": "בלי מטרה"
+        }
+      ],
+      "basis": [
+        "כאילו זו הפעם הראשונה",
+        "בלי מטרה"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "encounter",
+      "movements": [
+        "attention",
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "encounter",
+          "text": "רגע אחד של מפגש אמיתי"
+        },
+        {
+          "category": "suspending",
+          "text": "בלי למהר לפרש או להשתמש"
+        }
+      ],
+      "basis": [
+        "מפגש אמיתי",
+        "בלי למהר לפרש או להשתמש"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "read-city",
+      "movements": [
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "observing",
+          "text": "שימו לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים"
+        }
+      ],
+      "basis": [
+        "איזה סיפור המקום הזה מספר?"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "potential",
+      "movements": [
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "listening",
+          "text": "הקשיבו למקום, לאנשים ולתחושות שעולות"
+        }
+      ],
+      "basis": [
+        "מה מבקש להיוולד כאן?",
+        "הקשיבו למקום"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "city-listening",
+      "movements": [
+        "attention"
+      ],
+      "qualities": [
+        {
+          "category": "listening",
+          "text": "הפרידו בין שכבות הצליל"
+        }
+      ],
+      "basis": [
+        "הפרידו בין שכבות הצליל"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "five-r",
+      "movements": [
+        "discernment",
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "gathering",
+          "text": "מפה של הידוע המשותף"
+        },
+        {
+          "category": "encounter",
+          "text": "מיפוי אודות האחר, מי האנשים"
+        },
+        {
+          "category": "creating",
+          "text": "יצירה משותפת, ביטוי למקום"
+        }
+      ],
+      "basis": [
+        "מיפוי אודות האחר",
+        "RECREATE: יצירה משותפת"
+      ],
+      "confidence": "medium",
+      "note": "חמש עדשות שונות. ייתכן שכל עדשה צריכה תיוג משלה."
+    },
+    {
+      "id": "one-line",
+      "movements": [
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "gathering",
+          "text": "שורה אחת ממה שהופיע"
+        }
+      ],
+      "basis": [
+        "רשמו שורה אחת ממה שהופיע"
+      ],
+      "confidence": "low",
+      "note": "זו עקבה. ייתכן שעדיף לא לשייך אותה לתנועה בכלל."
+    },
+    {
+      "id": "small-action",
+      "movements": [
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "creating",
+          "text": "תנו להבחנה ביטוי קטן"
+        }
+      ],
+      "basis": [
+        "תנו להבחנה ביטוי קטן"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "what-appeared",
+      "movements": [
+        "discernment"
+      ],
+      "qualities": [
+        {
+          "category": "suspending",
+          "text": "מותר לסיים בשאלה פתוחה"
+        }
+      ],
+      "basis": [
+        "מה הופיע שלא תכננתי?",
+        "מותר לסיים בשאלה פתוחה"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "tell-create",
+      "movements": [
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "encounter",
+          "text": "כל אחד ואחת מספרים דבר אחד שהופיע"
+        },
+        {
+          "category": "creating",
+          "text": "יוצרים יחד מתוך מה שנאסף"
+        }
+      ],
+      "basis": [
+        "יוצרים יחד מתוך מה שנאסף"
+      ],
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "shared-map",
+      "movements": [
+        "discernment",
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "gathering",
+          "text": "מה שידענו לפני היציאה ומה שגילינו בדרך"
+        }
+      ],
+      "basis": [
+        "משרטטים יחד מפה"
+      ],
+      "confidence": "medium",
+      "note": null
+    },
+    {
+      "id": "lens-transience",
+      "movements": [],
+      "qualities": [],
+      "basis": [],
+      "confidence": null,
+      "note": "שם בלבד, אין נוסח. לא מתייג."
+    },
+    {
+      "id": "lens-rhythms",
+      "movements": [],
+      "qualities": [],
+      "basis": [],
+      "confidence": null,
+      "note": "שם בלבד, אין נוסח. לא מתייג."
+    },
+    {
+      "id": "lens-traces",
+      "movements": [],
+      "qualities": [],
+      "basis": [],
+      "confidence": null,
+      "note": "שם בלבד, אין נוסח. לא מתייג."
+    },
+    {
+      "id": "one-photo",
+      "movements": [
+        "creation"
+      ],
+      "qualities": [
+        {
+          "category": "gathering",
+          "text": "תמונה אחת שהדהדה אצלם"
+        },
+        {
+          "category": "encounter",
+          "text": "להכיר זה את זה דרך התמונות"
+        }
+      ],
+      "basis": [
+        "תמונה אחת שהדהדה",
+        "ביטוי אישי"
+      ],
+      "confidence": "medium",
+      "note": "אין לו מקום בחמשת השלבים. ההצעה לתנועה לא קובעת לו מקום כזה."
+    }
+  ]
+}

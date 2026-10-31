@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "attention-now",
+  "name": "מה מבקש תשומת לב עכשיו?",
+  "kind": "practice",
+  "origin": {
+    "type": "developing",
+    "note": "B מסמן רעיון מתועד שטרם נוסה.",
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "idea",
+    "source_note": "מסמך הרקע: הזמנת הפתיחה של אב-הטיפוס",
+    "source_refs": [
+      "background-doc"
+    ]
+  },
+  "content": {
+    "invite": "עצרו לפני שיוצאים ושאלו: מה מבקש תשומת לב עכשיו? אל תענו מהר. המשפט הראשון שעולה הוא טיוטה.",
+    "facilitator_note": "שאלו את הקבוצה בשקט. כל אחד ואחת כותבים לעצמם משפט אחד, בלי לשתף בשלב הזה.",
+    "invite_forms": {
+      "f": "עצרי לפני שיוצאים ושאלי: מה מבקש תשומת לב עכשיו? אל תעני מהר. המשפט הראשון שעולה הוא טיוטה.",
+      "m": "עצור לפני שיוצאים ושאל: מה מבקש תשומת לב עכשיו? אל תענה מהר. המשפט הראשון שעולה הוא טיוטה."
+    }
+  },
+  "placement": {
+    "slots": [
+      "entry"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "עצמי",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 5
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 0,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

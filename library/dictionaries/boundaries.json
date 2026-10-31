@@ -1,0 +1,32 @@
+{
+  "name": "boundaries",
+  "label": "גבולות מוסריים ותגיות גבול",
+  "from_b": true,
+  "values": [
+    {
+      "id": "noSolution",
+      "label": "לא מחפשים פתרון",
+      "excludes_tag": null
+    },
+    {
+      "id": "noPhone",
+      "label": "הטלפון בכיס",
+      "excludes_tag": null
+    },
+    {
+      "id": "noPhotoPeople",
+      "label": "לא מצלמים אנשים בלי רשות",
+      "excludes_tag": null
+    },
+    {
+      "id": "noStrangers",
+      "label": "לא פונים לאנשים זרים",
+      "excludes_tag": "strangers"
+    },
+    {
+      "id": "onFoot",
+      "label": "נשארים ברגל",
+      "excludes_tag": "transit"
+    }
+  ]
+}

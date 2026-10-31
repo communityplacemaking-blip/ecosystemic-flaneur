@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "id": "count-ten",
+  "name": "ספירה עד 10",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "תרגילי הקשבה, סדנת \"הזמנה ללכת לאיבוד\"",
+    "source_refs": [
+      "workshop-getting-lost-2015"
+    ]
+  },
+  "content": {
+    "invite": "ספירה עד 10 בהקשבה לאחר, בקבוצה. אסור ליד ואסור ביחד.",
+    "facilitator_note": "פירוט הכללים לבירור עם תומר. המטרה המתועדת: הקשבה לאחר בתוך הקבוצה."
+  },
+  "placement": {
+    "slots": [
+      "entry"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "אחר",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": [
+      "group",
+      "community",
+      "class",
+      "org"
+    ],
+    "places": "all",
+    "min_minutes": 10,
+    "facilitated_only": true
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 2,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

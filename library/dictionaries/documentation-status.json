@@ -1,0 +1,36 @@
+{
+  "name": "documentation-status",
+  "label": "מצב התיעוד (מ-B)",
+  "from_b": true,
+  "note": "מה ידוע על התיעוד של התרגול. נפרד מסוג המקור (origin).",
+  "values": [
+    {
+      "id": "workshop",
+      "label": "מתועד בסדנה, 2015"
+    },
+    {
+      "id": "chapter",
+      "label": "מתועד בפרק \"איך משוטטים\""
+    },
+    {
+      "id": "chapterAI",
+      "label": "מתועד בפרק, ייתכן שנוסח עם AI"
+    },
+    {
+      "id": "idea",
+      "label": "רעיון מתועד, טרם נוסה"
+    },
+    {
+      "id": "external",
+      "label": "מקור חיצוני"
+    },
+    {
+      "id": "nameonly",
+      "label": "שם בלבד, חסר נוסח"
+    },
+    {
+      "id": "told",
+      "label": "מבוסס, לפי תיאור של תומר"
+    }
+  ]
+}

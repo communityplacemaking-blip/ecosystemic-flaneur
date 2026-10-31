@@ -1,0 +1,27 @@
+{
+  "name": "places",
+  "label": "סוג מרחב",
+  "from_b": true,
+  "values": [
+    {
+      "id": "city",
+      "label": "עיר ורחוב"
+    },
+    {
+      "id": "neighborhood",
+      "label": "שכונה"
+    },
+    {
+      "id": "nature",
+      "label": "טבע או גינה"
+    },
+    {
+      "id": "institution",
+      "label": "מוסד"
+    },
+    {
+      "id": "any",
+      "label": "כל מקום"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "id": "encounter",
+  "name": "רגע של מפגש",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapterAI",
+    "source_note": "מפת התרגילים, בעקבות מרטין בובר",
+    "source_refs": [
+      "exercise-map",
+      "influence-buber"
+    ]
+  },
+  "content": {
+    "invite": "נסו ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטו בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגש את העולם ולא רק עובר דרכו?",
+    "facilitator_note": null,
+    "invite_forms": {
+      "n": "נסו ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטו בו בלי למהר לפרש או להשתמש. מה קורה כשפוגשים את העולם ולא רק עוברים דרכו?",
+      "f": "נסי ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הביטי בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגשת את העולם ולא רק עוברת דרכו?",
+      "m": "נסה ליצור רגע אחד של מפגש אמיתי, עם אדם, עם מקום או עם עץ. הבט בו בלי למהר לפרש או להשתמש. מה קורה כשאני פוגש את העולם ולא רק עובר דרכו?"
+    }
+  },
+  "placement": {
+    "slots": [
+      "discern"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "אחר",
+    "diversity": 0,
+    "depth": 2,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "community",
+      "learning",
+      "creative",
+      "dilemma"
+    ],
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 10
+  },
+  "care": {
+    "boundary_tags": [
+      "strangers"
+    ]
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 11,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

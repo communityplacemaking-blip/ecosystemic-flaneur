@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "tell-create",
+  "name": "נחזור לספר, ניצור",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "מבנה סדנת \"הזמנה ללכת לאיבוד\": נחשף להשראה, נצא לשוטט, נחזור לספר, ניצור",
+    "source_refs": [
+      "workshop-getting-lost-2015"
+    ]
+  },
+  "content": {
+    "invite": "חוזרים למעגל. כל אחד ואחת מספרים דבר אחד שהופיע, ואז יוצרים יחד מתוך מה שנאסף.",
+    "facilitator_note": "שומרים שהסיפורים לא יפורשו מיד. קודם מקשיבים, אחר כך יוצרים."
+  },
+  "placement": {
+    "slots": [
+      "return"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "זמן",
+    "direction": "אחר",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "creative",
+      "community",
+      "learning",
+      "org"
+    ],
+    "audiences": [
+      "group",
+      "community",
+      "class",
+      "org"
+    ],
+    "places": "all",
+    "min_minutes": 15,
+    "facilitated_only": true
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 19,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

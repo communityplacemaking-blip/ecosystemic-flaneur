@@ -1,0 +1,28 @@
+{
+  "note": "רישום המקורות. כל תרגול מפנה לכאן דרך documentation.source_refs. רשומה כאן מתארת רק מה שכתוב במקורות של B ומה שנמצא בתיקיית החומרים. ייחוס שלא נבדק מסומן verified: false.",
+  "sources": [
+    { "id": "how-to-wander", "kind": "chapter", "title": "\"איך משוטטים\"", "where": null,
+      "note": "הפרק שמתאר את שלבי השוטטות. חלק מהתרגולים מסומנים ב-B כ'ייתכן שנוסח עם AI'. הקובץ לא נמצא בתיקיית החומרים.", "verified": true },
+    { "id": "exercise-map", "kind": "document", "title": "מפת התרגילים", "where": null,
+      "note": "B מזכיר אותה לפעמים יחד עם \"איך משוטטים\". היחס המדויק בין שני המסמכים לא הוכרע.", "verified": true },
+    { "id": "background-doc", "kind": "document", "title": "מסמך הרקע של אב-הטיפוס", "where": null, "note": null, "verified": true },
+    { "id": "workshop-getting-lost-2015", "kind": "workshop", "title": "סדנת \"הזמנה ללכת לאיבוד\", 2015", "where": "שוטטות/הזמנה ללכת לאיבוד.pptx",
+      "note": "כוללת את תרגילי ההקשבה, את נושאי הסדנה (העדשות) ואת מבנה הסדנה. שאלת המקור של התרגילים עצמם לא הוכרעה.", "verified": true },
+    { "id": "invitation-2015", "kind": "document", "title": "הזמנת 2015", "where": null,
+      "note": "המשפט \"מוזמנים להנות יחד ולחוד מן התנאים לגלוי\". הקשר לסדנת 2015 סביר אבל לא נבדק.", "verified": true },
+    { "id": "workshop-place-story", "kind": "workshop", "title": "סדנת \"סיפור המקום בשילוב צא ולמד\"", "where": "שוטטות/סדנת סיפור המקום בשילוב צא ולמד.pptx", "note": null, "verified": true },
+    { "id": "hamadreg", "kind": "document", "title": "המדרג (תמונת א/ב/ג)", "where": null, "note": null, "verified": true },
+    { "id": "meshivei-haruach", "kind": "told", "title": "המפגש הראשון של \"משיבי הרוח\"", "where": null,
+      "note": "לפי התיאור של תומר. האיות של השם לבדיקה.", "verified": true },
+    { "id": "add-a-line", "kind": "unresolved", "title": "\"להוסיף שורה לעולם\"", "where": null,
+      "note": "B מזכיר את הביטוי לצד שלב 6. לא ברור אם זה מקור, ציטוט או שם של תרגול.", "verified": false },
+    { "id": "guide-getting-lost", "kind": "external", "title": "Flaneur Society, Guide to Getting Lost", "where": "שוטטות/מדריך ללכת לאיבוד.pdf",
+      "note": "מקור חיצוני. בקובץ שלוש אפשרויות של ספארי עירוני, ורק הראשונה נמצאת בספרייה. תנאי השימוש לא נבדקו.", "verified": true },
+    { "id": "influence-debord", "kind": "influence", "title": "גי דבור והסיטואציוניסטים", "where": null, "note": "\"בעקבות\", לפי מפת התרגילים.", "verified": false },
+    { "id": "influence-serres", "kind": "influence", "title": "מישל סר", "where": null, "note": "B עצמו מסמן: הייחוס לבדיקה.", "verified": false },
+    { "id": "influence-heschel", "kind": "influence", "title": "אברהם יהושע השל", "where": null, "note": "\"בעקבות\", לפי מפת התרגילים.", "verified": false },
+    { "id": "influence-buber", "kind": "influence", "title": "מרטין בובר", "where": null, "note": "\"בעקבות\", לפי מפת התרגילים.", "verified": false },
+    { "id": "influence-benjamin", "kind": "influence", "title": "ולטר בנימין", "where": null, "note": "\"בעקבות\", לפי מפת התרגילים.", "verified": false },
+    { "id": "influence-scharmer", "kind": "influence", "title": "אוטו שארמר", "where": null, "note": "\"בעקבות\", לפי מפת התרגילים.", "verified": false }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "id": "read-city",
+  "name": "קריאת העיר",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapterAI",
+    "source_note": "מפת התרגילים, בעקבות וולטר בנימין",
+    "source_refs": [
+      "exercise-map",
+      "influence-benjamin"
+    ]
+  },
+  "content": {
+    "invite": "בחרו רחוב והלכו לאט. שימו לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?",
+    "facilitator_note": null,
+    "invite_forms": {
+      "f": "בחרי רחוב ולכי לאט. שימי לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?",
+      "m": "בחר רחוב ולך לאט. שים לב לחלונות ראווה, לתנועת אנשים, לגרפיטי ולשלטים ישנים. איזה סיפור המקום הזה מספר?"
+    }
+  },
+  "placement": {
+    "slots": [
+      "discern",
+      "move"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "מרחב",
+    "diversity": 1,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "learning",
+      "community",
+      "creative",
+      "org"
+    ],
+    "audiences": "all",
+    "places": [
+      "city",
+      "neighborhood"
+    ],
+    "min_minutes": 20
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 12,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

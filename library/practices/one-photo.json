@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "one-photo",
+  "name": "תמונה אחת שמספרת משהו עליי",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "told",
+    "source_note": "המפגש הראשון של \"משיבי הרוח\" (האיות לבדיקה), לפי התיאור של תומר",
+    "source_refs": [
+      "meshivei-haruach"
+    ]
+  },
+  "content": {
+    "invite": "בהליכה לארוחת הצהריים, כל אחד ואחת מצלמים תמונה אחת שהדהדה אצלם ומגלה משהו על מי שהם. במעגל שיתוף מאוחר יותר, כל אחד ואחת מציגים את התמונה ומסבירים מה היא אומרת.",
+    "facilitator_note": "זה אפשר ביטוי אישי, ועזר למשתתפים להכיר זה את זה דרך התמונות שבחרו. משך, גודל קבוצה וחומרים לא מופיעים בתיאור, ולכן לא מולאו."
+  },
+  "placement": {
+    "slots": [],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "עצמי",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": "all",
+    "audiences": [
+      "group",
+      "community",
+      "class",
+      "org"
+    ],
+    "places": "all",
+    "min_minutes": 0,
+    "facilitated_only": true,
+    "modes": [
+      "embedded"
+    ]
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 24,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "id": "shared-map",
+  "name": "מפה של הידוע המשותף",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "סדנת \"סיפור המקום\": REVIEW, מפה של הידוע המשותף",
+    "source_refs": [
+      "workshop-place-story"
+    ]
+  },
+  "content": {
+    "invite": "משרטטים יחד מפה של מה שידענו לפני היציאה ומה שגילינו בדרך.",
+    "facilitator_note": "המפה לא צריכה להיות מדויקת. מה שחשוב הוא מה שנוסף לה."
+  },
+  "placement": {
+    "slots": [
+      "return"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "מרחב",
+    "direction": "אחר",
+    "diversity": 0,
+    "depth": 1,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "community",
+      "learning"
+    ],
+    "audiences": [
+      "community",
+      "class",
+      "group"
+    ],
+    "places": "all",
+    "min_minutes": 20,
+    "facilitated_only": true
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 20,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "id": "city-listening",
+  "name": "הקשבת העיר",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "workshop",
+    "source_note": "מפת התרגילים ותרגיל ההקשבה בעיניים עצומות מסדנת 2015",
+    "source_refs": [
+      "exercise-map",
+      "workshop-getting-lost-2015"
+    ]
+  },
+  "content": {
+    "invite": "עמדו והקשיבו. הפרידו בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשיבו שוב, הפעם כאל יצירה מוזיקלית.",
+    "facilitator_note": "אפשר בעיניים עצומות, כמו בסדנת 2015, כדי לבודד רעשים.",
+    "invite_forms": {
+      "f": "עמדי והקשיבי. הפרידי בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשיבי שוב, הפעם כאל יצירה מוזיקלית.",
+      "m": "עמוד והקשב. הפרד בין שכבות הצליל: ציפורים, רוח, צעדים, מכוניות. אחר כך הקשב שוב, הפעם כאל יצירה מוזיקלית."
+    }
+  },
+  "placement": {
+    "slots": [
+      "discern",
+      "entry"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "מרחב",
+    "diversity": -1,
+    "depth": 2,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "calm",
+      "creative",
+      "learning"
+    ],
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 10
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 14,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}

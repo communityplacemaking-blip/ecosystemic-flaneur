@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "wonder",
+  "name": "פליאה",
+  "kind": "practice",
+  "origin": {
+    "type": "unresolved",
+    "note": null,
+    "decided_by": null
+  },
+  "documentation": {
+    "status": "chapterAI",
+    "source_note": "מפת התרגילים, בעקבות אברהם יהושע השל",
+    "source_refs": [
+      "exercise-map",
+      "influence-heschel"
+    ]
+  },
+  "content": {
+    "invite": "מצאו מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבוננו בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבונן בלי מטרה?",
+    "facilitator_note": null,
+    "invite_forms": {
+      "n": "מצאו מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבוננו בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשמתבוננים בלי מטרה?",
+      "f": "מצאי מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבונני בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבוננת בלי מטרה?",
+      "m": "מצא מגע עם טבע: עץ, גינה, שמים, או צמח קטן לצד המדרכה. התבונן בדבר אחד בלבד, כאילו זו הפעם הראשונה. מה מתגלה כשאני מתבונן בלי מטרה?"
+    }
+  },
+  "placement": {
+    "slots": [
+      "discern"
+    ],
+    "movements": []
+  },
+  "attention": {
+    "axis": "קשב",
+    "direction": "מרחב",
+    "diversity": -1,
+    "depth": 2,
+    "qualities": []
+  },
+  "fit": {
+    "intents": [
+      "calm",
+      "creative",
+      "learning",
+      "dilemma"
+    ],
+    "audiences": "all",
+    "places": "all",
+    "min_minutes": 10
+  },
+  "care": {
+    "boundary_tags": []
+  },
+  "review": {
+    "state": "migrated-from-b",
+    "b_order": 10,
+    "confidence": null,
+    "checked_by": null,
+    "checked_at": null
+  }
+}
