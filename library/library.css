@@ -148,11 +148,12 @@ header .ph{color:var(--muted);background:none;height:auto;font-size:1.05rem;font
 .status-sec{padding-block:clamp(48px,7vw,88px)}
 .status-sec h2{font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:24px}
 .status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.status-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .status-grid > div{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;gap:10px;align-content:start;justify-items:start}
 .status-grid ul{margin:0;padding-inline-start:18px;font-size:.95rem}
 
 @media (max-width:860px){
-  .b-grid,.anat-pair,.status-grid{grid-template-columns:minmax(0,1fr)}
+  .b-grid,.anat-pair,.status-grid,.status-grid.two{grid-template-columns:minmax(0,1fr)}
   .rec-tpl dl div{grid-template-columns:minmax(0,1fr);gap:2px}
   .path{grid-template-columns:minmax(0,1fr);gap:14px;justify-items:start}
   .path::before{top:8px;bottom:8px;inset-inline:auto;inset-inline-start:17px;border-top:none;border-inline-start:2px dotted var(--cc)}
