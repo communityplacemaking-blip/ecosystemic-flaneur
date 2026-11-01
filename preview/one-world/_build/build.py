@@ -9,7 +9,7 @@ Run from the repository root:
     python3 preview/one-world/_build/build.py          the preview, in /preview/one-world/
     python3 preview/one-world/_build/build.py --live   the live site (content sources in /_source/)
 """
-import importlib.util, json, os, random, sys
+import importlib.util, json, os, random, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
@@ -324,7 +324,26 @@ def wrap_site(key):
     return build
 
 
-W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture')}
+# ---------------------------------------------------------------- library B: the participatory tools shelf (data in /library/tools-data.js)
+_P = ['הקשבה ושיח משותפים', 'העלאת ידע מבוזר ומקומי', 'למידה הדדית', 'חקירה ורפלקציה משותפות', 'יצירה ועשייה משותפות', 'גילוי מה שנוצר בין אנשים']
+
+
+def p_library_tools(ctx):
+    html = W.p_library(ctx)
+    pur = '<button type="button" data-p="all" aria-pressed="true">כל המטרות</button>' + ''.join(
+        f'<button type="button" data-p="{i}" aria-pressed="false">{t}</button>' for i, t in enumerate(_P))
+    shelf = f'''<div class="tl-pur" role="group" aria-label="סינון לפי מטרה">{pur}</div>
+<div class="lib-tools tl-bar"><input id="tool-q" type="search" placeholder="חיפוש כלי" aria-label="חיפוש בכלים"><button type="button" data-tk="all" aria-pressed="true">הכול</button><button type="button" data-tk="method" aria-pressed="false">מתודולוגיות</button><button type="button" data-tk="tool" aria-pressed="false">כלים</button><span class="quiet small" id="tool-n" aria-live="polite"></span></div>
+<ol class="tool-list"></ol>
+<p class="tl-note">תרגילי ההקשבה והשוטטות של המשוטט עצמו נמצאים במאגר א. כאן נאספים כלים שמעוררים תבונה קולקטיבית בקבוצה, כל אחד עם שם מי שפיתח אותו. המאגר פתוח לתוספות.</p>'''
+    i = html.find('id="tools"')
+    j = html.find('</div></section>', i)
+    html = html[:j] + shelf + html[j:]
+    return html.replace(f'<script src="{ctx.root}library/ideas-snapshot.js"></script>',
+                        f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n<script src="{ctx.root}library/tools-data.js"></script>\n<script src="{ctx.root}library/tools-view.js" defer></script>', 1)
+
+
+W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 
@@ -392,6 +411,8 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
+        # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
+        html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
         if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
             html = app_shell(html, ctx, key)
