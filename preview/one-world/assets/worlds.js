@@ -171,7 +171,8 @@
         var li = document.createElement('li'); li.className = 'idea'; li.style.setProperty('--i', i);
         li.innerHTML = '<button type="button" aria-expanded="false"><span class="d" aria-hidden="true"></span><b></b><small></small></button><div class="idea-body" hidden><p class="inv"></p><p class="src"></p></div>';
         $('b', li).textContent = it.name;
-        $('small', li).textContent = (KIND[it.kind] || '') + (it.min ? ' · ' + it.min + ' דק׳' : '');
+        var ph = (it.slots || []).map(function (x) { return x === 'entry' ? 'לפני השוטטות' : (x === 'trace' || x === 'return') ? 'אחרי' : 'במהלך השוטטות'; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' / ');
+        $('small', li).textContent = (KIND[it.kind] || '') + (ph ? ' · ' + ph : '') + (it.min ? ' · ' + it.min + ' דק׳' : '');
         $('.inv', li).textContent = it.invite || '';
         $('.src', li).textContent = it.src ? 'מקור: ' + it.src : '';
         var btn = $('button', li), body = $('.idea-body', li);
