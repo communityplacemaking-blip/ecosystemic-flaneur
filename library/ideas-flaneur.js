@@ -3,6 +3,12 @@
    so the adaptive mechanism can offer them. Same display fields as the snapshot.
    "credit" is the factual attribution line (בהשראת / מבוסס על). Descriptions are original. */
 window.IDEAS = (window.IDEAS || []).concat([
+{ "id": "eye-gastronomy", "name": "סעודה לעין", "kind": "practice", "doc": "external",
+  "credit": "בהשראת אונורה דה בלזק ו\"הגסטרונומיה של העין\"",
+  "src": "Honoré de Balzac, \"Physiologie du mariage\" (1829)",
+  "invite": "לכו לאט, כמו מי שטועם ארוחה. הניחו לעין לאכול: צבעים, אור וצל, תנועה, חומרים. בכל פעם שמשהו טעים לעין, עצרו לרגע והתעכבו עליו, לפני שאתם ממשיכים לביס הבא.",
+  "note": "בסוף כל אחד מתאר מנה אחת שהעין טעמה, במילים של טעם: מתוק, חריף, מר.",
+  "places": "all", "min": 15, "slots": ["move", "discern"] },
 { "id": "three-in-chaos", "name": "שלושה דברים בתוך הבלאגן", "kind": "practice", "doc": "told",
   "credit": "כלי מקורי", "src": "כלי מקורי של המשוטט האקוסיסטמי, מתרגולי הקשב",
   "invite": "עמדו בנקודה כלשהי כדקה. מתוך כל הבלאגן שסביבכם, התמקדו בשלושה דברים בלבד. אחר כך הסתובבו, ונסו לחשוב: מה האופי של שלושת הדברים האלה?",
@@ -32,7 +38,7 @@ window.IDEAS = (window.IDEAS || []).concat([
   "places": ["city", "neighborhood"], "min": 20, "slots": ["discern", "move"] },
 { "id": "passionate-spectator", "name": "הצופה הנלהב", "kind": "practice", "doc": "external",
   "credit": "בהשראת שארל בודלר והמשוטט כצופה נלהב",
-  "src": "שארל בודלר, \"צייר החיים המודרניים\" (1863)",
+  "src": "שארל בודלר, \"צייר החיים המודרניים\" (1863), שבו המשוטט הוא צופה נלהב, כמו נסיך שנהנה בכל מקום מכך שאיש אינו מזהה אותו",
   "invite": "מצאו מקום לשבת בלב התנועה: ספסל, מדרגה, פינה של בית קפה. היו בתוך ההמולה, ובאותו זמן במרחק קטן ממנה. כל כמה דקות שאלו את עצמכם: אני עכשיו בפנים או מבחוץ?",
   "note": "כל אחד יושב במקום אחר. כשחוזרים, משתפים רגע אחד שבו נבלעו בהמולה ורגע אחד שבו חזרו להתבונן.",
   "places": "all", "min": 15, "slots": ["discern"] },
