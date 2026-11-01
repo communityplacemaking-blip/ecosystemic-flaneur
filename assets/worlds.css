@@ -814,3 +814,8 @@ html[data-sky="night"] .light-card > h3 + p { color: var(--gold); }
 .try-note{font-size:14px;color:var(--muted)}
 .try-card .btns{margin:6px 0 0}
 @media (max-width:560px){.try-steps{flex-wrap:nowrap;gap:5px;font-size:13.5px}.try-steps li{padding:5px 8px 5px 10px;gap:5px;white-space:nowrap}.try-steps li i{width:19px;height:19px;font-size:12px}}
+.try-what{margin:4px 0 18px;max-width:56ch}
+.try-what summary{cursor:pointer;color:var(--gold-t,var(--gold));font-weight:400}
+.try-what p{margin:8px 0 0;font-size:16px;color:var(--ink-2)}
+.try-what a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.mth #serendipity{margin:34px 0 6px;font-size:clamp(20px,2.2vw,24px);scroll-margin-top:90px}
