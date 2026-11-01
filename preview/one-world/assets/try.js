@@ -4,7 +4,7 @@
   if (!D || !root) return;
   var cards = root.querySelectorAll('.try-card'), dots = root.querySelectorAll('.try-steps li');
   var ex = document.getElementById('try-ex'), q = document.getElementById('try-q'), g = document.getElementById('try-g');
-  var a = Math.floor(Math.random() * D.attn.length), step = 0;
+  var a = 0, step = 0;
   function attn() { ex.textContent = D.attn[a].text; }
   function show(n) {
     step = n;
@@ -25,7 +25,7 @@
     if (t.hasAttribute('data-next')) show(step + 1);
     else if (t.hasAttribute('data-back')) show(step - 1);
     else if (t.id === 'try-other') { a = (a + 1) % D.attn.length; attn(); }
-    else if (t.id === 'try-again') { q.value = 'כיצד '; g.value = ''; a = (a + 1) % D.attn.length; attn(); show(0); }
+    else if (t.id === 'try-again') { q.value = 'כיצד '; g.value = ''; attn(); show(0); }
   });
   attn();
 })();
