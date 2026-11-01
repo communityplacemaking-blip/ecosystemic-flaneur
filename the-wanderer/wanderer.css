@@ -254,3 +254,28 @@
 .method-door .links{display:flex;flex-wrap:wrap;gap:10px}
 .method-door .links a{font-weight:700;text-decoration:none;color:var(--ink);padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper)}
 .method-door .links a:hover{border-color:var(--teal);color:var(--teal)}
+
+/* ---------- 2026-11-01 refinement: moments, lights, the widening circle ---------- */
+.moment{position:relative;max-width:46ch;margin:clamp(40px,6vw,72px) 0 0;margin-inline-start:auto;padding:22px 26px 22px 24px;border-inline-start:2px solid var(--mustard);background:linear-gradient(to left,color-mix(in srgb,var(--mustard) 9%,transparent),transparent);display:grid;gap:10px}
+.moment p{font-family:var(--serif);font-size:clamp(1.12rem,1.8vw,1.3rem);line-height:1.65;font-style:italic}
+.moment p:last-child{font-style:normal;font-weight:500}
+.moment .m-k{font-family:var(--font);font-style:normal;font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--terra)}
+.moment.dark{margin:8px 0 0;max-width:none;background:color-mix(in srgb,var(--on-navy) 6%,transparent);border-color:var(--mustard)}
+.moment.dark p{color:var(--on-navy)}
+.moment.dark .m-k{color:var(--mustard)}
+p.honest{display:block;align-items:initial}
+.honest .star{color:var(--mustard);margin-inline-end:8px}
+.widen{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.widen li{position:relative;display:grid;gap:2px;padding:16px 22px 16px 0;padding-inline-start:56px}
+.widen li::before{content:"";position:absolute;inset-inline-start:8px;top:50%;translate:0 -50%;border-radius:50%;border:1.5px solid var(--teal);background:color-mix(in srgb,var(--teal) 8%,var(--paper))}
+.widen li:nth-child(1)::before{width:14px;height:14px;inset-inline-start:15px}
+.widen li:nth-child(2)::before{width:26px;height:26px;inset-inline-start:9px;border-color:var(--mustard)}
+.widen li:nth-child(3)::before{width:38px;height:38px;inset-inline-start:3px;border-color:var(--terra);border-style:dashed}
+.widen li+li{border-top:1px dashed var(--line)}
+.widen b{font-family:var(--serif);font-weight:500;font-size:1.45rem}
+.widen span{color:var(--muted);font-size:.98rem}
+.sp .ex{font-family:var(--serif);font-style:italic;color:var(--ink);font-size:1.02rem;border-top:1px dashed var(--line);padding-top:8px}
+.method-door{display:grid;gap:10px;justify-items:start}
+.finale .f0{font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.6;color:var(--muted)}
+@media (max-width:900px){.moment{margin-inline-start:0}}
+#eco{font-family:var(--serif);font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:500;color:var(--teal)}
