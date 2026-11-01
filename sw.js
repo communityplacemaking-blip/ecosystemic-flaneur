@@ -3,7 +3,7 @@
 var CACHE = 'ef-app-v2';
 var CORE = [
   './', 'journey/', 'mechanism/', 'try/', 'assets/try.js', 'manifest.webmanifest',
-  'journey/app.js', 'journey/engine.js', 'journey/knowledge.js', 'journey/journey.css', 'library/ideas-snapshot.js',
+  'journey/app.js', 'journey/engine.js', 'journey/knowledge.js', 'journey/journey.css', 'library/ideas-snapshot.js', 'library/ideas-flaneur.js',
   'site.css', 'ef.css', 'assets/worlds.css', 'assets/chrome.css', 'assets/b-skin.css', 'assets/mech.css',
   'assets/field.js', 'assets/circle.js', 'assets/worlds.js', 'assets/app.js',
   'img/flaneur-figure.png', 'img/ego-eco.jpg', 'img/app/icon-192.png'
