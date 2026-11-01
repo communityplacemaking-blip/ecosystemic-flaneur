@@ -20,3 +20,6 @@ html[data-dir="w"] h2, html[data-dir="w"] h3, html[data-dir="w"] legend, html[da
 html[data-dir="w"] .lbl, html[data-dir="w"] .a-lbl, html[data-dir="w"] .slot-name, html[data-dir="w"] .cel, html[data-dir="w"] .n,
 html[data-dir="w"] button.compose { font-weight: 500 !important; }
 html[data-dir="w"] h2 { letter-spacing: 0; }
+
+/* mechanism: the gate's "straight to the compass" chip is a regular button, not the page's skip link */
+.gate .chip.skip { position: static; top: auto; inset-inline-start: auto; z-index: auto; font: inherit; font-size: 13.5px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
