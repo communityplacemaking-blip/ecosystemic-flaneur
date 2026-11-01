@@ -31,8 +31,10 @@
     setTimeout(function () { veil.className = 'dusk'; }, 1500);
   }
   setSky(H.getAttribute('data-sky') || 'night', true);
+  var fresh = !store('ef-sky');  /* a first-time visitor: the way to the day glows softly, a few times */
   $$('.sky').forEach(function (b) {
-    b.addEventListener('click', function () { crossTo(H.getAttribute('data-sky') === 'day' ? 'night' : 'day'); });
+    if (fresh) { b.classList.add('beckon'); b.addEventListener('animationend', function () { b.classList.remove('beckon'); }); }
+    b.addEventListener('click', function () { b.classList.remove('beckon'); crossTo(H.getAttribute('data-sky') === 'day' ? 'night' : 'day'); });
   });
 
   /* ---------- the threshold: choose the hour in which to enter ---------- */
@@ -41,7 +43,7 @@
     var force = /[?&]enter=1/.test(location.search);
     if (force || !store('ef-sky-chosen')) {
       th.hidden = false; H.classList.add('at-threshold');
-      var first = $('button', th); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+      var first = $('[data-enter="night"]', th) || $('button', th); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
     }
     function enter(sky) {
       store('ef-sky-chosen', '1');

@@ -14,7 +14,7 @@
       h += '<li class="ep-e k-' + e.kind + (k === j ? ' hi' : '') + '" id="e-' + i + '-' + k + '"><span class="tag">' + esc(K[e.kind]) + '</span>' +
         '<b class="nm">' + esc(e.name) + '</b><span class="wk">' + esc(e.work) + ' · ' + esc(e.when) + '</span>' +
         (e.quote ? '<blockquote>' + esc(e.quote) + '</blockquote>' : '') + '<p>' + esc(e.text) + '</p>' +
-        (e.wanderer ? '<a class="more" href="../the-wanderer/#constellation">גם אור בעמוד המשוטט</a>' : '') + '</li>';
+        '<p class="ep-src">' + (e.src ? '<a href="' + esc(e.src) + '" rel="noopener" target="_blank">למקור</a>' : '') + (e.wanderer ? '<a class="more" href="../the-wanderer/#constellation">גם אור בעמוד המשוטט</a>' : '') + '</p>' + '</li>';
     });
     panel.innerHTML = h + '</ol>';
     panel.classList.remove('in'); void panel.offsetWidth; panel.classList.add('in');

@@ -38,6 +38,21 @@ class Ctx(W.Ctx):
 
 W.Ctx = Ctx
 
+_spine = W.spine
+
+
+def spine(items):
+    """Section labels in the side spine end on a whole word, never mid-word."""
+    out = []
+    for i, l in items:
+        if len(l) >= 24 and ' ' in l:
+            l = l[:l.rfind(' ')].rstrip(' ,:') + '…'
+        out.append((i, l))
+    return _spine(out)
+
+
+W.spine = spine
+
 
 # ---------------------------------------------------------------- the star map: discovering relationships
 # The only documented relations between lights are the ones the live page itself states:
@@ -221,6 +236,9 @@ def main():
         html = fn(ctx).replace(OLD_FONTS, OSIM_FONTS).replace('@@ECHOES@@', ctx.to('echoes'))
         for a, b in (('#112B48', '#0F2D4A'), ('#B65E3E', '#9A4E2C'), ('#C2902A', '#D4A72C'), ('#E8B54D', '#D4A72C'), ('#F0C66A', '#E6C056'), ('#5BBDB3', '#6DB8AF'), ('#FFF4D6', '#FFF3D2')):
             html = html.replace(a, b)
+        if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
+            i = html.find('id="five"'); j = html.find('</div></section>', i)
+            html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)

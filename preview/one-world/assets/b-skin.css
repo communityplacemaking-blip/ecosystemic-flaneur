@@ -15,3 +15,8 @@ html[data-dir] nav.tabs button[aria-selected="true"] { border-color: var(--gold)
 html[data-dir] input, html[data-dir] textarea, html[data-dir] select { background: var(--solid); color: var(--ink); border-color: var(--line-2); }
 html[data-dir="w"] h1, html[data-dir="w"] .step-h { font-family: var(--f-sans); font-weight: 300; }
 html[data-dir="w"] body { font-weight: 300; }
+/* type follows Osim Kehila: 300 / 400 / 500 */
+html[data-dir="w"] h2, html[data-dir="w"] h3, html[data-dir="w"] legend, html[data-dir="w"] dt,
+html[data-dir="w"] .lbl, html[data-dir="w"] .a-lbl, html[data-dir="w"] .slot-name, html[data-dir="w"] .cel, html[data-dir="w"] .n,
+html[data-dir="w"] button.compose { font-weight: 500 !important; }
+html[data-dir="w"] h2 { letter-spacing: 0; }
