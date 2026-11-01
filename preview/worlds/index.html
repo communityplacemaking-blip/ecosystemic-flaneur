@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-dir="a" data-sky="night" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>שני עולמות למשוטט</title>
+<meta name="description" content="שתי שפות חזותיות לעולם אחד של המשוטט האקוסיסטמי: לילה עירוני ואקוסיסטם חי, וביום או בלילה.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/worlds.css">
+<style>
+  .hub-h { padding-block: clamp(40px, 7vw, 90px) clamp(20px, 3vw, 36px); }
+  .hub-h h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); }
+  .dirs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 36px); padding-bottom: clamp(40px, 6vw, 80px); }
+  @media (max-width: 900px) { .dirs { grid-template-columns: minmax(0, 1fr); } }
+  .dir { border: 1px solid var(--line-2); border-radius: 18px; overflow: hidden; background: var(--surface); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; }
+  .tile { position: relative; aspect-ratio: 1 / 1.05; overflow: hidden; background: var(--bg); color: var(--ink); }
+  .tile .field { position: absolute; inset: 0; }
+  .tile .cap { position: absolute; z-index: 2; inset-inline-start: 14px; bottom: 12px; font: 600 .82rem var(--f-sans); padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--bg) 80%, transparent); color: var(--ink); }
+  .tile .mini { position: absolute; z-index: 2; inset-inline-end: 14px; top: 14px; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--lamp); }
+  .tile[data-dir="b"][data-sky="day"] .mini { background: var(--bg); border: 1.5px solid var(--line-2); }
+  .tile .mini img { height: 42px; width: auto; }
+  .dir-b { padding: clamp(20px, 3vw, 32px); }
+  .dir-b h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 4px; }
+  .dir-b .en { font: 500 .78rem var(--f-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; display: block; }
+  .dir-b p { color: var(--ink-2); font-size: 1rem; }
+  .traits { list-style: none; padding: 0; margin: 16px 0 20px; display: grid; gap: 8px; font: 400 .95rem/1.55 var(--f-sans); color: var(--ink-2); }
+  .traits b { color: var(--ink); font-weight: 600; }
+  .pages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  .pages a { font: 500 .86rem var(--f-sans); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 999px; color: var(--ink); }
+  .pages a:hover { border-color: var(--gold); }
+  .t-a { font-family: var(--f-serif); }
+  .t-b { font-family: var(--f-sans); font-weight: 800; letter-spacing: -.02em; }
+  .dna { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+  .sw { display: flex; gap: 6px; margin-top: 10px; }
+  .sw i { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-2); }
+</style>
+</head>
+<body>
+<header class="wb"><div class="wb-in">
+<span class="brand"><span class="fig-mini"><img src="../../img/flaneur-figure.png" alt="" width="25" height="22"></span>המשוטט האקוסיסטמי</span>
+<a class="btn" style="margin-inline-start:auto;min-height:40px" href="../../">לאתר החי</a>
+</div></header>
+<main id="main">
+<section class="wrap hub-h">
+<p class="kick">The Ecosystemic Flâneur · עיצוב</p>
+<h1>שני עולמות למשוטט</h1>
+<p class="lead" style="margin-top:18px">שתי שפות חזותיות לאותו עולם: עיר חיה שנעה בין כאוס לסדר מתהווה. בכל אחת מהן בוחרים בכניסה לשוטט ביום או בלילה, ואפשר לעבור ביניהם בכל רגע בלי לאבד את המקום.</p>
+<p class="quiet" style="max-width:62ch">התוכן, הניווט, האיורים, המודלים והמנגנון זהים בשני העולמות. בכל עמוד העיר מתחילה כשדה של נקודות וחוטים מהבהבים. קשב (סמן, נגיעה, או המשוטט שמשוטט בעצמו) חושף רחובות, מסלולים ושכונות שהיו שם מהתחלה, והם נעלמים לאט כשמפסיקים להתבונן.</p>
+</section>
+
+<section class="wrap dirs">
+<article class="dir">
+<div class="pair">
+<div class="tile" data-dir="a" data-sky="night"><div class="field" data-field="hub-a" data-density="1.4" data-labels="רחוב|מפגש|שאלה"></div><span class="mini"><img src="../../img/flaneur-figure.png" alt="" width="480" height="415"></span><span class="cap">לילה</span></div>
+<div class="tile" data-dir="a" data-sky="day"><div class="field" data-field="hub-a2" data-density="1.4" data-labels="שכונה|הקשבה"></div><span class="mini"><img src="../../img/flaneur-figure.png" alt="" width="480" height="415"></span><span class="cap">יום</span></div>
+</div>
+<div class="dir-b">
+<span class="en">Option A · Urban Night</span>
+<h2 class="t-a">לילה עירוני</h2>
+<p>עיר לא מוכרת בלילה. אורות שנדלקים, מסלולים שמופיעים בהדרגה, מסלולי סיבוב שממשיכים מעבר למסך, וקבוצות כוכבים שמזמינות לחקור.</p>
+<ul class="traits">
+<li><b>טיפוגרפיה:</b> כותרות ב־Frank Ruhl Libre דק וגדול, גוף טקסט ב־Heebo קל.</li>
+<li><b>התנהגות:</b> אור. נקודות זוהרות, קווים דקים, עומק בשלוש שכבות, אורות שנעים.</li>
+<li><b>משטחים:</b> חלונות מוארים. האיורים של ליאל מוצגים כחלון חם בתוך הלילה.</li>
+<li><b>ביום:</b> אותה שפה באור שחר: דיו כחול, הילות חרדל, קווי מסלול.</li>
+</ul>
+<div class="btns" style="margin-top:0"><a class="btn go" href="a/?enter=1">להיכנס לעולם</a><a class="btn" href="a/journey/">המעגל החי</a></div>
+<nav class="pages" aria-label="עמודים בלילה עירוני"><a href="a/">בית</a><a href="a/the-wanderer/">המשוטט</a><a href="a/flaneur/">השיטה</a><a href="a/method/">השיטה לעומק</a><a href="a/journey/">המנגנון</a><a href="a/mechanism/">המשוטט B</a><a href="a/academy/">אקדמי ומקצועי</a><a href="a/library/">הספרייה</a></nav>
+</div>
+</article>
+
+<article class="dir">
+<div class="pair">
+<div class="tile" data-dir="b" data-sky="day"><div class="field" data-field="hub-b" data-density="1.4" data-labels="רחוב|מפגש|שאלה"></div><span class="mini"><img src="../../img/flaneur-figure.png" alt="" width="480" height="415"></span><span class="cap">יום</span></div>
+<div class="tile" data-dir="b" data-sky="night"><div class="field" data-field="hub-b2" data-density="1.4" data-labels="שכונה|הקשבה"></div><span class="mini"><img src="../../img/flaneur-figure.png" alt="" width="480" height="415"></span><span class="cap">לילה</span></div>
+</div>
+<div class="dir-b">
+<span class="en">Option B · Living Ecosystem</span>
+<h2 class="t-b">אקוסיסטם חי</h2>
+<p>מפה עירונית מצוירת שמתפתחת. קווי גובה, שבילים מנוקדים, שכונות שמקבלות קו מתאר, ומעגלים שמתרחבים כשמשהו מתגלה.</p>
+<ul class="traits">
+<li><b>טיפוגרפיה:</b> כותרות ב־Heebo כבד, כמו שמות על מפה, וגוף טקסט ב־Frank Ruhl Libre.</li>
+<li><b>התנהגות:</b> קו. נקודות בדיו, קווים מעט רועדים, אדוות שמתרחבות מכל גילוי.</li>
+<li><b>משטחים:</b> חלקות במפה, עם סיכה וצל נייר. האיורים מוצגים כלוחות על השולחן.</li>
+<li><b>בלילה:</b> אותה מפה לאור פנס: נייר כחול עמוק, קווי גובה בקרם, נקודות אור חרדל.</li>
+</ul>
+<div class="btns" style="margin-top:0"><a class="btn go" href="b/?enter=1">להיכנס לעולם</a><a class="btn" href="b/journey/">המעגל החי</a></div>
+<nav class="pages" aria-label="עמודים באקוסיסטם חי"><a href="b/">בית</a><a href="b/the-wanderer/">המשוטט</a><a href="b/flaneur/">השיטה</a><a href="b/method/">השיטה לעומק</a><a href="b/journey/">המנגנון</a><a href="b/mechanism/">המשוטט B</a><a href="b/academy/">אקדמי ומקצועי</a><a href="b/library/">הספרייה</a></nav>
+</div>
+</article>
+</section>
+
+<section class="sec alt"><div class="wrap">
+<div class="sec-h"><p class="kick">מה משותף לשני העולמות</p><h2>אותו DNA בכל עמוד</h2></div>
+<div class="dna">
+<div class="card"><h3>צבעים ותפקידים</h3><p>כחול עמוק הוא המבנה. חרדל הוא האור והקשב, והשביל של המשוטט. טורקיז הוא הקשר בין דברים. טרקוטה מופיעה רק איפה שיש חום אנושי: רגע, אנשים, יצירה משותפת.</p><div class="sw"><i style="background:#0F2236"></i><i style="background:#E8B54D"></i><i style="background:#5BBDB3"></i><i style="background:#DE8B66"></i><i style="background:#F5EEDF"></i></div></div>
+<div class="card"><h3>נקודה ושביל</h3><p>כל דבר בעולם הוא נקודה, וכל קשר הוא שביל. אותה שפה משמשת לניווט, לכותרות, לרשת המסע, לשבע התנועות, לקבוצת הכוכבים ולמעגל המנגנון.</p></div>
+<div class="card"><h3>הדמות של ליאל</h3><p>האיור לא משתנה. ביום הוא עומד במעגל של מפה, ובלילה בתוך פנס של אור. השביל שלו מתחיל ממנו, והוא מופיע במרכז המעגל של המנגנון.</p></div>
+<div class="card"><h3>כאוס וסדר מתהווה</h3><p>שום תרשים לא מוצג מראש. הסדר נחשף רק במקום שבו מישהו מתבונן, ונשאר לזמן מה. מסלולים לא צפויים נמתחים בין דפוסים שכבר נחשפו.</p></div>
+<div class="card"><h3>ניווט</h3><p>"המפה" פותחת את כל העמודים כשטחים של אותו עולם, עם "אתם כאן". במסך רחב, תחנות בצד העמוד מראות איפה אתם בתוכו.</p></div>
+<div class="card"><h3>תנועה ונגישות</h3><p>תנועה איטית ושקטה. מי שביקש בדפדפן פחות תנועה מקבל תמונה עומדת שנחשפת בנגיעה, וכל התוכן גלוי גם בלי JavaScript.</p></div>
+</div>
+</div></section>
+</main>
+<footer class="wf"><div class="wrap"><span class="wf-brand">המשוטט האקוסיסטמי</span><span>איורים: ליאל</span></div></footer>
+<script src="assets/field.js"></script>
+<script src="assets/worlds.js"></script>
+</body>
+</html>
