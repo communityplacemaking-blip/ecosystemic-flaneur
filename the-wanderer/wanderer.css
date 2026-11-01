@@ -44,8 +44,6 @@
 #citymap .stops circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
 #citymap .fig rect{fill:var(--ink)}
 .w-cap{font-size:.76rem;color:var(--muted);margin-top:6px}
-.w-cap .hint{display:none}
-@media (hover:hover) and (pointer:fine){.js .w-cap .hint{display:inline}}
 
 /* ---------- I ---------- */
 .verbs{list-style:none;margin:0;padding:0;display:grid;gap:4px;border-inline-start:1.5px dashed var(--mustard);padding-inline-start:22px}
