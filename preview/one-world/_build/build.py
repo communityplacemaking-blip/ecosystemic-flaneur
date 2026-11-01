@@ -21,6 +21,7 @@ from cssfold import fold  # noqa: E402
 from echoes import ECHOES, TIES  # noqa: E402
 
 LIVE_BUILD = '--live' in sys.argv
+PREVIEW_ONLY = ('try',)            # built, unlinked and noindex until Tomer approves
 SRC = os.path.join(ROOT, '_source')          # the content sources of every page (the live pages are generated)
 MARK = '<meta name="robots" content="noindex" data-source-copy>\n'
 NOINDEX = '<meta name="robots" content="noindex">'
@@ -40,7 +41,7 @@ def src_open(path, *a, **k):
 
 W.open = src_open
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
-W.PAGES = W.PAGES + ['echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
+W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
 OLD_FONTS = 'https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500;600;700;800&display=swap'
 
@@ -240,6 +241,73 @@ def p_system(ctx):
     return W.page(ctx, 'שפה אחת', 'מערכת האותיות והאווירות של המשוטט האקוסיסטמי.', body, body_cls='sub')
 
 
+# ---------------------------------------------------------------- page: a ten-minute wandering (proposal, noindex)
+# Three steps in Tomer's order (1.11): sharpening attention, asking a question, gathering from the space.
+# Every exercise text is taken from the ideas library (library/ideas-snapshot.js) or from the mechanism's
+# question help; only the short connecting lines are new.
+TRY_ATTN = ['brown-green', 'city-listening', 'slow-walk']
+# Tomer's own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
+TRY_OWN = [
+    {'id': 'three-things', 'text': 'עמדו בנקודה כלשהי כדקה. מתוך הבלאגן, התמקדו בשלושה דברים. אחר כך הסתובבו ונסו לחשוב: מה האופי של שלושת הדברים האלה?'},
+    {'id': 'ten-eyes-closed', 'text': 'באותו מקום, עצמו עיניים ונסו לזהות מה יש סביבכם. מנו עשרה דברים שאתם מזהים. אחר כך פקחו עיניים ובדקו.'},
+    {'id': 'body-in-noise', 'text': 'באמצע הרעש, עצרו והקשיבו לשלוש תחושות שיש בגוף שלכם ממש עכשיו. אל אילו איברים הרעש מפנה אתכם? ואיזה ייצוג מקבלים האיברים האלה ברחוב?'},
+]
+
+
+def p_try(ctx):
+    import re as _re
+    snap = _open(os.path.join(ROOT, 'library', 'ideas-snapshot.js'), encoding='utf-8').read()
+    arr = snap[snap.index('['):snap.rindex(']') + 1]
+    ideas = {r['id']: r.get('invite', '') for r in json.loads(arr)}
+    attn = TRY_OWN + [{'id': i, 'text': ideas[i]} for i in TRY_ATTN]
+    release, one_line, appeared = ideas['question-release'], ideas['one-line'], ideas['what-appeared']
+    data = json.dumps({'attn': attn}, ensure_ascii=False)
+    body = f'''<section class="hero inner short try-hero" data-listen>
+<div class="field" data-field="try-w" data-labels="קשב|שאלה|ליקוט" data-anchor=".3,.6" data-density=".6"></div>
+<div class="wrap"><div class="hero-text"><p class="kick">שוטטות של 10 דקות</p>
+<h1>לצאת לשוטט, עכשיו<small>לחדד את הקשב, לנסח שאלה, וללקט מהמרחב.</small></h1>
+<p class="lead"><b>ההבטחה שלנו: סרנדיפיות.</b> אי אפשר לדעת מראש מה תמצאו, אבל אפשר לצאת מוכנים להבחין במה שלא חיפשתם. לא צריך הכנה ולא צריך להכיר את השיטה. מספיקים מקום אחד, עשר דקות וסקרנות.</p>
+<details class="try-what"><summary>מהי סרנדיפיות?</summary><p>גילוי של משהו שלא חיפשנו, שקורה כשמקרה פוגש תשומת לב. את המילה טבע הסופר הוראס וולפול ב־1754, בעקבות האגדה "שלושת הנסיכים מסרנדיפ", שגיבוריה "גילו כל הזמן, במקרה ובתבונה, דברים שלא חיפשו". <a href="{ctx.to('method', '#serendipity')}">עוד בעמוד השיטה</a></p></details>
+<div class="btns"><a class="btn go" href="#try">להתחיל</a></div></div>{W.fig(ctx)}</div>
+</section>
+{W.seam('try')}
+<section class="sec" id="try" aria-label="שלושה צעדים"><div class="wrap">
+<ol class="try-steps" aria-label="הצעדים"><li class="on" data-s="0"><i>1</i>חידוד הקשב</li><li data-s="1"><i>2</i>ניסוח שאלה</li><li data-s="2"><i>3</i>ליקוט מהמרחב</li></ol>
+<div class="try-card" data-step="0">
+<p class="try-t">כשתי דקות, במקום שבו אתם נמצאים</p><h2>לחדד את הקשב</h2>
+<p class="try-ex" id="try-ex" aria-live="polite"></p>
+<div class="btns"><button type="button" class="btn go" data-next>הקשב ער, ממשיכים</button><button type="button" class="btn" id="try-other">תרגיל אחר</button></div>
+</div>
+<div class="try-card" data-step="1" hidden>
+<p class="try-t">כדקה</p><h2>לנסח שאלה</h2>
+<p>מה מעסיק אתכם עכשיו? נסחו את זה כשאלה שמתחילה ב"כיצד".</p>
+<label class="sr" for="try-q">השאלה שלכם</label><textarea id="try-q" rows="2">כיצד </textarea>
+<details class="try-help"><summary>איך יודעים שזו שאלה טובה?</summary>
+<p><b>מטרה או שאלה?</b> "אני רוצה להכיר אנשים מעניינים..." היא מטרה. "כיצד אוכל לאפשר לעצמי להתמלא באנרגיית חיים...?" היא שאלה.</p>
+<p><b>תוצאה קבועה או חקירה פתוחה?</b> "כיצד אשכנע את כולם לתמוך ברעיון שלי?" מכוונת לתוצאה. "כיצד אוכל לגלות מה הרעיון הזה עשוי להפוך להיות במפגש עם אנשים ועם המקום?" נשארת פתוחה.</p></details>
+<p class="try-release">{release}</p>
+<div class="btns"><button type="button" class="btn go" data-next>יוצאים</button><button type="button" class="btn" data-back>חזרה</button></div>
+</div>
+<div class="try-card" data-step="2" hidden>
+<p class="try-t">כשבע דקות, בתנועה</p><h2>ללקט מהמרחב</h2>
+<p>לכו לאן שמשהו מושך אתכם. כשמשהו עוצר אתכם, לקטו אותו: צילום, מילה אחת או שורה אחת.</p>
+<p class="try-q-echo" id="try-q-echo" hidden></p>
+<label for="try-g">{one_line}</label><textarea id="try-g" rows="2"></textarea>
+<div class="btns"><button type="button" class="btn go" data-next>חוזרים</button><button type="button" class="btn" data-back>חזרה</button></div>
+</div>
+<div class="try-card try-end" data-step="3" hidden>
+<h2>מה ליקטתם</h2>
+<dl class="try-sum"><div id="sum-q"><dt>השאלה</dt><dd></dd></div><div id="sum-g"><dt>מה שליקטתם</dt><dd></dd></div></dl>
+<p class="try-close">{appeared}</p>
+<div class="btns"><a class="btn go" href="{ctx.to('journey')}">למסע המלא</a><button type="button" class="btn" id="try-again">לשוטט שוב</button></div>
+<p class="try-note">שום דבר מכאן לא נשמר ולא נשלח. מה שכתבתם נשאר רק על המסך הזה.</p>
+</div>
+</div></section>
+<script>window.TRY={data};</script>'''
+    js = f'<script src="{ctx.assets}try.js"></script>\n'
+    return W.page(ctx, 'שוטטות של 10 דקות', 'שלושה צעדים קצרים: לחדד את הקשב, לנסח שאלה וללקט מהמרחב.', body, extra_js=js, body_cls='sub')
+
+
 # ---------------------------------------------------------------- pages that keep their own layout (site.css), in the world's chrome
 def wrap_site(key):
     """The page's own markup and styles stay; the world's header, footer, type and atmospheres are put around it."""
@@ -275,9 +343,27 @@ def p_library_tools(ctx):
                         f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n<script src="{ctx.root}library/tools-data.js"></script>\n<script src="{ctx.root}library/tools-view.js" defer></script>', 1)
 
 
-W.BUILDERS = {**W.BUILDERS, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
+W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
+
+
+INSTALL = ('<div class="app-install" hidden><button type="button" aria-expanded="false">'
+           '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M10 6v6M7.5 9.5 10 12l2.5-2.5"/></svg>'
+           'להוסיף את המנגנון למסך הבית</button><p class="app-how" hidden></p></div>')
+
+
+def app_shell(html, ctx, key):
+    up = '' if key == '' else '../'
+    tags = (f'<link rel="manifest" href="{up}manifest.webmanifest">\n<meta name="theme-color" content="#0F2D4A">\n'
+            f'<link rel="apple-touch-icon" href="{up}img/app/apple-touch-icon.png">\n<meta name="apple-mobile-web-app-capable" content="yes">\n'
+            '<meta name="apple-mobile-web-app-title" content="המשוטט">\n')
+    html = html.replace('</head>', tags + '</head>', 1)
+    html = html.replace('</body>', f'<script src="{ctx.assets}app.js" defer></script>\n</body>', 1)
+    if key == 'journey':
+        i = html.find('<p class="lead">'); j = html.find('</p>', i) + 4
+        html = html[:j] + INSTALL + html[j:]
+    return html
 
 
 def live_head(html, key):
@@ -287,6 +373,8 @@ def live_head(html, key):
     src = _open(sp, encoding='utf-8').read() if os.path.exists(sp) else '</head>'  # a page with no source (echoes) is public
     shead = src[:src.find('</head>')]
     html = html.replace(MARK, '')
+    if key in PREVIEW_ONLY:
+        return html                       # proposals stay noindex until approved
     if NOINDEX not in shead.replace(MARK, ''):
         html = html.replace(NOINDEX + '\n', '', 1).replace(NOINDEX, '', 1)
     elif NOINDEX not in html:
@@ -307,7 +395,7 @@ def main():
     import shutil
     os.makedirs(ASSETS, exist_ok=True)
     if LIVE_BUILD:  # the world's scripts and styles are served from /assets/
-        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css'):
+        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js', 'try.js'):
             shutil.copy(os.path.join(HERE, '..', 'assets', f), os.path.join(ASSETS, f))
     base = fold(open(os.path.join(ROOT, 'preview', 'worlds', 'assets', 'worlds.css'), encoding='utf-8').read())
     layer = open(os.path.join(HERE, '..', 'assets', 'one.css'), encoding='utf-8').read()
@@ -326,6 +414,8 @@ def main():
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
+        if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
+            html = app_shell(html, ctx, key)
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)

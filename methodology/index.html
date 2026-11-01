@@ -47,6 +47,11 @@
 <script>(function(){var h=document.documentElement,s=null;h.setAttribute("data-dir","w");try{s=new URLSearchParams(location.search).get("sky")||localStorage.getItem("ef-sky")}catch(e){}if(s!=="day"&&s!=="night")s="night";h.setAttribute("data-sky",s);h.setAttribute("data-theme",s==="day"?"light":"dark");h.classList.add("js")})()</script>
 <link rel="stylesheet" href="../assets/chrome.css">
 <link rel="stylesheet" href="../assets/site-skin.css">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#0F2D4A">
+<link rel="apple-touch-icon" href="../img/app/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="המשוטט">
 </head>
 <body class="sub am">
 
@@ -263,5 +268,6 @@
 </script>
 <script src="../assets/field.js"></script>
 <script src="../assets/worlds.js"></script>
+<script src="../assets/app.js" defer></script>
 </body>
 </html>
