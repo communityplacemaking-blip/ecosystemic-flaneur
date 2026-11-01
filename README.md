@@ -1,6 +1,6 @@
 # The Ecosystemic Flâneur / המשוטט האקוסיסטמי
 
-The public home of Tomer's wandering methodology. It is a developing practice, not a validated theory.
+The public home of the Ecosystemic Flâneur wandering methodology. It is a developing practice, not a validated theory.
 
 Site: https://communityplacemaking-blip.github.io/ecosystemic-flaneur/ (GitHub Pages, `main`, root).
 

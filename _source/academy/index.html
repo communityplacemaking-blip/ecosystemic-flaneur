@@ -36,7 +36,7 @@
     <div class="pro-hero-txt">
       <p class="kicker">אקדמי ומקצועי</p>
       <h1>The Ecosystemic Flâneur<span>המשוטט האקוסיסטמי: שיטה לגילוי מקומות, להקשבה לאנשים ולחשיפת אפשרויות חדשות</span></h1>
-      <p class="lead">אני תומר בן חמו, היוצר והמנחה של השיטה. כבר כמעט עשרים שנה אני חוקר, מלמד ומנחה שוטטות קשובה: דרך לפגוש מקום, אנשים וקהילה מחדש, ולגלות יחד את מה שנולד מתוך המפגש.</p>
+      <p class="lead">אני היוצר והמנחה של השיטה. כבר כמעט עשרים שנה אני חוקר, מלמד ומנחה שוטטות קשובה: דרך לפגוש מקום, אנשים וקהילה מחדש, ולגלות יחד את מה שנולד מתוך המפגש.</p>
       <div class="btns">
         <a class="btn primary" href="#offer">סדנאות, הרצאות ושיתופי פעולה</a>
         <a class="btn" href="#contact" data-topic="lecture">להזמין אותי</a>
@@ -60,7 +60,6 @@
     <div class="pro-about-side">
       <p class="num">על היוצר</p>
       <h2>ממחקר עירוני לפרקטיקה חיה</h2>
-      <p class="pro-name">תומר בן חמו</p>
       <p class="quiet">חוקר, מרצה ומנחה תהליכים קהילתיים. מייסד עושים מקום | <span lang="en" dir="ltr">Community Placemaking</span>, ומלמד בשנקר וב־HIT.</p>
     </div>
     <ol class="pro-story">
@@ -84,7 +83,7 @@
   </div>
   <div class="wrap">
     <div class="ac-en" lang="en" dir="ltr">
-      <p><b>The Ecosystemic Flâneur</b> is a methodology for discovering places, listening to people and revealing new possibilities, created and facilitated by Tomer Ben Hamo. It grew from his 2007 thesis at Tel Aviv University, “The Urban Flâneur as a Tool for Urban Research”, through the “Invitation to Get Lost” workshops (Tel Aviv, 2014–2015), into a personal, educational, group and community practice. Tomer is the founder of Osim Makom | Community Placemaking and teaches at Shenkar and HIT. He offers lectures and seminars, wandering workshops, participatory and community processes, professional training, and research and institutional collaborations.</p>
+      <p><b>The Ecosystemic Flâneur</b> is a methodology for discovering places, listening to people and revealing new possibilities, created and facilitated by an anonymous community practitioner. It grew from a 2007 thesis at Tel Aviv University, “The Urban Flâneur as a Tool for Urban Research”, through the “Invitation to Get Lost” workshops (Tel Aviv, 2014–2015), into a personal, educational, group and community practice. The practice is rooted in Osim Makom | Community Placemaking and in academic teaching. It offers lectures and seminars, wandering workshops, participatory and community processes, professional training, and research and institutional collaborations.</p>
     </div>
   </div>
 </section>
@@ -279,13 +278,13 @@
 </section>
 </main>
 
-<footer><div class="wrap"><span>המשוטט האקוסיסטמי · תומר בן חמו</span><span>איורים: ליאל</span><a href="../">בית</a><a href="../flaneur/">השיטה</a><a href="../method/">השיטה לעומק</a><a href="../journey/">המנגנון</a></div></footer>
+<footer><div class="wrap"><span>המשוטט האקוסיסטמי</span><span>איורים: ליאל</span><a href="../">בית</a><a href="../flaneur/">השיטה</a><a href="../method/">השיטה לעומק</a><a href="../journey/">המנגנון</a></div></footer>
 
 <script>
 (function(){
   var T={lecture:'הרצאה או סמינר',workshop:'סדנת שוטטות',process:'תהליך קהילתי ומשתתף',training:'הכשרה מקצועית',org:'שוטטות בארגון או במוסד חינוך',collab:'שיתוף פעולה או מחקר'};
   var msg=document.getElementById('msg'),dirty=false;
-  function draft(k){return 'שלום תומר,\nאשמח לשוחח איתך על '+T[k]+' עם המשוטט האקוסיסטמי.\nמי אנחנו: \nאיפה: \nמתי, בערך: \n';}
+  function draft(k){return 'שלום,\nאשמח לשוחח איתך על '+T[k]+' עם המשוטט האקוסיסטמי.\nמי אנחנו: \nאיפה: \nמתי, בערך: \n';}
   function pick(k){if(!T[k])return;var r=document.getElementById('t-'+k);if(r)r.checked=true;if(!dirty)msg.value=draft(k);}
   msg.addEventListener('input',function(){dirty=true;});
   document.querySelectorAll('input[name=topic]').forEach(function(r){r.addEventListener('change',function(){dirty=false;pick(r.value);});});
