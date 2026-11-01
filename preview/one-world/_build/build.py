@@ -256,7 +256,26 @@ def wrap_site(key):
     return build
 
 
-W.BUILDERS = {**W.BUILDERS, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture')}
+# ---------------------------------------------------------------- library B: the participatory tools shelf (data in /library/tools-data.js)
+_P = ['הקשבה ושיח משותפים', 'העלאת ידע מבוזר ומקומי', 'למידה הדדית', 'חקירה ורפלקציה משותפות', 'יצירה ועשייה משותפות', 'גילוי מה שנוצר בין אנשים']
+
+
+def p_library_tools(ctx):
+    html = W.p_library(ctx)
+    pur = '<button type="button" data-p="all" aria-pressed="true">כל המטרות</button>' + ''.join(
+        f'<button type="button" data-p="{i}" aria-pressed="false">{t}</button>' for i, t in enumerate(_P))
+    shelf = f'''<div class="tl-pur" role="group" aria-label="סינון לפי מטרה">{pur}</div>
+<div class="lib-tools tl-bar"><input id="tool-q" type="search" placeholder="חיפוש כלי" aria-label="חיפוש בכלים"><button type="button" data-tk="all" aria-pressed="true">הכול</button><button type="button" data-tk="method" aria-pressed="false">מתודולוגיות</button><button type="button" data-tk="tool" aria-pressed="false">כלים</button><span class="quiet small" id="tool-n" aria-live="polite"></span></div>
+<ol class="tool-list"></ol>
+<p class="tl-note">תרגילי ההקשבה והשוטטות של המשוטט עצמו נמצאים במאגר א. כאן נאספים כלים שמעוררים תבונה קולקטיבית בקבוצה, כל אחד עם שם מי שפיתח אותו. המאגר פתוח לתוספות.</p>'''
+    i = html.find('id="tools"')
+    j = html.find('</div></section>', i)
+    html = html[:j] + shelf + html[j:]
+    return html.replace(f'<script src="{ctx.root}library/ideas-snapshot.js"></script>',
+                        f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n<script src="{ctx.root}library/tools-data.js"></script>\n<script src="{ctx.root}library/tools-view.js" defer></script>', 1)
+
+
+W.BUILDERS = {**W.BUILDERS, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 
