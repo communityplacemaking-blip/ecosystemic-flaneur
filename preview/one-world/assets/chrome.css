@@ -197,6 +197,22 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .sw i { display: block; height: 54px; border-radius: 12px; border: 1px solid var(--line-2); }
 .hero-cap { font-size: 12.5px; bottom: -16px; white-space: nowrap; }
 @media (max-width: 860px) { .hero-fig { margin-bottom: 14px; } }
+/* the day is one tap away: the switch keeps its words on phones, and glows softly until a visitor has used it */
+@media (max-width: 420px) {
+  .sky .sky-l { display: inline; }
+  .sky { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
+  .brand, html[data-dir="w"] .brand { font-size: 17px; gap: 7px; }
+  .wb-in { gap: 8px; }
+}
+@media (max-width: 350px) { .brand .fig-mini { display: none; } }
+.sky.beckon { animation: beckon 2.8s ease-in-out 1s 4; }
+@keyframes beckon { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 167, 44, 0); } 50% { box-shadow: 0 0 0 6px rgba(212, 167, 44, .22), 0 0 22px rgba(212, 167, 44, .35); border-color: var(--gold); } }
+@media (prefers-reduced-motion: reduce) { .sky.beckon { animation: none; border-color: var(--gold); } }
+/* the weights stay inside Osim Kehila's range: 300 / 400 / 500 */
+.th-t { font-weight: 300 !important; letter-spacing: 0; }
+.th-k, .th-go, .moment .mk, h4, summary, dt, .lib .l, b.l, .q-k { font-weight: 500 !important; }
+.q-k { letter-spacing: .04em !important; font-size: 14px !important; }
+.mrow.mh span { font-weight: 500; }
 
 
 /* ======================================================================
@@ -287,3 +303,19 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .sw i { display: block; height: 54px; border-radius: 12px; border: 1px solid var(--line-2); }
 .hero-cap { font-size: 12.5px; bottom: -16px; white-space: nowrap; }
 @media (max-width: 860px) { .hero-fig { margin-bottom: 14px; } }
+/* the day is one tap away: the switch keeps its words on phones, and glows softly until a visitor has used it */
+@media (max-width: 420px) {
+  .sky .sky-l { display: inline; }
+  .sky { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; }
+  .brand, html[data-dir="w"] .brand { font-size: 17px; gap: 7px; }
+  .wb-in { gap: 8px; }
+}
+@media (max-width: 350px) { .brand .fig-mini { display: none; } }
+.sky.beckon { animation: beckon 2.8s ease-in-out 1s 4; }
+@keyframes beckon { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 167, 44, 0); } 50% { box-shadow: 0 0 0 6px rgba(212, 167, 44, .22), 0 0 22px rgba(212, 167, 44, .35); border-color: var(--gold); } }
+@media (prefers-reduced-motion: reduce) { .sky.beckon { animation: none; border-color: var(--gold); } }
+/* the weights stay inside Osim Kehila's range: 300 / 400 / 500 */
+.th-t { font-weight: 300 !important; letter-spacing: 0; }
+.th-k, .th-go, .moment .mk, h4, summary, dt, .lib .l, b.l, .q-k { font-weight: 500 !important; }
+.q-k { letter-spacing: .04em !important; font-size: 14px !important; }
+.mrow.mh span { font-weight: 500; }
