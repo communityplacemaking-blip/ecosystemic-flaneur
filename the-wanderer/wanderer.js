@@ -131,4 +131,55 @@
       li.addEventListener('blur', function () { set(null); });
     });
   }
+
+  /* ---------- the trail: sections, moments, ripples and the finale come into view ---------- */
+  var reveal = [].slice.call(document.querySelectorAll('.w-sec, .moment, .widen-box, .finale'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -15% 0px', threshold: 0.05 });
+    reveal.forEach(function (el) { ro.observe(el); });
+  } else {
+    reveal.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- the rail: where you are on the walk ---------- */
+  var trail = document.querySelector('.trail');
+  if (trail) {
+    var items = [].slice.call(trail.querySelectorAll('li'));
+    var targets = items.map(function (li) { return document.querySelector(li.querySelector('a').getAttribute('href')); });
+    var tfig = trail.querySelector('.trail-fig');
+    var tfill = trail.querySelector('.trail-fill');
+    var hero = document.querySelector('.w-hero');
+    var last = -1, peekT;
+    var upd = function () {
+      var vh = window.innerHeight, mid = vh * 0.4;
+      trail.classList.toggle('on', hero.getBoundingClientRect().bottom < vh * 0.5);
+      var cur = -1;
+      targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top < mid) cur = i; });
+      items.forEach(function (li, i) { li.classList.toggle('past', i < cur); li.classList.toggle('here', i === cur); });
+      // progress inside the current section, so the walker moves between stations
+      var f = 0;
+      if (cur >= 0) {
+        var r = targets[cur].getBoundingClientRect();
+        f = Math.max(0, Math.min(1, (mid - r.top) / r.height));
+      }
+      var a0 = items[Math.max(cur, 0)].offsetTop + 7;
+      var a1 = cur < items.length - 1 ? items[cur + 1].offsetTop + 7 : a0;
+      var y = cur < 0 ? items[0].offsetTop : a0 + (a1 - a0) * f;
+      tfig.style.setProperty('--y', y.toFixed(1) + 'px');
+      tfill.style.height = Math.max(0, y - 6).toFixed(1) + 'px';
+      if (cur !== last && cur >= 0) {
+        last = cur;
+        var sp = items[cur].querySelector('span');
+        trail.querySelectorAll('.peek').forEach(function (x) { x.classList.remove('peek'); });
+        sp.classList.add('peek'); clearTimeout(peekT);
+        peekT = setTimeout(function () { sp.classList.remove('peek'); }, 1600);
+      }
+    };
+    var traf = 0;
+    window.addEventListener('scroll', function () { if (!traf) traf = requestAnimationFrame(function () { traf = 0; upd(); }); }, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  }
 })();
