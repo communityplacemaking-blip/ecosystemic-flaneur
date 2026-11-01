@@ -1,10 +1,17 @@
 # המשוטט האקוסיסטמי: מצב אחרון
 
-עודכן: 1.11.2026 (UTC), אחרי בניית הכיוון המעודכן "עולם אחד" (`/preview/one-world/`).
+עודכן: 1.11.2026 (UTC), אחרי פרסום העיצוב "עולם אחד" באתר החי, באישור של תומר.
 
 הקובץ הזה הוא העדכון השוטף של העבודה על שיטת השוטטות של תומר ועל המנגנון "המשוטט". הוא נכתב מחדש בכל עדכון. הגרסה הקודמת שמורה בהיסטוריית git.
 
 **סימונים:** ✔ = נבדק בפועל. ~ = פרשנות, או משהו שלא ניתן היה לבדוק.
+
+## מה חדש
+
+- ✔ כל העמודים הציבוריים בעיצוב "עולם אחד": לילה כברירת מחדל, ומעבר ליום בכפתור בראש העמוד. כל הטקסטים מופיעים ב־Heebo, ויש מפת אורות.
+- ✔ עמוד חדש: **הדים**, https://communityplacemaking-blip.github.io/ecosystemic-flaneur/echoes/ . יש אליו קישור מעמוד השיטה, מתחת לחמש התובנות.
+- ✔ העמודים "מבוא מתודולוגי" ו"איך המנגנון בנוי" שומרים על התוכן ועל הפריסה שלהם, בתוך העיצוב האחיד.
+- ✔ הוסרו התוויות הפנימיות. במנגנון מופיע ייחוס מקור אחד לכל תרגול.
 
 ## הכתובת לשיתוף
 
@@ -15,7 +22,7 @@
 - **המשוטט (הדמות):** https://communityplacemaking-blip.github.io/ecosystemic-flaneur/the-wanderer/
 
 - **השיטה (קצר):** https://communityplacemaking-blip.github.io/ecosystemic-flaneur/flaneur/
-- **המנגנון האדפטיבי (אב-טיפוס עובד):** https://communityplacemaking-blip.github.io/ecosystemic-flaneur/journey/
+- **המנגנון האדפטיבי:** https://communityplacemaking-blip.github.io/ecosystemic-flaneur/journey/
 - **אקדמי ומקצועי (העמוד המקצועי):** https://communityplacemaking-blip.github.io/ecosystemic-flaneur/academy/
 
 ## מה חי, מה אב-טיפוס ומה מתוכנן

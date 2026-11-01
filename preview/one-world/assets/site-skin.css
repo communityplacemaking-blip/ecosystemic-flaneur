@@ -1,0 +1,17 @@
+/* Pages that keep their own layout (site.css): the methodology introduction and the mechanism's architecture.
+   Their markup is unchanged; their tokens, type and atmospheres follow the One World. */
+html[data-dir="w"][data-sky] {
+  --paper: var(--solid); --sand: var(--bg-2); --mustard: var(--gold); --on-navy: var(--ink);
+  --font: var(--f-sans); --grid-op: .35;
+}
+html[data-dir="w"][data-sky="night"] { --navy: #0F2D4A; --t-dec: #B9CCE0; --t-ext: #C7AEEB; --t-doc: #7FD1A4; --t-prop: #E9C46A; --t-check: #F0A08E; }
+html[data-dir="w"][data-sky="day"] { --navy: #0F2D4A; --t-dec: #0F2D4A; --t-ext: #6A4C93; --t-doc: #1E6B48; --t-prop: #8A6A12; --t-check: #A2442F; }
+html[data-dir="w"] body { background: var(--bg); color: var(--ink); font: 300 18px/1.65 var(--f-sans); transition: background-color .9s, color .9s; }
+html[data-dir="w"] h1 { font-weight: 300; letter-spacing: 0; }
+html[data-dir="w"] h2, html[data-dir="w"] h3, html[data-dir="w"] h4 { font-weight: 500; letter-spacing: 0; }
+html[data-dir="w"] b, html[data-dir="w"] strong, html[data-dir="w"] dt, html[data-dir="w"] summary { font-weight: 500; }
+html[data-dir="w"] .kicker { font-weight: 400; letter-spacing: .04em; }
+html[data-dir="w"] a { color: var(--gold-t); }
+html[data-dir="w"] .wb a, html[data-dir="w"] .wf a, html[data-dir="w"] .terr a { color: inherit; }
+html[data-dir="w"] .chip, html[data-dir="w"] .btn { font-weight: 400; }
+html[data-dir="w"] [class*="state"], html[data-dir="w"] .k, html[data-dir="w"] .tag { font-weight: 500; }
