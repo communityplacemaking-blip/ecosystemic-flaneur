@@ -484,7 +484,7 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
 
   <section id="view-library" class="lib" hidden>
     <h2>ספריית התרגולים</h2>
-    <p class="lib-intro">כל תרגול כאן לקוח מהחומרים, עם המקור והסטטוס שלו. המנגנון לא ממציא תרגולים.</p>
+    <p class="lib-intro">כל תרגול כאן לקוח מהחומרים, לצד המקור שלו. המנגנון לא ממציא תרגולים.</p>
     <div class="lib-filters" id="lib-filters"></div>
     <div class="lib-grid" id="lib-grid"></div>
   </section>
@@ -506,12 +506,15 @@ const SLOTS = [
 const STATUS = {
   workshop: 'מתועד בסדנה, 2015',
   chapter: 'מתועד בפרק "איך משוטטים"',
-  chapterAI: 'מתועד בפרק, ייתכן שנוסח עם AI',
+  chapterAI: 'מתועד בפרק',
   idea: 'רעיון מתועד, טרם נוסה',
   external: 'מקור חיצוני',
   nameonly: 'שם בלבד, חסר נוסח',
   told: 'מבוסס, לפי תיאור של תומר'
 };
+/* public attribution, one per practice: only what the source supports */
+const CREDIT = {"attention-now": "כלי מקורי", "what-appeared": "כלי מקורי", "question-release": "כלי מקורי, מתוך \"איך משוטטים\"", "slow-walk": "כלי מקורי, מתוך \"איך משוטטים\"", "one-line": "כלי מקורי, מתוך \"איך משוטטים\"", "small-action": "כלי מקורי, מתוך \"איך משוטטים\"", "resonance-text": "כלי מקורי, מתוך \"איך משוטטים\"", "count-ten": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "brown-green": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "together-apart": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "city-listening": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "tell-create": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "five-r": "מבוסס על סדנת \"סיפור המקום בשילוב צא ולמד\"", "shared-map": "מבוסס על סדנת \"סיפור המקום\"", "derive": "בהשראת גי דבור והסיטואציוניסטים", "third-space": "בהשראת מישל סר", "wonder": "בהשראת אברהם יהושע השל", "encounter": "בהשראת מרטין בובר", "read-city": "בהשראת ולטר בנימין", "potential": "בהשראת אוטו שארמר", "urban-safari": "עיבוד של Guide to Getting Lost, מאת Flaneur Society", "one-photo": "מבוסס על המפגש הראשון של \"משיבי הרוח\""};
+const creditOf = p => CREDIT[p.id] || '';
 /* proposed field, not decided: a practice may carry several. Filled only where a source says so. */
 const MODES = { standalone: 'שוטטות עצמאית', embedded: 'שוטטות קצרה משולבת', group: 'שוטטות קבוצתית', ongoing: 'שוטטות מתמשכת או חוזרת' };
 const IDS = { solo: 'יחיד', artist: 'יצירה ואמנות', group: 'קבוצה', community: 'קהילה', class: 'כיתה וצוות חינוכי', org: 'ארגון או צוות' };
@@ -628,7 +631,7 @@ const LIB = [
   { id: 'count-ten', name: 'ספירה עד 10', slots: ['entry'], status: 'workshop',
     source: 'תרגילי הקשבה, סדנת "הזמנה ללכת לאיבוד"',
     invite: 'ספירה עד 10 בהקשבה לאחר, בקבוצה. אסור ליד ואסור ביחד.',
-    facil: 'המטרה המתועדת: הקשבה לאחר בתוך הקבוצה.',
+    facil: 'המטרה: הקשבה לאחר בתוך הקבוצה.',
     axis: 'קשב', dim: 'אחר', intents: 'all', ids: GROUP_IDS, places: 'all', min: 10, div: 0, depth: 1, tags: [], facilOnly: true },
   { id: 'brown-green', name: 'חומים וירוקים', slots: ['entry'], status: 'workshop',
     source: 'תרגילי הקשבה, סדנת "הזמנה ללכת לאיבוד"',
@@ -1061,7 +1064,7 @@ function renderCard() {
         ${s.key === 'return' ? `<p class="invite">${esc(say(UI.reread)).replace('{v}', state.value ? ': "' + esc(state.value) + '"' : '')}</p>` : ''}
         <p class="why">למה כאן: ${esc(why)}</p>
         ${isFacil() && p.facil ? `<p class="facil"><b>למנחה:</b> ${esc(p.facil)}</p>` : ''}
-        <div class="meta"><span class="tag st-${p.status}">${STATUS[p.status]}</span><span class="tag">${esc(p.source)}</span><span class="tag">ציר: ${p.axis}</span><span class="tag">קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</span></div>
+        <div class="meta">${creditOf(p) ? `<span class="tag">${esc(creditOf(p))}</span>` : ''}<span class="tag">ציר: ${p.axis}</span><span class="tag">קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</span></div>
       </li>`;
     }
     if (i < 3 && !state.quiet) html += seamHtml(s.key, state.plan[i + 1]);
@@ -1297,8 +1300,8 @@ function renderLibrary() {
     const places = p.places === 'all' ? 'כל מקום' : p.places.map(k => PLACES[k]).join(', ');
     const intents = p.intents === 'all' ? 'כל כוונה' : p.intents.map(k => TYPES[k]).join(', ');
     const el = document.createElement('article'); el.className = 'lcard';
-    el.innerHTML = `<h3>${esc(p.name)}</h3><div class="meta" style="margin:0"><span class="tag st-${p.status}">${STATUS[p.status]}</span>${p.facilOnly ? '<span class="tag">מונחה בלבד</span>' : ''}</div>
-      <p>${esc(inviteOf(p))}</p><p class="src">מקור: ${esc(p.source)}</p>
+    el.innerHTML = `<h3>${esc(p.name)}</h3><div class="meta" style="margin:0">${p.facilOnly ? '<span class="tag">מונחה בלבד</span>' : ''}</div>
+      <p>${esc(inviteOf(p))}</p>${creditOf(p) ? `<p class="src">${esc(creditOf(p))}</p>` : ''}
       <dl><dt>מקום בתהליך</dt><dd>${slotNames}</dd><dt>ציר</dt><dd>${p.axis} · קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</dd><dt>כוונות</dt><dd>${intents}</dd><dt>למי</dt><dd>${ids}</dd>${CONTEXTS.some(c => c.prefer.includes(p.id)) ? `<dt>הקשרים</dt><dd>${CONTEXTS.filter(c => c.prefer.includes(p.id)).map(c => c.name).join(', ')}</dd>` : ''}<dt>מרחב</dt><dd>${places}</dd>${p.modes ? `<dt>אופן שילוב</dt><dd>${p.modes.map(m => MODES[m]).join(', ')}</dd>` : ''}<dt>משך מינימלי</dt><dd>${p.min ? p.min + ' דקות' : '—'}</dd><dt>מגוון</dt><dd>${p.div > 0 ? 'מרחיב' : p.div < 0 ? 'מצמצם' : 'ניטרלי'}</dd>${p.facil ? `<dt>למנחה</dt><dd>${esc(p.facil)}</dd>` : ''}</dl>`;
     g.appendChild(el);
   });
