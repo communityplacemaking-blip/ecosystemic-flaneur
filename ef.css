@@ -251,3 +251,5 @@ button.btn{background:transparent;cursor:pointer}
 @media (max-width:980px){.offer6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:860px){.pro-hero-in,.pro-invite-in,.pro-method{grid-template-columns:minmax(0,1fr)}.pro-hero-img{order:-1;max-width:520px}.pro-method-grid{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:520px){.offer6,.for6,.pro-invite-btns,.contact-dl{grid-template-columns:minmax(0,1fr)}.pro-found > div{grid-template-columns:minmax(0,1fr);gap:4px}.tba{white-space:normal}}
+.doors3.doors2,.status-grid3.sg2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){.doors3.doors2,.status-grid3.sg2{grid-template-columns:minmax(0,1fr)}}
