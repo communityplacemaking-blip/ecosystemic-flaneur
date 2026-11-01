@@ -771,3 +771,10 @@ html[data-sky="night"] .light-card > h3 + p { color: var(--gold); }
 #five .cards > :nth-child(3) { grid-area: m; align-self: center; border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), var(--glow); }
 #five .cards > :nth-child(4) { grid-area: c; } #five .cards > :nth-child(5) { grid-area: d; }
 @media (max-width: 760px) { #five .cards { grid-template-columns: minmax(0, 1fr); grid-template-areas: "m" "a" "b" "c" "d"; } }
+
+/* echoes: editorial title rendering and verification flag */
+.ep-e .wk bdi{font-style:normal}
+.ep-e .wk .tr{opacity:.8}
+.ep-src{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.ep-src .ep-flag{flex-basis:100%;font-size:14px;font-weight:300;opacity:.85;margin-top:4px}
+.kinds-note{font-size:14px;font-weight:300;opacity:.8;margin:14px 0 0;max-width:62ch}

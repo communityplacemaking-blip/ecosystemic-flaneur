@@ -173,7 +173,7 @@ def p_echoes(ctx):
 {W.seam('echoes')}
 <section class="sec deep" id="sky" aria-labelledby="sky-h"><div class="wrap">
 <div class="sec-h rv"><h2 id="sky-h" class="sr">ההדים</h2>
-<ul class="kinds" aria-label="שלושה סוגי קשר"><li class="k-root"><i></i><b>{KIND['root']}</b>מקור שהטקסט שלנו כבר מצביע עליו במפורש.</li><li class="k-aff"><i></i><b>{KIND['aff']}</b>הוגה או מסורת שאומרים משהו קרוב, בדרכם שלהם. אנחנו מנסחים את דבריהם במילים שלנו, בלי ציטוט.</li><li class="k-ours"><i></i><b>{KIND['ours']}</b>התובנה עצמה, כפי שנוסחה אצלנו.</li></ul></div>
+<ul class="kinds" aria-label="שלושה סוגי קשר"><li class="k-root"><i></i><b>{KIND['root']}</b>מקור שהטקסט שלנו כבר מצביע עליו במפורש.</li><li class="k-aff"><i></i><b>{KIND['aff']}</b>הוגה או מסורת שאומרים משהו קרוב, בדרכם שלהם. אנחנו מנסחים את דבריהם במילים שלנו, בלי ציטוט.</li><li class="k-ours"><i></i><b>{KIND['ours']}</b>התובנה עצמה, כפי שנוסחה אצלנו.</li></ul><p class="kinds-note">שמות הספרים: כשלא מצאנו תרגום עברי שיצא לאור, מופיע השם המקורי, והשם העברי לצדו מסומן "תרגום שלנו".</p></div>
 <div class="echo">
 <div class="echo-map"><div class="echo-stage" role="group" aria-label="חמש התובנות">
 <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><circle class="halo" cx="50" cy="50" r="46"/><circle class="halo" cx="50" cy="50" r="24"/>{lines}{tl}</svg>
@@ -199,7 +199,7 @@ def p_system(ctx):
 <section class="sec" id="type" aria-labelledby="type-h"><div class="wrap">
 <div class="sec-h rv"><p class="kick">אותיות</p><h2 id="type-h">היבו, כמו בעושים קהילה</h2><p class="lead">משפחה אחת, שלושה משקלים. 300 לקריאה ולכותרות הגדולות, 400 לניווט ולכפתורים, 500 לכותרות המשנה ולתוויות.</p></div>
 <dl class="ts rv">
-<div><dt><b>כותרת ראשית</b>Heebo 300 · 38–64px</dt><dd><h1 style="margin:0">המשוטט האקוסיסטמי<small>The Ecosystemic Flâneur</small></h1></dd></div>
+<div><dt><b>כותרת ראשית</b>Heebo 300 · 38–64px</dt><dd><p class="h1-sample" role="presentation" style="margin:0;font:300 clamp(38px,5.4vw,64px)/1.1 Heebo,sans-serif">המשוטט האקוסיסטמי<small style="display:block;font-size:.4em">The Ecosystemic Flâneur</small></p></dd></div>
 <div><dt><b>כותרת פרק</b>Heebo 500 · 28–38px</dt><dd><h2>שבע התנועות</h2></dd></div>
 <div><dt><b>כותרת משנה</b>Heebo 500 · 17–22px</dt><dd><h3>הוקרת היש</h3></dd></div>
 <div><dt><b>פתיח</b>Heebo 300 · 19–22px</dt><dd><p class="lead" style="margin:0">לפני שמחפשים עוד, לשים לב למה שכבר כאן ולהוקיר אותו.</p></dd></div>

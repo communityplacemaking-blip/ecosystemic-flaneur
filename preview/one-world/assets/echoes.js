@@ -8,13 +8,17 @@
       rays = [].slice.call(st.querySelectorAll('.ray')), ties = [].slice.call(st.querySelectorAll('.tie')),
       notes = [].slice.call(document.querySelectorAll('.echo-map .tie-note')), opened = {};
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function work(e) {
+    if (e.he !== 'ed') return esc(e.work) + (e.loc ? ', ' + esc(e.loc) : '');
+    return '<bdi dir="ltr">' + esc(e.orig) + '</bdi> <span class="tr">(בעברית: ' + esc(e.work) + ', תרגום שלנו)</span>' + (e.loc ? ', ' + esc(e.loc) : '');
+  }
   function render(i, j) {
     var d = D[i], h = '<p class="kick">' + esc(K.ours) + '</p><h3 class="ep-t">' + esc(d.title) + '</h3><p class="ep-ours">' + esc(d.text) + '</p><ol class="ep-list">';
     d.echoes.forEach(function (e, k) {
       h += '<li class="ep-e k-' + e.kind + (k === j ? ' hi' : '') + '" id="e-' + i + '-' + k + '"><span class="tag">' + esc(K[e.kind]) + '</span>' +
-        '<b class="nm">' + esc(e.name) + '</b><span class="wk">' + esc(e.work) + ' · ' + esc(e.when) + '</span>' +
+        '<b class="nm">' + esc(e.name) + '</b><span class="wk">' + work(e) + ' · ' + esc(e.when) + '</span>' +
         (e.quote ? '<blockquote>' + esc(e.quote) + '</blockquote>' : '') + '<p>' + esc(e.text) + '</p>' +
-        '<p class="ep-src">' + (e.src ? '<a href="' + esc(e.src) + '" rel="noopener" target="_blank">למקור</a>' : '') + (e.wanderer ? '<a class="more" href="../the-wanderer/#constellation">גם אור בעמוד המשוטט</a>' : '') + '</p>' + '</li>';
+        '<p class="ep-src">' + (e.src ? '<a href="' + esc(e.src) + '" rel="noopener" target="_blank">למקור</a>' : '') + (e.lvl === 'secondary' ? '<span class="ep-flag">אומת מול סיכומים משניים בלבד, לא מול הספר עצמו</span>' : '') + (e.wanderer ? '<a class="more" href="../the-wanderer/#constellation">גם אור בעמוד המשוטט</a>' : '') + '</p>' + '</li>';
     });
     panel.innerHTML = h + '</ol>';
     panel.classList.remove('in'); void panel.offsetWidth; panel.classList.add('in');

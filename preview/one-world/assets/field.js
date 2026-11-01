@@ -137,7 +137,7 @@
     // a word for some of the patterns, when they become visible
     var L = this.labels.slice();
     groups.forEach(function (g, gi) { if (L.length && (gi % 2 === 0 || g.kind === 'district')) g.label = L.shift(); });
-    this.nodes = nodes; this.groups = groups; this.bridges = [];
+    this.nodes = nodes; this.groups = groups; this.bridges = []; this.flick = []; this.ripples = [];
     var a = this.anchor || [.5, .7];
     this.walker = { x: a[0] * W, y: a[1] * H, vx: 0, vy: 0, tgt: null, trail: [], pause: 1.2 };
     this.bg = null;
