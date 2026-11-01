@@ -1,0 +1,289 @@
+/* generated from worlds.css: only the shared chrome (tokens, header, twilight, map, footer) */
+.wb,.terr,.wf{font-family:var(--f-sans)}.wb *,.terr *,.wf *{box-sizing:border-box}.wrap.wf-w{max-width:calc(var(--max) + 2*var(--gut));margin:0 auto;padding-inline:var(--gut)}.skip{position:absolute;inset-inline-start:12px;top:-60px;z-index:100;background:var(--gold);color:var(--on-gold);padding:8px 14px;border-radius:8px;font:500 15px var(--f-sans)}.skip:focus{top:10px}.wf .wrap{max-width:calc(var(--max) + 2*var(--gut));margin:0 auto;padding-inline:var(--gut)}[hidden]{display:none!important}.wb h2,.terr h2{font-family:var(--f-display);font-weight:var(--fw-display);margin:0;color:var(--ink)}
+/* ---------- tokens ---------- */
+:root {
+  --gut: max(16px, env(safe-area-inset-left, 0px));
+  --max: 1160px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --f-serif: "Frank Ruhl Libre", "David", serif;
+  --f-sans: "Heebo", system-ui, sans-serif;
+}
+html[data-dir="w"][data-sky="night"] {
+  --bg: #060D1A; --bg-2: #0A1528; --bg-3: #0F1F3A; --ink: #EEF1F5; --ink-2: #C7D1DE; --muted: #8E9DB3;
+  --line: rgba(200, 216, 238, .13); --line-2: rgba(200, 216, 238, .3);
+  --surface: rgba(255, 255, 255, .035); --surface-2: rgba(255, 255, 255, .07); --solid: #0C1930;
+  --gold: #E8B54D; --gold-t: #F0C66A; --teal: #5BBDB3; --terra: #DE8B66; --node: #FFF4D6;
+  --glow: 0 0 18px rgba(232, 181, 77, .55); --hl: rgba(232, 181, 77, .16); --on-gold: #0A1528;
+  --ill-bg: #F5EFE2; --ill-frame: 0 0 0 1px rgba(255, 236, 196, .18), 0 0 60px -10px rgba(232, 181, 77, .28), 0 30px 60px -30px rgba(0, 0, 0, .8);
+  --lamp: radial-gradient(closest-side, rgba(255, 228, 170, .95), rgba(255, 214, 140, .55) 45%, rgba(232, 181, 77, .12) 75%, transparent);
+  color-scheme: dark;
+}
+html[data-dir="w"][data-sky="day"] {
+  --bg: #F3F0EA; --bg-2: #E9EDF0; --bg-3: #DFE6EC; --ink: #0D1F38; --ink-2: #263B57; --muted: #52627A;
+  --line: rgba(13, 31, 56, .12); --line-2: rgba(13, 31, 56, .26);
+  --surface: rgba(255, 255, 255, .6); --surface-2: rgba(255, 255, 255, .85); --solid: #FFFFFF;
+  --gold: #C48F1E; --gold-t: #8A6211; --teal: #2A807A; --terra: #B5573A; --node: #0D1F38;
+  --glow: 0 0 14px rgba(196, 143, 30, .35); --hl: rgba(196, 143, 30, .14); --on-gold: #0D1F38;
+  --ill-bg: #FBF7EE; --ill-frame: 0 0 0 1px rgba(13, 31, 56, .1), 0 24px 50px -30px rgba(13, 31, 56, .45);
+  --lamp: radial-gradient(closest-side, rgba(255, 246, 222, .9), rgba(255, 236, 196, .5) 50%, transparent);
+  color-scheme: light;
+}
+
+
+html[data-dir="w"] { --f-display: var(--f-serif); --fw-display: 400; --f-prose: var(--f-sans); --fw-prose: 300; --ls-display: -.005em; --r: 14px; --r-sm: 10px; }
+
+
+/* ---------- header ---------- */
+.wb { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid var(--line); transition: background .9s; }
+.wb-in { max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto; padding: 10px var(--gut); display: flex; align-items: center; gap: 14px; min-height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 600 1.02rem var(--f-sans); white-space: nowrap; color: var(--ink); }
+html[data-dir="w"] .brand { font: 500 1.12rem var(--f-serif); }
+.brand .fig-mini { width: 26px; height: 26px; border-radius: 50%; background: var(--lamp); display: grid; place-items: center; flex: none; }
+.brand .fig-mini img { height: 22px; width: auto; }
+.wb-nav { display: flex; gap: 4px; margin-inline-start: auto; }
+.wb-nav a { font: 400 .92rem var(--f-sans); text-decoration: none; color: var(--ink-2); padding: 8px 12px; border-radius: 999px; transition: color .3s, background .3s; }
+.wb-nav a:hover { color: var(--ink); background: var(--surface-2); }
+.wb-nav a[aria-current] { color: var(--ink); }
+html[data-dir="w"] .wb-nav a[aria-current] { box-shadow: inset 0 -2px 0 var(--gold); border-radius: 0; }
+
+
+.sky, .terr-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); font: 500 .86rem var(--f-sans); white-space: nowrap;
+}
+
+.sky:hover, .terr-btn:hover { border-color: var(--gold); }
+/* the switch shows the hour: a sun on the horizon by day, a crescent by night */
+.sky-ic { position: relative; width: 26px; height: 18px; overflow: hidden; flex: none; border-bottom: 1.5px solid var(--ink-2); }
+.sky-ic::before { content: ""; position: absolute; left: 6px; width: 14px; height: 14px; border-radius: 50%; top: 5px; background: var(--gold); transition: top .6s var(--ease), box-shadow .6s, background .6s; }
+.sky-ic::after { content: ""; position: absolute; left: 10px; top: 2px; width: 13px; height: 13px; border-radius: 50%; background: var(--bg); transform: translateY(14px); transition: transform .6s var(--ease), background .9s; }
+html[data-sky="night"] .sky-ic::before { top: 2px; background: #F3E3B5; box-shadow: 0 0 10px rgba(243, 227, 181, .7); }
+html[data-sky="night"] .sky-ic::after { transform: translateY(-2px); background: color-mix(in srgb, var(--bg) 80%, var(--surface)); }
+.terr-btn .ti { width: 18px; height: 18px; flex: none; }
+.terr-btn .ti circle { fill: var(--gold); } .terr-btn .ti path { stroke: var(--ink-2); fill: none; stroke-width: 1.4; }
+@media (max-width: 980px) { .wb-nav { display: none; } .sky { margin-inline-start: auto; } }
+@media (max-width: 420px) { .sky .sky-l, .terr-btn .tl { display: none; } .sky, .terr-btn { padding: 0 10px; } .brand { font-size: .95rem; } }
+
+/* ---------- the twilight between the two hours ---------- */
+.dusk { position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: 0; }
+.dusk.to-night { background: linear-gradient(180deg, #1B2D52 0%, #6B4A6E 38%, #D98E5B 64%, #F2C27A 80%, #0A1528 100%); background-size: 100% 300%; }
+.dusk.to-day { background: linear-gradient(0deg, #0A1528 0%, #3D4A78 30%, #E7A97A 62%, #F7E3B9 82%, #F5EEDF 100%); background-size: 100% 300%; }
+.dusk.on { animation: dusk-in .62s var(--ease) forwards; }
+.dusk.on.off { animation: dusk-out .85s var(--ease) forwards; }
+@keyframes dusk-in { from { opacity: 0; background-position: 0 0; } to { opacity: .92; background-position: 0 50%; } }
+@keyframes dusk-out { from { opacity: .92; background-position: 0 50%; } to { opacity: 0; background-position: 0 100%; } }
+
+/* ---------- the territories map ---------- */
+.terr { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 20px; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.terr-in { position: relative; width: min(980px, 100%); max-height: calc(100dvh - 40px); overflow: auto; border: 1px solid var(--line-2); border-radius: var(--r); background: var(--solid); padding: clamp(18px, 3vw, 34px); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .5); }
+.terr-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.terr-h h2 { font-size: clamp(1.4rem, 2.6vw, 2rem); }
+.terr-close { border: 1px solid var(--line-2); background: transparent; color: var(--ink); border-radius: 999px; height: 38px; padding: 0 14px; font: 500 .88rem var(--f-sans); cursor: pointer; }
+.terr-map { position: relative; aspect-ratio: 16 / 9; margin-top: 10px; }
+.terr-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.terr-map .tp { fill: none; stroke: var(--line-2); stroke-width: 1.4; }
+
+html[data-dir="w"][data-sky="night"] .terr-map .tp { stroke: rgba(232, 181, 77, .35); }
+.terr-map .tc { fill: none; stroke: var(--line); }
+.t-node { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 4px; text-decoration: none; text-align: center; width: max-content; max-width: 170px; }
+.t-node i { width: 16px; height: 16px; border-radius: 50%; background: var(--surface-2); border: 2px solid var(--gold); transition: transform .3s, box-shadow .3s; }
+.t-node b { font: 600 .95rem/1.2 var(--f-sans); }
+.t-node small { font: 400 .76rem/1.3 var(--f-sans); color: var(--muted); }
+.t-node:hover i, .t-node:focus-visible i { transform: scale(1.3); box-shadow: var(--glow); background: var(--gold); }
+.t-node[aria-current] i { background: var(--gold); box-shadow: var(--glow); width: 22px; height: 22px; }
+.t-node[aria-current] b::after { content: " · אתם כאן"; font-weight: 400; color: var(--teal); }
+
+
+@media (max-width: 640px) {
+  .terr-map { aspect-ratio: auto; display: grid; gap: 4px; }
+  .terr-map svg { display: none; }
+  .t-node { position: static; transform: none; grid-template-columns: 22px 1fr; justify-items: start; text-align: start; max-width: none; width: 100%; padding: 10px 6px; border-bottom: 1px solid var(--line); column-gap: 10px; }
+  .t-node i { grid-row: span 2; align-self: center; }
+}
+
+/* ---------- footer ---------- */
+.wf { position: relative; z-index: 1; border-top: 1px solid var(--line); padding: 34px 0 calc(34px + env(safe-area-inset-bottom, 0px)); font: 400 .88rem var(--f-sans); color: var(--muted); }
+.wf .wrap { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.wf a { color: var(--ink-2); text-decoration: none; }
+.wf a:hover { color: var(--ink); text-decoration: underline; }
+.wf .wf-brand { font: 500 1rem var(--f-display); color: var(--ink); margin-inline-end: auto; }
+
+
+/* ======================================================================
+   ONE WORLD. Day and night are two atmospheres of the same place.
+   Typography follows Osim Kehila (osimkehila.co.il) exactly: Heebo only,
+   300 for reading and for large headings, 400 for navigation and buttons,
+   500 for section headings, small labels and emphasis.
+   ====================================================================== */
+:root {
+  --f-serif: "Heebo", system-ui, sans-serif;   /* no second family anywhere */
+  --f-sans: "Heebo", system-ui, sans-serif;
+  --navy: #0F2D4A; --must: #D4A72C; --cream: #F7F2E8; --warm: #9A4E2C; --sand: #F2E6D2;
+}
+html[data-dir="w"] {
+  --f-display: var(--f-sans); --fw-display: 300; --f-prose: var(--f-sans); --fw-prose: 300; --ls-display: 0; --r: 14px; --r-sm: 10px;
+}
+/* night: the same navy as Osim Kehila's footer, deepened; mustard lamps; cream text */
+html[data-dir="w"][data-sky="night"], .tsk[data-sky="night"] {
+  --bg: #0A1E33; --bg-2: #0F2D4A; --bg-3: #143757; --ink: #F7F2E8; --ink-2: #D9DEE4; --muted: #A3B1C0;
+  --line: rgba(247, 242, 232, .12); --line-2: rgba(247, 242, 232, .28);
+  --surface: rgba(247, 242, 232, .04); --surface-2: rgba(247, 242, 232, .08); --solid: #0F2944;
+  --gold: #D4A72C; --gold-t: #E6C056; --teal: #6DB8AF; --terra: #D98B64; --node: #FFF3D2;
+  --glow: 0 0 18px rgba(212, 167, 44, .5); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #F7F2E8; --ill-frame: 0 0 0 1px rgba(247, 242, 232, .16), 0 0 60px -12px rgba(212, 167, 44, .26), 0 30px 60px -30px rgba(0, 0, 0, .7);
+  --lamp: radial-gradient(closest-side, rgba(255, 232, 176, .95), rgba(240, 206, 120, .5) 45%, rgba(212, 167, 44, .12) 75%, transparent);
+  color-scheme: dark;
+}
+/* day: Osim Kehila's cream page and navy ink; the city as a map */
+html[data-dir="w"][data-sky="day"], .tsk[data-sky="day"] {
+  --bg: #F7F2E8; --bg-2: #F2E6D2; --bg-3: #E6EBF0; --ink: #0F2D4A; --ink-2: #263F5B; --muted: #4D5E70;
+  --line: rgba(15, 45, 74, .12); --line-2: rgba(15, 45, 74, .26);
+  --surface: rgba(255, 255, 255, .55); --surface-2: rgba(255, 255, 255, .85); --solid: #FFFDF8;
+  --gold: #D4A72C; --gold-t: #8A6A12; --teal: #2F7F78; --terra: #9A4E2C; --node: #0F2D4A;
+  --glow: 0 0 14px rgba(212, 167, 44, .32); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #FFFDF8; --ill-frame: 0 0 0 1px rgba(15, 45, 74, .1), 0 24px 50px -30px rgba(15, 45, 74, .4);
+  --lamp: radial-gradient(closest-side, rgba(255, 248, 228, .95), rgba(242, 230, 210, .55) 55%, transparent);
+  color-scheme: light;
+}
+
+/* ---- reading ---- */
+body { font: 300 18px/1.65 var(--f-sans); }
+b, strong, html[data-dir="w"] b, html[data-dir="w"] strong { font-weight: 500; }
+em, i { font-style: normal; }
+.prose p, p { text-wrap: pretty; }
+
+/* ---- headings: large and light like Osim Kehila's hero, 500 for section heads ---- */
+h1, h2, h3 { font-family: var(--f-sans); letter-spacing: 0; }
+h1, html[data-dir="w"] h1 { font-size: clamp(38px, 5.4vw, 64px); font-weight: 300; line-height: 1.2; }
+h1 small { display: block; font-size: .4em; font-weight: 300; color: var(--muted); margin-top: .5em; line-height: 1.4; }
+h2 { font-size: clamp(28px, 2.8vw, 38px); font-weight: 500; line-height: 1.2; }
+h3, html[data-dir="w"] h3 { font-size: clamp(17px, 1.6vw, 22px); font-weight: 500; line-height: 1.3; }
+.lead, html[data-dir="w"] .lead { font-size: clamp(19px, 1.7vw, 22px); font-weight: 300; line-height: 1.6; }
+.big, html[data-dir="w"] .big { font-family: var(--f-sans); font-weight: 300; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.5; }
+
+/* ---- eyebrow (Osim Kehila flâneur page: 16px Hebrew, .04em, accent) ---- */
+.kick { font: 400 16px/1.4 var(--f-sans); letter-spacing: .04em; text-transform: none; color: var(--gold-t); }
+html[data-sky="night"] .kick { color: var(--gold); }
+.kick .en, .en { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; }
+
+/* ---- navigation and buttons (Osim Kehila: nav 400/16, pill 400/17, primary mustard 500) ---- */
+.brand, html[data-dir="w"] .brand { font: 300 21px/1 var(--f-sans); letter-spacing: 0; }
+.wb-nav a { font: 400 15.5px var(--f-sans); }
+.sky, .terr-btn { font: 400 15px var(--f-sans); }
+.btn { font: 400 17px/1 var(--f-sans); padding: 12px 26px; min-height: 48px; border-radius: 999px; }
+.btn.go { font-weight: 500; }
+.more { font: 400 16px var(--f-sans); }
+
+/* ---- captions, small labels, quotes ---- */
+figcaption, .hero-cap { font: 300 14px/1.55 var(--f-sans); color: var(--muted); }
+figcaption b { font-weight: 500; color: var(--ink); }
+.small { font-size: 14.5px; }
+.pull, html[data-dir="w"] .pull { font: 300 clamp(22px, 2.4vw, 30px)/1.45 var(--f-sans); padding-inline-start: 22px; border-inline-start: 2px solid var(--gold); }
+.pull::before, html[data-dir="w"] .pull::before { display: none; }
+blockquote { font-size: 19px; color: var(--muted); border-inline-start: 2px solid var(--gold); padding-inline-start: 18px; margin-inline: 0; }
+html[data-sky="night"] blockquote { color: var(--ink-2); }
+.wf { border-top: 3px solid var(--terra); }
+.wf .wf-brand { font-weight: 300; font-size: 21px; }
+
+/* ---- type samples on the system page ---- */
+.ts { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.ts > div { display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.ts dt { font: 400 14px/1.5 var(--f-sans); color: var(--muted); }
+.ts dt b { display: block; color: var(--ink); font-weight: 500; }
+.ts dd { margin: 0; min-width: 0; }
+@media (max-width: 700px) { .ts > div { grid-template-columns: 1fr; gap: 8px; } }
+.sw { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.sw span { display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); width: 116px; }
+.sw i { display: block; height: 54px; border-radius: 12px; border: 1px solid var(--line-2); }
+.hero-cap { font-size: 12.5px; bottom: -16px; white-space: nowrap; }
+@media (max-width: 860px) { .hero-fig { margin-bottom: 14px; } }
+
+
+/* ======================================================================
+   ONE WORLD. Day and night are two atmospheres of the same place.
+   Typography follows Osim Kehila (osimkehila.co.il) exactly: Heebo only,
+   300 for reading and for large headings, 400 for navigation and buttons,
+   500 for section headings, small labels and emphasis.
+   ====================================================================== */
+:root {
+  --f-serif: "Heebo", system-ui, sans-serif;   /* no second family anywhere */
+  --f-sans: "Heebo", system-ui, sans-serif;
+  --navy: #0F2D4A; --must: #D4A72C; --cream: #F7F2E8; --warm: #9A4E2C; --sand: #F2E6D2;
+}
+html[data-dir="w"] {
+  --f-display: var(--f-sans); --fw-display: 300; --f-prose: var(--f-sans); --fw-prose: 300; --ls-display: 0; --r: 14px; --r-sm: 10px;
+}
+/* night: the same navy as Osim Kehila's footer, deepened; mustard lamps; cream text */
+html[data-dir="w"][data-sky="night"], .tsk[data-sky="night"] {
+  --bg: #0A1E33; --bg-2: #0F2D4A; --bg-3: #143757; --ink: #F7F2E8; --ink-2: #D9DEE4; --muted: #A3B1C0;
+  --line: rgba(247, 242, 232, .12); --line-2: rgba(247, 242, 232, .28);
+  --surface: rgba(247, 242, 232, .04); --surface-2: rgba(247, 242, 232, .08); --solid: #0F2944;
+  --gold: #D4A72C; --gold-t: #E6C056; --teal: #6DB8AF; --terra: #D98B64; --node: #FFF3D2;
+  --glow: 0 0 18px rgba(212, 167, 44, .5); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #F7F2E8; --ill-frame: 0 0 0 1px rgba(247, 242, 232, .16), 0 0 60px -12px rgba(212, 167, 44, .26), 0 30px 60px -30px rgba(0, 0, 0, .7);
+  --lamp: radial-gradient(closest-side, rgba(255, 232, 176, .95), rgba(240, 206, 120, .5) 45%, rgba(212, 167, 44, .12) 75%, transparent);
+  color-scheme: dark;
+}
+/* day: Osim Kehila's cream page and navy ink; the city as a map */
+html[data-dir="w"][data-sky="day"], .tsk[data-sky="day"] {
+  --bg: #F7F2E8; --bg-2: #F2E6D2; --bg-3: #E6EBF0; --ink: #0F2D4A; --ink-2: #263F5B; --muted: #4D5E70;
+  --line: rgba(15, 45, 74, .12); --line-2: rgba(15, 45, 74, .26);
+  --surface: rgba(255, 255, 255, .55); --surface-2: rgba(255, 255, 255, .85); --solid: #FFFDF8;
+  --gold: #D4A72C; --gold-t: #8A6A12; --teal: #2F7F78; --terra: #9A4E2C; --node: #0F2D4A;
+  --glow: 0 0 14px rgba(212, 167, 44, .32); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #FFFDF8; --ill-frame: 0 0 0 1px rgba(15, 45, 74, .1), 0 24px 50px -30px rgba(15, 45, 74, .4);
+  --lamp: radial-gradient(closest-side, rgba(255, 248, 228, .95), rgba(242, 230, 210, .55) 55%, transparent);
+  color-scheme: light;
+}
+
+/* ---- reading ---- */
+body { font: 300 18px/1.65 var(--f-sans); }
+b, strong, html[data-dir="w"] b, html[data-dir="w"] strong { font-weight: 500; }
+em, i { font-style: normal; }
+.prose p, p { text-wrap: pretty; }
+
+/* ---- headings: large and light like Osim Kehila's hero, 500 for section heads ---- */
+h1, h2, h3 { font-family: var(--f-sans); letter-spacing: 0; }
+h1, html[data-dir="w"] h1 { font-size: clamp(38px, 5.4vw, 64px); font-weight: 300; line-height: 1.2; }
+h1 small { display: block; font-size: .4em; font-weight: 300; color: var(--muted); margin-top: .5em; line-height: 1.4; }
+h2 { font-size: clamp(28px, 2.8vw, 38px); font-weight: 500; line-height: 1.2; }
+h3, html[data-dir="w"] h3 { font-size: clamp(17px, 1.6vw, 22px); font-weight: 500; line-height: 1.3; }
+.lead, html[data-dir="w"] .lead { font-size: clamp(19px, 1.7vw, 22px); font-weight: 300; line-height: 1.6; }
+.big, html[data-dir="w"] .big { font-family: var(--f-sans); font-weight: 300; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.5; }
+
+/* ---- eyebrow (Osim Kehila flâneur page: 16px Hebrew, .04em, accent) ---- */
+.kick { font: 400 16px/1.4 var(--f-sans); letter-spacing: .04em; text-transform: none; color: var(--gold-t); }
+html[data-sky="night"] .kick { color: var(--gold); }
+.kick .en, .en { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; }
+
+/* ---- navigation and buttons (Osim Kehila: nav 400/16, pill 400/17, primary mustard 500) ---- */
+.brand, html[data-dir="w"] .brand { font: 300 21px/1 var(--f-sans); letter-spacing: 0; }
+.wb-nav a { font: 400 15.5px var(--f-sans); }
+.sky, .terr-btn { font: 400 15px var(--f-sans); }
+.btn { font: 400 17px/1 var(--f-sans); padding: 12px 26px; min-height: 48px; border-radius: 999px; }
+.btn.go { font-weight: 500; }
+.more { font: 400 16px var(--f-sans); }
+
+/* ---- captions, small labels, quotes ---- */
+figcaption, .hero-cap { font: 300 14px/1.55 var(--f-sans); color: var(--muted); }
+figcaption b { font-weight: 500; color: var(--ink); }
+.small { font-size: 14.5px; }
+.pull, html[data-dir="w"] .pull { font: 300 clamp(22px, 2.4vw, 30px)/1.45 var(--f-sans); padding-inline-start: 22px; border-inline-start: 2px solid var(--gold); }
+.pull::before, html[data-dir="w"] .pull::before { display: none; }
+blockquote { font-size: 19px; color: var(--muted); border-inline-start: 2px solid var(--gold); padding-inline-start: 18px; margin-inline: 0; }
+html[data-sky="night"] blockquote { color: var(--ink-2); }
+.wf { border-top: 3px solid var(--terra); }
+.wf .wf-brand { font-weight: 300; font-size: 21px; }
+
+/* ---- type samples on the system page ---- */
+.ts { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.ts > div { display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.ts dt { font: 400 14px/1.5 var(--f-sans); color: var(--muted); }
+.ts dt b { display: block; color: var(--ink); font-weight: 500; }
+.ts dd { margin: 0; min-width: 0; }
+@media (max-width: 700px) { .ts > div { grid-template-columns: 1fr; gap: 8px; } }
+.sw { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.sw span { display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); width: 116px; }
+.sw i { display: block; height: 54px; border-radius: 12px; border: 1px solid var(--line-2); }
+.hero-cap { font-size: 12.5px; bottom: -16px; white-space: nowrap; }
+@media (max-width: 860px) { .hero-fig { margin-bottom: 14px; } }

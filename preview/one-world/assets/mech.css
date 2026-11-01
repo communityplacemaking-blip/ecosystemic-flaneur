@@ -1,0 +1,41 @@
+/* The adaptive mechanism in the new world. Only colours, type and surfaces change; the markup and code are the live ones. */
+html[data-dir] {
+  --paper: var(--solid); --sand: var(--bg-2); --navy: var(--bg-3); --mustard: var(--gold); --on-navy: var(--ink); --font: var(--f-sans);
+}
+html[data-dir] body.jr-page { font: 400 17px/1.65 var(--f-sans); }
+.jr-hero .wrap { min-height: 0 !important; }
+.jr-hero .hero-text h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+.lc-stage { padding-block: 10px clamp(40px, 6vw, 80px) !important; }
+.lc-stage .stage-in { align-items: start; }
+.lc-stage .field-wrap { width: min(560px, 100%); }
+@media (max-width: 860px) { .lc-stage .field-wrap { width: min(380px, 86vw); } }
+.lc-stage .f-center { inset: 30%; }
+.lc-stage .f-center b { font-family: var(--f-display); font-weight: var(--fw-display); font-size: clamp(1rem, 2.4vw, 1.3rem); }
+.lc-stage .f-center span { color: var(--muted); opacity: 1; }
+html[data-sky="night"] .lc-stage .f-center span { color: var(--ink-2); }
+
+/* the conversation panel: a lit window by night, a plot of the map by day */
+.panel { border-radius: var(--r) !important; background: var(--surface) !important; border: 1px solid var(--line-2) !important; backdrop-filter: blur(6px); }
+html[data-dir="w"][data-sky="night"] .panel { box-shadow: 0 0 0 1px rgba(232, 181, 77, .05), 0 30px 80px -40px rgba(232, 181, 77, .35); }
+.q-k { color: var(--terra) !important; }
+.q-t { font-family: var(--f-display); font-weight: var(--fw-display); letter-spacing: var(--ls-display); }
+html[data-dir="w"] .q-t { font-weight: 400; }
+.path, .lvl, .mode-b, .ans { background: var(--solid) !important; border-color: var(--line-2) !important; color: var(--ink) !important; }
+.path:hover, .lvl:hover, .mode-b:hover { border-color: var(--gold) !important; }
+.path.on, .lvl.on, .mode-b.on { border-color: var(--gold) !important; box-shadow: 0 0 0 1px var(--gold), var(--glow); }
+.lvl em { color: var(--gold-t) !important; }
+.opt { border-color: var(--line-2) !important; }
+.opt.on { background: var(--gold) !important; color: var(--on-gold) !important; border-color: var(--gold) !important; }
+.tr { background: var(--surface) !important; border-color: var(--line-2) !important; }
+.btn.primary { background: var(--gold) !important; color: var(--on-gold) !important; border-color: var(--gold) !important; }
+.privacy { color: var(--muted) !important; }
+.out .card, .out article, .out .st, .out .station { background: var(--surface); border-color: var(--line-2); }
+.ins li { background: var(--surface) !important; }
+.heard div { border-color: var(--line) !important; }
+.chips.alt .opt { background: transparent; }
+.lc-stage { overflow-x: clip; }
+/* one world: Osim Kehila type in the conversation */
+.q-t, html[data-dir="w"] .q-t { font-family: var(--f-sans); font-weight: 300; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.35; }
+.lc-stage .f-center b { font-weight: 500; }
+.btn.primary { font-weight: 500; border-radius: 999px; }
+.path b, .lvl b, .mode-b b { font-weight: 500; }
