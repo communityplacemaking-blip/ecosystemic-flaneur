@@ -261,6 +261,24 @@ if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 
 
+INSTALL = ('<div class="app-install" hidden><button type="button" aria-expanded="false">'
+           '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="2" width="10" height="16" rx="2"/><path d="M10 6v6M7.5 9.5 10 12l2.5-2.5"/></svg>'
+           'להוסיף את המנגנון למסך הבית</button><p class="app-how" hidden></p></div>')
+
+
+def app_shell(html, ctx, key):
+    up = '' if key == '' else '../'
+    tags = (f'<link rel="manifest" href="{up}manifest.webmanifest">\n<meta name="theme-color" content="#0F2D4A">\n'
+            f'<link rel="apple-touch-icon" href="{up}img/app/apple-touch-icon.png">\n<meta name="apple-mobile-web-app-capable" content="yes">\n'
+            '<meta name="apple-mobile-web-app-title" content="המשוטט">\n')
+    html = html.replace('</head>', tags + '</head>', 1)
+    html = html.replace('</body>', f'<script src="{ctx.assets}app.js" defer></script>\n</body>', 1)
+    if key == 'journey':
+        i = html.find('<p class="lead">'); j = html.find('</p>', i) + 4
+        html = html[:j] + INSTALL + html[j:]
+    return html
+
+
 def live_head(html, key):
     """Each page keeps what its source says to search engines and to link previews."""
     import re
@@ -288,7 +306,7 @@ def main():
     import shutil
     os.makedirs(ASSETS, exist_ok=True)
     if LIVE_BUILD:  # the world's scripts and styles are served from /assets/
-        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css'):
+        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js'):
             shutil.copy(os.path.join(HERE, '..', 'assets', f), os.path.join(ASSETS, f))
     base = fold(open(os.path.join(ROOT, 'preview', 'worlds', 'assets', 'worlds.css'), encoding='utf-8').read())
     layer = open(os.path.join(HERE, '..', 'assets', 'one.css'), encoding='utf-8').read()
@@ -305,6 +323,8 @@ def main():
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
+        if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
+            html = app_shell(html, ctx, key)
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)
