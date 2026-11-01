@@ -9,7 +9,7 @@ Run from the repository root:
     python3 preview/one-world/_build/build.py          the preview, in /preview/one-world/
     python3 preview/one-world/_build/build.py --live   the live site (content sources in /_source/)
 """
-import importlib.util, json, os, random, sys
+import importlib.util, json, os, random, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
@@ -323,6 +323,8 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
+        # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
+        html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)

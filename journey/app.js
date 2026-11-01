@@ -322,7 +322,7 @@
     if (r.border && S.mode === 'group') card.appendChild(h('p', { 'class': 'small' }, [h('span', { 'class': 'verify', text: 'שיוך למאגר בבדיקה' })]));
     var why = h('details', { 'class': 'why' }, [h('summary', { text: 'למה כאן?' }),
       h('ul', {}, (cur.why.length ? cur.why : ['מתאים לזמן ולמקום שתיארתם']).map(function (w) { return h('li', { text: w }); })),
-      h('p', { 'class': 'src', text: 'מקור: ' + (r.src || 'לא צוין') + ' · סוג המקור עוד לא הוכרע' })]);
+      h('p', { 'class': 'src', text: r.credit ? r.credit + ' · מקור: ' + (r.src || '') : 'מקור: ' + (r.src || 'לא צוין') + ' · סוג המקור עוד לא הוכרע' })]);
     card.appendChild(why);
     if (st.alts.length) {
       var all = [{ rec: st.rec }].concat(st.alts);
