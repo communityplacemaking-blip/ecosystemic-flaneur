@@ -1,0 +1,89 @@
+
+/* ======================================================================
+   ONE WORLD. Day and night are two atmospheres of the same place.
+   Typography follows Osim Kehila (osimkehila.co.il) exactly: Heebo only,
+   300 for reading and for large headings, 400 for navigation and buttons,
+   500 for section headings, small labels and emphasis.
+   ====================================================================== */
+:root {
+  --f-serif: "Heebo", system-ui, sans-serif;   /* no second family anywhere */
+  --f-sans: "Heebo", system-ui, sans-serif;
+  --navy: #0F2D4A; --must: #D4A72C; --cream: #F7F2E8; --warm: #9A4E2C; --sand: #F2E6D2;
+}
+html[data-dir="w"] {
+  --f-display: var(--f-sans); --fw-display: 300; --f-prose: var(--f-sans); --fw-prose: 300; --ls-display: 0; --r: 14px; --r-sm: 10px;
+}
+/* night: the same navy as Osim Kehila's footer, deepened; mustard lamps; cream text */
+html[data-dir="w"][data-sky="night"], .tsk[data-sky="night"] {
+  --bg: #0A1E33; --bg-2: #0F2D4A; --bg-3: #143757; --ink: #F7F2E8; --ink-2: #D9DEE4; --muted: #A3B1C0;
+  --line: rgba(247, 242, 232, .12); --line-2: rgba(247, 242, 232, .28);
+  --surface: rgba(247, 242, 232, .04); --surface-2: rgba(247, 242, 232, .08); --solid: #0F2944;
+  --gold: #D4A72C; --gold-t: #E6C056; --teal: #6DB8AF; --terra: #D98B64; --node: #FFF3D2;
+  --glow: 0 0 18px rgba(212, 167, 44, .5); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #F7F2E8; --ill-frame: 0 0 0 1px rgba(247, 242, 232, .16), 0 0 60px -12px rgba(212, 167, 44, .26), 0 30px 60px -30px rgba(0, 0, 0, .7);
+  --lamp: radial-gradient(closest-side, rgba(255, 232, 176, .95), rgba(240, 206, 120, .5) 45%, rgba(212, 167, 44, .12) 75%, transparent);
+  color-scheme: dark;
+}
+/* day: Osim Kehila's cream page and navy ink; the city as a map */
+html[data-dir="w"][data-sky="day"], .tsk[data-sky="day"] {
+  --bg: #F7F2E8; --bg-2: #F2E6D2; --bg-3: #E6EBF0; --ink: #0F2D4A; --ink-2: #263F5B; --muted: #4D5E70;
+  --line: rgba(15, 45, 74, .12); --line-2: rgba(15, 45, 74, .26);
+  --surface: rgba(255, 255, 255, .55); --surface-2: rgba(255, 255, 255, .85); --solid: #FFFDF8;
+  --gold: #D4A72C; --gold-t: #8A6A12; --teal: #2F7F78; --terra: #9A4E2C; --node: #0F2D4A;
+  --glow: 0 0 14px rgba(212, 167, 44, .32); --hl: rgba(212, 167, 44, .16); --on-gold: #0F2D4A;
+  --ill-bg: #FFFDF8; --ill-frame: 0 0 0 1px rgba(15, 45, 74, .1), 0 24px 50px -30px rgba(15, 45, 74, .4);
+  --lamp: radial-gradient(closest-side, rgba(255, 248, 228, .95), rgba(242, 230, 210, .55) 55%, transparent);
+  color-scheme: light;
+}
+
+/* ---- reading ---- */
+body { font: 300 18px/1.65 var(--f-sans); }
+b, strong, html[data-dir="w"] b, html[data-dir="w"] strong { font-weight: 500; }
+em, i { font-style: normal; }
+.prose p, p { text-wrap: pretty; }
+
+/* ---- headings: large and light like Osim Kehila's hero, 500 for section heads ---- */
+h1, h2, h3 { font-family: var(--f-sans); letter-spacing: 0; }
+h1, html[data-dir="w"] h1 { font-size: clamp(38px, 5.4vw, 64px); font-weight: 300; line-height: 1.2; }
+h1 small { display: block; font-size: .4em; font-weight: 300; color: var(--muted); margin-top: .5em; line-height: 1.4; }
+h2 { font-size: clamp(28px, 2.8vw, 38px); font-weight: 500; line-height: 1.2; }
+h3, html[data-dir="w"] h3 { font-size: clamp(17px, 1.6vw, 22px); font-weight: 500; line-height: 1.3; }
+.lead, html[data-dir="w"] .lead { font-size: clamp(19px, 1.7vw, 22px); font-weight: 300; line-height: 1.6; }
+.big, html[data-dir="w"] .big { font-family: var(--f-sans); font-weight: 300; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.5; }
+
+/* ---- eyebrow (Osim Kehila flâneur page: 16px Hebrew, .04em, accent) ---- */
+.kick { font: 400 16px/1.4 var(--f-sans); letter-spacing: .04em; text-transform: none; color: var(--gold-t); }
+html[data-sky="night"] .kick { color: var(--gold); }
+.kick .en, .en { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; }
+
+/* ---- navigation and buttons (Osim Kehila: nav 400/16, pill 400/17, primary mustard 500) ---- */
+.brand, html[data-dir="w"] .brand { font: 300 21px/1 var(--f-sans); letter-spacing: 0; }
+.wb-nav a { font: 400 15.5px var(--f-sans); }
+.sky, .terr-btn { font: 400 15px var(--f-sans); }
+.btn { font: 400 17px/1 var(--f-sans); padding: 12px 26px; min-height: 48px; border-radius: 999px; }
+.btn.go { font-weight: 500; }
+.more { font: 400 16px var(--f-sans); }
+
+/* ---- captions, small labels, quotes ---- */
+figcaption, .hero-cap { font: 300 14px/1.55 var(--f-sans); color: var(--muted); }
+figcaption b { font-weight: 500; color: var(--ink); }
+.small { font-size: 14.5px; }
+.pull, html[data-dir="w"] .pull { font: 300 clamp(22px, 2.4vw, 30px)/1.45 var(--f-sans); padding-inline-start: 22px; border-inline-start: 2px solid var(--gold); }
+.pull::before, html[data-dir="w"] .pull::before { display: none; }
+blockquote { font-size: 19px; color: var(--muted); border-inline-start: 2px solid var(--gold); padding-inline-start: 18px; margin-inline: 0; }
+html[data-sky="night"] blockquote { color: var(--ink-2); }
+.wf { border-top: 3px solid var(--terra); }
+.wf .wf-brand { font-weight: 300; font-size: 21px; }
+
+/* ---- type samples on the system page ---- */
+.ts { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.ts > div { display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.ts dt { font: 400 14px/1.5 var(--f-sans); color: var(--muted); }
+.ts dt b { display: block; color: var(--ink); font-weight: 500; }
+.ts dd { margin: 0; min-width: 0; }
+@media (max-width: 700px) { .ts > div { grid-template-columns: 1fr; gap: 8px; } }
+.sw { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.sw span { display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); width: 116px; }
+.sw i { display: block; height: 54px; border-radius: 12px; border: 1px solid var(--line-2); }
+.hero-cap { font-size: 12.5px; bottom: -16px; white-space: nowrap; }
+@media (max-width: 860px) { .hero-fig { margin-bottom: 14px; } }
