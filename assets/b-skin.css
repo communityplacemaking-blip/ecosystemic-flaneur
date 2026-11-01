@@ -1,0 +1,25 @@
+/* Version B of the Wanderer, in the new world. The page's own code is unchanged; only its palette and type follow the chosen world. */
+html[data-dir] body { font-family: var(--f-sans); }
+html[data-dir] {
+  --surface: var(--solid); --accent: var(--gold); --accent-soft: var(--hl); --seam: var(--terra); --seam-soft: color-mix(in srgb, var(--terra) 18%, var(--bg));
+  --f-body: var(--f-sans); --f-display: var(--f-display-b, var(--f-serif));
+}
+html[data-dir] body { background: var(--bg); color: var(--ink); transition: background-color .9s, color .9s; }
+html[data-dir] h1, html[data-dir] .step-h { font-family: var(--f-display); font-weight: var(--fw-display); letter-spacing: var(--ls-display); }
+html[data-dir="w"] h1 { font-weight: 300; }
+html[data-dir] header.top { border-color: var(--line); }
+html[data-dir] .proto { border-color: var(--line-2); }
+html[data-dir] #cmp-svg { filter: none; }
+html[data-dir="w"][data-sky="night"] #cmp-svg { filter: drop-shadow(0 0 40px rgba(232, 181, 77, .12)); }
+html[data-dir] nav.tabs button[aria-selected="true"] { border-color: var(--gold); }
+html[data-dir] input, html[data-dir] textarea, html[data-dir] select { background: var(--solid); color: var(--ink); border-color: var(--line-2); }
+html[data-dir="w"] h1, html[data-dir="w"] .step-h { font-family: var(--f-sans); font-weight: 300; }
+html[data-dir="w"] body { font-weight: 300; }
+/* type follows Osim Kehila: 300 / 400 / 500 */
+html[data-dir="w"] h2, html[data-dir="w"] h3, html[data-dir="w"] legend, html[data-dir="w"] dt,
+html[data-dir="w"] .lbl, html[data-dir="w"] .a-lbl, html[data-dir="w"] .slot-name, html[data-dir="w"] .cel, html[data-dir="w"] .n,
+html[data-dir="w"] button.compose { font-weight: 500 !important; }
+html[data-dir="w"] h2 { letter-spacing: 0; }
+
+/* mechanism: the gate's "straight to the compass" chip is a regular button, not the page's skip link */
+.gate .chip.skip { position: static; top: auto; inset-inline-start: auto; z-index: auto; font: inherit; font-size: 13.5px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }

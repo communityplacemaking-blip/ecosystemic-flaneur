@@ -5,7 +5,9 @@ for the philosophical echoes of the five insights.
 
 It reuses the generator of /preview/worlds/ (which stays untouched) and changes only what differs.
 Content is still taken verbatim from the live pages at build time.
-Run from the repository root:  python3 preview/one-world/_build/build.py
+Run from the repository root:
+    python3 preview/one-world/_build/build.py          the preview, in /preview/one-world/
+    python3 preview/one-world/_build/build.py --live   the live site (content sources in /_source/)
 """
 import importlib.util, json, os, random, sys
 
@@ -18,10 +20,27 @@ sys.path.insert(0, HERE)
 from cssfold import fold  # noqa: E402
 from echoes import ECHOES, TIES  # noqa: E402
 
-OUT = os.path.join(ROOT, 'preview', 'one-world')
+LIVE_BUILD = '--live' in sys.argv
+SRC = os.path.join(ROOT, '_source')          # the content sources of every page (the live pages are generated)
+MARK = '<meta name="robots" content="noindex" data-source-copy>\n'
+NOINDEX = '<meta name="robots" content="noindex">'
+OUT = ROOT if LIVE_BUILD else os.path.join(ROOT, 'preview', 'one-world')
+ASSETS = os.path.join(OUT, 'assets')
 W.OUT = OUT
+_open = open
+
+
+def src_open(path, *a, **k):
+    """Pages are read from _source/, everything else (scripts, data) from where it is served."""
+    rel = os.path.relpath(os.path.abspath(path), ROOT)
+    if rel.endswith('index.html') and os.path.exists(os.path.join(SRC, rel)):
+        path = os.path.join(SRC, rel)
+    return _open(path, *a, **k)
+
+
+W.open = src_open
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
-W.PAGES = W.PAGES + ['echoes', 'system']
+W.PAGES = W.PAGES + ['echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
 OLD_FONTS = 'https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500;600;700;800&display=swap'
 
@@ -30,7 +49,7 @@ class Ctx(W.Ctx):
     """One world has no direction folder, so everything sits one level higher."""
     def __init__(self, d, page):
         super().__init__(d, page)
-        self.depth = 2 if page == '' else 3
+        self.depth = (0 if page == '' else 1) if LIVE_BUILD else (2 if page == '' else 3)
         self.root = '../' * self.depth
         self.assets = ('' if page == '' else '../') + 'assets/'
         self.img = self.root + 'img/'
@@ -221,16 +240,62 @@ def p_system(ctx):
     return W.page(ctx, 'שפה אחת', 'מערכת האותיות והאווירות של המשוטט האקוסיסטמי.', body, body_cls='sub')
 
 
-W.BUILDERS = {**W.BUILDERS, 'echoes': p_echoes, 'system': p_system}
+# ---------------------------------------------------------------- pages that keep their own layout (site.css), in the world's chrome
+def wrap_site(key):
+    """The page's own markup and styles stay; the world's header, footer, type and atmospheres are put around it."""
+    def build(ctx):
+        import re
+        src = src_open(os.path.join(ROOT, key, 'index.html'), encoding='utf-8').read()
+        inject = (f'<script>(function(){{var h=document.documentElement,s=null;h.setAttribute("data-dir","w");try{{s=new URLSearchParams(location.search).get("sky")||localStorage.getItem("ef-sky")}}catch(e){{}}if(s!=="day"&&s!=="night")s="night";h.setAttribute("data-sky",s);h.setAttribute("data-theme",s==="day"?"light":"dark");h.classList.add("js")}})()</script>\n'
+                  f'<link rel="stylesheet" href="{ctx.assets}chrome.css">\n<link rel="stylesheet" href="{ctx.assets}site-skin.css">\n')
+        out = src.replace('</head>', inject + '</head>', 1)
+        out = re.sub(r'<header class="bar">.*?</header>', lambda m: W.header(ctx), out, count=1, flags=re.S)
+        out = re.sub(r'<footer>.*?</footer>', lambda m: W.footer(ctx), out, count=1, flags=re.S)
+        out = out.replace('<main>', '<main id="main">', 1)
+        return out.replace('</body>', f'<script src="{ctx.assets}field.js"></script>\n<script src="{ctx.assets}worlds.js"></script>\n</body>', 1)
+    return build
+
+
+W.BUILDERS = {**W.BUILDERS, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture')}
+if not LIVE_BUILD:
+    W.BUILDERS['system'] = p_system
+
+
+def live_head(html, key):
+    """Each page keeps what its source says to search engines and to link previews."""
+    import re
+    sp = os.path.join(SRC, key, 'index.html') if key else os.path.join(SRC, 'index.html')
+    src = _open(sp, encoding='utf-8').read() if os.path.exists(sp) else '</head>'  # a page with no source (echoes) is public
+    shead = src[:src.find('</head>')]
+    html = html.replace(MARK, '')
+    if NOINDEX not in shead.replace(MARK, ''):
+        html = html.replace(NOINDEX + '\n', '', 1).replace(NOINDEX, '', 1)
+    elif NOINDEX not in html:
+        html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n' + NOINDEX, 1)
+    if key in ('mechanism', 'methodology', 'architecture'):
+        return html                       # these keep their whole source head
+    keep = re.findall(r'<(?:meta (?:property|name)="(?:og:[^"]+|twitter:[^"]+)"[^>]*|link rel="(?:canonical|icon)"[^>]*)>', shead)
+    desc = re.search(r'<meta name="description" content="([^"]*)">', shead)
+    if desc:
+        html = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{desc.group(1)}">', html, count=1)
+    t = re.search(r'<title>(.*?)</title>', shead, re.S)
+    if t:
+        html = re.sub(r'<title>.*?</title>', lambda m: f'<title>{t.group(1)}</title>', html, count=1, flags=re.S)
+    return html.replace('</title>', '</title>\n' + '\n'.join(keep), 1) if keep else html
 
 
 def main():
+    import shutil
+    os.makedirs(ASSETS, exist_ok=True)
+    if LIVE_BUILD:  # the world's scripts and styles are served from /assets/
+        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css'):
+            shutil.copy(os.path.join(HERE, '..', 'assets', f), os.path.join(ASSETS, f))
     base = fold(open(os.path.join(ROOT, 'preview', 'worlds', 'assets', 'worlds.css'), encoding='utf-8').read())
     layer = open(os.path.join(HERE, '..', 'assets', 'one.css'), encoding='utf-8').read()
     extra = open(os.path.join(HERE, '..', 'assets', 'one-pages.css'), encoding='utf-8').read()
-    open(os.path.join(OUT, 'assets', 'worlds.css'), 'w', encoding='utf-8').write(
+    open(os.path.join(ASSETS, 'worlds.css'), 'w', encoding='utf-8').write(
         '/* generated by preview/one-world/_build/build.py from preview/worlds/assets/worlds.css + one.css + one-pages.css */\n' + base + layer + extra)
-    open(os.path.join(OUT, 'assets', 'chrome.css'), 'w', encoding='utf-8').write(W.chrome_css() + layer)
+    open(os.path.join(ASSETS, 'chrome.css'), 'w', encoding='utf-8').write(W.chrome_css() + layer)
     for key, fn in W.BUILDERS.items():
         ctx = Ctx('w', key)
         html = fn(ctx).replace(OLD_FONTS, OSIM_FONTS).replace('@@ECHOES@@', ctx.to('echoes'))
@@ -239,6 +304,7 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
+        html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)
