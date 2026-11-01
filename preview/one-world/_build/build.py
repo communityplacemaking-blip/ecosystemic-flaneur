@@ -246,6 +246,12 @@ def p_system(ctx):
 # Every exercise text is taken from the ideas library (library/ideas-snapshot.js) or from the mechanism's
 # question help; only the short connecting lines are new.
 TRY_ATTN = ['brown-green', 'city-listening', 'slow-walk']
+# Tomer's own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
+TRY_OWN = [
+    {'id': 'three-things', 'text': 'עמדו בנקודה כלשהי כדקה. מתוך הבלאגן, התמקדו בשלושה דברים. אחר כך הסתובבו ונסו לחשוב: מה האופי של שלושת הדברים האלה?'},
+    {'id': 'ten-eyes-closed', 'text': 'באותו מקום, עצמו עיניים ונסו לזהות מה יש סביבכם. מנו עשרה דברים שאתם מזהים. אחר כך פקחו עיניים ובדקו.'},
+    {'id': 'body-in-noise', 'text': 'באמצע הרעש, עצרו והקשיבו לשלוש תחושות שיש בגוף שלכם ממש עכשיו. אל אילו איברים הרעש מפנה אתכם? ואיזה ייצוג מקבלים האיברים האלה ברחוב?'},
+]
 
 
 def p_try(ctx):
@@ -253,7 +259,7 @@ def p_try(ctx):
     snap = _open(os.path.join(ROOT, 'library', 'ideas-snapshot.js'), encoding='utf-8').read()
     arr = snap[snap.index('['):snap.rindex(']') + 1]
     ideas = {r['id']: r.get('invite', '') for r in json.loads(arr)}
-    attn = [{'id': i, 'text': ideas[i]} for i in TRY_ATTN]
+    attn = TRY_OWN + [{'id': i, 'text': ideas[i]} for i in TRY_ATTN]
     release, one_line, appeared = ideas['question-release'], ideas['one-line'], ideas['what-appeared']
     data = json.dumps({'attn': attn}, ensure_ascii=False)
     body = f'''<section class="hero inner short try-hero" data-listen>
