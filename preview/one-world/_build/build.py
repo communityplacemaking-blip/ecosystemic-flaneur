@@ -21,7 +21,7 @@ from cssfold import fold  # noqa: E402
 from echoes import ECHOES, TIES  # noqa: E402
 
 LIVE_BUILD = '--live' in sys.argv
-PREVIEW_ONLY = ('try',)            # built, unlinked and noindex until Tomer approves
+PREVIEW_ONLY = ()                 # pages built noindex and unlinked until Tomer approves them (/try/ approved 1.11)
 SRC = os.path.join(ROOT, '_source')          # the content sources of every page (the live pages are generated)
 MARK = '<meta name="robots" content="noindex" data-source-copy>\n'
 NOINDEX = '<meta name="robots" content="noindex">'
@@ -40,6 +40,9 @@ def src_open(path, *a, **k):
 
 
 W.open = src_open
+# the ten-minute wandering is a place on the map, near the mechanism
+W.TERR = W.TERR + [('try', '10 דקות', 'לנסות עכשיו', 54, 92)]
+W.TLINKS = W.TLINKS + [('', 'try'), ('try', 'journey')]
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
@@ -411,6 +414,9 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
+        if key == '':  # the home page invites a ten-minute try next to the mechanism
+            i = html.find('<div class="btns">'); j = html.find('</div>', i)
+            html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
