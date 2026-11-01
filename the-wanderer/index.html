@@ -36,6 +36,20 @@
   </div>
 </header>
 
+<nav class="trail" aria-label="תחנות בעמוד">
+  <span class="trail-line" aria-hidden="true"><span class="trail-fill"></span></span>
+  <i class="walker-fig trail-fig" aria-hidden="true"></i>
+  <ol>
+    <li><a href="#figure"><span>הדמות</span></a></li>
+    <li><a href="#see"><span>איך לראות</span></a></li>
+    <li><a href="#constellation"><span>קבוצת כוכבים</span></a></li>
+    <li><a href="#discern"><span>מן המבחין אל האקוסיסטמי</span></a></li>
+    <li><a href="#spaces"><span>יותר מהליכה</span></a></li>
+    <li><a href="#compass"><span>המצפן</span></a></li>
+    <li><a href="#invite"><span>הזמנה</span></a></li>
+  </ol>
+</nav>
+
 <main>
 
 <!-- ============ HERO: a city that reveals itself ============ -->
@@ -150,7 +164,7 @@
 </section>
 
 <!-- ============ II. where to look / how to see ============ -->
-<section class="w-sec w-now" aria-labelledby="now-h">
+<section class="w-sec w-now" id="see" aria-labelledby="now-h">
   <div class="noise" aria-hidden="true">
     <p class="row"><span>עוד התראה</span><span>מומלץ במיוחד עבורך</span><span>עכשיו</span><span>אל תפספסו</span><span>הכי נצפה היום</span><span>עוד שלוש דקות קריאה</span><span>מהר, לפני שייגמר</span><span>הדבר הבא</span><span>עוד התראה</span><span>מומלץ במיוחד עבורך</span><span>עכשיו</span><span>אל תפספסו</span><span>הכי נצפה היום</span><span>עוד שלוש דקות קריאה</span><span>מהר, לפני שייגמר</span><span>הדבר הבא</span></p>
     <p class="row r2"><span>המסלול המהיר ביותר</span><span>טרנדי</span><span>גללו למטה</span><span>מה כולם אומרים</span><span>תגובה מיידית</span><span>זמין תמיד</span><span>מדד ביצוע</span><span>עוד</span><span>המסלול המהיר ביותר</span><span>טרנדי</span><span>גללו למטה</span><span>מה כולם אומרים</span><span>תגובה מיידית</span><span>זמין תמיד</span><span>מדד ביצוע</span><span>עוד</span></p>
@@ -217,6 +231,7 @@
 
 <!-- ============ III. the constellation ============ -->
 <section class="w-sec w-stars" id="constellation" aria-labelledby="stars-h">
+  <span class="horizon top" aria-hidden="true"></span><span class="horizon bot" aria-hidden="true"></span>
   <div class="wrap">
     <p class="w-num">III</p>
     <h2 id="stars-h" class="serif">קבוצת כוכבים</h2>
@@ -325,7 +340,7 @@
 </section>
 
 <!-- ============ IV. the discerning wanderer ============ -->
-<section class="w-sec w-disc" aria-labelledby="disc-h">
+<section class="w-sec w-disc" id="discern" aria-labelledby="disc-h">
   <div class="wrap">
     <p class="w-num">IV</p>
     <h2 id="disc-h" class="serif">מן המשוטט המבחין<br>אל המשוטט האקוסיסטמי</h2>
@@ -355,11 +370,18 @@
         <p>ברשת כזו התנועה הולכת לשני הכיוונים. המקום משפיע על המשוטט: קצב הרחוב, קול מתוך חלון, הצל של עץ, מבט של מישהו. והמשוטט משפיע על המקום: שאלה שהוא שואל, שיחה שהוא פותח, עקבה שהוא משאיר. כאן חוזר האור של לפבר: המרחב נוצר דרך האופן שבו אנשים חיים בו, ומי שמשוטט משתתף ביצירתו.</p>
         <p>ומשם הדרך קצרה ליצירת תנאים: מרחבים של קשב, מפגש ושיחה, שבהם גם אחרים יכולים לראות, לשאול ולגלות אפשרויות בעצמם. כך הופכת השוטטות ממסע אישי בלבד למעשה קהילתי.</p>
       </div>
+      <div class="widen-box">
+      <svg class="ripple" viewBox="0 0 260 260" aria-hidden="true">
+        <g class="rp r3"><circle cx="130" cy="130" r="112"/><path class="weave" d="M130 18 L211 52 L240 138 L196 216 L104 238 L34 190 L22 98 L66 36 Z"/><g class="pts"><circle cx="130" cy="18" r="4.5"/><circle cx="211" cy="52" r="4.5"/><circle cx="240" cy="138" r="4.5"/><circle cx="196" cy="216" r="4.5"/><circle cx="104" cy="238" r="4.5"/><circle cx="34" cy="190" r="4.5"/><circle cx="22" cy="98" r="4.5"/><circle cx="66" cy="36" r="4.5"/></g></g>
+        <g class="rp r2"><circle cx="130" cy="130" r="66"/><path class="ties" d="M130 130 L176 83 M130 130 L190 157 M130 130 L104 190 M130 130 L71 104"/><g class="pts"><circle cx="176" cy="83" r="5"/><circle cx="190" cy="157" r="5"/><circle cx="104" cy="190" r="5"/><circle cx="71" cy="104" r="5"/></g></g>
+        <g class="rp r1"><circle cx="130" cy="130" r="26"/><circle class="me" cx="130" cy="130" r="6"/></g>
+      </svg>
       <ol class="widen" aria-label="מן היחיד אל היחד">
         <li><b>גילוי אישי</b><span>אדם אחד, מקום אחד, שאלה אחת.</span></li>
         <li><b>גילוי משותף</b><span>כמה אנשים משוטטים יחד, וכל אחד מביא את מה שראה.</span></li>
         <li><b>יצירה משותפת</b><span>מתוך מה שהתגלה נולד משהו שאיש מהם לא היה יוצר לבד.</span></li>
       </ol>
+      </div>
     </div>
 
     <aside class="moment" aria-label="רגע של שוטטות משותפת">
@@ -378,7 +400,7 @@
 </section>
 
 <!-- ============ V. more than walking ============ -->
-<section class="w-sec w-spaces" aria-labelledby="spaces-h">
+<section class="w-sec w-spaces" id="spaces" aria-labelledby="spaces-h">
   <div class="wrap">
     <p class="w-num">V</p>
     <h2 id="spaces-h" class="serif">יותר מהליכה</h2>
@@ -408,7 +430,8 @@
 </section>
 
 <!-- ============ VI. compass ============ -->
-<section class="w-sec w-compass" aria-labelledby="compass-h">
+<section class="w-sec w-compass" id="compass" aria-labelledby="compass-h">
+  <span class="horizon top" aria-hidden="true"></span><span class="horizon bot" aria-hidden="true"></span>
   <div class="wrap">
     <p class="w-num">VI</p>
     <h2 id="compass-h" class="serif">ללכת לאיבוד<br>בלי לאבד את המצפן</h2>
@@ -448,7 +471,7 @@
 </section>
 
 <!-- ============ VII. invitation ============ -->
-<section class="w-sec w-invite" aria-labelledby="invite-h">
+<section class="w-sec w-invite" id="invite" aria-labelledby="invite-h">
   <div class="wrap">
     <p class="w-num">VII</p>
     <h2 id="invite-h" class="serif">אולי זה מתחיל במשהו קטן</h2>
@@ -466,7 +489,7 @@
       <p class="f0 serif">לפגוש מקום בלי לדעת מראש מה יש בו.<br>להקשיב בלי לדעת מה ייאמר.<br>לאפשר למציאות להפתיע אותנו.</p>
       <p class="f1 serif">יש דרך אחרת לנוע בעולם.<br>ואולי היא מתחילה כשמרשים לעצמנו לשוטט שוב.</p>
       <p class="f2"><span>החופש לשים לב.</span><span>האומץ להתפלא.</span><span>היכולת להבחין.</span></p>
-      <svg class="f-route" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M596 30 C520 4 470 56 400 30 S280 4 220 34 S90 56 4 26"/></svg>
+      <div class="f-walk"><i class="walker-fig f-fig" aria-hidden="true"></i><svg class="f-route" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M596 30 C520 4 470 56 400 30 S280 4 220 34 S90 56 4 26"/></svg></div>
       <nav class="doors" aria-label="להמשיך">
         <a href="../flaneur/"><b>להבין את הדרך</b><span>השיטה בקצרה</span></a>
         <a href="../journey/"><b>לצאת לשוטט</b><span>המנגנון</span></a>
