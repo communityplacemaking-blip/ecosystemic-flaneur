@@ -70,7 +70,7 @@ CLASSMAP = {
 }
 DROP_CLASSES = {'walker-fig', 'horizon', 'dot', 'star', 'tag', 'label-chip', 'state', 'w-num', 'num', 'kicker', 'ring', 'f-walk',
                 'route-svg', 'route-fig', 'compass-box', 'noise', 'gridbg', 'toc', 'short-toc', 'w-down', 'copied', 'lc-ours', 'lc-src', 't-ext', 't-dec'}
-DROP_TEXT = re.compile(r'נוסח מאושר|החלטה של תומר|מתוך ההנחיה שלך|טרם נוסח|בבדיקה|ממתין לאישור|יתווסף')
+DROP_TEXT = re.compile(r'נוסח מאושר|החלטה של היוצר|מתוך ההנחיה שלך|טרם נוסח|בבדיקה|ממתין לאישור|יתווסף')
 
 
 def translate(el, ctx, srcdir, keep_svg=False):

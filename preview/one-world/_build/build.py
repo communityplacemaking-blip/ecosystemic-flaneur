@@ -21,7 +21,7 @@ from cssfold import fold  # noqa: E402
 from echoes import ECHOES, TIES  # noqa: E402
 
 LIVE_BUILD = '--live' in sys.argv
-PREVIEW_ONLY = ()                 # pages built noindex and unlinked until Tomer approves them (/try/ approved 1.11)
+PREVIEW_ONLY = ()                 # pages built noindex and unlinked until the creator approves them (/try/ approved 1.11)
 SRC = os.path.join(ROOT, '_source')          # the content sources of every page (the live pages are generated)
 MARK = '<meta name="robots" content="noindex" data-source-copy>\n'
 NOINDEX = '<meta name="robots" content="noindex">'
@@ -245,11 +245,11 @@ def p_system(ctx):
 
 
 # ---------------------------------------------------------------- page: a ten-minute wandering (proposal, noindex)
-# Three steps in Tomer's order (1.11): sharpening attention, asking a question, gathering from the space.
+# Three steps in the creator's order (1.11): sharpening attention, asking a question, gathering from the space.
 # Every exercise text is taken from the ideas library (library/ideas-snapshot.js) or from the mechanism's
 # question help; only the short connecting lines are new.
 TRY_ATTN = ['brown-green', 'city-listening', 'slow-walk']
-# Tomer's own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
+# The creator's own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
 TRY_OWN = [
     {'id': 'three-things', 'text': 'עמדו בנקודה כלשהי כדקה. מתוך הבלאגן, התמקדו בשלושה דברים. אחר כך הסתובבו ונסו לחשוב: מה האופי של שלושת הדברים האלה?'},
     {'id': 'ten-eyes-closed', 'text': 'באותו מקום, עצמו עיניים ונסו לזהות מה יש סביבכם. מנו עשרה דברים שאתם מזהים. אחר כך פקחו עיניים ובדקו.'},
