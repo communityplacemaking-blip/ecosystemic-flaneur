@@ -15,7 +15,7 @@ DIRS = {
     'a': {'name': 'לילה עירוני', 'en': 'Urban Night', 'sky': 'night'},
     'b': {'name': 'אקוסיסטם חי', 'en': 'Living Ecosystem', 'sky': 'day'},
 }
-LIVE = 'https://communityplacemaking-blip.github.io/ecosystemic-flaneur/'
+LIVE = 'https://ecosystemicflaneur.com/'
 
 
 def soup(p):
