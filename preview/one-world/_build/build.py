@@ -43,6 +43,9 @@ W.open = src_open
 # the ten-minute wandering is a place on the map, near the mechanism
 W.TERR = W.TERR + [('try', '10 דקות', 'לנסות עכשיו', 54, 92)]
 W.TLINKS = W.TLINKS + [('', 'try'), ('try', 'journey')]
+# the echoes and the methodological introduction are places on the map too, near the method and the academy
+W.TERR = W.TERR + [('echoes', 'הדים', 'הוגים ומסורות', 84, 10), ('methodology', 'המבוא המתודולוגי', 'השיטה בכתיבה אקדמית', 12, 86)]
+W.TLINKS = W.TLINKS + [('method', 'echoes'), ('method', 'methodology'), ('academy', 'methodology')]
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
@@ -203,7 +206,9 @@ def p_echoes(ctx):
 {stage}</div>
 <ul class="tie-notes" aria-live="polite">{tn}</ul></div>
 <div class="echo-panel" id="ep" aria-live="polite"><p class="ep-hint">בחרו אחת מחמש התובנות. סביבה יידלקו ההדים שלה.</p></div>
-</div></div></section>
+</div>
+<p class="echo-door rv"><a class="more" href="{ctx.to('method')}#five">חזרה לחמש התובנות, בעמוד השיטה לעומק</a></p>
+</div></section>
 <script>window.ECHO={js_data};window.ECHO_KIND={json.dumps(KIND, ensure_ascii=False)};</script>'''
     js = f'<script src="{ctx.assets}echoes.js"></script>\n'
     return W.page(ctx, 'הדים', 'הוגים ומסורות שמשוחחים עם חמש התובנות של המשוטט האקוסיסטמי.', body, extra_js=js, body_cls='sub')

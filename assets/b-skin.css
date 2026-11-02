@@ -23,3 +23,9 @@ html[data-dir="w"] h2 { letter-spacing: 0; }
 
 /* mechanism: the gate's "straight to the compass" chip is a regular button, not the page's skip link */
 .gate .chip.skip { position: static; top: auto; inset-inline-start: auto; z-index: auto; font: inherit; font-size: 13.5px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+
+/* one world: the five-step journey drops the older frame (top stripe, fractal grid and branch) and sits in the same field as every page */
+html[data-dir="w"] body { border-top: 0; }
+html[data-dir="w"] .wrap::before, html[data-dir="w"] header.top::after,
+html[data-dir="w"] .card::before, html[data-dir="w"] .journal::before, html[data-dir="w"] .mod::before { display: none; }
+html[data-dir="w"] .card { border-top-color: var(--gold); }
