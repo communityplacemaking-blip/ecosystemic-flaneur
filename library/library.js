@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   var IDEAS = window.IDEAS || [];
-  var DOC = {workshop:'מתועד בסדנה', chapter:'מתועד בפרק "איך משוטטים"', chapterAI:'מתועד בפרק, הנוסח בבדיקה', idea:'רעיון מתועד, טרם נוסה', external:'מקור חיצוני', nameonly:'שם בלבד, חסר נוסח', told:'לפי תיאור של תומר'};
+  var DOC = {workshop:'מתועד בסדנה', chapter:'מתועד בפרק "איך משוטטים"', chapterAI:'מתועד בפרק, הנוסח בבדיקה', idea:'רעיון מתועד, טרם נוסה', external:'מקור חיצוני', nameonly:'שם בלבד, חסר נוסח', told:'לפי תיאור של היוצר'};
   var PLACE = {city:'עיר ורחוב', neighborhood:'שכונה', nature:'טבע או גינה', institution:'מוסד', any:'כל מקום'};
   var SLOT = {entry:'כניסה', move:'תנועה', discern:'הבחנה', trace:'עקבה', 'return':'חזרה'};
   var SLOTS = ['entry','move','discern','trace','return'];
