@@ -82,7 +82,7 @@
   K.TEMPLATES = [
     { id: 'adaptive-solo', mode: 'solo', name: 'מסע שוטטות אישי, לפי דרגה',
       state: 'proto', note: 'מספר התחנות ועומקן נקבעים לפי הדרגה שנבחרה.' },
-    { id: 'flaneur-b', mode: 'solo', name: 'המשוטט B: יציאה אחת בחמישה שלבים',
+    { id: 'flaneur-b', mode: 'solo', name: 'מסע בחמישה שלבים: יציאה אישית אחת',
       state: 'live', href: '../mechanism/', note: 'כניסה, תנועה, הבחנה, עקבה, חזרה. נשמר כמו שהוא.' },
     { id: 'participatory-dialogue', mode: 'group', name: 'שוטטות בדיאלוג משתתף',
       state: 'proto', note: 'הכנה עם המנחה, מפגשים שמשלבים רעיון ממאגר א וכלי ממאגר ב, וקציר משותף ביניהם.' }
