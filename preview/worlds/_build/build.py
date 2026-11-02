@@ -127,14 +127,14 @@ def txt(el):
 
 
 # ---------------------------------------------------------------- shared chrome
-NAV = [('the-wanderer', 'המשוטט'), ('flaneur', 'השיטה'), ('journey', 'המנגנון'), ('academy', 'אקדמי ומקצועי'), ('library', 'הספרייה')]
+NAV = [('the-wanderer', 'המשוטט'), ('flaneur', 'השיטה'), ('journey', 'המנגנון'), ('try', '10 דקות'), ('library', 'הספרייה'), ('academy', 'אקדמי ומקצועי')]
 TERR = [  # key, title, line, x%, y%
     ('', 'המסע', 'מאיפה הכול צמח', 50, 48),
     ('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', 20, 24),
-    ('flaneur', 'השיטה', 'שבע התנועות, בקצרה', 64, 16),
+    ('flaneur', 'השיטה בקצרה', 'שבע התנועות, בעמוד אחד', 64, 16),
     ('method', 'השיטה לעומק', 'עם המקורות', 88, 36),
     ('journey', 'המנגנון', 'לצאת לשוטט', 74, 74),
-    ('mechanism', 'המשוטט B', 'יציאה אחת, חמישה שלבים', 93, 88),
+    ('mechanism', 'מסע בחמישה שלבים', 'יציאה אישית, צעד אחר צעד', 93, 88),
     ('academy', 'אקדמי ומקצועי', 'לעבוד יחד', 30, 80),
     ('library', 'הספרייה', 'רעיונות ותבניות מסע', 9, 54),
 ]
@@ -483,7 +483,7 @@ def p_method(ctx):
     for i, sec in enumerate(main.find_all(['section', 'div'], recursive=False)):
         sid = sec.get('id') or f'm{i}'
         h2 = sec.select_one('h2')
-        if not h2:
+        if not h2 or 'end' in (sec.get('class') or []):  # the closing section is added once, below
             continue
         sp.append((sid, txt(h2)[:24]))
         t = translate(sec, ctx, 'method/')
@@ -566,7 +566,7 @@ def p_library(ctx):
     ct = [p for p in c.select('p') if len(txt(p)) > 60][:2]
     moves = ' · '.join(txt(x) for x in c.select('.arc7 li, .mv7 li, ol li')[:7])
     body += seam('journeys') + section('journeys', f'''<div class="sec-h rv"><p class="kick">ג</p><h2 id="journeys-h">{txt(c.select_one("h2"))}</h2>{''.join(f'<p class="lead">{txt(p)}</p>' for p in ct[:1])}</div>
-<div class="cards"><a class="card rv" href="{ctx.to('journey')}"><span class="k">המנגנון</span><h3>שוטטות אישית ושוטטות משתתפת</h3><p>{txt(ct[1]) if len(ct) > 1 else ''}</p></a><a class="card rv" href="{ctx.to('mechanism')}"><span class="k">המשוטט B</span><h3>יציאה אחת בחמישה שלבים</h3><p>כניסה · תנועה · הבחנה · עקבה · חזרה</p></a></div>''', cls='deep', label='journeys-h')
+<div class="cards"><a class="card rv" href="{ctx.to('journey')}"><span class="k">המנגנון</span><h3>שוטטות אישית ושוטטות משתתפת</h3><p>{txt(ct[1]) if len(ct) > 1 else ''}</p></a><a class="card rv" href="{ctx.to('mechanism')}"><span class="k">מסע אישי</span><h3>יציאה אחת בחמישה שלבים</h3><p>כניסה · תנועה · הבחנה · עקבה · חזרה</p></a></div>''', cls='deep', label='journeys-h')
     extra = f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n'
     return page(ctx, 'הספרייה', 'ספריית הידע של המשוטט: רעיונות לשוטטות, כלים משתתפים ותבניות מסע.', body,
                 [('ideas', 'רעיונות'), ('tools', 'כלים'), ('journeys', 'תבניות מסע')], extra_js=extra)
