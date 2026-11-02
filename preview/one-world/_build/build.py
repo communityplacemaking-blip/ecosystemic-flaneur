@@ -363,7 +363,9 @@ INSTALL = ('<div class="app-install" hidden><button type="button" aria-expanded=
 
 def app_shell(html, ctx, key):
     up = '' if key == '' else '../'
-    tags = (f'<link rel="manifest" href="{up}manifest.webmanifest">\n<meta name="theme-color" content="#0F2D4A">\n'
+    tags = (f'<link rel="icon" href="{up}favicon.ico" sizes="any">\n<link rel="icon" type="image/png" sizes="32x32" href="{up}img/app/favicon-32.png">\n'
+            f'<link rel="icon" type="image/png" sizes="96x96" href="{up}img/app/favicon-96.png">\n'
+            f'<link rel="manifest" href="{up}manifest.webmanifest">\n<meta name="theme-color" content="#0F2D4A">\n'
             f'<link rel="apple-touch-icon" href="{up}img/app/apple-touch-icon.png">\n<meta name="apple-mobile-web-app-capable" content="yes">\n'
             '<meta name="apple-mobile-web-app-title" content="המשוטט">\n')
     html = html.replace('</head>', tags + '</head>', 1)
