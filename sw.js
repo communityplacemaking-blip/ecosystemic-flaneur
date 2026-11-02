@@ -1,6 +1,6 @@
 /* The Ecosystemic Flâneur as an app: the journey keeps working with a weak connection or none.
    Pages are fetched from the network first (so updates arrive), and the last copy is used offline. */
-var CACHE = 'ef-app-v2';
+var CACHE = 'ef-app-v3';
 var CORE = [
   './', 'journey/', 'mechanism/', 'try/', 'assets/try.js', 'manifest.webmanifest',
   'journey/app.js', 'journey/engine.js', 'journey/knowledge.js', 'journey/journey.css', 'library/ideas-snapshot.js', 'library/ideas-flaneur.js',
