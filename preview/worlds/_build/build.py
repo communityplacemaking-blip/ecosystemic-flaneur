@@ -150,7 +150,7 @@ def head(ctx, title, desc):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>{title} | המשוטט האקוסיסטמי</title>
+<title>{title} | המשוטט · The Ecosystemic Flâneur</title>
 <meta name="description" content="{desc}">
 <script>(function(){{var h=document.documentElement,s=null;try{{s=new URLSearchParams(location.search).get('sky')||localStorage.getItem('ef-sky')}}catch(e){{}}if(s==='day'||s==='night'){{h.setAttribute('data-sky',s);h.setAttribute('data-theme',s==='day'?'light':'dark')}}h.classList.add('js')}})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,7 +163,7 @@ def header(ctx):
     nav = ''.join(f'<a href="{ctx.to(k)}"{" aria-current=\"page\"" if k == ctx.page else ""}>{n}</a>' for k, n in NAV)
     return f'''<a class="skip" href="#main">דלגו לתוכן</a>
 <header class="wb"><div class="wb-in">
-<a class="brand" href="{ctx.to('')}"><span class="fig-mini"><img src="{ctx.img}flaneur-figure.png" alt="" width="25" height="22"></span>המשוטט האקוסיסטמי</a>
+<a class="brand" href="{ctx.to('')}"><span class="fig-mini"><img src="{ctx.img}flaneur-figure.png" alt="" width="25" height="22"></span>המשוטט</a>
 <nav class="wb-nav" aria-label="עמודים">{nav}</nav>
 <button class="sky" type="button" aria-pressed="false"><span class="sky-ic" aria-hidden="true"></span><span class="sky-l">אל הלילה</span></button>
 <button class="terr-btn" type="button" aria-expanded="false" aria-controls="terr"><svg class="ti" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 14 C6 9 9 12 15 4"/><circle cx="3" cy="14" r="2"/><circle cx="15" cy="4" r="2"/><circle cx="9" cy="10" r="1.6"/></svg><span class="tl">המפה</span></button>
@@ -213,7 +213,7 @@ def seam(seed):
 
 def footer(ctx):
     links = ''.join(f'<a href="{ctx.to(k)}">{t}</a>' for k, t, _, _, _ in TERR)
-    return f'''<footer class="wf"><div class="wrap"><span class="wf-brand">המשוטט האקוסיסטמי</span>{links}<span>איורים: ליאל</span></div></footer>'''
+    return f'''<footer class="wf"><div class="wrap"><span class="wf-brand">המשוטט · <span lang="en" dir="ltr">The Ecosystemic Flâneur</span></span>{links}<span>איורים: ליאל</span></div></footer>'''
 
 
 def scripts(ctx, extra=''):
@@ -304,8 +304,9 @@ def p_home(ctx):
     h = s.select_one('.h-hero')
     by = translate(h.select_one('.by'), ctx, '')
     text = f'''<p class="kick ltr" lang="en">The Ecosystemic Flâneur</p>
-<h1>המשוטט <span class="under">האקוסיסטמי</span></h1>
-<p class="lead">{inner(h.select_one('.lead'))}</p>
+<h1><span class="under">המשוטט</span></h1>
+<p class="lead" style="font-size:1.35em">{inner(h.select_one('.lead'))}</p>
+<p class="sub" style="opacity:.85">שוטטות אקוסיסטמית · <span lang="en" dir="ltr" style="white-space:nowrap">The Ecosystemic Flâneur</span></p>
 <p class="sub">{inner(by)}</p>
 <div class="btns"><a class="btn go" href="#journey">{txt(h.select('.btns a')[0])}</a><a class="btn" href="{ctx.to('journey')}">{txt(h.select('.btns a')[1])}</a></div>'''
     labels = [txt(t) for t in h.select('svg text')] or ['רחוב', 'משחק', 'שאלה', 'שולחן משותף', 'הקשבה', 'חלום', 'שכונה', 'מפגש']
@@ -372,7 +373,7 @@ def p_home(ctx):
     body += seam('s4') + section('deeper', f'''<div class="sec-h rv"><p class="kick">{txt(d.select_one(".kicker"))}</p><h2 id="deeper-h">{txt(d.select_one("h2"))}</h2><p class="lead">{inner(d.select_one(".h-lead"))}</p></div>
 <div class="cards">{cards}</div><p class="quiet" style="margin-top:22px">{txt(d.select_one(".voices"))}</p>''', cls='deep', label='deeper-h')
     sp = [('journey', 'מסע בין עולמות'), ('method', 'מהמסע לשיטה'), ('work', 'לאן השיטה מובילה'), ('deeper', 'לעומק')]
-    return page(ctx, 'המשוטט האקוסיסטמי', txt(h.select_one('.lead')), body, sp, pre=threshold(ctx))
+    return page(ctx, 'המשוטט', txt(h.select_one('.lead')), body, sp, pre=threshold(ctx))
 
 
 def p_wanderer(ctx):
