@@ -238,3 +238,13 @@ html[data-sky="night"] .tl-k em { color: var(--gold); }
   .en-panel { position: fixed; left: 12px !important; right: 12px; top: auto !important; bottom: 12px; width: auto; max-height: 60vh; overflow: auto; z-index: 60; }
 }
 @media (prefers-reduced-motion: reduce) { .en { animation: none; opacity: 1; } .en-panel { animation: none; } }
+/* professional page: denser, less scrolling */
+.pg-academy .sec { padding-block: clamp(28px, 4vw, 56px); }
+.pg-academy .hero .wrap { min-height: 0; padding-block: clamp(28px, 4vw, 52px) clamp(16px, 2vw, 28px); }
+.pg-academy .hero .hero-fig { width: min(230px, 56%); }
+@media (max-width: 860px) { .pg-academy .hero .hero-fig { width: min(150px, 40%); } }
+.pg-academy .sec-h { margin-bottom: 14px; }
+.pg-academy .sec-h .lead { margin-top: 6px; }
+.pg-academy .steps > div { padding-top: 26px; }
+.pg-academy .eco-pane { aspect-ratio: 2.3; }
+@media (max-width: 860px) { .pg-academy .eco-pane { aspect-ratio: .82; } .pg-academy .eco-tabs { gap: 2px 12px; } .pg-academy .eco-tabs button { padding: 7px 0; font-size: .86rem; } }
