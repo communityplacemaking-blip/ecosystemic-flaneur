@@ -504,6 +504,27 @@ def p_method(ctx):
     return page(ctx, 'השיטה לעומק', 'המשוטט האקוסיסטמי לעומק: המבט האקוסיסטמי, המקורות, חמש התובנות ושבע התנועות.', body, sp[:9])
 
 
+def eco_map(sec, ctx):
+    """The professional world as a field of places: titled points only; the visitor opens what interests them."""
+    areas = sec.select('.eco-area')
+    tabs = ''.join(f'<button type="button" role="tab" id="tab-{a["id"]}" aria-controls="{a["id"]}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else " tabindex=\"-1\""}>{a["data-label"]}<small>{len(a.select("article.en"))}</small></button>' for i, a in enumerate(areas))
+    panes = ''
+    for i, a in enumerate(areas):
+        nodes, cards = '', ''
+        for e in a.select('article.en'):
+            n = e['data-n']; x, y = e['data-xy'].split(',')
+            ties = e.get('data-ties', '')
+            k = txt(e.select_one('.k'))
+            nodes += f'<button type="button" class="en" data-n="{n}" data-ties="{ties}" style="--x:{x}%;--y:{y}%" aria-expanded="false" aria-controls="pn-{n}"><span class="d" aria-hidden="true"></span><b>{txt(e.select_one("h3"))}</b><small>{k}</small></button>'
+            b = translate(e.select_one('.en-body'), ctx, 'academy/')
+            cards += f'<div class="en-panel" id="pn-{n}" role="dialog" aria-labelledby="pt-{n}" hidden><button type="button" class="x" aria-label="סגירה">×</button><span class="k">{k}</span><h3 id="pt-{n}">{txt(e.select_one("h3"))}</h3>{inner(b)}</div>'
+        panes += f'<div class="eco-pane" role="tabpanel" id="{a["id"]}" aria-labelledby="tab-{a["id"]}"{"" if i == 0 else " hidden"}><svg class="links" aria-hidden="true"></svg>{nodes}{cards}</div>'
+    return f'''<div class="sec-h rv"><p class="kick">{txt(sec.select_one(".num"))}</p><h2 id="{sec["id"]}-h">{txt(sec.select_one("h2"))}</h2><p class="lead">{inner(sec.select_one(".lead"))}</p></div>
+<div class="eco" id="eco"><div class="eco-tabs" role="tablist" aria-label="אזורי המפה">{tabs}</div>
+<div class="eco-stage" data-listen><div class="field" data-field="academy-map" data-density=".45"></div>{panes}</div>
+<p class="web-meta"><span>לחצו על נקודה כדי לפתוח אותה</span><span>נקודות שפתחתם: <span class="eco-count">0</span></span></p></div>'''
+
+
 def p_academy(ctx):
     s = soup('academy/index.html')
     h = s.select_one('.pro-hero')
@@ -522,6 +543,9 @@ def p_academy(ctx):
         if sid == 'contact':
             dl = translate(sec.select_one('dl'), ctx, 'academy/') if sec.select_one('dl') else ''
             body += seam(sid) + section(sid, f'<div class="sec-h"><p class="kick">{txt(sec.select_one(".num, .kicker"))}</p><h2 id="contact-h">{txt(h2)}</h2></div><div class="card">{inner(dl) if dl else ""}</div>', cls='deep', label='contact-h')
+            continue
+        if 'pro-eco' in (sec.get('class') or []):
+            body += seam(sid) + section(sid, eco_map(sec, ctx), cls='eco-sec', label=sid + '-h')
             continue
         t = translate(sec.select_one('.wrap') or sec, ctx, 'academy/')
         for fg in t.select('figure'):
