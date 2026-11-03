@@ -308,6 +308,7 @@ def p_try(ctx):
 <dl class="try-sum"><div id="sum-q"><dt>השאלה</dt><dd></dd></div><div id="sum-g"><dt>מה שליקטתם</dt><dd></dd></div></dl>
 <p class="try-close">{appeared}</p>
 <div class="btns"><a class="btn go" href="{ctx.to('journey')}">למסע המלא</a><button type="button" class="btn" id="try-again">לשוטט שוב</button></div>
+<p class="try-next">זו הייתה שוטטות אישית, דיאלוג עם הסביבה. שאלה שעלתה כאן יכולה להוביל גם לחקירה משותפת עם אנשים: <a class="more" href="{ctx.to('journey')}">שוטטות משתתפת</a></p>
 <p class="try-note">שום דבר מכאן לא נשמר ולא נשלח. מה שכתבתם נשאר רק על המסך הזה.</p>
 </div>
 </div></section>
@@ -352,6 +353,46 @@ def p_library_tools(ctx):
 
 
 W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
+
+
+# ---------------------------------------------------------------- home: the two paths, right after the hero (creator's clarification, 3.11)
+_p_home = W.p_home
+
+
+def p_home(ctx):
+    """Everything begins with the capacity to dwell in not-knowing; from there, two complementary paths.
+    The block is read from _source/index.html (#paths) and placed right after the hero, before the journey."""
+    html = _p_home(ctx)
+    # the generic generator leaves an empty modes row inside the method section, since the modes moved up
+    html = html.replace('<div class="cards" style="margin-top:clamp(36px,5vw,60px)"></div>\n<p class="quiet small" style="margin-top:12px"></p>\n', '')
+    s = W.soup('index.html')
+    sec = s.select_one('#paths')
+    cards = ''
+    for a in sec.select('.modes2 article'):
+        go = a.select_one('.go')
+        btns = ''
+        for l in go.select('a'):
+            href = l['href'] if l['href'].startswith('http') else ctx.link(l['href'], '')
+            if 'btn' in (l.get('class') or []):
+                btns += f'<a class="btn go" href="{href}">{W.txt(l)}</a>'
+            else:
+                btns += f'<a class="more" href="{href}">{W.txt(l)}</a>'
+        cards += (f'<article class="card path rv"><span class="k">{W.txt(a.select_one(".h-sub"))}</span><h3>{W.txt(a.select_one("h3"))}</h3>'
+                  f'<p>{W.inner(a.select("p")[1])}</p><div class="btns">{btns}</div></article>')
+    two = cards.split('</article>')
+    cards = two[0] + '</article><span class="path-x" aria-hidden="true"></span>' + two[1] + '</article>'
+    block = W.seam('s0') + W.section('paths', f'''<div class="sec-h rv"><p class="kick">{W.txt(sec.select_one(".kicker"))}</p><h2 id="paths-h">{W.txt(sec.select_one("h2"))}</h2><p class="lead">{W.inner(sec.select_one(".h-lead"))}</p></div>
+<div class="paths2">{cards}</div>
+<p class="prose paths-between rv">{W.inner(sec.select_one(".between"))}</p>
+<p class="quiet small">{W.inner(sec.select_one(".quiet"))}</p>
+<p class="paths-motto rv">{W.inner(sec.select_one(".motto"))}</p>''', cls='paths', label='paths-h')
+    i = html.index('<section class="hero'); j = html.index('</section>', i) + len('</section>')
+    html = html[:j] + '\n' + block + html[j:]
+    # the side spine opens with the two paths
+    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#paths"><i></i><span>שני שבילים</span></a>', 1)
+
+
+W.BUILDERS[''] = p_home
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 
