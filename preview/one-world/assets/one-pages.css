@@ -217,3 +217,5 @@ html[data-sky="night"] .tl-k em { color: var(--gold); }
   .path-x::after { top: auto; bottom: -4px; left: 50%; transform: translateX(-50%); }
 }
 .try-next{margin-top:18px}
+.paths-more { margin-top: clamp(14px, 2vw, 20px); }
+.paths-more a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }

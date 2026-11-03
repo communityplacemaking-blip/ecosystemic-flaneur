@@ -363,10 +363,14 @@ def p_home(ctx):
     """Everything begins with the capacity to dwell in not-knowing; from there, two complementary paths.
     The block is read from _source/index.html (#paths) and placed right after the hero, before the journey."""
     html = _p_home(ctx)
-    # the generic generator leaves an empty modes row inside the method section, since the modes moved up
-    html = html.replace('<div class="cards" style="margin-top:clamp(36px,5vw,60px)"></div>\n<p class="quiet small" style="margin-top:12px"></p>\n', '')
     s = W.soup('index.html')
     sec = s.select_one('#paths')
+    # the fuller explanations of the two paths stay lower down, in the method section, after the seven movements
+    cards_tag = '<div class="cards" style="margin-top:clamp(36px,5vw,60px)">'
+    html = html.replace(cards_tag, cards_tag.replace('<div ', '<div id="modes" '), 1)
+    k = html.index('<p class="quiet small" style="margin-top:12px">', html.index('id="modes"'))
+    k = html.index('</p>', k) + len('</p>')
+    html = html[:k] + f'\n<p class="prose paths-between rv">{W.inner(s.select_one("#method .between"))}</p>' + html[k:]
     cards = ''
     for a in sec.select('.modes2 article'):
         go = a.select_one('.go')
@@ -383,8 +387,7 @@ def p_home(ctx):
     cards = two[0] + '</article><span class="path-x" aria-hidden="true"></span>' + two[1] + '</article>'
     block = W.seam('s0') + W.section('paths', f'''<div class="sec-h rv"><p class="kick">{W.txt(sec.select_one(".kicker"))}</p><h2 id="paths-h">{W.txt(sec.select_one("h2"))}</h2><p class="lead">{W.inner(sec.select_one(".h-lead"))}</p></div>
 <div class="paths2">{cards}</div>
-<p class="prose paths-between rv">{W.inner(sec.select_one(".between"))}</p>
-<p class="quiet small">{W.inner(sec.select_one(".quiet"))}</p>
+<p class="quiet small paths-more">{W.inner(sec.select_one(".more-below"))}</p>
 <p class="paths-motto rv">{W.inner(sec.select_one(".motto"))}</p>''', cls='paths', label='paths-h')
     i = html.index('<section class="hero'); j = html.index('</section>', i) + len('</section>')
     html = html[:j] + '\n' + block + html[j:]
