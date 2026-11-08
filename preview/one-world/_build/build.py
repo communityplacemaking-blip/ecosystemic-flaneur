@@ -46,6 +46,10 @@ W.TLINKS = W.TLINKS + [('', 'try'), ('try', 'journey')]
 # the echoes and the methodological introduction are places on the map too, near the method and the academy
 W.TERR = W.TERR + [('echoes', 'הדים', 'הוגים ומסורות', 84, 10), ('methodology', 'המבוא המתודולוגי', 'השיטה בכתיבה אקדמית', 12, 86)]
 W.TLINKS = W.TLINKS + [('method', 'echoes'), ('method', 'methodology'), ('academy', 'methodology')]
+# the word field is a place on the map too, before setting out (linked from Osim Kehila since 8.11); it sits right after the five stages in the list
+_i = [k for k, *_ in W.TERR].index('mechanism') + 1
+W.TERR = W.TERR[:_i] + [('field', 'שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם', 62, 61)] + W.TERR[_i:]
+W.TLINKS = W.TLINKS + [('', 'field'), ('field', 'journey')]
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
@@ -404,7 +408,6 @@ LEGEND = [('להכיר', ('the-wanderer', 'flaneur', 'method', 'echoes')),
 
 def legend(ctx):
     names = {k: (t, s) for k, t, s, _, _ in W.TERR}
-    names['field'] = ('שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם')  # its own page, not built here; linked from Osim Kehila since 8.11
     groups = ''
     for g, keys in LEGEND:
         items = ''.join(f'<li><a href="{ctx.to(k)}"><i aria-hidden="true"></i><b>{names[k][0]}</b><small>{names[k][1]}</small></a></li>' for k in keys)
