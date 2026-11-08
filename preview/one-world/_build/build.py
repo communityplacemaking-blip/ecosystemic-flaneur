@@ -398,12 +398,13 @@ def p_home(ctx):
 # ---------------------------------------------------------------- home: a visible legend of every page (creator's request, 8.11)
 # The home page is also the installed app's start page, so all the wandering pages are listed on it, not only behind the map button.
 LEGEND = [('להכיר', ('the-wanderer', 'flaneur', 'method', 'echoes')),
-          ('לצאת לשוטט', ('try', 'journey', 'mechanism', 'library')),
+          ('לצאת לשוטט', ('try', 'field', 'journey', 'mechanism', 'library')),
           ('לעומק ולעבודה', ('academy', 'methodology'))]
 
 
 def legend(ctx):
     names = {k: (t, s) for k, t, s, _, _ in W.TERR}
+    names['field'] = ('שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם')  # its own page, not built here; linked from Osim Kehila since 8.11
     groups = ''
     for g, keys in LEGEND:
         items = ''.join(f'<li><a href="{ctx.to(k)}"><i aria-hidden="true"></i><b>{names[k][0]}</b><small>{names[k][1]}</small></a></li>' for k in keys)
