@@ -1,19 +1,40 @@
 {
-  "name": "המשוטט האקוסיסטמי",
+  "id": "/",
+  "name": "המשוטט · The Ecosystemic Flâneur",
   "short_name": "המשוטט",
   "description": "מסע שוטטות שמותאם לדרגה, לאופן ולמקום.",
   "lang": "he",
   "dir": "rtl",
-  "start_url": "./journey/?source=app",
-  "scope": "./",
+  "start_url": "/?source=app",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0A1E33",
   "theme_color": "#0F2D4A",
   "icons": [
-    { "src": "img/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "img/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/app/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "img/app/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/img/app/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/app/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/img/app/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
