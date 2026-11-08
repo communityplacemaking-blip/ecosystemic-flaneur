@@ -395,7 +395,32 @@ def p_home(ctx):
     return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#paths"><i></i><span>שני שבילים</span></a>', 1)
 
 
-W.BUILDERS[''] = p_home
+# ---------------------------------------------------------------- home: a visible legend of every page (creator's request, 8.11)
+# The home page is also the installed app's start page, so all the wandering pages are listed on it, not only behind the map button.
+LEGEND = [('להכיר', ('the-wanderer', 'flaneur', 'method', 'echoes')),
+          ('לצאת לשוטט', ('try', 'field', 'journey', 'mechanism', 'library')),
+          ('לעומק ולעבודה', ('academy', 'methodology'))]
+
+
+def legend(ctx):
+    names = {k: (t, s) for k, t, s, _, _ in W.TERR}
+    names['field'] = ('שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם')  # its own page, not built here; linked from Osim Kehila since 8.11
+    groups = ''
+    for g, keys in LEGEND:
+        items = ''.join(f'<li><a href="{ctx.to(k)}"><i aria-hidden="true"></i><b>{names[k][0]}</b><small>{names[k][1]}</small></a></li>' for k in keys)
+        groups += f'<div class="lg-g"><h3>{g}</h3><ul>{items}</ul></div>'
+    return W.section('legend', f'''<div class="sec-h"><p class="kick">מקרא</p><h2 id="legend-h">כל עמודי המשוטט</h2></div>
+<div class="lg">{groups}</div>''', cls='legend', label='legend-h')
+
+
+def p_home_legend(ctx):
+    html = p_home(ctx)
+    i = html.index('<section class="hero'); j = html.index('</section>', i) + len('</section>')
+    html = html[:j] + '\n' + legend(ctx) + html[j:]
+    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>מקרא</span></a>', 1)
+
+
+W.BUILDERS[''] = p_home_legend
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 
