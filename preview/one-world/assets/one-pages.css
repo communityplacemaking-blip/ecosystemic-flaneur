@@ -219,3 +219,15 @@ html[data-sky="night"] .tl-k em { color: var(--gold); }
 .try-next{margin-top:18px}
 .paths-more { margin-top: clamp(14px, 2vw, 20px); }
 .paths-more a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+
+/* home: the legend of every page (8.11) */
+.legend .sec-h { margin-bottom: clamp(16px, 2.4vw, 26px); }
+.lg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2.4vw, 30px); }
+.lg-g h3 { font: 500 .95rem var(--f-sans); letter-spacing: .04em; color: var(--gold); margin: 0 0 6px; }
+.lg-g ul { list-style: none; margin: 0; padding: 0; }
+.lg-g a { display: grid; grid-template-columns: 18px 1fr; column-gap: 10px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.lg-g a i { grid-row: span 2; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--gold); transition: background .3s, box-shadow .3s; }
+.lg-g a b { font: 500 1.02rem/1.3 var(--f-sans); }
+.lg-g a small { font: 400 .84rem/1.35 var(--f-sans); color: var(--muted); }
+.lg-g a:hover i, .lg-g a:focus-visible i { background: var(--gold); box-shadow: var(--glow); }
+@media (max-width: 860px) { .lg { grid-template-columns: minmax(0, 1fr); gap: 18px; } }

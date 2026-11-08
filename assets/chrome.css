@@ -214,6 +214,11 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .q-k { letter-spacing: .04em !important; font-size: 14px !important; }
 .mrow.mh span { font-weight: 500; }
 
+.terr-btn .tl { border: 0; background: none; border-radius: 0; }  /* the library cards also use .tl */
+/* narrow screens: the map button keeps its word too, so it reads as the way to every page (8.11) */
+@media (max-width: 420px) { .terr-btn .tl { display: inline; } .terr-btn { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; } }
+@media (max-width: 374px) { .brand .fig-mini { display: none; } .sky, .terr-btn { padding: 0 9px; } }
+
 
 /* ======================================================================
    ONE WORLD. Day and night are two atmospheres of the same place.
@@ -319,3 +324,8 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .th-k, .th-go, .moment .mk, h4, summary, dt, .lib .l, b.l, .q-k { font-weight: 500 !important; }
 .q-k { letter-spacing: .04em !important; font-size: 14px !important; }
 .mrow.mh span { font-weight: 500; }
+
+.terr-btn .tl { border: 0; background: none; border-radius: 0; }  /* the library cards also use .tl */
+/* narrow screens: the map button keeps its word too, so it reads as the way to every page (8.11) */
+@media (max-width: 420px) { .terr-btn .tl { display: inline; } .terr-btn { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; } }
+@media (max-width: 374px) { .brand .fig-mini { display: none; } .sky, .terr-btn { padding: 0 9px; } }
