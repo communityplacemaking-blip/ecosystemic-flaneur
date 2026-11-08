@@ -46,6 +46,10 @@ W.TLINKS = W.TLINKS + [('', 'try'), ('try', 'journey')]
 # the echoes and the methodological introduction are places on the map too, near the method and the academy
 W.TERR = W.TERR + [('echoes', 'הדים', 'הוגים ומסורות', 84, 10), ('methodology', 'המבוא המתודולוגי', 'השיטה בכתיבה אקדמית', 12, 86)]
 W.TLINKS = W.TLINKS + [('method', 'echoes'), ('method', 'methodology'), ('academy', 'methodology')]
+# the word field is a place on the map too, before setting out (linked from Osim Kehila since 8.11); it sits right after the five stages in the list
+_i = [k for k, *_ in W.TERR].index('mechanism') + 1
+W.TERR = W.TERR[:_i] + [('field', 'שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם', 62, 61)] + W.TERR[_i:]
+W.TLINKS = W.TLINKS + [('', 'field'), ('field', 'journey')]
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
@@ -397,20 +401,58 @@ def p_home(ctx):
 
 # ---------------------------------------------------------------- home: a visible legend of every page (creator's request, 8.11)
 # The home page is also the installed app's start page, so all the wandering pages are listed on it, not only behind the map button.
-LEGEND = [('להכיר', ('the-wanderer', 'flaneur', 'method', 'echoes')),
-          ('לצאת לשוטט', ('try', 'field', 'journey', 'mechanism', 'library')),
-          ('לעומק ולעבודה', ('academy', 'methodology'))]
+# The whole site is read through four doors and one button (creator's choice 8.11: "too much", condense; the mechanism comes after the word field).
+# The same four doors appear in the top menu, in the map window on every page and in the home page legend.
+DOORS = [('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', ()),
+         ('method', 'הדרך', 'שבע התנועות, ומאיפה הן באות', (('flaneur', 'בקצרה'), ('echoes', 'הדים'))),
+         ('journey', 'לצאת לשוטט', 'מסע אישי או משותף', (('field', 'שדה המילים'), ('journey', 'המנגנון'), ('mechanism', 'חמישה שלבים'), ('library', 'הספרייה'))),
+         ('academy', 'אקדמי ומקצועי', 'לעבוד יחד', (('methodology', 'המבוא המתודולוגי'),))]
+DOOR_OF = {k: k for k, *_ in DOORS}
+DOOR_OF.update({sk: k for k, _, _, subs in DOORS for sk, _ in subs})
+W.NAV = [(k, t) for k, t, _, _ in DOORS]
+
+
+def _cur(ctx, k):
+    return ' aria-current="page"' if k == ctx.page else ''
+
+
+def doors(ctx):
+    rows = ''
+    for k, t, line, subs in DOORS:
+        here = ' class="here"' if DOOR_OF.get(ctx.page) == k else ''
+        chips = ''.join(f'<a href="{ctx.to(sk)}"{_cur(ctx, sk)}>{st}</a>' for sk, st in subs)
+        rows += (f'<li{here}><a class="dr" href="{ctx.to(k)}"{_cur(ctx, k)}><i aria-hidden="true"></i><b>{t}</b><small>{line}</small></a>'
+                 + (f'<div class="dr-subs">{chips}</div>' if chips else '') + '</li>')
+    return f'<ul class="doors">{rows}</ul><a class="dr-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות · לנסות עכשיו</a>'
+
+
+def territories(ctx):
+    return f'''<div class="terr" id="terr" role="dialog" aria-modal="true" aria-labelledby="terr-h" hidden>
+<div class="terr-in">
+<div class="terr-h"><h2 id="terr-h">המפה של המשוטט</h2><button class="terr-close" type="button">לסגור</button></div>
+<div class="terr-doors">{doors(ctx)}</div>
+</div></div>'''
+
+
+W.territories = territories
+_header = W.header
+
+
+def header(ctx):
+    """Four doors in the bar, the ten-minute wandering as a button; a sub-page lights its door."""
+    html = _header(ctx)
+    for k, t, _, _ in DOORS:
+        if DOOR_OF.get(ctx.page) == k and k != ctx.page:
+            html = html.replace(f'<a href="{ctx.to(k)}">{t}</a>', f'<a href="{ctx.to(k)}" aria-current="true">{t}</a>', 1)
+    return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות</a></nav>', 1)
+
+
+W.header = header
 
 
 def legend(ctx):
-    names = {k: (t, s) for k, t, s, _, _ in W.TERR}
-    names['field'] = ('שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם')  # its own page, not built here; linked from Osim Kehila since 8.11
-    groups = ''
-    for g, keys in LEGEND:
-        items = ''.join(f'<li><a href="{ctx.to(k)}"><i aria-hidden="true"></i><b>{names[k][0]}</b><small>{names[k][1]}</small></a></li>' for k in keys)
-        groups += f'<div class="lg-g"><h3>{g}</h3><ul>{items}</ul></div>'
-    return W.section('legend', f'''<div class="sec-h"><p class="kick">מקרא</p><h2 id="legend-h">כל עמודי המשוטט</h2></div>
-<div class="lg">{groups}</div>''', cls='legend', label='legend-h')
+    return W.section('legend', f'''<div class="sec-h"><p class="kick">מקרא</p><h2 id="legend-h">ארבע דלתות למשוטט</h2></div>
+<div class="terr-doors lg-doors">{doors(ctx)}</div>''', cls='legend', label='legend-h')
 
 
 def p_home_legend(ctx):
