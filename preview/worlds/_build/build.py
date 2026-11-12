@@ -510,7 +510,7 @@ def p_academy(ctx):
     facts = ''.join(f'<div><b>{txt(li.select_one("b"))}</b><span>{txt(li.select_one("span"))}</span></div>' for li in h.select('.pro-facts li'))
     text = f'''<p class="kick">{txt(h.select_one(".kicker"))}</p><h1 style="font-size:clamp(2rem,4.4vw,3.6rem)">{inner(h.select_one("h1"))}</h1><p class="lead">{inner(translate(h.select_one(".lead"), ctx, "academy/"))}</p>
 <div class="btns">{''.join(f'<a class="btn{" go" if "primary" in (a.get("class") or []) else ""}" href="{ctx.link(a["href"], "academy/")}">{txt(a)}</a>' for a in h.select(".btns a"))}</div>'''.replace('<div class="btns"></div>', '')
-    body = hero(ctx, 'academy', ['תל אביב', 'יוון', 'גרמניה', 'ברלין', 'ולנסיה'], text, anchor='.3,.7')
+    body = hero(ctx, 'academy', ['רחוב', 'שכונה', 'קהילה', 'מפגש', 'שאלה'], text, anchor='.3,.7')
     if facts:
         body += f'<section class="sec"><div class="wrap"><div class="steps rv">{facts}</div></div></section>'
     sp = []
