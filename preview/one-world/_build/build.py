@@ -552,6 +552,12 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
+        if key == 'academy':  # a short form that drafts the request, sent by mail or copied (creator 12.11); the invite button leads to it
+            html = re.sub(r'<a class="btn go" href="mailto:[^"]*">להזמנת סדנה', '<a class="btn go" href="#request">להזמנת סדנה', html, count=1)
+            form = open(os.path.join(HERE, 'request_form.html'), encoding='utf-8').read()
+            k = '<h2 id="contact-h">להזמין את המשוטט</h2></div>'
+            assert k in html
+            html = html.replace(k, k + form, 1)
         if key == '' and 'hero-legend' not in html:  # the home page invites a ten-minute try next to the mechanism (the legend now holds it)
             i = html.find('<div class="btns">'); j = html.find('</div>', i)
             html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]

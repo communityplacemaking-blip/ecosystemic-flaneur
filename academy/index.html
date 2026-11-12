@@ -163,8 +163,58 @@
 <p class="lead">סדנאות שוטטות · תהליכים משתתפים וקהילתיים · יצירת מקום · הרצאות וסמינרים · הכשרות מקצועיות · פיתוח מנהיגות · מחקר ופיתוח מתודולוגי · שיתופי פעולה עם רשויות, מוסדות חינוך, אקדמיה, חברות וארגונים.</p>
 <p><b>המשוטט | <span dir="ltr" lang="en">The Ecosystemic Flâneur</span></b></p>
 <div class="btns">
-<a class="btn go" href="mailto:osimkehilanet@gmail.com?subject=%D7%94%D7%96%D7%9E%D7%A0%D7%AA%20%D7%A1%D7%93%D7%A0%D7%94%2C%20%D7%94%D7%A8%D7%A6%D7%90%D7%94%20%D7%90%D7%95%20%D7%AA%D7%94%D7%9C%D7%99%D7%9A%20%D7%9E%D7%A9%D7%95%D7%AA%D7%A3">להזמנת סדנה, הרצאה או תהליך משותף</a>
-</div></div></div></section><div class="seam" aria-hidden="true"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M-20 21 C40 21 36 21 96 21 C156 21 184 18 244 18 C304 18 358 28 418 28 C478 28 506 20 566 20 C626 20 668 20 728 20 C788 20 838 30 898 30 C958 30 1014 31 1074 31 C1134 31 1207 18 1267 18 C1327 18 1342 26 1402 26"/><circle cx="244" cy="18" r="4.0"/><circle cx="898" cy="30" r="3.0"/><circle cx="728" cy="20" r="3.0"/></svg></div><section class="sec deep" id="contact" aria-labelledby="contact-h"><div class="wrap"><div class="sec-h"><p class="kick">יצירת קשר</p><h2 id="contact-h">להזמין את המשוטט</h2></div><div class="card"><div><dt>אימייל</dt><dd><a dir="ltr" href="mailto:osimkehilanet@gmail.com">osimkehilanet@gmail.com</a></dd></div>
+<a class="btn go" href="#request">להזמנת סדנה, הרצאה או תהליך משותף</a>
+</div></div></div></section><div class="seam" aria-hidden="true"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M-20 21 C40 21 36 21 96 21 C156 21 184 18 244 18 C304 18 358 28 418 28 C478 28 506 20 566 20 C626 20 668 20 728 20 C788 20 838 30 898 30 C958 30 1014 31 1074 31 C1134 31 1207 18 1267 18 C1327 18 1342 26 1402 26"/><circle cx="244" cy="18" r="4.0"/><circle cx="898" cy="30" r="3.0"/><circle cx="728" cy="20" r="3.0"/></svg></div><section class="sec deep" id="contact" aria-labelledby="contact-h"><div class="wrap"><div class="sec-h"><p class="kick">יצירת קשר</p><h2 id="contact-h">להזמין את המשוטט</h2></div><form class="rq card" id="request" novalidate aria-labelledby="rq-h">
+<h3 id="rq-h">לנסח את הבקשה</h3>
+<p class="rq-note">כמה שאלות קצרות, ומהן נכתב נוסח שאפשר לשלוח במייל או להעתיק. שום דבר לא נשמר ולא נשלח מכאן.</p>
+<fieldset><legend>מה תרצו?</legend><div class="rq-opts">
+<label><input type="radio" name="kind" value="סדנת שוטטות" checked><span>סדנת שוטטות</span></label>
+<label><input type="radio" name="kind" value="הרצאה"><span>הרצאה</span></label>
+<label><input type="radio" name="kind" value="תהליך משתף או קהילתי"><span>תהליך משתף או קהילתי</span></label>
+<label><input type="radio" name="kind" value="הכשרה מקצועית"><span>הכשרה מקצועית</span></label>
+<label><input type="radio" name="kind" value="שיתוף פעולה אחר"><span>שיתוף פעולה אחר</span></label>
+</div></fieldset>
+<label class="rq-f"><span>עבור מי?</span><input name="who" placeholder="למשל: צוות ברשות מקומית, קהילה, כיתה, ארגון"></label>
+<div class="rq-two">
+<label class="rq-f"><span>כמה משתתפים?</span><input name="size" inputmode="numeric"></label>
+<label class="rq-f"><span>איפה ומתי?</span><input name="where"></label>
+</div>
+<label class="rq-f"><span>מה הייתם רוצים שיקרה בעקבות המפגש?</span><textarea name="hope" rows="3"></textarea></label>
+<label class="rq-f"><span>שם, ודרך לחזור אליכם</span><input name="me"></label>
+<div class="rq-out"><span class="rq-l">הנוסח</span><pre id="rq-text" aria-live="polite"></pre></div>
+<div class="btns"><a class="btn go" id="rq-mail" href="mailto:osimkehilanet@gmail.com">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
+<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל osimkehilanet@gmail.com</p>
+</form>
+<style>
+.rq{display:grid;gap:14px;margin-bottom:18px;max-width:640px}
+.rq h3{margin:0;font-weight:500}
+.rq-note{margin:0;font-size:.92em;color:var(--muted)}
+.rq fieldset{border:0;margin:0;padding:0}
+.rq legend,.rq-f>span,.rq-l{display:block;font-size:.95em;margin-bottom:6px;color:var(--ink-2)}
+.rq-opts{display:flex;flex-wrap:wrap;gap:8px}
+.rq-opts input{position:absolute;opacity:0;pointer-events:none}
+.rq-opts span{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.rq-opts input:checked+span{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.rq-opts input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.rq input:not([type=radio]),.rq textarea{width:100%;box-sizing:border-box;font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink)}
+.rq-two{display:grid;grid-template-columns:1fr 2fr;gap:12px}
+@media (max-width:520px){.rq-two{grid-template-columns:1fr}}
+.rq pre{margin:0;white-space:pre-wrap;font:inherit;font-size:.95em;line-height:1.6;padding:12px 14px;border-radius:10px;border:1px dashed var(--line);color:var(--ink-2)}
+</style>
+<script>(function(){var f=document.getElementById('request');if(!f)return;var out=document.getElementById('rq-text'),m=document.getElementById('rq-mail');
+function v(n){var e=f.elements[n];return e?String(e.value||'').trim():''}
+function draft(){var k=(f.querySelector('input[name=kind]:checked')||{}).value||'',L=['שלום,','','אנחנו מתעניינים ב'+k+' עם המשוטט.'];
+  if(v('who'))L.push('עבור: '+v('who'));if(v('size'))L.push('מספר משתתפים: '+v('size'));if(v('where'))L.push('איפה ומתי: '+v('where'));
+  if(v('hope')){L.push('');L.push('מה היינו רוצים שיקרה: '+v('hope'))}L.push('');L.push('תודה,');L.push(v('me')||'');
+  var t=L.join('\n').trim();out.textContent=t;
+  m.href='mailto:osimkehilanet@gmail.com?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
+f.addEventListener('input',draft);f.addEventListener('change',draft);f.addEventListener('submit',function(e){e.preventDefault()});draft();
+document.getElementById('rq-copy').addEventListener('click',function(){var t=draft(),d=document.getElementById('rq-done');
+  function ok(){d.hidden=false}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()});else{fb(t);ok()}});
+function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+})()</script>
+<div class="card"><div><dt>אימייל</dt><dd><a dir="ltr" href="mailto:osimkehilanet@gmail.com">osimkehilanet@gmail.com</a></dd></div>
 <div><dt>באתר עושים קהילה</dt><dd><a href="https://osimkehila.co.il/ecosystemic-flaneur/">המשוטט האקוסיסטמי</a></dd></div></div></div></section>
 </main>
 <footer class="wf"><div class="wrap"><span class="wf-brand">המשוטט · <span lang="en" dir="ltr">The Ecosystemic Flâneur</span></span><a href="../">דף הבית</a><a href="../the-wanderer/">דמות המשוטט</a><a href="../flaneur/">השיטה בקצרה</a><a href="../method/">הדרך</a><a href="../journey/">לצאת לשוטט</a><a href="../mechanism/">מסע בחמישה שלבים</a><a href="../field/">שדה המילים</a><a href="./">אקדמי ומקצועי</a><a href="../library/">הספרייה</a><a href="../try/">10 דקות</a><a href="../echoes/">הדים</a><a href="../methodology/">המבוא המתודולוגי</a><span>איורים: ליאל</span></div></footer>
