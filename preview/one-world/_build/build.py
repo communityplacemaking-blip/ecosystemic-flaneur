@@ -50,8 +50,10 @@ W.TLINKS = W.TLINKS + [('method', 'echoes'), ('method', 'methodology'), ('academ
 _i = [k for k, *_ in W.TERR].index('mechanism') + 1
 W.TERR = W.TERR[:_i] + [('field', 'שדה המילים', 'מושגים, מקומות והוגים לשוטט ביניהם', 62, 61)] + W.TERR[_i:]
 W.TLINKS = W.TLINKS + [('', 'field'), ('field', 'journey')]
+# the footer uses the same names as the doors (architecture review 11.11)
+W.TERR = [(k, {'journey': 'לצאת לשוטט', 'method': 'הדרך'}.get(k, t), *r) for k, t, *r in W.TERR]
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
-W.PAGES = W.PAGES + ['try', 'echoes', 'methodology', 'architecture'] + ([] if LIVE_BUILD else ['system'])
+W.PAGES = W.PAGES + ['try', 'echoes', 'methodology'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
 OLD_FONTS = 'https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Heebo:wght@300;400;500;600;700;800&display=swap'
 
@@ -356,7 +358,7 @@ def p_library_tools(ctx):
                         f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n<script src="{ctx.root}library/tools-data.js"></script>\n<script src="{ctx.root}library/tools-view.js" defer></script>', 1)
 
 
-W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'architecture': wrap_site('architecture'), 'library': p_library_tools}
+W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'library': p_library_tools}
 
 
 # ---------------------------------------------------------------- home: the two paths, right after the hero (creator's clarification, 3.11)
@@ -405,7 +407,7 @@ def p_home(ctx):
 # The same four doors appear in the top menu, in the map window on every page and in the home page legend.
 DOORS = [('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', ()),
          ('method', 'הדרך', 'שבע התנועות, ומאיפה הן באות', (('flaneur', 'בקצרה'), ('echoes', 'הדים'))),
-         ('journey', 'לצאת לשוטט', 'מסע אישי או משותף', (('field', 'שדה המילים'), ('journey', 'המנגנון'), ('mechanism', 'חמישה שלבים'), ('library', 'הספרייה'))),
+         ('journey', 'לצאת לשוטט', 'מסע אישי או משותף', (('field', 'שדה המילים'), ('mechanism', 'חמישה שלבים'), ('library', 'הספרייה'))),
          ('academy', 'אקדמי ומקצועי', 'לעבוד יחד', (('methodology', 'המבוא המתודולוגי'),))]
 DOOR_OF = {k: k for k, *_ in DOORS}
 DOOR_OF.update({sk: k for k, _, _, subs in DOORS for sk, _ in subs})
@@ -538,6 +540,8 @@ def main():
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
+        if LIVE_BUILD and key in ('try', 'echoes') and 'rel="canonical"' not in html:  # indexed pages name their own address
+            html = html.replace('</title>', f'</title>\n<link rel="canonical" href="https://ecosystemicflaneur.com/{key}/">', 1)
         if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
             html = app_shell(html, ctx, key)
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
