@@ -20,10 +20,22 @@ t('additions can be chosen by the engine', () => {
     for (const curiosity of ['צלילים ושקט', 'אנשים ומפגשים', 'סיפורים', 'רחוב ובניינים', 'צבע וערך'])
       for (const l of ['l2', 'l3', 'l4']) for (const mode of ['solo', 'group']) {
         const J = E.compose({ level: l, mode }, { placeType, curiosity, minutes: 120, meetings: 2, meetingMinutes: 120 }, IDEAS);
-        (J.stations || []).concat(...(J.meetings || []).map(m => m.stations || [])).forEach(s => { seen.add(s.rec.id); (s.alts || []).forEach(a => seen.add(a.rec.id)); });
+        (J.stations || []).concat(...(J.meetings || []).map(m => m.ideas || [])).forEach(s => { seen.add(s.rec.id); (s.alts || []).forEach(a => seen.add(a.rec.id)); });
       }
   const reached = added.filter(r => seen.has(r.id)).length;
   console.log('  reached', reached, 'of', added.length);
   assert.ok(reached >= added.length / 2);
+});
+t('every addition is offered when the wanderer\'s words name it', () => {
+  const missed = added.filter(r => {
+    const placeType = r.places === 'all' ? 'city' : r.places[0];
+    for (const mode of ['solo', 'group']) for (const l of ['l3', 'l4']) {
+      const J = E.compose({ level: l, mode }, { placeType, curiosity: r.name, minutes: 120, meetings: 2, meetingMinutes: 120 }, IDEAS);
+      const st = (J.stations || []).concat(...(J.meetings || []).map(m => m.ideas || []));
+      if (st.some(s => s.rec.id === r.id || (s.alts || []).some(a => a.rec.id === r.id))) return false;
+    }
+    return true;
+  }).map(r => r.id);
+  assert.deepEqual(missed, []);
 });
 console.log(n + ' checks passed');
