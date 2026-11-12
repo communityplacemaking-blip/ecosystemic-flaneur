@@ -924,7 +924,7 @@ function pick(){var w=O.filter(function(v){return v!=='wanderer'&&BY[v]}),n=w.le
   var top=Object.keys(sc).sort(function(x,y){return sc[y]-sc[x]}).slice(0,2);
   if(!top.length){fit.hidden=true;return}
   fit.innerHTML='<span>'+tx('fit')+'</span> '+top.map(function(z){var it=j?Z[z].t:Z[z].p;
-    return '<a lang="he" href="'+(j?'../library/#tl-'+it[0]:'../library/#ideas')+'">'+it[1]+'</a>'}).join(' · ');fit.hidden=false}
+    return '<a lang="he" href="'+(j?'../library/#tl-':'../library/#pr-')+it[0]+'">'+it[1]+'</a>'}).join(' · ');fit.hidden=false}
 window.wfEcho=function(n,enc){var z=Z[n.area];if(!z||n.id==='wanderer')return;var s=S[n.area]||{};
   var d=document.createElement('div');d.className='echo';
   d.innerHTML='<span class="lbl">'+tx('lbl')+'</span><button type="button" data-k="q" lang="he" dir="rtl" aria-pressed="'+!!s.q+'">'+z.q+'</button><button type="button" data-k="i" lang="he" dir="rtl" aria-pressed="'+!!s.i+'">'+z.i+'</button>';

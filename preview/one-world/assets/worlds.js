@@ -168,7 +168,7 @@
         if (f !== 'all' && it.kind !== f) return;
         if (s && hay.indexOf(s) < 0) return;
         shown++;
-        var li = document.createElement('li'); li.className = 'idea'; li.style.setProperty('--i', i);
+        var li = document.createElement('li'); li.className = 'idea'; li.id = 'pr-' + it.id; li.style.setProperty('--i', i);
         li.innerHTML = '<button type="button" aria-expanded="false"><span class="d" aria-hidden="true"></span><b></b><small></small></button><div class="idea-body" hidden><p class="inv"></p><p class="src"></p></div>';
         $('b', li).textContent = it.name;
         var ph = (it.slots || []).map(function (x) { return x === 'entry' ? 'לפני השוטטות' : (x === 'trace' || x === 'return') ? 'אחרי' : 'במהלך השוטטות'; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' / ');
@@ -184,5 +184,9 @@
     $$('[data-kind]', lib).forEach(function (b) { b.addEventListener('click', function () { f = b.dataset.kind; $$('[data-kind]', lib).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); render(); }); });
     if (q) q.addEventListener('input', function () { s = q.value.trim().toLowerCase(); render(); });
     render();
+    // every practice has its own address, #pr-<id>: it opens there (word field suggestions, 12.11)
+    var go = function () { if (!/^#pr-/.test(location.hash)) return; var li = document.getElementById(location.hash.slice(1)); if (!li) return;
+      var b = $('button', li); if (b.getAttribute('aria-expanded') !== 'true') b.click(); li.scrollIntoView({ block: 'center' }); b.focus({ preventScroll: true }); };
+    setTimeout(go, 0); addEventListener('hashchange', go);
   }
 })();
