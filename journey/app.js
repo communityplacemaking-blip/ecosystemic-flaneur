@@ -318,6 +318,17 @@
       h('h4', { text: r.name }),
       h('p', { 'class': 'inv', text: r.invite || '' })
     ]);
+    if (st.role === 'trace') {
+      // how will you collect? one choice: writing, drawing or photography (from the workshops)
+      var ways = ['כתיבה', 'איור', 'צילום'];
+      var pick = h('div', { 'class': 'chips alt', role: 'group', 'aria-label': 'איך תלקטו' }, [h('span', { 'class': 'small quiet', text: 'איך תלקטו? בחרו אחד:' })]);
+      ways.forEach(function (w) {
+        var on = S.collect === w;
+        pick.appendChild(h('button', { type: 'button', 'class': 'opt' + (on ? ' on' : ''), 'aria-pressed': on ? 'true' : 'false',
+          onclick: function () { S.collect = on ? null : w; renderJourney(); } }, [w]));
+      });
+      card.appendChild(pick);
+    }
     if (r.note && (S.mode === 'group' || lv === 'l1')) card.appendChild(h('p', { 'class': 'note' }, [h('b', { text: S.mode === 'group' ? 'למנחה: ' : 'טיפ: ' }), r.note]));
     if (r.border && S.mode === 'group') card.appendChild(h('p', { 'class': 'small' }, [h('span', { 'class': 'verify', text: 'שיוך למאגר בבדיקה' })]));
     var why = h('details', { 'class': 'why' }, [h('summary', { text: 'למה כאן?' }),
