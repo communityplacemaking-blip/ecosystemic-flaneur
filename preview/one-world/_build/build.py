@@ -52,6 +52,11 @@ W.TERR = W.TERR[:_i] + [('field', 'שדה המילים', 'מושגים, מקומ
 W.TLINKS = W.TLINKS + [('', 'field'), ('field', 'journey')]
 # the footer uses the same names as the doors (architecture review 11.11)
 W.TERR = [(k, {'journey': 'לצאת לשוטט', 'method': 'הדרך'}.get(k, t), *r) for k, t, *r in W.TERR]
+# footer: the home link is called "המשוטט", like the site (architecture decision 12.11); the map keeps its own names
+_footer = W.footer
+def _footer_home(ctx):
+    return _footer(ctx).replace(f'<a href="{ctx.to("")}">המסע</a>', f'<a href="{ctx.to("")}">המשוטט</a>', 1)
+W.footer = _footer_home
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'

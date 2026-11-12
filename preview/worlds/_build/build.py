@@ -582,6 +582,8 @@ def p_journey(ctx):
     s = soup('journey/index.html')
     top = s.select_one('.jr-top')
     text = f'''<p class="kick">המנגנון האדפטיבי</p><h1>{txt(top.select_one("h1"))}</h1><p class="lead">{txt(top.select_one(".lead"))}</p>'''
+    # a quiet invitation to the Word Field, the threshold before going out (architecture decision 12.11)
+    text += f'<p class="quiet small"><a href="{ctx.to("field")}">לפני היציאה אפשר לשוטט בשדה המילים</a></p>'
     stage = copy.copy(s.select_one('section.stage'))
     stage['class'] = 'stage lc-stage sec'
     fc = stage.select_one('#f-center')
