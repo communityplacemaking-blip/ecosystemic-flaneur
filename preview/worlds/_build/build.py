@@ -509,14 +509,18 @@ def p_academy(ctx):
     h = s.select_one('.pro-hero')
     facts = ''.join(f'<div><b>{txt(li.select_one("b"))}</b><span>{txt(li.select_one("span"))}</span></div>' for li in h.select('.pro-facts li'))
     text = f'''<p class="kick">{txt(h.select_one(".kicker"))}</p><h1 style="font-size:clamp(2rem,4.4vw,3.6rem)">{inner(h.select_one("h1"))}</h1><p class="lead">{inner(translate(h.select_one(".lead"), ctx, "academy/"))}</p>
-<div class="btns">{''.join(f'<a class="btn{" go" if "primary" in (a.get("class") or []) else ""}" href="{ctx.link(a["href"], "academy/")}">{txt(a)}</a>' for a in h.select(".btns a"))}</div>'''
+<div class="btns">{''.join(f'<a class="btn{" go" if "primary" in (a.get("class") or []) else ""}" href="{ctx.link(a["href"], "academy/")}">{txt(a)}</a>' for a in h.select(".btns a"))}</div>'''.replace('<div class="btns"></div>', '')
     body = hero(ctx, 'academy', ['תל אביב', 'יוון', 'גרמניה', 'ברלין', 'ולנסיה'], text, anchor='.3,.7')
-    body += f'<section class="sec"><div class="wrap"><div class="steps rv">{facts}</div></div></section>'
+    if facts:
+        body += f'<section class="sec"><div class="wrap"><div class="steps rv">{facts}</div></div></section>'
     sp = []
     for sec in s.select('main > section.pro-sec, main > section.pro-invite'):
         sid = sec.get('id') or ''
         h2 = sec.select_one('h2')
-        if not sid or not h2:
+        if not sid:
+            continue
+        if not h2:  # an untitled passage (the opening of the story, 12.11)
+            body += section(sid, f'<div class="acd">{inner(translate(sec.select_one(".wrap") or sec, ctx, "academy/"))}</div>')
             continue
         sp.append((sid, txt(h2)[:24]))
         if sid == 'contact':
