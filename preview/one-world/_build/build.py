@@ -52,6 +52,21 @@ W.TERR = W.TERR[:_i] + [('field', 'שדה המילים', 'מושגים, מקומ
 W.TLINKS = W.TLINKS + [('', 'field'), ('field', 'journey')]
 # the footer uses the same names as the doors (architecture review 11.11)
 W.TERR = [(k, {'journey': 'לצאת לשוטט', 'method': 'הדרך'}.get(k, t), *r) for k, t, *r in W.TERR]
+# footer: "דף הבית" and "דמות המשוטט", so the two are not confused (creator 12.11); the doors keep their own names
+_footer = W.footer
+def _footer_home(ctx):
+    return (_footer(ctx).replace(f'<a href="{ctx.to("")}">המסע</a>', f'<a href="{ctx.to("")}">דף הבית</a>', 1)
+            .replace(f'<a href="{ctx.to("the-wanderer")}">המשוטט</a>', f'<a href="{ctx.to("the-wanderer")}">דמות המשוטט</a>', 1))
+W.footer = _footer_home
+# the entrance keeps only "לשוטט ביום" / "לשוטט בלילה": no question, no extra lines (creator 12.11, minimalism)
+_threshold = W.threshold
+def _threshold_min(ctx):
+    h = _threshold(ctx)
+    h = re.sub(r'<p class="th-q" id="th-q">.*?</p>\n', '', h)
+    h = re.sub(r'<span class="th-(?:k|d|go)">.*?</span>', '', h)
+    return h.replace('aria-labelledby="th-q"', 'aria-label="לשוטט ביום או בלילה"', 1)
+W.threshold = _threshold_min
+W.threshold = lambda ctx: ''  # no entrance screen: the home page opens straight on the statement and the legend (creator 12.11)
 W.DIRS = {'w': {'name': 'עולם אחד', 'en': 'One World', 'sky': 'night'}}
 W.PAGES = W.PAGES + ['try', 'echoes', 'methodology'] + ([] if LIVE_BUILD else ['system'])
 OSIM_FONTS = 'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'
@@ -431,7 +446,7 @@ def doors(ctx):
 def territories(ctx):
     return f'''<div class="terr" id="terr" role="dialog" aria-modal="true" aria-labelledby="terr-h" hidden>
 <div class="terr-in">
-<div class="terr-h"><h2 id="terr-h">המפה של המשוטט</h2><button class="terr-close" type="button">לסגור</button></div>
+<div class="terr-h"><h2 id="terr-h">נצא לדרך</h2><button class="terr-close" type="button">לסגור</button></div>
 <div class="terr-doors">{doors(ctx)}</div>
 </div></div>'''
 
@@ -446,6 +461,9 @@ def header(ctx):
     for k, t, _, _ in DOORS:
         if DOOR_OF.get(ctx.page) == k and k != ctx.page:
             html = html.replace(f'<a href="{ctx.to(k)}">{t}</a>', f'<a href="{ctx.to(k)}" aria-current="true">{t}</a>', 1)
+    html = html.replace('<span class="tl">המפה</span>', '<span class="tl">נצא לדרך</span>', 1)
+    html = re.sub(r'<svg class="ti"[^>]*>.*?</svg>', '', html, count=1, flags=re.S)  # no icon beside "נצא לדרך" (creator 13.11)
+    html = html.replace('<span class="sky-l">אל הלילה</span>', '<span class="sky-l">לילה</span>', 1)  # just "יום" / "לילה" (creator 13.11)  # "המפה", then "כל העמודים", were unclear (creator 12–13.11)
     return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות</a></nav>', 1)
 
 
@@ -453,15 +471,17 @@ W.header = header
 
 
 def legend(ctx):
-    return W.section('legend', f'''<div class="sec-h"><p class="kick">מקרא</p><h2 id="legend-h">ארבע דלתות למשוטט</h2></div>
+    return W.section('legend', f'''<div class="sec-h"><p class="kick">כל העמודים</p><h2 id="legend-h">ארבע דלתות למשוטט</h2></div>
 <div class="terr-doors lg-doors">{doors(ctx)}</div>''', cls='legend', label='legend-h')
 
 
 def p_home_legend(ctx):
     html = p_home(ctx)
-    i = html.index('<section class="hero'); j = html.index('</section>', i) + len('</section>')
-    html = html[:j] + '\n' + legend(ctx) + html[j:]
-    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>מקרא</span></a>', 1)
+    # first screen = the name, the statement and the orientation legend (creator 12.11); the duplicate lines and buttons give way to it
+    i = html.index('<p class="sub" style="opacity:.85">'); j = html.index('</div>', html.index('<div class="btns">', i)) + len('</div>')
+    html = html[:i] + f'<details id="legend" class="hero-go"><summary class="btn go">נצא לדרך</summary><nav class="terr-doors lg-doors hero-legend" aria-label="עמודי האתר">{doors(ctx)}</nav></details>' + html[j:]
+    html = html.replace('</head>', '<style>.hero-go{margin-top:clamp(18px,3vw,30px)}.hero-go>summary{list-style:none;display:inline-flex;cursor:pointer}.hero-go>summary::-webkit-details-marker{display:none}.hero-go>summary::after{content:"↓";margin-inline-start:10px;transition:transform .3s}.hero-go[open]>summary::after{transform:rotate(180deg)}.hero-legend{margin-top:clamp(16px,2.6vw,26px)}@media (min-width:760px){.hero-legend .doors{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>\n</head>', 1)
+    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>נצא לדרך</span></a>', 1)
 
 
 W.BUILDERS[''] = p_home_legend
@@ -518,7 +538,7 @@ def main():
     import shutil
     os.makedirs(ASSETS, exist_ok=True)
     if LIVE_BUILD:  # the world's scripts and styles are served from /assets/
-        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js', 'try.js'):
+        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js', 'try.js', 'drift.js'):
             shutil.copy(os.path.join(HERE, '..', 'assets', f), os.path.join(ASSETS, f))
     base = fold(open(os.path.join(ROOT, 'preview', 'worlds', 'assets', 'worlds.css'), encoding='utf-8').read())
     layer = open(os.path.join(HERE, '..', 'assets', 'one.css'), encoding='utf-8').read()
@@ -534,11 +554,18 @@ def main():
         if key == 'method':  # the echoes page is linked from the methodology page, under the five insights
             i = html.find('id="five"'); j = html.find('</div></section>', i)
             html = html[:j] + '<p class="echo-door rv"><a class="more" href="../echoes/">הדים: הוגים ומסורות שמשוחחים עם חמש התובנות</a></p>' + html[j:]
-        if key == '':  # the home page invites a ten-minute try next to the mechanism
+        if key == 'academy':  # a short form that drafts the request, sent by mail or copied (creator 12.11); the invite button leads to it
+            html = re.sub(r'<a class="btn go" href="mailto:[^"]*">להזמנת סדנה', '<a class="btn go" href="#request">להזמנת סדנה', html, count=1)
+            form = open(os.path.join(HERE, 'request_form.html'), encoding='utf-8').read()
+            k = '<h2 id="contact-h">להזמין את המשוטט</h2></div>'
+            assert k in html
+            html = html.replace(k, k + form, 1)
+        if key == '' and 'hero-legend' not in html:  # the home page invites a ten-minute try next to the mechanism (the legend now holds it)
             i = html.find('<div class="btns">'); j = html.find('</div>', i)
             html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
+        html = re.sub(r'(<script src="([^"]*)worlds\.js"></script>)', r'\1\n<script src="\2drift.js"></script>', html, count=1)  # drifting stars on every page
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
         if LIVE_BUILD and key in ('try', 'echoes') and 'rel="canonical"' not in html:  # indexed pages name their own address
             html = html.replace('</title>', f'</title>\n<link rel="canonical" href="https://ecosystemicflaneur.com/{key}/">', 1)

@@ -127,3 +127,12 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .wb-nav .wb-ten { background: var(--gold); color: var(--on-gold); margin-inline-start: 4px; }
 .wb-nav .wb-ten:hover { background: var(--gold); color: var(--on-gold); filter: brightness(1.06); }
 html[data-dir="w"] .wb-nav a.wb-ten[aria-current] { box-shadow: none; border-radius: 999px; }
+
+/* day ↔ night: only the site's own navy and cream, no sunset colours (creator 13.11) */
+.dusk.to-night { background: linear-gradient(180deg, #F7F2E8 0%, #C9CED6 30%, #3A5470 58%, #0F2D4A 78%, #0A1E33 100%); background-size: 100% 300%; }
+.dusk.to-day { background: linear-gradient(0deg, #0A1E33 0%, #0F2D4A 22%, #3A5470 42%, #C9CED6 70%, #F7F2E8 100%); background-size: 100% 300%; }
+
+/* the day/night switch is quieter than "נצא לדרך": one word, smaller (creator 13.11) */
+.sky { font-size: 13px !important; padding: 0 9px !important; gap: 5px !important; min-height: 30px; opacity: .85; }
+.sky .sky-ic { transform: scale(.78); }
+.terr-btn .tl { display: inline !important; }

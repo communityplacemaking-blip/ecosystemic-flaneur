@@ -1,0 +1,50 @@
+<form class="rq card" id="request" novalidate aria-labelledby="rq-h">
+<h3 id="rq-h">לנסח את הבקשה</h3>
+<p class="rq-note">כמה שאלות קצרות, ומהן נכתב נוסח שאפשר לשלוח במייל או להעתיק. שום דבר לא נשמר ולא נשלח מכאן.</p>
+<fieldset><legend>מה תרצו?</legend><div class="rq-opts">
+<label><input type="radio" name="kind" value="סדנת שוטטות" checked><span>סדנת שוטטות</span></label>
+<label><input type="radio" name="kind" value="הרצאה"><span>הרצאה</span></label>
+<label><input type="radio" name="kind" value="תהליך משתף או קהילתי"><span>תהליך משתף או קהילתי</span></label>
+<label><input type="radio" name="kind" value="הכשרה מקצועית"><span>הכשרה מקצועית</span></label>
+<label><input type="radio" name="kind" value="שיתוף פעולה אחר"><span>שיתוף פעולה אחר</span></label>
+</div></fieldset>
+<label class="rq-f"><span>עבור מי?</span><input name="who" placeholder="למשל: צוות ברשות מקומית, קהילה, כיתה, ארגון"></label>
+<div class="rq-two">
+<label class="rq-f"><span>כמה משתתפים?</span><input name="size" inputmode="numeric"></label>
+<label class="rq-f"><span>איפה ומתי?</span><input name="where"></label>
+</div>
+<label class="rq-f"><span>מה הייתם רוצים שיקרה בעקבות המפגש?</span><textarea name="hope" rows="3"></textarea></label>
+<label class="rq-f"><span>שם, ודרך לחזור אליכם</span><input name="me"></label>
+<div class="rq-out"><span class="rq-l">הנוסח</span><pre id="rq-text" aria-live="polite"></pre></div>
+<div class="btns"><a class="btn go" id="rq-mail" href="mailto:osimkehilanet@gmail.com">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
+<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל osimkehilanet@gmail.com</p>
+</form>
+<style>
+.rq{display:grid;gap:14px;margin-bottom:18px;max-width:640px}
+.rq h3{margin:0;font-weight:500}
+.rq-note{margin:0;font-size:.92em;color:var(--muted)}
+.rq fieldset{border:0;margin:0;padding:0}
+.rq legend,.rq-f>span,.rq-l{display:block;font-size:.95em;margin-bottom:6px;color:var(--ink-2)}
+.rq-opts{display:flex;flex-wrap:wrap;gap:8px}
+.rq-opts input{position:absolute;opacity:0;pointer-events:none}
+.rq-opts span{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.rq-opts input:checked+span{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.rq-opts input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.rq input:not([type=radio]),.rq textarea{width:100%;box-sizing:border-box;font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink)}
+.rq-two{display:grid;grid-template-columns:1fr 2fr;gap:12px}
+@media (max-width:520px){.rq-two{grid-template-columns:1fr}}
+.rq pre{margin:0;white-space:pre-wrap;font:inherit;font-size:.95em;line-height:1.6;padding:12px 14px;border-radius:10px;border:1px dashed var(--line);color:var(--ink-2)}
+</style>
+<script>(function(){var f=document.getElementById('request');if(!f)return;var out=document.getElementById('rq-text'),m=document.getElementById('rq-mail');
+function v(n){var e=f.elements[n];return e?String(e.value||'').trim():''}
+function draft(){var k=(f.querySelector('input[name=kind]:checked')||{}).value||'',L=['שלום,','','אנחנו מתעניינים ב'+k+' עם המשוטט.'];
+  if(v('who'))L.push('עבור: '+v('who'));if(v('size'))L.push('מספר משתתפים: '+v('size'));if(v('where'))L.push('איפה ומתי: '+v('where'));
+  if(v('hope')){L.push('');L.push('מה היינו רוצים שיקרה: '+v('hope'))}L.push('');L.push('תודה,');L.push(v('me')||'');
+  var t=L.join('\n').trim();out.textContent=t;
+  m.href='mailto:osimkehilanet@gmail.com?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
+f.addEventListener('input',draft);f.addEventListener('change',draft);f.addEventListener('submit',function(e){e.preventDefault()});draft();
+document.getElementById('rq-copy').addEventListener('click',function(){var t=draft(),d=document.getElementById('rq-done');
+  function ok(){d.hidden=false}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()});else{fb(t);ok()}});
+function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+})()</script>
