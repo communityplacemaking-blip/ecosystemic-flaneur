@@ -538,7 +538,7 @@ def main():
     import shutil
     os.makedirs(ASSETS, exist_ok=True)
     if LIVE_BUILD:  # the world's scripts and styles are served from /assets/
-        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js', 'try.js', 'drift.js'):
+        for f in ('field.js', 'circle.js', 'echoes.js', 'worlds.js', 'mech.css', 'b-skin.css', 'site-skin.css', 'app.js', 'try.js', 'drift.js', 'stars.js'):
             shutil.copy(os.path.join(HERE, '..', 'assets', f), os.path.join(ASSETS, f))
     base = fold(open(os.path.join(ROOT, 'preview', 'worlds', 'assets', 'worlds.css'), encoding='utf-8').read())
     layer = open(os.path.join(HERE, '..', 'assets', 'one.css'), encoding='utf-8').read()
@@ -560,6 +560,7 @@ def main():
             k = '<h2 id="contact-h">להזמין את המשוטט</h2></div>'
             assert k in html
             html = html.replace(k, k + form, 1)
+            html = stars_story(html)
         if key == '' and 'hero-legend' not in html:  # the home page invites a ten-minute try next to the mechanism (the legend now holds it)
             i = html.find('<div class="btns">'); j = html.find('</div>', i)
             html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]
@@ -575,6 +576,59 @@ def main():
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)
         print('wrote', os.path.relpath(path, ROOT), len(html))
+
+
+# /academy/: the story of the way as a broken constellation (creator 13.11). The text stays word for word;
+# only its form changes: scattered stations joined by a gold line that opens each one (assets/stars.js).
+STARS = [(560, 1, -.6, 0), (470, .12, .8, 230), (520, .62, -1.1, 250), (440, 0, .5, 270), (540, .9, -.4, 240), (480, .28, 1, 260), (520, .75, -.8, 250), (500, .05, .6, 260)]
+
+
+def stars_story(html):
+    a = html.index('<section class="sec " id="path"')
+    c = html.index('<section class="sec deep" id="contact"')
+    b = html.rindex('<div class="seam"', a, c)
+    old = html[a:b]
+    secs = re.findall(r'<section class="sec[^"]*" id="(\w+)"[^>]*>(.*?)</section>', old, re.S)
+    story = [x for x in secs if x[0] != 'invite']
+    invite = [x for x in secs if x[0] == 'invite'][0][1]
+    n = len(story)
+
+    def blocks(body):
+        out = []
+        for m in re.finditer(r'<(p|ul|blockquote)( class="[^"]*")?>(.*?)</\1>', body, re.S):
+            t, cls, inner = m.group(1), m.group(2) or '', m.group(3)
+            if 'lead' in cls:
+                continue
+            if t == 'ul':
+                out.append(('ul', '<ul class="chips">' + inner.strip() + '</ul>'))
+            elif t == 'blockquote':
+                out.append(('q', '<blockquote class="quote">' + inner.strip() + '</blockquote>'))
+            else:
+                out.append(('p', '<p>' + inner.strip() + '</p>'))
+        return out
+    cards = []
+    for i, (sid, body) in enumerate(story):
+        h = re.search(r'<h2[^>]*>(.*?)</h2>', body)
+        lead = re.search(r'<p class="lead">(.*?)</p>', body, re.S)
+        bl = blocks(body)
+        first = next(k for k, x in enumerate(bl) if x[0] == 'p')
+        rest = ''.join(x[1] for k, x in enumerate(bl) if k != first)
+        w, f, rot, gap = STARS[i % len(STARS)]
+        dots = ''.join('<i class="on"></i>' if k <= i else '<i></i>' for k in range(n))
+        head = (f'<h2 id="{sid}-h">{h.group(1)}</h2>' if h else '') + (f'<p class="st-lead">{lead.group(1).strip()}</p>' if lead else '')
+        tog = (f'<div class="rest" id="{sid}-more"><div>{rest}</div></div><button type="button" class="tog" aria-expanded="false" aria-controls="{sid}-more">להמשיך לקרוא</button>') if rest else ''
+        cards.append(f'<article class="star" id="{sid}" style="--w:{w}px;--f:{f};--rot:{rot}deg;--gap:{gap}px"><div class="card"><div class="count"><span class="num">{i + 1:02d} / {n:02d}</span><span class="dots" aria-hidden="true">{dots}</span></div>{head}{bl[first][1]}{tog}</div></article>')
+    ih = re.search(r'<h2[^>]*>(.*?)</h2>', invite).group(1)
+    il = re.search(r'<p class="lead">(.*?)</p>', invite, re.S).group(1).strip()
+    rest_inv = invite[invite.index('</p>', invite.index('class="lead"')) + 4:]
+    rest_inv = re.sub(r'</div></div>\s*$', '', rest_inv.strip())
+    end = f'<div class="sj-end" id="invite"><div class="lamp" aria-hidden="true"></div><h2 id="invite-h">{ih}</h2><p class="lead">{il}</p>{rest_inv}</div>'
+    new = ('<section class="sec vc-sec" id="path" aria-label="סיפור הדרך"><script>document.documentElement.classList.add("js-c")</script>'
+           '<div class="vc" id="vc"><div class="wrap"><div class="lane"><svg class="trail" aria-hidden="true"></svg>'
+           + ''.join(cards) + '<div class="tail"></div></div>' + end + '</div></div></section>')
+    html = html[:a] + new + html[b:]
+    src = re.search(r'<script src="([^"]*)worlds\.js"></script>', html).group(1)
+    return html.replace('</body>', f'<script src="{src}stars.js"></script>\n</body>', 1)
 
 
 if __name__ == '__main__':
