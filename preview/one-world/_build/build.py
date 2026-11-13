@@ -461,7 +461,9 @@ def header(ctx):
     for k, t, _, _ in DOORS:
         if DOOR_OF.get(ctx.page) == k and k != ctx.page:
             html = html.replace(f'<a href="{ctx.to(k)}">{t}</a>', f'<a href="{ctx.to(k)}" aria-current="true">{t}</a>', 1)
-    html = html.replace('<span class="tl">המפה</span>', '<span class="tl">נצא לדרך</span>', 1)  # "המפה", then "כל העמודים", were unclear (creator 12–13.11)
+    html = html.replace('<span class="tl">המפה</span>', '<span class="tl">נצא לדרך</span>', 1)
+    html = re.sub(r'<svg class="ti"[^>]*>.*?</svg>', '', html, count=1, flags=re.S)  # no icon beside "נצא לדרך" (creator 13.11)
+    html = html.replace('<span class="sky-l">אל הלילה</span>', '<span class="sky-l">לילה</span>', 1)  # just "יום" / "לילה" (creator 13.11)  # "המפה", then "כל העמודים", were unclear (creator 12–13.11)
     return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות</a></nav>', 1)
 
 

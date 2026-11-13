@@ -15,7 +15,7 @@
     if (!silent) store('ef-sky', sky);
     $$('.sky').forEach(function (b) {
       b.setAttribute('aria-pressed', sky === 'night' ? 'true' : 'false');
-      var l = $('.sky-l', b); if (l) l.textContent = sky === 'day' ? 'אל הלילה' : 'אל היום';
+      var l = $('.sky-l', b); if (l) l.textContent = sky === 'day' ? 'לילה' : 'יום';
       b.setAttribute('aria-label', sky === 'day' ? 'לעבור לשוטטות בלילה' : 'לעבור לשוטטות ביום');
     });
     if (!silent) document.dispatchEvent(new CustomEvent('worlds:sky', { detail: sky }));
