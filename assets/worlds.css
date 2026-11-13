@@ -919,3 +919,52 @@ html[data-sky="night"] .tl-k em { color: var(--gold); }
 .lg-g a small { font: 400 .84rem/1.35 var(--f-sans); color: var(--muted); }
 .lg-g a:hover i, .lg-g a:focus-visible i { background: var(--gold); box-shadow: var(--glow); }
 @media (max-width: 860px) { .lg { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+
+/* ---------- /academy/: the story of the way as a broken constellation (creator 13.11) ----------
+   The stations are scattered, not a column. A gold line leaves each station, runs out past the right edge,
+   sweeps right to left (sometimes curling), and the next station opens from the point it touches. */
+.vc-sec { padding-top: 10px; padding-bottom: 0; }
+.vc { position: relative; z-index: 1; padding: 0 0 20px; }
+.vc .lane { position: relative; max-width: 1100px; margin: 0 auto; }
+.vc .trail { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+.vc .trail path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(212, 167, 44, .6)); }
+.vc .trail circle { fill: #FFF3D2; filter: drop-shadow(0 0 8px var(--gold)) drop-shadow(0 0 3px #fff); transition: opacity .4s; }
+.vc .star { position: relative; z-index: 1; width: min(100%, var(--w)); margin-left: 0; margin-right: calc((100% - min(100%, var(--w))) * (1 - var(--f))); margin-top: var(--gap); transform: rotate(var(--rot)); }
+.vc .star:first-of-type { margin-top: 70px; }
+.vc .star .card { overflow: hidden; padding: clamp(18px, 2.4vw, 28px); background: color-mix(in srgb, var(--solid) 95%, transparent); box-shadow: 0 30px 60px -34px rgba(0, 0, 0, .6); }
+.vc .star .card:hover { transform: none; }
+.vc .star .card::after { content: ""; position: absolute; top: -60px; inset-inline-end: -60px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(closest-side, rgba(212, 167, 44, .2), transparent); pointer-events: none; }
+.vc .star .card p { font-size: 1em; color: var(--ink); margin: 0 0 1em; }
+.vc .star h2 { font-size: clamp(23px, 2.6vw, 30px); }
+.vc .st-lead { color: var(--teal); font-size: 17px; margin: 8px 0 16px !important; font-weight: 400; }
+.vc .count { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.vc .num { font-size: 14px; letter-spacing: .12em; color: var(--gold-t); font-weight: 400; }
+.vc .dots { display: flex; gap: 5px; }
+.vc .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+.vc .dots i.on { background: var(--gold); box-shadow: var(--glow); }
+.vc .chips { list-style: none; padding: 0; margin: 4px 0 16px; display: grid; gap: 10px; }
+.vc .chips li { position: relative; padding: 12px 16px; padding-inline-start: 38px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); font-size: 17px; line-height: 1.5; }
+.vc .chips li::before { content: ""; position: absolute; inset-inline-start: 16px; top: 20px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: var(--glow); }
+.vc .quote { font-size: clamp(20px, 2.3vw, 27px); font-weight: 300; line-height: 1.4; color: var(--ink); margin: 18px 0 6px; padding: 0; border: 0; max-width: 30ch; }
+.vc .quote::before { content: ""; display: block; width: 40px; height: 1px; background: var(--gold); box-shadow: var(--glow); margin-bottom: 18px; }
+.vc .rest { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+.vc .rest > div { overflow: hidden; }
+.vc .star.open .rest { grid-template-rows: 1fr; }
+.vc .tog { margin-top: 6px; font: 400 16px/1 var(--f-sans); color: var(--gold-t); background: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 11px 18px; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; }
+.vc .tog::after { content: "↓"; transition: transform .4s; }
+.vc .star.open .tog::after { transform: rotate(180deg); }
+.vc .tail { height: 200px; }
+.vc .sj-end { position: relative; z-index: 1; text-align: center; padding: 10px 0 clamp(50px, 8vw, 100px); }
+.vc .sj-end .lamp { width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 26px; background: radial-gradient(closest-side, #FFF3D2, var(--gold) 60%, transparent); box-shadow: 0 0 40px 10px rgba(212, 167, 44, .45); }
+.vc .sj-end .lead { margin-inline: auto; max-width: 56ch; font-size: 17px; line-height: 1.8; }
+.vc .sj-end .btns { justify-content: center; }
+/* a station is not waiting there: it opens from the point where the line touches it */
+.js-c .vc .star { clip-path: circle(0px at var(--cx, 90%) 0px); opacity: 0; transition: clip-path 1.25s cubic-bezier(.6, .05, .2, 1), opacity .5s; }
+.js-c .vc .star > .card { transform: scale(.94) translateY(16px); filter: blur(6px); transition: transform 1.2s var(--ease), filter 1.1s var(--ease); }
+.js-c .vc .star.lit { clip-path: circle(160% at var(--cx, 90%) 0px); opacity: 1; }
+.js-c .vc .star.lit > .card { transform: none; filter: none; }
+.js-c .vc .star.lit.done { clip-path: none; }
+.js-c .vc .sj-end { opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+.js-c .vc .sj-end.lit { opacity: 1; transform: none; }
+@media (max-width: 759px) { .vc .star { --w: 88% !important; } .vc .star:first-of-type { margin-top: 50px; } }
+@media (prefers-reduced-motion: reduce) { .js-c .vc .star, .js-c .vc .star > .card, .js-c .vc .sj-end { clip-path: none; opacity: 1; transform: none; filter: none; transition: none; } }
