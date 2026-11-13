@@ -575,10 +575,16 @@ def main():
             html = html.replace('</title>', f'</title>\n<link rel="canonical" href="https://ecosystemicflaneur.com/{key}/">', 1)
         if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
             html = app_shell(html, ctx, key)
+            up = '' if key == '' else '../'  # the home page also speaks English and French (creator 13.11)
+            html = html.replace('<button class="sky"', LANGS.format(he='<b aria-current="true">עב</b>', en=f'<a href="{up}en/" hreflang="en" lang="en">EN</a>', fr=f'<a href="{up}fr/" hreflang="fr" lang="fr">FR</a>') + '<button class="sky"', 1)
+            if key == '':
+                html = html.replace('</head>', HREFLANG + '</head>', 1)
         path = os.path.join(OUT, key, 'index.html') if key else os.path.join(OUT, 'index.html')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         open(path, 'w', encoding='utf-8').write(html)
         print('wrote', os.path.relpath(path, ROOT), len(html))
+    if LIVE_BUILD:
+        home_i18n()
 
 
 # /academy/: the story of the way as a broken constellation (creator 13.11). The text stays word for word;
@@ -632,6 +638,65 @@ def stars_story(html):
     html = html[:a] + new + html[b:]
     src = re.search(r'<script src="([^"]*)worlds\.js"></script>', html).group(1)
     return html.replace('</body>', f'<script src="{src}stars.js"></script>\n</body>', 1)
+
+
+# ---------- the home page in English and French (creator 13.11) ----------
+LANGS = '<nav class="langs" aria-label="שפה · Language">{he}{en}{fr}</nav>'
+HREFLANG = ('<link rel="alternate" hreflang="he" href="https://ecosystemicflaneur.com/">\n<link rel="alternate" hreflang="en" href="https://ecosystemicflaneur.com/en/">\n'
+            '<link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/">\n<link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/">\n')
+
+
+def home_i18n():
+    from bs4 import BeautifulSoup, Comment
+    from i18n_home import HOME, JS
+    src = open(os.path.join(OUT, 'index.html'), encoding='utf-8').read()
+    for n, lang in ((0, 'en'), (1, 'fr')):
+        s = BeautifulSoup(src, 'html.parser')
+        missing = []
+        for t in s.find_all(string=True):
+            if isinstance(t, Comment) or t.parent.name in ('script', 'style'):
+                continue
+            x = t.strip()
+            if not x or not re.search('[֐-׿]', x):
+                continue
+            if x in HOME:
+                t.replace_with(t.replace(x, HOME[x][n]))
+            else:
+                missing.append(x)
+        for el in s.find_all(True):
+            for a in ('alt', 'aria-label', 'title', 'content', 'placeholder', 'data-labels', 'data-name', 'data-d'):
+                v = el.get(a)
+                if v and v in HOME:
+                    el[a] = HOME[v][n]
+            for a in ('href', 'src'):  # one folder deeper: every relative address climbs one step
+                v = el.get(a)
+                if v and not re.match(r'(https?:|mailto:|#|/|data:)', v):
+                    el[a] = '../' + v
+        s.html['lang'] = lang
+        s.html['dir'] = 'ltr'
+        for m in s.find_all('meta', attrs={'property': 'og:url'}):
+            m['content'] = f'https://ecosystemicflaneur.com/{lang}/'
+        for m in s.find_all('meta', attrs={'property': 'og:locale'}):
+            m['content'] = {'en': 'en_GB', 'fr': 'fr_FR'}[lang]
+        for m in s.find_all('link', attrs={'rel': 'canonical'}):
+            m['href'] = f'https://ecosystemicflaneur.com/{lang}/'
+        langs = s.find('nav', class_='langs')
+        if langs:
+            langs.clear()
+            for code, href, label in (('he', '../', 'עב'), ('en', '../en/', 'EN'), ('fr', '../fr/', 'FR')):
+                if code == lang:
+                    tag = s.new_tag('b'); tag['aria-current'] = 'true'
+                else:
+                    tag = s.new_tag('a', href=href); tag['hreflang'] = code; tag['lang'] = code
+                tag.string = label
+                langs.append(tag)
+        out = str(s)
+        words = json.dumps({k: v[n] for k, v in JS.items()}, ensure_ascii=False)
+        out = out.replace('<script src="../assets/worlds.js">', f'<script>window.EF_I18N={words};</script>\n<script src="../assets/worlds.js">', 1)
+        path = os.path.join(OUT, lang, 'index.html')
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        open(path, 'w', encoding='utf-8').write(out)
+        print('wrote', os.path.relpath(path, ROOT), len(out), 'untranslated:', missing)
 
 
 if __name__ == '__main__':

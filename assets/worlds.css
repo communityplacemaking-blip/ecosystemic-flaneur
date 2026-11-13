@@ -686,6 +686,20 @@ html[data-dir="w"] .wb-nav a.wb-ten[aria-current] { box-shadow: none; border-rad
 .sky { font-size: 13px !important; padding: 0 9px !important; gap: 5px !important; min-height: 30px; opacity: .85; }
 .sky .sky-ic { transform: scale(.78); }
 .terr-btn .tl { display: inline !important; }
+/* language links beside the day/night switch (creator 13.11) */
+.langs { display: inline-flex; align-items: center; gap: 2px; font: 400 13px/1 var(--f-sans); margin-inline-end: 6px; }
+.langs a, .langs b { padding: 6px 6px; border-radius: 999px; color: var(--muted); text-decoration: none; font-weight: 400; letter-spacing: .04em; }
+.langs a:hover { color: var(--ink); }
+.langs b { color: var(--ink); font-weight: 500; }
+html[dir="ltr"] .hero-text, html[dir="ltr"] .sec-h, html[dir="ltr"] .prose, html[dir="ltr"] .card { text-align: left; }
+@media (max-width: 480px) {
+  .langs { gap: 0; margin-inline-end: 0; }
+  .langs a, .langs b { padding: 5px 4px; font-size: 12px; }
+  html[dir="ltr"] .brand { font-size: 15px; gap: 6px; }
+  html[dir="ltr"] .wb-in { gap: 6px; }
+  html[dir="ltr"] .terr-btn { padding-inline: 10px; font-size: 13px; }
+}
+html[dir="ltr"] .more::after { content: " →"; }
 
 /* ---------- star map as discovery (the Wanderer page) ---------- */
 .lights.disc .sky-map .route { display: none; }
