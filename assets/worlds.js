@@ -6,6 +6,8 @@
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var I18N = window.EF_I18N || {};  /* the English and French home pages bring their own words */
+  function T(w) { return I18N[w] || w; }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   /* ---------- day / night ---------- */
@@ -15,8 +17,8 @@
     if (!silent) store('ef-sky', sky);
     $$('.sky').forEach(function (b) {
       b.setAttribute('aria-pressed', sky === 'night' ? 'true' : 'false');
-      var l = $('.sky-l', b); if (l) l.textContent = sky === 'day' ? 'לילה' : 'יום';
-      b.setAttribute('aria-label', sky === 'day' ? 'לעבור לשוטטות בלילה' : 'לעבור לשוטטות ביום');
+      var l = $('.sky-l', b); if (l) l.textContent = sky === 'day' ? T('לילה') : T('יום');
+      b.setAttribute('aria-label', sky === 'day' ? T('לעבור לשוטטות בלילה') : T('לעבור לשוטטות ביום'));
     });
     if (!silent) document.dispatchEvent(new CustomEvent('worlds:sky', { detail: sky }));
   }
@@ -145,9 +147,9 @@
       $$('.story').forEach(function (s) { s.classList.toggle('on', s.id === 's-' + id); });
       var st = document.getElementById('s-' + id), box = $('.ties', st);
       if (!box) { box = document.createElement('p'); box.className = 'ties'; st.appendChild(box); }
-      box.innerHTML = '<span>מתחבר אל:</span>';
+      box.innerHTML = '<span>' + T('מתחבר אל:') + '</span>';
       ties(id).forEach(function (x) { var b = document.createElement('button'); b.type = 'button'; b.textContent = $('b', nodes[x]).textContent; b.addEventListener('click', function () { show(x, true); }); box.appendChild(b); });
-      var cnt = $('#web-count'); if (cnt) { var n = Object.keys(seen).length; cnt.textContent = n + ' מתוך ' + Object.keys(nodes).length; }
+      var cnt = $('#web-count'); if (cnt) { var n = Object.keys(seen).length; cnt.textContent = n + T(' מתוך ') + Object.keys(nodes).length; }
       if (focus && innerWidth < 960) st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
     }
     Object.keys(nodes).forEach(function (k) { nodes[k].addEventListener('click', function () { show(k, true); }); });
