@@ -1,11 +1,11 @@
 /* The Ecosystemic Flâneur, adaptive mechanism prototype (31.10.2026).
    The knowledge structure behind the mechanism. Nothing here is invented content:
-   - LEVELS: the four wandering levels, names as the creator gave them on 30.10 (preliminary labels).
+   - LEVELS: the four wandering levels, names as given on 30.10 (preliminary labels).
      The "what changes" rows are the 30.10 concept proposal, kept as proposals until approved.
-   - PATHS: the three readiness paths from the creator's 31.10 brief. Their default level/intro is the
+   - PATHS: the three readiness paths from the 31.10 brief. Their default level/intro is the
      31.10 proposal ("three dimensions" profile), every dimension stays changeable.
    - Repository A = window.IDEAS (read-only snapshot of the Stage 2 library, ../library/ideas-snapshot.js).
-   - Repository B = TOOLS, empty on purpose. Six central purposes are the creator's; the five roles are secondary.
+   - Repository B = TOOLS, empty on purpose. Six central purposes are the author's; the five roles are secondary.
    - Journey templates C = TEMPLATES. */
 (function (root) {
   var K = {};
@@ -48,7 +48,7 @@
   ];
 
   K.MOVES = ['ערך', 'שחרור', 'שוטטות', 'קשב', 'הבחנה', 'יצירה', 'חגיגה'];
-  /* The creator's expressions for participatory wandering (31.10). Value and Release: not yet formulated. */
+  /* The expressions for participatory wandering (31.10). Value and Release: not yet formulated. */
   K.MOVES_GROUP = [null, null, 'חקירה משותפת, לא בהכרח הליכה במרחב', 'לקולות רבים, ליחסים ולמקום עצמו',
     'דפוסים משותפים, ידע מקומי, מתחים ואפשרויות', 'רעיונות משותפים, יוזמות וצורות שיתוף פעולה חדשות',
     'הכרה במה שעלה, במה שהתאפשר ובאנשים שתרמו'];
@@ -74,7 +74,7 @@
   K.ROLES = ['הקשבה', 'חקירה', 'שיח', 'יצירה', 'עשייה']; // secondary metadata only
   K.TOOLS = []; // { id, name, type:'tool'|'method', purposes:[0..5], roles:[], source, steps, links:{ideas:[]} }
 
-  /* The creator's seven topics for the facilitator's preparation (participatory). */
+  /* The seven topics for the facilitator's preparation (participatory). */
   K.PREP = ['המקום או הקהילה', 'הסיפור והזהות', 'הכוחות והקשרים', 'האתגרים והמתחים',
     'האנשים והקבוצות', 'המטרה', 'העבודה שכבר נעשתה'];
 

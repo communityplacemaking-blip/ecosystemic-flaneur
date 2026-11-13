@@ -1,4 +1,4 @@
-/* /academy/: the gold line travels between scattered stations, right to left, and opens each one (creator 13.11). */
+/* /academy/: the gold line travels between scattered stations, right to left, and opens each one (brief 13.11). */
 (function () {
   'use strict';
   var root = document.getElementById('vc'); if (!root) return;
