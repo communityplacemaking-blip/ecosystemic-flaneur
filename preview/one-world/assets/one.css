@@ -121,11 +121,11 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .dr-subs { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 8px 32px 0 0; }
 .dr-subs a { font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }
 .dr-subs a:hover, .dr-subs a[aria-current] { border-color: var(--gold); color: var(--ink); }
-.dr-ten { display: inline-block; margin-top: 16px; background: var(--gold); color: var(--on-gold) !important; text-decoration: none; border-radius: 999px; padding: 10px 20px; font: 500 1rem var(--f-sans); }
+.dr-ten { display: inline-block; margin-top: 16px; font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }  /* a first taste, not a lure: like every other link (creator 13.11) */
+.dr-ten:hover, .dr-ten[aria-current] { border-color: var(--gold); color: var(--ink); }
 .terr-in:has(.terr-doors) { width: min(560px, 100%); }
 .lg-doors { max-width: 640px; }
-.wb-nav .wb-ten { background: var(--gold); color: var(--on-gold); margin-inline-start: 4px; }
-.wb-nav .wb-ten:hover { background: var(--gold); color: var(--on-gold); filter: brightness(1.06); }
+.wb-nav .wb-ten { margin-inline-start: 4px; }
 html[data-dir="w"] .wb-nav a.wb-ten[aria-current] { box-shadow: none; border-radius: 999px; }
 
 /* day ↔ night: only the site's own navy and cream, no sunset colours (creator 13.11) */
