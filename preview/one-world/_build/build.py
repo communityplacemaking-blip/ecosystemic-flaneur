@@ -479,8 +479,11 @@ def p_home_legend(ctx):
     html = p_home(ctx)
     # first screen = the name, the statement and the orientation legend (creator 12.11); the duplicate lines and buttons give way to it
     i = html.index('<p class="sub" style="opacity:.85">'); j = html.index('</div>', html.index('<div class="btns">', i)) + len('</div>')
-    html = html[:i] + f'<details id="legend" class="hero-go"><summary class="btn go">נצא לדרך</summary><nav class="terr-doors lg-doors hero-legend" aria-label="עמודי האתר">{doors(ctx)}</nav></details>' + html[j:]
-    html = html.replace('</head>', '<style>.hero-go{margin-top:clamp(18px,3vw,30px)}.hero-go>summary{list-style:none;display:inline-flex;cursor:pointer}.hero-go>summary::-webkit-details-marker{display:none}.hero-go>summary::after{content:"↓";margin-inline-start:10px;transition:transform .3s}.hero-go[open]>summary::after{transform:rotate(180deg)}.hero-legend{margin-top:clamp(16px,2.6vw,26px)}@media (min-width:760px){.hero-legend .doors{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>\n</head>', 1)
+    # under the statement, one opening paragraph: what wandering is and who the Wanderer is (creator 13.11, the short version)
+    import re as _re
+    opening = _re.search(r'<p class="sub">(.*?)</p>', html[i:j], _re.S).group(1).strip()
+    html = html[:i] + f'<p class="opening">{opening}</p><details id="legend" class="hero-go"><summary class="btn go">נצא לדרך</summary><nav class="terr-doors lg-doors hero-legend" aria-label="עמודי האתר">{doors(ctx)}</nav></details>' + html[j:]
+    html = html.replace('</head>', '<style>.hero .opening{max-width:54ch;margin-top:clamp(12px,2vw,20px);line-height:1.75;font-weight:300;opacity:.92}.hero-go{margin-top:clamp(18px,3vw,30px)}.hero-go>summary{list-style:none;display:inline-flex;cursor:pointer}.hero-go>summary::-webkit-details-marker{display:none}.hero-go>summary::after{content:"↓";margin-inline-start:10px;transition:transform .3s}.hero-go[open]>summary::after{transform:rotate(180deg)}.hero-legend{margin-top:clamp(16px,2.6vw,26px)}@media (min-width:760px){.hero-legend .doors{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>\n</head>', 1)
     return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>נצא לדרך</span></a>', 1)
 
 
