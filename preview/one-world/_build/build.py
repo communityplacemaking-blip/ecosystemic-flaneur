@@ -446,7 +446,7 @@ def doors(ctx):
 def territories(ctx):
     return f'''<div class="terr" id="terr" role="dialog" aria-modal="true" aria-labelledby="terr-h" hidden>
 <div class="terr-in">
-<div class="terr-h"><h2 id="terr-h">כל העמודים באתר</h2><button class="terr-close" type="button">לסגור</button></div>
+<div class="terr-h"><h2 id="terr-h">נצא לדרך</h2><button class="terr-close" type="button">לסגור</button></div>
 <div class="terr-doors">{doors(ctx)}</div>
 </div></div>'''
 
@@ -461,7 +461,7 @@ def header(ctx):
     for k, t, _, _ in DOORS:
         if DOOR_OF.get(ctx.page) == k and k != ctx.page:
             html = html.replace(f'<a href="{ctx.to(k)}">{t}</a>', f'<a href="{ctx.to(k)}" aria-current="true">{t}</a>', 1)
-    html = html.replace('<span class="tl">המפה</span>', '<span class="tl">כל העמודים</span>', 1)  # "המפה" was unclear (creator 12.11)
+    html = html.replace('<span class="tl">המפה</span>', '<span class="tl">נצא לדרך</span>', 1)  # "המפה", then "כל העמודים", were unclear (creator 12–13.11)
     return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות</a></nav>', 1)
 
 
@@ -477,9 +477,9 @@ def p_home_legend(ctx):
     html = p_home(ctx)
     # first screen = the name, the statement and the orientation legend (creator 12.11); the duplicate lines and buttons give way to it
     i = html.index('<p class="sub" style="opacity:.85">'); j = html.index('</div>', html.index('<div class="btns">', i)) + len('</div>')
-    html = html[:i] + f'<nav id="legend" class="terr-doors lg-doors hero-legend" aria-label="כל העמודים">{doors(ctx)}</nav>' + html[j:]
-    html = html.replace('</head>', '<style>.hero-legend{margin-top:clamp(18px,3vw,30px)}@media (min-width:760px){.hero-legend .doors{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>\n</head>', 1)
-    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>כל העמודים</span></a>', 1)
+    html = html[:i] + f'<details id="legend" class="hero-go"><summary class="btn go">נצא לדרך</summary><nav class="terr-doors lg-doors hero-legend" aria-label="עמודי האתר">{doors(ctx)}</nav></details>' + html[j:]
+    html = html.replace('</head>', '<style>.hero-go{margin-top:clamp(18px,3vw,30px)}.hero-go>summary{list-style:none;display:inline-flex;cursor:pointer}.hero-go>summary::-webkit-details-marker{display:none}.hero-go>summary::after{content:"↓";margin-inline-start:10px;transition:transform .3s}.hero-go[open]>summary::after{transform:rotate(180deg)}.hero-legend{margin-top:clamp(16px,2.6vw,26px)}@media (min-width:760px){.hero-legend .doors{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>\n</head>', 1)
+    return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>נצא לדרך</span></a>', 1)
 
 
 W.BUILDERS[''] = p_home_legend
