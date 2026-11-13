@@ -41,7 +41,7 @@ def src_open(path, *a, **k):
 
 W.open = src_open
 # the ten-minute wandering is a place on the map, near the mechanism
-W.TERR = W.TERR + [('try', '10 דקות', 'לנסות עכשיו', 54, 92)]
+W.TERR = W.TERR + [('try', 'טעימה ראשונה', 'שוטטות של 10 דקות', 54, 92)]
 W.TLINKS = W.TLINKS + [('', 'try'), ('try', 'journey')]
 # the echoes and the methodological introduction are places on the map too, near the method and the academy
 W.TERR = W.TERR + [('echoes', 'הדים', 'הוגים ומסורות', 84, 10), ('methodology', 'המבוא המתודולוגי', 'השיטה בכתיבה אקדמית', 12, 86)]
@@ -440,7 +440,7 @@ def doors(ctx):
         chips = ''.join(f'<a href="{ctx.to(sk)}"{_cur(ctx, sk)}>{st}</a>' for sk, st in subs)
         rows += (f'<li{here}><a class="dr" href="{ctx.to(k)}"{_cur(ctx, k)}><i aria-hidden="true"></i><b>{t}</b><small>{line}</small></a>'
                  + (f'<div class="dr-subs">{chips}</div>' if chips else '') + '</li>')
-    return f'<ul class="doors">{rows}</ul><a class="dr-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות · לנסות עכשיו</a>'
+    return f'<ul class="doors">{rows}</ul><a class="dr-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>טעימה ראשונה · 10 דקות</a>'
 
 
 def territories(ctx):
@@ -464,7 +464,7 @@ def header(ctx):
     html = html.replace('<span class="tl">המפה</span>', '<span class="tl">נצא לדרך</span>', 1)
     html = re.sub(r'<svg class="ti"[^>]*>.*?</svg>', '', html, count=1, flags=re.S)  # no icon beside "נצא לדרך" (creator 13.11)
     html = html.replace('<span class="sky-l">אל הלילה</span>', '<span class="sky-l">לילה</span>', 1)  # just "יום" / "לילה" (creator 13.11)  # "המפה", then "כל העמודים", were unclear (creator 12–13.11)
-    return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>10 דקות</a></nav>', 1)
+    return html.replace('</nav>', f'<a class="wb-ten" href="{ctx.to("try")}"{_cur(ctx, "try")}>טעימה ראשונה</a></nav>', 1)
 
 
 W.header = header
