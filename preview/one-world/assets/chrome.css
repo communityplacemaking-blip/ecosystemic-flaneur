@@ -214,6 +214,53 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .q-k { letter-spacing: .04em !important; font-size: 14px !important; }
 .mrow.mh span { font-weight: 500; }
 
+.terr-btn .tl { border: 0; background: none; border-radius: 0; }  /* the library cards also use .tl */
+/* narrow screens: the map button keeps its word too, so it reads as the way to every page (8.11) */
+@media (max-width: 420px) { .terr-btn .tl { display: inline; } .terr-btn { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; } }
+@media (max-width: 374px) { .brand .fig-mini { display: none; } .sky, .terr-btn { padding: 0 9px; } }
+
+/* four doors (8.11): the same list in the map window and in the home legend */
+.terr-doors { margin-top: 12px; }
+.doors { list-style: none; margin: 0; padding: 0; }
+.doors li { border-bottom: 1px solid var(--line); padding: 12px 2px; }
+.doors .dr { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; align-items: center; text-decoration: none; color: var(--ink); }
+.doors .dr i { grid-row: span 2; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--gold); transition: background .3s, box-shadow .3s; }
+.doors .dr b { font: 500 1.12rem/1.3 var(--f-sans); }
+.doors .dr small { font: 400 .86rem/1.35 var(--f-sans); color: var(--muted); }
+.doors .dr:hover i, .doors .dr:focus-visible i, .doors li.here .dr i { background: var(--gold); box-shadow: var(--glow); }
+.dr-subs { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 8px 32px 0 0; }
+.dr-subs a { font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }
+.dr-subs a:hover, .dr-subs a[aria-current] { border-color: var(--gold); color: var(--ink); }
+.dr-ten { display: inline-block; margin-top: 16px; font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }  /* a first taste, not a lure: like every other link (creator 13.11) */
+.dr-ten:hover, .dr-ten[aria-current] { border-color: var(--gold); color: var(--ink); }
+.terr-in:has(.terr-doors) { width: min(560px, 100%); }
+.lg-doors { max-width: 640px; }
+.wb-nav .wb-ten { margin-inline-start: 4px; }
+html[data-dir="w"] .wb-nav a.wb-ten[aria-current] { box-shadow: none; border-radius: 999px; }
+
+/* day ↔ night: only the site's own navy and cream, no sunset colours (creator 13.11) */
+.dusk.to-night { background: linear-gradient(180deg, #F7F2E8 0%, #C9CED6 30%, #3A5470 58%, #0F2D4A 78%, #0A1E33 100%); background-size: 100% 300%; }
+.dusk.to-day { background: linear-gradient(0deg, #0A1E33 0%, #0F2D4A 22%, #3A5470 42%, #C9CED6 70%, #F7F2E8 100%); background-size: 100% 300%; }
+
+/* the day/night switch is quieter than "נצא לדרך": one word, smaller (creator 13.11) */
+.sky { font-size: 13px !important; padding: 0 9px !important; gap: 5px !important; min-height: 30px; opacity: .85; }
+.sky .sky-ic { transform: scale(.78); }
+.terr-btn .tl { display: inline !important; }
+/* language links beside the day/night switch (creator 13.11) */
+.langs { display: inline-flex; align-items: center; gap: 2px; font: 400 13px/1 var(--f-sans); margin-inline-end: 6px; }
+.langs a, .langs b { padding: 6px 6px; border-radius: 999px; color: var(--muted); text-decoration: none; font-weight: 400; letter-spacing: .04em; }
+.langs a:hover { color: var(--ink); }
+.langs b { color: var(--ink); font-weight: 500; }
+html[dir="ltr"] .hero-text, html[dir="ltr"] .sec-h, html[dir="ltr"] .prose, html[dir="ltr"] .card { text-align: left; }
+@media (max-width: 480px) {
+  .langs { gap: 0; margin-inline-end: 0; }
+  .langs a, .langs b { padding: 5px 4px; font-size: 12px; }
+  html[dir="ltr"] .brand { font-size: 15px; gap: 6px; }
+  html[dir="ltr"] .wb-in { gap: 6px; }
+  html[dir="ltr"] .terr-btn { padding-inline: 10px; font-size: 13px; }
+}
+html[dir="ltr"] .more::after { content: " →"; }
+
 
 /* ======================================================================
    ONE WORLD. Day and night are two atmospheres of the same place.
@@ -319,3 +366,50 @@ html[data-sky="night"] blockquote { color: var(--ink-2); }
 .th-k, .th-go, .moment .mk, h4, summary, dt, .lib .l, b.l, .q-k { font-weight: 500 !important; }
 .q-k { letter-spacing: .04em !important; font-size: 14px !important; }
 .mrow.mh span { font-weight: 500; }
+
+.terr-btn .tl { border: 0; background: none; border-radius: 0; }  /* the library cards also use .tl */
+/* narrow screens: the map button keeps its word too, so it reads as the way to every page (8.11) */
+@media (max-width: 420px) { .terr-btn .tl { display: inline; } .terr-btn { padding: 0 12px 0 10px; gap: 6px; font-size: 14px; } }
+@media (max-width: 374px) { .brand .fig-mini { display: none; } .sky, .terr-btn { padding: 0 9px; } }
+
+/* four doors (8.11): the same list in the map window and in the home legend */
+.terr-doors { margin-top: 12px; }
+.doors { list-style: none; margin: 0; padding: 0; }
+.doors li { border-bottom: 1px solid var(--line); padding: 12px 2px; }
+.doors .dr { display: grid; grid-template-columns: 20px 1fr; column-gap: 12px; align-items: center; text-decoration: none; color: var(--ink); }
+.doors .dr i { grid-row: span 2; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--gold); transition: background .3s, box-shadow .3s; }
+.doors .dr b { font: 500 1.12rem/1.3 var(--f-sans); }
+.doors .dr small { font: 400 .86rem/1.35 var(--f-sans); color: var(--muted); }
+.doors .dr:hover i, .doors .dr:focus-visible i, .doors li.here .dr i { background: var(--gold); box-shadow: var(--glow); }
+.dr-subs { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 8px 32px 0 0; }
+.dr-subs a { font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }
+.dr-subs a:hover, .dr-subs a[aria-current] { border-color: var(--gold); color: var(--ink); }
+.dr-ten { display: inline-block; margin-top: 16px; font: 400 .86rem var(--f-sans); color: var(--ink-2); text-decoration: none; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; transition: border-color .3s, color .3s; }  /* a first taste, not a lure: like every other link (creator 13.11) */
+.dr-ten:hover, .dr-ten[aria-current] { border-color: var(--gold); color: var(--ink); }
+.terr-in:has(.terr-doors) { width: min(560px, 100%); }
+.lg-doors { max-width: 640px; }
+.wb-nav .wb-ten { margin-inline-start: 4px; }
+html[data-dir="w"] .wb-nav a.wb-ten[aria-current] { box-shadow: none; border-radius: 999px; }
+
+/* day ↔ night: only the site's own navy and cream, no sunset colours (creator 13.11) */
+.dusk.to-night { background: linear-gradient(180deg, #F7F2E8 0%, #C9CED6 30%, #3A5470 58%, #0F2D4A 78%, #0A1E33 100%); background-size: 100% 300%; }
+.dusk.to-day { background: linear-gradient(0deg, #0A1E33 0%, #0F2D4A 22%, #3A5470 42%, #C9CED6 70%, #F7F2E8 100%); background-size: 100% 300%; }
+
+/* the day/night switch is quieter than "נצא לדרך": one word, smaller (creator 13.11) */
+.sky { font-size: 13px !important; padding: 0 9px !important; gap: 5px !important; min-height: 30px; opacity: .85; }
+.sky .sky-ic { transform: scale(.78); }
+.terr-btn .tl { display: inline !important; }
+/* language links beside the day/night switch (creator 13.11) */
+.langs { display: inline-flex; align-items: center; gap: 2px; font: 400 13px/1 var(--f-sans); margin-inline-end: 6px; }
+.langs a, .langs b { padding: 6px 6px; border-radius: 999px; color: var(--muted); text-decoration: none; font-weight: 400; letter-spacing: .04em; }
+.langs a:hover { color: var(--ink); }
+.langs b { color: var(--ink); font-weight: 500; }
+html[dir="ltr"] .hero-text, html[dir="ltr"] .sec-h, html[dir="ltr"] .prose, html[dir="ltr"] .card { text-align: left; }
+@media (max-width: 480px) {
+  .langs { gap: 0; margin-inline-end: 0; }
+  .langs a, .langs b { padding: 5px 4px; font-size: 12px; }
+  html[dir="ltr"] .brand { font-size: 15px; gap: 6px; }
+  html[dir="ltr"] .wb-in { gap: 6px; }
+  html[dir="ltr"] .terr-btn { padding-inline: 10px; font-size: 13px; }
+}
+html[dir="ltr"] .more::after { content: " →"; }

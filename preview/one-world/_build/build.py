@@ -271,11 +271,11 @@ def p_system(ctx):
 
 
 # ---------------------------------------------------------------- page: a ten-minute wandering (proposal, noindex)
-# Three steps in the creator's order (1.11): sharpening attention, asking a question, gathering from the space.
+# Three steps in the order (1.11): sharpening attention, asking a question, gathering from the space.
 # Every exercise text is taken from the ideas library (library/ideas-snapshot.js) or from the mechanism's
 # question help; only the short connecting lines are new.
 TRY_ATTN = ['brown-green', 'city-listening', 'slow-walk']
-# The creator's own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
+# The own three attention exercises (1.11.2026), worded in the page's plural address. They come first.
 TRY_OWN = [
     {'id': 'three-things', 'text': 'עמדו בנקודה כלשהי כדקה. מתוך הבלאגן, התמקדו בשלושה דברים. אחר כך הסתובבו ונסו לחשוב: מה האופי של שלושת הדברים האלה?'},
     {'id': 'ten-eyes-closed', 'text': 'באותו מקום, עצמו עיניים ונסו לזהות מה יש סביבכם. מנו עשרה דברים שאתם מזהים. אחר כך פקחו עיניים ובדקו.'},
@@ -376,7 +376,7 @@ def p_library_tools(ctx):
 W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'library': p_library_tools}
 
 
-# ---------------------------------------------------------------- home: the two paths, right after the hero (creator's clarification, 3.11)
+# ---------------------------------------------------------------- home: the two paths, right after the hero (author's clarification, 3.11)
 _p_home = W.p_home
 
 
@@ -416,9 +416,9 @@ def p_home(ctx):
     return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#paths"><i></i><span>שני שבילים</span></a>', 1)
 
 
-# ---------------------------------------------------------------- home: a visible legend of every page (creator's request, 8.11)
+# ---------------------------------------------------------------- home: a visible legend of every page (author's request, 8.11)
 # The home page is also the installed app's start page, so all the wandering pages are listed on it, not only behind the map button.
-# The whole site is read through four doors and one button (creator's choice 8.11: "too much", condense; the mechanism comes after the word field).
+# The whole site is read through four doors and one button (author's choice 8.11: "too much", condense; the mechanism comes after the word field).
 # The same four doors appear in the top menu, in the map window on every page and in the home page legend.
 DOORS = [('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', ()),
          ('method', 'הדרך', 'שבע התנועות, ומאיפה הן באות', (('flaneur', 'בקצרה'), ('echoes', 'הדים'))),

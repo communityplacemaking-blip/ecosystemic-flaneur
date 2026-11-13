@@ -477,7 +477,7 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
 document.documentElement.setAttribute('dir', 'rtl');
 document.documentElement.setAttribute('lang', 'he');
 
-/* The creator's methodological backbone, decided 2026-10-28. Shown, not yet wired to the route. */
+/* The methodological backbone, decided 2026-10-28. Shown, not yet wired to the route. */
 const MOVEMENTS = ['ערך', 'שחרור', 'שוטטות', 'קשב', 'הבחנה', 'יצירה', 'חגיגה'];
 const SLOTS = [
   { key: 'entry', name: 'כניסה', share: .1 },
@@ -493,7 +493,7 @@ const STATUS = {
   idea: 'רעיון מתועד, טרם נוסה',
   external: 'מקור חיצוני',
   nameonly: 'שם בלבד, חסר נוסח',
-  told: 'מבוסס, לפי תיאור של היוצר'
+  told: 'מבוסס, לפי תיאור השיטה'
 };
 /* public attribution, one per practice: only what the source supports */
 const CREDIT = {"attention-now": "כלי מקורי", "what-appeared": "כלי מקורי", "question-release": "כלי מקורי, מתוך \"איך משוטטים\"", "slow-walk": "כלי מקורי, מתוך \"איך משוטטים\"", "one-line": "כלי מקורי, מתוך \"איך משוטטים\"", "small-action": "כלי מקורי, מתוך \"איך משוטטים\"", "resonance-text": "כלי מקורי, מתוך \"איך משוטטים\"", "count-ten": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "brown-green": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "together-apart": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "city-listening": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "tell-create": "מבוסס על סדנת \"הזמנה ללכת לאיבוד\", 2015", "five-r": "מבוסס על סדנת \"סיפור המקום בשילוב צא ולמד\"", "shared-map": "מבוסס על סדנת \"סיפור המקום\"", "derive": "בהשראת גי דבור והסיטואציוניסטים", "third-space": "בהשראת מישל סר", "wonder": "בהשראת אברהם יהושע השל", "encounter": "בהשראת מרטין בובר", "read-city": "בהשראת ולטר בנימין", "potential": "בהשראת אוטו שארמר", "urban-safari": "עיבוד של Guide to Getting Lost, מאת Flaneur Society", "one-photo": "מבוסס על המפגש הראשון של \"משיבי הרוח\""};
@@ -522,9 +522,9 @@ const MORAL = {
 const GROUP_IDS = ['group', 'community', 'class', 'org'];
 
 /* six entry contexts: a world one comes from, separate from "who is wandering". Names and descriptions follow
-   The creator's brief of 2026-10-28. Adding a context is adding a row. prefer = practices that get a light extra
+   The brief of 2026-10-28. Adding a context is adding a row. prefer = practices that get a light extra
    weight (they are preferred, never required). question = the moderator's first question (used from stage 3).
-   reflect = closing questions; left empty until there is content from the creator. */
+   reflect = closing questions; left empty until there is approved content. */
 const CONTEXTS = [
   { id: 'edu', name: 'המשוטט החינוכי', desc: 'חקירה חינוכית ולמידה מתוך התנסות.', active: false, prefer: [], question: null, reflect: [] },
   { id: 'community', name: 'המשוטט הקהילתי', desc: 'הקשבה למקום ולאנשים בו, גילוי ידע מקומי, קשרים ואפשרויות.', active: true,
@@ -568,7 +568,7 @@ function renderGate() {
 }
 const SHARED_QUESTION = 'מה מביא אותך לשוטטות הזאת?';
 /* moderator, layer A: recommends one starting point from explicit answers only. The six starting points come from
-   The creator's brief; the rules that pick one are a first technical stage, to be replaced by the full moderator. */
+   The brief; the rules that pick one are a first technical stage, to be replaced by the full moderator. */
 const HAS = { clear: 'שאלה ברורה', topic: 'נושא', feeling: 'תחושה או צורך', unknown: 'עוד לא יודעים' };
 const STARTS = {
   dwell: { name: 'שהייה באי-ידיעה', desc: 'תרגול פתיחה קודם, בלי למהר לנסח. השאלה תנוסח אחריו.', istate: 'emerge', why: 'אפשר להתחיל בשהייה, בלי למהר לנסח שאלה.' },
@@ -647,7 +647,7 @@ const LIB = [
     facil: 'לקבוע נקודת מפגש ושעה לפני היציאה.',
     axis: 'זמן', dim: 'אחר', intents: 'all', ids: GROUP_IDS, places: 'all', min: 30, div: 1, depth: 1, tags: [], facilOnly: true },
   { id: 'resonance-text', name: 'טקסט ההדהוד', slots: ['discern'], status: 'chapter', core: true,
-    source: '"איך משוטטים": התרגיל שהיוצר תיאר כ"לב השיטה"',
+    source: '"איך משוטטים": התרגיל שמתואר כ"לב השיטה"',
     invite: 'מצאו מקום במרחב. הביאו לתודעה את השאלה או התחושה שאיתה יצאתם. פתחו קשב לצלילים, לאנשים, לאור. הישארו רגע עם שני העולמות יחד, הפנימי והחיצוני, ושימו לב למה שמופיע. רשמו את מה שהופיע.',
     facil: 'נותנים לכל מי שמשתתף זמן לבד. לא משתפים מיד. הטקסט שייך למי שכתב אותו.',
     axis: 'קשב', dim: 'בין', intents: 'all', ids: 'all', places: 'all', min: 20, div: -1, depth: 2, tags: [], includesTrace: true },
@@ -711,7 +711,7 @@ const LIB = [
   { id: 'lens-traces', name: 'עדשה: עקבות', slots: [], status: 'nameonly', source: 'נושאי סדנת "הזמנה ללכת לאיבוד", 2015', invite: 'אין עדיין נוסח הזמנה.', axis: 'מרחב', dim: 'מרחב', intents: 'all', ids: 'all', places: 'all', min: 0, div: 0, depth: 1, tags: [] }
 ];
 LIB.push({ id: 'one-photo', name: 'תמונה אחת שמספרת משהו עליי', slots: [], status: 'told', modes: ['embedded'],
-  source: 'המפגש הראשון של "משיבי הרוח", לפי התיאור של היוצר',
+  source: 'המפגש הראשון של "משיבי הרוח", לפי תיאור השיטה',
   invite: 'בהליכה לארוחת הצהריים, כל אחד ואחת מצלמים תמונה אחת שהדהדה אצלם ומגלה משהו על מי שהם. במעגל שיתוף מאוחר יותר, כל אחד ואחת מציגים את התמונה ומסבירים מה היא אומרת.',
   facil: 'זה אפשר ביטוי אישי, ועזר למשתתפים להכיר זה את זה דרך התמונות שבחרו. משך, גודל קבוצה וחומרים לא מופיעים בתיאור, ולכן לא מולאו.',
   axis: 'קשב', dim: 'עצמי', intents: 'all', ids: GROUP_IDS, places: 'all', min: 0, div: 0, depth: 1, tags: [], facilOnly: true });

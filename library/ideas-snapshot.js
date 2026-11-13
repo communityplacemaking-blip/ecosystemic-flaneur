@@ -1,7 +1,7 @@
 /* Repository A, read-only display snapshot (31.10.2026).
    Copied from the Stage 2 library, branch claude/project-thread-8ks5cc @ b77beda (library/practices/*.json), which is unchanged and awaits review.
    Same 25 practices as the Wanderer (version B). Only display fields are copied; origin stays "unresolved" and is not shown.
-   "border": one of the four records whose repository (A, B or both) is the creator's open decision. */
+   "border": one of the four records whose repository (A, B or both) is the open decision. */
 window.IDEAS = [
 {
 "id": "attention-now",
@@ -38,7 +38,7 @@ window.IDEAS = [
 "doc": "workshop",
 "src": "תרגילי הקשבה, סדנת \"הזמנה ללכת לאיבוד\"",
 "invite": "ספירה עד 10 בהקשבה לאחר, בקבוצה. אסור ליד ואסור ביחד.",
-"note": "פירוט הכללים לבירור עם היוצר. המטרה המתועדת: הקשבה לאחר בתוך הקבוצה.",
+"note": "פירוט הכללים לבירור. המטרה המתועדת: הקשבה לאחר בתוך הקבוצה.",
 "places": "all",
 "min": 10,
 "slots": [
@@ -141,7 +141,7 @@ window.IDEAS = [
 "name": "טקסט ההדהוד",
 "kind": "practice",
 "doc": "chapter",
-"src": "\"איך משוטטים\": התרגיל שהיוצר תיאר כ\"לב השיטה\". מוצע, טרם הוכרע",
+"src": "\"איך משוטטים\": התרגיל שמתואר כ\"לב השיטה\". מוצע, טרם הוכרע",
 "invite": "מצאו מקום במרחב. הביאו לתודעה את השאלה או התחושה שאיתה יצאתם. פתחו קשב לצלילים, לאנשים, לאור. הישארו רגע עם שני העולמות יחד, הפנימי והחיצוני, ושימו לב למה שמופיע. רשמו את מה שהופיע.",
 "note": "נותנים לכל מי שמשתתף זמן לבד. לא משתפים מיד. הטקסט שייך למי שכתב אותו.",
 "places": "all",
@@ -339,7 +339,7 @@ window.IDEAS = [
 "name": "תמונה אחת שמספרת משהו עליי",
 "kind": "practice",
 "doc": "told",
-"src": "המפגש הראשון של \"משיבי הרוח\" (האיות לבדיקה), לפי התיאור של היוצר",
+"src": "המפגש הראשון של \"משיבי הרוח\" (האיות לבדיקה), לפי תיאור השיטה",
 "invite": "בהליכה לארוחת הצהריים, כל אחד ואחת מצלמים תמונה אחת שהדהדה אצלם ומגלה משהו על מי שהם. במעגל שיתוף מאוחר יותר, כל אחד ואחת מציגים את התמונה ומסבירים מה היא אומרת.",
 "note": "זה אפשר ביטוי אישי, ועזר למשתתפים להכיר זה את זה דרך התמונות שבחרו. משך, גודל קבוצה וחומרים לא מופיעים בתיאור, ולכן לא מולאו.",
 "places": "all"

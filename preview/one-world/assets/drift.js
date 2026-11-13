@@ -1,4 +1,4 @@
-/* Drifting stars with fading trails, the same motion as the Word Field, behind every page (creator 12.11). No motion when the visitor asks for reduced motion. */
+/* Drifting stars with fading trails, the same motion as the Word Field, behind every page (brief 12.11). No motion when the visitor asks for reduced motion. */
 (function(){
   if(document.getElementById('drift'))return;var cv=document.createElement('canvas');cv.id='drift';cv.setAttribute('aria-hidden','true');cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none';document.body.prepend(cv);var x=cv.getContext('2d');
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;

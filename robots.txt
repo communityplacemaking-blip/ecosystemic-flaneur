@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /preview/
 Disallow: /archive/
 Disallow: /_source/
+Disallow: /updates/
 
 Sitemap: https://ecosystemicflaneur.com/sitemap.xml
