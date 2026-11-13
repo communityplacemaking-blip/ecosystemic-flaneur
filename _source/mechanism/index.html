@@ -301,7 +301,6 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
       <h1>מסע בחמישה שלבים</h1>
       <p class="lede">מזינים מי יוצאים לשוטט, איזה ערך מנחה את השוטטות ומה הגבולות שלה, ומה הכוונה. המנגנון מרכיב תהליך מתוך ספריית התרגולים, ומשאיר מקום למה שיופיע בדרך.</p>
     </div>
-    <fieldset class="addr"><legend>איך נכון לפנות?</legend><div class="chips" id="c-addr"></div><p class="hint" id="addr-hint"></p></fieldset>
   </header>
 
   <nav class="tabs" role="tablist">
@@ -717,9 +716,8 @@ const byId = Object.fromEntries(LIB.map(p => [p.id, p]));
    p = plural, used when a facilitator plans for a group. The invitation text in LIB stays as written
    and is the group form; FORMS holds only the grammatical change for one person. */
 const ADDR_OPTS = { f: 'בלשון נקבה', m: 'בלשון זכר', n: 'בלי לשון מגדרית' };
-const AKEY = 'shitut-v2-addr';
-let ADDR = 'n';
-try { const a = localStorage.getItem(AKEY); if (a && ADDR_OPTS[a]) ADDR = a; } catch (e) {}
+/* the choice of gendered address was removed (creator 13.11): every text uses the form without gendered address */
+const ADDR = 'n';
 function say(x) {
   if (typeof x === 'string') return x;
   if (isFacil() && x.p) return x.p;
@@ -837,24 +835,7 @@ function renderContexts() {
 }
 
 function renderAddr() {
-  const el = $('c-addr'); el.innerHTML = '';
-  Object.entries(ADDR_OPTS).forEach(([k, v]) => {
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'chip'; b.id = 'c-addr-' + k; b.textContent = v;
-    b.setAttribute('aria-pressed', ADDR === k ? 'true' : 'false');
-    b.addEventListener('click', () => setAddr(k));
-    el.appendChild(b);
-  });
-  $('addr-hint').textContent = isFacil() ? UI.addrGroup : UI.addrHint;
   $('j-open-lbl').textContent = say(UI.openQ);
-}
-function setAddr(k) {
-  const prev = ADDR;
-  ADDR = k;
-  try { localStorage.setItem(AKEY, k); } catch (e) {}
-  // swap the example text only where it was never edited
-  renderPanel(); renderCard(); renderLibrary();
-  if (!$('view-compass').hidden) renderCompass();
 }
 
 function fits(p, slot, budget) {
