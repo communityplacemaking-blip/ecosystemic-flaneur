@@ -134,14 +134,19 @@ textarea { resize: vertical; min-height: 64px; }
 .tag.st-chapterAI, .tag.st-idea { border-style: dashed; }
 .tag.st-external { color: var(--seam); border-color: var(--seam); }
 
-.seam { margin: -6px 0 14px; padding-inline-start: 34px; }
-.seam-box { border: 1px dashed var(--seam); background: var(--seam-soft); border-radius: 8px; padding: 8px 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; }
-.seam-box .lbl { color: var(--seam); font-weight: 600; }
-.seam-box button { font: inherit; font-size: 13px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
-.seam-box .done { color: var(--muted); }
-.refine { display: flex; gap: 6px; width: 100%; }
-.refine input { flex: 1; }
-.quiet-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-top: 14px; }
+#card { scroll-margin-top: 90px; }
+.answers { font-size: 13.5px; color: var(--muted); margin: 0; }
+.answers span { color: var(--accent); font-weight: 600; }
+.value-line { margin: 0; border-inline-start: 3px solid var(--seam); padding-inline-start: 10px; }
+.bounds { font-size: 13.5px; color: var(--muted); margin: 0; }
+.rec-h { font-size: 13px; letter-spacing: .06em; color: var(--accent); margin: 22px 0 0; }
+.other { font: inherit; font-size: 12px; background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; cursor: pointer; margin-inline-start: auto; }
+.appx, details.more { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 12px; font-size: 13.5px; color: var(--muted); }
+.appx summary, details.more summary { cursor: pointer; color: var(--ink); }
+.appx ul { padding-inline-start: 18px; display: flex; flex-direction: column; gap: 6px; }
+.appx .src { font-size: 12px; }
+details.more { border: 0; padding: 0; margin: 0; font-size: inherit; color: inherit; }
+details.more[open] { display: flex; flex-direction: column; gap: 14px; }
 .ethics { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 6px; padding-top: 12px; }
 
 .journal { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 22px; }
@@ -375,14 +380,6 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
           <fieldset><legend>גבולות מעשיים</legend><div class="chips" id="c-moral"></div><p class="hint">הגבולות לא נעקפים. תרגול שמתנגש בגבול לא מוצע.</p></fieldset>
         </div>
 
-        <div class="step mod" id="mod">
-          <h2 class="step-h"><span class="n">מנחה</span>מאיפה להתחיל?</h2>
-          <fieldset><legend id="mod-q"></legend><textarea id="f-now" rows="3"></textarea><p class="hint">אפשר גם לשאול: מה מבקש תשומת לב עכשיו? במילים שלך, ואפשר גם לדלג. המנחה לא קורא את הטקסט: ההמלצה נשענת רק על הבחירות כאן ובשלב הקודם.</p></fieldset>
-          <fieldset><legend>מה יש כרגע?</legend><div class="chips" id="c-has"></div></fieldset>
-          <button type="button" class="j-add" id="mod-go" style="align-self:flex-start">לקבל המלצה לנקודת התחלה</button>
-          <div id="mod-rec" aria-live="polite"></div>
-        </div>
-
         <div class="step">
           <h2 class="step-h"><span class="n">2</span>המכוון</h2>
           <p class="lead">לפני שיוצאים, ננסח יחד מכוון. לא יעד, אלא עוגן לתשומת הלב.</p>
@@ -395,11 +392,11 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
               <p>ושאלה אחת לבדוק: אם השוטטות תסתיים במשהו שלא ציפית, האם השאלה שלך עדיין תקבל תשובה?</p>
             </div>
           </fieldset>
-          <fieldset id="fs-sub"><legend>יש עוד שאלה אחת או שתיים שמסתובבות סביב השאלה הגדולה?</legend><div class="sub"><input type="text" id="f-sub-0" aria-label="תת-שאלה ראשונה"><input type="text" id="f-sub-1" aria-label="תת-שאלה שנייה"><input type="text" id="f-sub-2" aria-label="תת-שאלה שלישית"></div><p class="hint">לא חובה. אפשר עד שלוש, ואפשר אף אחת.</p></fieldset>
           <fieldset id="fs-type"><legend>מה סוג הכוונה?</legend><div class="chips" id="c-type"></div></fieldset>
-          <fieldset><legend id="value-legend"></legend><p class="hint" id="value-hint"></p><input type="text" id="f-value">
-            <div class="slot-ai" id="value-slot"></div></fieldset>
-          <fieldset><legend>על מה חשוב לך לשמור, גם אם השוטטות תיקח אותך למקומות לא צפויים?</legend><input type="text" id="f-boundary" placeholder="גבול אחד, במילים שלך"><p class="hint">הגבול נכתב בנפרד מהערך, ולא נעקף.</p></fieldset>
+          <details class="more"><summary>ערך וגבול (לא חובה)</summary>
+          <fieldset><legend id="value-legend"></legend><input type="text" id="f-value"></fieldset>
+          <fieldset><legend>על מה חשוב לך לשמור, גם אם השוטטות תיקח אותך למקומות לא צפויים?</legend><input type="text" id="f-boundary"></fieldset>
+          </details>
         </div>
 
         <button type="submit" class="compose">להרכיב תהליך</button>
@@ -483,7 +480,6 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
           <dt><span class="sw sw-ring"></span>טבעת</dt><dd>הגבולות האתיים. לא נעקפים.</dd>
           <dt><span class="sw sw-outer"></span>טבעת חיצונית</dt><dd>תנאי השטח: זמן ומקום. אפשר להתאים.</dd>
           <dt><span class="sw sw-petal"></span>עלי הוורד</dt><dd>המגוון בכל שלב. עלה ארוך מרחיב, עלה קצר מעמיק.</dd>
-          <dt><span class="sw sw-seam"></span>נקודות</dt><dd>נקודות התפר, שבהן אפשר לחזור לעוגן.</dd>
         </dl>
       </div>
     </div>
@@ -796,13 +792,11 @@ const SAMPLE = {
 };
 
 const state = {
-  now: SAMPLE.now[ADDR],
   identity: 'solo', place: 'city', time: '60', open: 'mid',
-  istate: 'refine', question: 'מה אני עוד לא רואה במצב הזה?', type: 'dilemma',
+  istate: 'refine', question: '', type: 'dilemma',
   moral: ['noSolution', 'noPhone'], geo: 'בתוך השכונה והרחובות הסמוכים', when: '',
-  value: SAMPLE.value[ADDR], boundary: SAMPLE.boundary[ADDR],
-  quiet: false, plan: null, picks: {}, seams: {}, refining: null, endedAfter: null, contexts: [],
-  mod: { has: null, rec: null, status: null, chosen: null }
+  value: '', boundary: '',
+  plan: null, picks: {}, contexts: []
 };
 
 const $ = id => document.getElementById(id);
@@ -837,62 +831,17 @@ function renderPanel() {
   $('mode-hint').textContent = isFacil() ? UI.facilHint : 'מצב: שוטטות אישית.';
   renderAddr();
   renderContexts();
-  renderMod();
   renderGate();
   $('state-hint').textContent = say(STATE_HINT[state.istate]);
   $('value-legend').textContent = isFacil() ? 'מה הערך שמנחה את הקבוצה בתהליך הזה?' : 'מה היית רוצה שהשוטטות הזאת תאפשר לך לגלות או לחוות?';
   $('q-legend').textContent = say(UI.qLegend);
-  $('fs-sub').hidden = state.istate === 'none' || state.istate === 'emerge';
-  $('value-hint').textContent = isFacil()
-    ? 'הקבוצה מגדירה יחד את ליבת הערכים בפתיחת התהליך. כשגבול אישי מתנגש בה, הליבה המשותפת מכריעה.'
-    : 'משפט אחד מספיק. הוא העוגן שאליו אפשר לחזור בכל שלב.';
+  $('f-question').placeholder = 'כיצד אוכל…?';
+  $('f-value').placeholder = 'למשל: ' + say(SAMPLE.value);
+  $('f-boundary').placeholder = 'למשל: ' + say(SAMPLE.boundary);
   $('fs-question').hidden = state.istate === 'none' || state.istate === 'emerge';
   $('fs-type').hidden = state.istate === 'none';
   const t = totalMinutes();
   $('f-when').placeholder = state.time === 'multi' ? 'למשל: שלושה מפגשים של 90 דקות' : 'למשל: חוזרים אחרי ' + TIMES[state.time];
-  renderValueSlot();
-}
-
-function renderValueSlot() {
-  const early = state.istate === 'none' || state.istate === 'emerge';
-  const story = $('f-now').value.trim();
-  $('value-slot').innerHTML = (early ? `<span>${esc(UI.valueLater)}</span>` : '')
-    + (story ? `<span>מה שכתבת בפתיחה: <q>${esc(story)}</q></span>` : '');
-}
-
-function renderMod() {
-  $('mod-q').textContent = modQuestion();
-  const el = $('c-has'); el.innerHTML = '';
-  Object.entries(HAS).forEach(([k, v]) => {
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'chip'; b.id = 'c-has-' + k; b.textContent = v;
-    b.setAttribute('aria-pressed', state.mod.has === k ? 'true' : 'false');
-    b.addEventListener('click', () => { state.mod.has = state.mod.has === k ? null : k; if (state.mod.status === 'shown') state.mod.status = null; renderMod(); });
-    el.appendChild(b);
-  });
-  const box = $('mod-rec'), m = state.mod;
-  if (m.status === 'need') { box.innerHTML = '<p class="hint">כדי להמליץ, המנחה צריך תשובה אחת: מה יש כרגע?</p>'; return; }
-  if (m.status === 'declined') { box.innerHTML = '<p class="hint">בסדר. ממשיכים בלי המלצה, והבחירות למטה נשארות כמו שהן.</p>'; return; }
-  if (m.status === 'accepted') {
-    box.innerHTML = `<div class="rec"><span class="a-lbl">נקודת ההתחלה</span><h3 class="pname">${esc(STARTS[m.chosen].name)}</h3><p class="why">מצב הכוונה עודכן ל"${esc(STATES[STARTS[m.chosen].istate])}". אפשר לשנות אותו בשלב 3.</p><div class="meta"><button type="button" class="chip" id="mod-again">לבחור מחדש</button></div></div>`;
-    $('mod-again').addEventListener('click', () => { m.status = 'changing'; renderMod(); });
-    return;
-  }
-  if (!m.rec || !m.status) { box.innerHTML = ''; return; }
-  const r = STARTS[m.rec];
-  let html = `<div class="rec"><span class="a-lbl">המלצה</span><h3 class="pname">${esc(r.name)}</h3><p>${esc(r.desc)}</p><p class="why">למה: ${esc(recReason(m.has, m.rec))}</p>
-    <div class="meta"><button type="button" class="chip" id="mod-yes">מתאים</button><button type="button" class="chip" id="mod-change" aria-pressed="${m.status === 'changing'}">לשנות</button><button type="button" class="chip" id="mod-no">לא עכשיו</button></div>`;
-  if (m.status === 'changing') html += `<div class="chips" id="mod-all">${Object.entries(STARTS).map(([k, s]) => `<button type="button" class="chip" data-start="${k}" aria-pressed="${k === m.rec}">${esc(s.name)}</button>`).join('')}</div>`;
-  box.innerHTML = html + '</div>';
-  $('mod-yes').addEventListener('click', () => acceptStart(m.rec));
-  $('mod-change').addEventListener('click', () => { m.status = m.status === 'changing' ? 'shown' : 'changing'; renderMod(); });
-  $('mod-no').addEventListener('click', () => { m.status = 'declined'; renderMod(); });
-  box.querySelectorAll('[data-start]').forEach(b => b.addEventListener('click', () => acceptStart(b.dataset.start)));
-}
-function acceptStart(key) {
-  state.mod.chosen = key; state.mod.status = 'accepted';
-  state.istate = STARTS[key].istate;
-  renderPanel();
 }
 
 function renderContexts() {
@@ -928,9 +877,6 @@ function setAddr(k) {
   ADDR = k;
   try { localStorage.setItem(AKEY, k); } catch (e) {}
   // swap the example text only where it was never edited
-  [['f-now', 'now'], ['f-value', 'value'], ['f-boundary', 'boundary']].forEach(([id, key]) => {
-    if ($(id).value === SAMPLE[key][prev]) { $(id).value = SAMPLE[key][k]; state[key] = SAMPLE[key][k]; }
-  });
   renderPanel(); renderCard(); renderLibrary();
   if (!$('view-compass').hidden) renderCompass();
 }
@@ -969,7 +915,6 @@ function score(p, slot) {
 }
 
 function compose(keepPicks) {
-  state.now = $('f-now').value.trim();
   state.question = $('f-question').value.trim();
   state.geo = $('f-geo').value.trim();
   state.when = $('f-when').value.trim();
@@ -977,7 +922,7 @@ function compose(keepPicks) {
   state.boundary = $('f-boundary').value.trim();
   const T = totalMinutes();
   const plan = [];
-  if (!keepPicks) { state.picks = {}; state.seams = {}; state.endedAfter = null; }
+  if (!keepPicks) state.picks = {};
   SLOTS.forEach(sl => {
     const budget = Math.max(5, Math.round(T * sl.share / 5) * 5);
     const ranked = LIB.filter(p => fits(p, sl.key, budget)).map(p => ({ p, ...score(p, sl.key) }))
@@ -1024,8 +969,6 @@ function profileSvg() {
 
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
-function subqs() { return [0, 1, 2].map(i => $('f-sub-' + i).value.trim()).filter(Boolean); }
-
 function kavanaText() {
   if (state.istate === 'none') return 'יוצאים בלי כוונה, עם גבולות גזרה בלבד';
   if (state.istate === 'emerge') return 'הכוונה תנוסח אחרי תרגול הפתיחה';
@@ -1038,89 +981,53 @@ function renderCard() {
   const T = state.time === 'multi' ? 'שלושה מפגשים של 90 דקות' : TIMES[state.time];
   const moral = state.moral.map(m => MORAL[m].label).join(' · ') || 'לא נקבעו';
   const when = state.when || (state.time === 'multi' ? 'כל מפגש נסגר בזמן שנקבע' : 'חוזרים אחרי ' + TIMES[state.time]);
+  const answers = [isFacil() ? 'תהליך מונחה' : 'שוטטות אישית', ...state.contexts.map(id => ctxById[id].name), IDS[state.identity], PLACES[state.place], T, ...(state.istate === 'none' ? [] : [TYPES[state.type]])];
+  const bounds = [state.boundary, ...state.moral.map(m => MORAL[m].label)].filter(Boolean);
   let html = `<div class="card-head">
-    <div class="kicker"><span><b>${isFacil() ? 'תהליך מונחה' : 'שוטטות אישית'}</b></span>${state.contexts.length ? `<span>${esc(state.contexts.map(id => ctxById[id].name).join(' · '))}</span>` : ''}<span>${IDS[state.identity]}</span><span>${PLACES[state.place]}</span><span>${T}</span><span>מקום לבלתי צפוי: ${OPEN[state.open]}</span></div>
-    <div class="anchor"><span class="a-lbl">עוגן</span>${state.value ? esc(state.value) : '<span class="missing">הערך המנחה עוד לא נוסח. משפט אחד מספיק.</span>'}${state.boundary ? `<span class="a-b">גבול: ${esc(state.boundary)}</span>` : ''}</div>
+    <p class="answers"><span>לפי התשובות שלך:</span> ${esc(answers.join(' · '))}</p>
     <p class="kavana">${esc(kavanaText())}</p>
-    ${subqs().length && state.istate !== 'none' && state.istate !== 'emerge' ? `<ul class="subq">${subqs().map(q => `<li>${esc(q)}</li>`).join('')}</ul>` : ''}
-    <p class="not-goal">זה לא יעד. זה עוגן לתשומת הלב. השוטטות לא מבטיחה תשובה.</p>
-    <dl class="mechaven"><dt>גבולות</dt><dd>${esc(moral)}</dd><dt>מרחב</dt><dd>${esc(state.geo || 'לא הוגדר')}</dd><dt>זמן</dt><dd>${esc(when)}</dd></dl>
-    <div class="profile">${profileSvg()}<div class="legend"><span>פרופיל המגוון</span><span>משוער, לפי הכלים שנבחרו</span></div></div>
-    <div class="backbone" aria-label="שבע התנועות של השיטה">
-      <ol>${MOVEMENTS.map((m, i) => `<li${i === MOVEMENTS.length - 1 ? ' class="cel"' : ''}>${m}</li>`).join('')}</ol>
-      <p>זו תנועת השיטה: רצף חי וחוזר, והחגיגה פותחת חזרה אל הערך. השלבים שלמטה הם מבנה של תרגול אחד, ולא השיטה עצמה. איך הם מתחברים לשבע התנועות עוד לא הוחלט, ולחגיגה עוד אין תרגיל מבוסס.</p>
-    </div>
-  </div><ol class="trail">`;
-  const endIdx = state.endedAfter ? state.plan.findIndex(x => x.key === state.endedAfter) : -1;
-  state.plan.forEach((s, i) => {
+    ${state.value ? `<p class="value-line">${esc(state.value)}</p>` : ''}
+    ${bounds.length ? `<p class="bounds">${esc(bounds.join(' · '))}</p>` : ''}
+    <div class="profile">${profileSvg()}<div class="legend"><span>הגל</span><span>${esc(T)}</span></div></div>
+  </div>
+  <h3 class="rec-h">המלצות לליקוט</h3><ol class="trail">`;
+  const appx = [];
+  state.plan.forEach(s => {
     const p = s.pick && s.pick.p;
-    const mins = state.time === 'multi' ? '' : `<span class="mins">כ-${s.budget} דק'</span>`;
-    if (endIdx >= 0 && i > endIdx && s.key !== 'return') {
-      html += `<li class="slot empty ended"><span class="dot"></span><div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="why">דילגת. עוברים ישר לחזרה.</p></li>`;
+    if (!p) {
+      appx.push(`<li><b>${s.name}:</b> ${esc(s.skipped || 'אין בספרייה תרגול שמתאים לכאן, והמקום נשאר פתוח.')}</li>`);
+      if (s.skipped) return;
+      html += `<li class="slot empty"><span class="dot"></span><div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="invite">המקום נשאר פתוח.</p>${s.ranked.length ? `<button type="button" class="other" data-swap="${s.key}">להציע תרגול</button>` : ''}</li>`;
       return;
     }
-    if (!p) {
-      html += `<li class="slot empty"><span class="dot"></span><div class="slot-h"><span class="slot-name">${s.name}</span></div><p class="why">${esc(s.skipped || 'אין בספרייה תרגול שמתאים לכאן, והמקום נשאר פתוח.')}</p>${s.ranked.length ? `<div class="meta"><button type="button" class="chip" data-swap="${s.key}">להציע תרגול</button></div>` : ''}</li>`;
-    } else {
-      const why = s.pick.why.length ? s.pick.why.join(' · ') : 'מתאים לכל הקשר';
-      html += `<li class="slot"><span class="dot"></span>
-        <div class="slot-h"><span class="slot-name">${s.name}</span>${mins}</div>
+    const mins = state.time === 'multi' ? '' : `<span class="mins">כ-${s.budget} דק'</span>`;
+    html += `<li class="slot"><span class="dot"></span>
+        <div class="slot-h"><span class="slot-name">${s.name}</span>${mins}${s.ranked.length > 1 ? `<button type="button" class="other" data-swap="${s.key}">תרגול אחר</button>` : ''}</div>
         <h3 class="pname">${esc(p.name)}</h3>
         <p class="invite">${esc(inviteOf(p))}</p>
         ${s.key === 'return' && p.id !== 'what-appeared' ? '<p class="invite">ולפני שסוגרים: מה הופיע שלא תכננו?</p>' : ''}
         ${s.key === 'return' ? `<p class="invite">${esc(say(UI.reread)).replace('{v}', state.value ? ': "' + esc(state.value) + '"' : '')}</p>` : ''}
-        <p class="why">למה כאן: ${esc(why)}</p>
         ${isFacil() && p.facil ? `<p class="facil"><b>למנחה:</b> ${esc(p.facil)}</p>` : ''}
-        <div class="meta">${creditOf(p) ? `<span class="tag">${esc(creditOf(p))}</span>` : ''}<span class="tag">ציר: ${p.axis}</span><span class="tag">קשב ל${p.dim === 'בין' ? 'מה שבין' : p.dim}</span></div>
       </li>`;
-    }
-    if (i < 3 && !state.quiet) html += seamHtml(s.key, state.plan[i + 1]);
+    const why = s.pick.why.length ? s.pick.why.join(' · ') : 'מתאים לכל הקשר';
+    const tags = [creditOf(p), 'ציר: ' + p.axis, 'קשב ל' + (p.dim === 'בין' ? 'מה שבין' : p.dim)].filter(Boolean).join(' · ');
+    appx.push(`<li><b>${s.name}, ${esc(p.name)}:</b> ${esc(why)}. <span class="src">${esc(tags)}</span></li>`);
   });
   html += `</ol>
-    <label class="quiet-row"><input type="checkbox" id="f-quiet" ${state.quiet ? 'checked' : ''}> מצב שקט: בלי נקודות תפר. המנגנון לא מתערב עד החזרה.</label>
-    ${isFacil() ? '<p class="ethics">לפני שאוספים סיפורים, ציטוטים או תמונות של אנשים, מבקשים רשות. מה שנאסף שייך גם להם.</p>' : ''}`;
+    ${isFacil() ? '<p class="ethics">לפני שאוספים סיפורים, ציטוטים או תמונות של אנשים, מבקשים רשות. מה שנאסף שייך גם להם.</p>' : ''}
+    <details class="appx"><summary>הקשרים ומקורות</summary>
+      <p>למה כל תרגול הוצע, ומאיפה הוא בא:</p>
+      <ul>${appx.join('')}</ul>
+      <dl class="mechaven"><dt>גבולות</dt><dd>${esc(moral)}</dd><dt>מרחב</dt><dd>${esc(state.geo || 'לא הוגדר')}</dd><dt>זמן</dt><dd>${esc(when)}</dd><dt>מקום לבלתי צפוי</dt><dd>${OPEN[state.open]}</dd></dl>
+      <p>הגל מראה כמה המסלול נפתח ומתכנס לאורך הזמן, לפי הכלים שנבחרו. זה אומדן.</p>
+      <p>זה לא יעד. זה עוגן לתשומת הלב. השוטטות לא מבטיחה תשובה.</p>
+      <div class="backbone" aria-label="שבע התנועות של השיטה">
+        <ol>${MOVEMENTS.map((m, i) => `<li${i === MOVEMENTS.length - 1 ? ' class="cel"' : ''}>${m}</li>`).join('')}</ol>
+        <p>זו תנועת השיטה: רצף חי וחוזר, והחגיגה פותחת חזרה אל הערך. השלבים שלמעלה הם מבנה של תרגול אחד, ולא השיטה עצמה. איך הם מתחברים לשבע התנועות עוד לא הוחלט, ולחגיגה עוד אין תרגיל מבוסס.</p>
+      </div>
+    </details>`;
   card.innerHTML = html;
   card.querySelectorAll('[data-swap]').forEach(b => b.addEventListener('click', () => swap(b.dataset.swap)));
-  card.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => { state.seams[b.dataset.go] = 'go'; renderCard(); }));
-  card.querySelectorAll('[data-anchor]').forEach(b => b.addEventListener('click', () => { state.seams[b.dataset.anchor] = 'anchor'; renderCard(); }));
-  card.querySelectorAll('[data-narrow]').forEach(b => b.addEventListener('click', () => {
-    const key = b.dataset.narrow, i = state.plan.findIndex(x => x.key === key), next = state.plan[i + 1];
-    const calm = next && [...next.ranked].sort((a, c) => a.p.div - c.p.div)[0];
-    if (calm) { next.pick = { ...calm, why: ['בחרת לצמצם מגוון ולחזור לעוגן'] }; state.picks[next.key] = calm.p.id; }
-    state.seams[key] = 'narrowed'; addTrace('interp', 'חזרתי לעוגן וצמצמתי מגוון' + (calm ? ': ' + calm.p.name : ''), true); renderCard();
-  }));
-  card.querySelectorAll('[data-end]').forEach(b => b.addEventListener('click', () => {
-    state.endedAfter = b.dataset.end; state.seams[b.dataset.end] = 'ended'; addTrace('interp', 'חזרתי לעוגן ובחרתי לסיים כאן', true); renderCard();
-  }));
-  card.querySelectorAll('[data-refine]').forEach(b => b.addEventListener('click', () => { state.refining = b.dataset.refine; renderCard(); const inp = $('refine-input'); if (inp) inp.focus(); }));
-  const save = $('refine-save');
-  if (save) save.addEventListener('click', () => {
-    const v = $('refine-input').value.trim();
-    if (v) { const old = kavanaText(); state.question = v; $('f-question').value = v; if (state.istate !== 'clear') state.istate = 'clear'; addTrace('interp', 'השאלה חודדה: "' + old + '" ← "' + v + '"', true); renderPanel(); }
-    state.seams[state.refining] = 'refined'; state.refining = null; renderCard();
-  });
-  $('f-quiet').addEventListener('change', e => { state.quiet = e.target.checked; renderCard(); });
-}
-
-function seamHtml(afterKey, next) {
-  const st = state.seams[afterKey];
-  if (st === 'go') return `<div class="seam"><div class="seam-box"><span class="done">ממשיכים.</span></div></div>`;
-  if (st === 'refined') return `<div class="seam"><div class="seam-box"><span class="done">השאלה חודדה. ממשיכים.</span></div></div>`;
-  if (st === 'narrowed') return `<div class="seam"><div class="seam-box"><span class="done">חזרת לעוגן. השלב הבא שקט יותר.</span></div></div>`;
-  if (st === 'ended') return `<div class="seam"><div class="seam-box"><span class="done">בחרת לסיים כאן. עוברים לחזרה.</span></div></div>`;
-  if (state.endedAfter && state.plan.findIndex(x => x.key === afterKey) > state.plan.findIndex(x => x.key === state.endedAfter)) return '';
-  if (st === 'anchor') return `<div class="seam"><div class="seam-box"><span class="lbl">העוגן</span><span>${state.value ? '"' + esc(state.value) + '"' : 'עוד לא נוסח ערך מנחה.'}</span>
-    <span style="width:100%">${esc(say(UI.pull))}</span>
-    <button type="button" data-go="${afterKey}">להמשיך</button>
-    ${next && next.ranked.length ? `<button type="button" data-narrow="${afterKey}">לצמצם מגוון</button>` : ''}
-    ${next && next.ranked.length > 1 ? `<button type="button" data-swap="${next.key}">לשנות כיוון</button>` : ''}
-    <button type="button" data-end="${afterKey}">לסיים כאן</button></div></div>`;
-  if (state.refining === afterKey) return `<div class="seam"><div class="seam-box"><span class="lbl">לחדד את השאלה</span><div class="refine"><input type="text" id="refine-input" value="${esc(state.question)}" aria-label="השאלה המחודדת"><button type="button" id="refine-save">לשמור</button></div></div></div>`;
-  return `<div class="seam"><div class="seam-box"><span class="lbl">נקודת תפר</span><span>משהו השתנה?</span>
-    <button type="button" data-go="${afterKey}">להמשיך</button>
-    <button type="button" data-refine="${afterKey}">לחדד את השאלה</button>
-    ${next && next.ranked.length > 1 ? `<button type="button" data-swap="${next.key}">להחליף את תרגול ה${next.name}</button>` : ''}
-    <button type="button" data-anchor="${afterKey}">לחזור לעוגן</button></div></div>`;
 }
 
 /* journal: per-viewer convenience only */
@@ -1325,8 +1232,7 @@ function renderCompass() {
   if (!state.plan) return;
   const svg = $('cmp-svg');
   const pts = cmpPoints(), n = pts.length, step = 2 * Math.PI / n;
-  const endIdx = state.endedAfter ? state.plan.findIndex(x => x.key === state.endedAfter) : -1;
-  const live = s => { const i = state.plan.indexOf(s); return s.pick && !(endIdx >= 0 && i > endIdx && s.key !== 'return'); };
+  const live = s => !!s.pick;
   const openBoost = { low: -8, mid: 0, high: 10 }[state.open];
   let g = '';
   g += `<circle cx="${C}" cy="${C}" r="188" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 6"/>`;
@@ -1348,8 +1254,6 @@ function renderCompass() {
   // value petal (north) in seam colour
   { const [tx, ty] = polar(96, 0), [lx, ly] = polar(28, -step * .28), [rx, ry] = polar(28, step * .28);
     g += `<path d="M${C} ${C} L${lx} ${ly} L${tx} ${ty} L${rx} ${ry} Z" fill="var(--seam)" fill-opacity="${cmpIdx === 0 ? .5 : .25}"/>`; }
-  // seam points between the first four process steps
-  for (let k = 0; k < SLOTS.length - 1; k++) { const i = k + 2; const [x, y] = polar(140, (i + .5) * step); const done = state.seams[SLOTS[k].key]; g += `<circle cx="${x}" cy="${y}" r="4.5" fill="${done ? 'var(--surface)' : 'var(--seam)'}" stroke="var(--seam)" stroke-width="1.5"/>`; }
   pts.forEach((pt, i) => {
     const a = i * step, [x, y] = polar(120, a), on = i === cmpIdx;
     let sub = '';
@@ -1377,7 +1281,7 @@ function renderCompass() {
   $('cmp-anchor').innerHTML = `<div class="anchor"><span class="a-lbl">צפון · ${isFacil() ? 'ליבת הערכים של הקבוצה' : say(UI.myValue)}</span>${state.value ? esc(state.value) : '<span class="missing">עוד לא נוסח. משפט אחד מספיק.</span>'}<span class="a-b">גבולות: ${esc([state.boundary, ...moral].filter(Boolean).join(' · ') || 'לא נקבעו')}</span><span class="a-b">תנאי שטח: ${esc([state.geo, state.when || (state.time === 'multi' ? 'כמה מפגשים' : TIMES[state.time])].filter(Boolean).join(' · '))}</span></div><p class="kavana">${esc(kavanaText())}</p>`;
   const pt = pts[cmpIdx];
   let html;
-  if (pt.kind === 'value') html = `<div class="slot-h"><span class="slot-name" style="color:var(--seam)">ערך</span></div><h3 class="pname">${state.value ? esc(state.value) : 'הערך המנחה עוד לא נוסח'}</h3><p class="why">זה הצפון. בכל נקודת תפר אפשר לחזור אליו, והמחוג חוזר לכאן.</p>`;
+  if (pt.kind === 'value') html = `<div class="slot-h"><span class="slot-name" style="color:var(--seam)">ערך</span></div><h3 class="pname">${state.value ? esc(state.value) : 'הערך המנחה עוד לא נוסח'}</h3><p class="why">זה הצפון. המחוג חוזר לכאן.</p>`;
   else if (pt.kind === 'intent') html = `<div class="slot-h"><span class="slot-name">כוונה</span><span class="mins">${STATES[state.istate]}</span></div><h3 class="pname">${esc(kavanaText())}</h3><p class="why">השאלה מנוסחת אחרי הערך, ונשארת קשורה אליו גם כשהיא משתנה בדרך.</p>`;
   else {
     const s = pt.s, p = live(s) ? s.pick.p : null;
@@ -1400,19 +1304,13 @@ function showView(v) {
 }
 document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
 
-$('panel').addEventListener('submit', e => { e.preventDefault(); compose(false); });
+$('panel').addEventListener('submit', e => { e.preventDefault(); compose(false); $('card').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 $('q-help-btn').addEventListener('click', () => { const h = $('q-help'); h.hidden = !h.hidden; $('q-help-btn').setAttribute('aria-expanded', String(!h.hidden)); });
-$('f-now').addEventListener('input', renderValueSlot);
-$('mod-go').addEventListener('click', () => {
-  const m = state.mod;
-  if (!m.has) { m.status = 'need'; renderMod(); return; }
-  m.rec = recommend(m.has, isFacil(), state.time); m.status = 'shown'; renderMod();
-});
-$('f-now').value = state.now; $('f-question').value = state.question; $('f-geo').value = state.geo;
+$('f-question').value = state.question; $('f-geo').value = state.geo;
 $('f-value').value = state.value; $('f-boundary').value = state.boundary;
 renderPanel(); compose(false); renderJournal(); renderLibrary();
 showView(location.hash === '#library' ? 'library' : location.hash === '#compass' ? 'compass' : location.hash === '#engine' ? 'engine' : 'gate');
-const toEngine = () => { showView('engine'); $('mod').scrollIntoView({ block: 'start' }); $('f-now').focus({ preventScroll: true }); };
+const toEngine = () => { showView('engine'); $('panel').scrollIntoView({ block: 'start' }); };
 $('gate-skip').addEventListener('click', toEngine);
 $('gate-go').addEventListener('click', toEngine);
 $('g-apart').addEventListener('click', () => { $('g-apart-out').hidden = !$('g-apart-out').hidden; });
