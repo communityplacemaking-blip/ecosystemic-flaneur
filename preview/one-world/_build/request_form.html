@@ -16,8 +16,8 @@
 <label class="rq-f"><span>מה הייתם רוצים שיקרה בעקבות המפגש?</span><textarea name="hope" rows="3"></textarea></label>
 <label class="rq-f"><span>שם, ודרך לחזור אליכם</span><input name="me"></label>
 <div class="rq-out"><span class="rq-l">הנוסח</span><pre id="rq-text" aria-live="polite"></pre></div>
-<div class="btns"><a class="btn go" id="rq-mail" href="mailto:osimkehilanet@gmail.com">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
-<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל osimkehilanet@gmail.com</p>
+<div class="btns"><a class="btn go" id="rq-mail" href="mailto:info@osimkehila.co.il">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
+<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל info@osimkehila.co.il</p>
 </form>
 <style>
 .rq{display:grid;gap:14px;margin-bottom:18px;max-width:640px}
@@ -41,7 +41,7 @@ function draft(){var k=(f.querySelector('input[name=kind]:checked')||{}).value||
   if(v('who'))L.push('עבור: '+v('who'));if(v('size'))L.push('מספר משתתפים: '+v('size'));if(v('where'))L.push('איפה ומתי: '+v('where'));
   if(v('hope')){L.push('');L.push('מה היינו רוצים שיקרה: '+v('hope'))}L.push('');L.push('תודה,');L.push(v('me')||'');
   var t=L.join('\n').trim();out.textContent=t;
-  m.href='mailto:osimkehilanet@gmail.com?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
+  m.href='mailto:info@osimkehila.co.il?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
 f.addEventListener('input',draft);f.addEventListener('change',draft);f.addEventListener('submit',function(e){e.preventDefault()});draft();
 document.getElementById('rq-copy').addEventListener('click',function(){var t=draft(),d=document.getElementById('rq-done');
   function ok(){d.hidden=false}
