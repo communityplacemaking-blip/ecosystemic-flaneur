@@ -569,7 +569,8 @@ def main():
             html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
-        html = re.sub(r'(<script src="([^"]*)worlds\.js"></script>)', r'\1\n<script src="\2drift.js"></script>', html, count=1)  # drifting stars on every page
+        html = re.sub(r'(<script src="([^"]*)worlds\.js"></script>)', r'\1\n<script src="\2drift.js"></script>', html, count=1)  # still, twinkling stars on every page
+        html = re.sub(r'((?:field|drift)\.js)(?=")', r'\1?v=still', html)  # no moving stars (creator 15.11): a fresh address so no browser keeps an old drifting copy
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
         if LIVE_BUILD and key in ('try', 'echoes') and 'rel="canonical"' not in html:  # indexed pages name their own address
             html = html.replace('</title>', f'</title>\n<link rel="canonical" href="https://ecosystemicflaneur.com/{key}/">', 1)
