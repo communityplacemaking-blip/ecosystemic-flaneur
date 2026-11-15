@@ -61,8 +61,8 @@
 <label class="rq-f"><span>מה הייתם רוצים שיקרה בעקבות המפגש?</span><textarea name="hope" rows="3"></textarea></label>
 <label class="rq-f"><span>שם, ודרך לחזור אליכם</span><input name="me"></label>
 <div class="rq-out"><span class="rq-l">הנוסח</span><pre id="rq-text" aria-live="polite"></pre></div>
-<div class="btns"><a class="btn go" id="rq-mail" href="mailto:osimkehilanet@gmail.com">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
-<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל osimkehilanet@gmail.com</p>
+<div class="btns"><a class="btn go" id="rq-mail" href="mailto:info@osimkehila.co.il">לשלוח במייל</a><button class="btn" type="button" id="rq-copy">להעתיק את הנוסח</button></div>
+<p class="rq-note" id="rq-done" hidden>הנוסח הועתק. אפשר להדביק אותו בכל מייל או הודעה אל info@osimkehila.co.il</p>
 </form>
 <style>
 .rq{display:grid;gap:14px;margin-bottom:18px;max-width:640px}
@@ -86,14 +86,14 @@ function draft(){var k=(f.querySelector('input[name=kind]:checked')||{}).value||
   if(v('who'))L.push('עבור: '+v('who'));if(v('size'))L.push('מספר משתתפים: '+v('size'));if(v('where'))L.push('איפה ומתי: '+v('where'));
   if(v('hope')){L.push('');L.push('מה היינו רוצים שיקרה: '+v('hope'))}L.push('');L.push('תודה,');L.push(v('me')||'');
   var t=L.join('\n').trim();out.textContent=t;
-  m.href='mailto:osimkehilanet@gmail.com?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
+  m.href='mailto:info@osimkehila.co.il?subject='+encodeURIComponent('בקשה: '+k)+'&body='+encodeURIComponent(t);return t}
 f.addEventListener('input',draft);f.addEventListener('change',draft);f.addEventListener('submit',function(e){e.preventDefault()});draft();
 document.getElementById('rq-copy').addEventListener('click',function(){var t=draft(),d=document.getElementById('rq-done');
   function ok(){d.hidden=false}
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,function(){fb(t);ok()});else{fb(t);ok()}});
 function fb(t){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
 })()</script>
-<div class="card"><div><dt>אימייל</dt><dd><a dir="ltr" href="mailto:osimkehilanet@gmail.com">osimkehilanet@gmail.com</a></dd></div>
+<div class="card"><div><dt>אימייל</dt><dd><a dir="ltr" href="mailto:info@osimkehila.co.il">info@osimkehila.co.il</a></dd></div>
 <div><dt>באתר עושים קהילה</dt><dd><a href="https://osimkehila.co.il/ecosystemic-flaneur/">המשוטט האקוסיסטמי</a></dd></div></div></div></section>
 </main>
 <footer class="wf"><div class="wrap"><span class="wf-brand">המשוטט · <span lang="en" dir="ltr">The Ecosystemic Flâneur</span></span><a href="../">דף הבית</a><a href="../the-wanderer/">דמות המשוטט</a><a href="../flaneur/">השיטה בקצרה</a><a href="../method/">הדרך</a><a href="../journey/">לצאת לשוטט</a><a href="../mechanism/">מסע בחמישה שלבים</a><a href="../field/">שדה המילים</a><a href="./">אקדמי ומקצועי</a><a href="../library/">הספרייה</a><a href="../try/">טעימה ראשונה</a><a href="../echoes/">הדים</a><a href="../methodology/">המבוא המתודולוגי</a><span>איורים: ליאל</span></div></footer>
