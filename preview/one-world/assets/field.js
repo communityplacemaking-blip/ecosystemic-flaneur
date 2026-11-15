@@ -1,7 +1,7 @@
 /* The living field: a city as a living system.
    At first: points that blink in and out, threads that appear between unrelated places.
    Hidden in it: streets, orbits and districts that nobody drew.
-   Attention (the pointer, a tap, the walker that wanders by itself) makes relations visible.
+   Attention (the pointer, a tap) makes relations visible. Nothing moves across the screen: the points keep their places and only blink.
    What is discovered stays for a while, then loosens again. Order is temporary; chaos never leaves. */
 (function (root) {
   'use strict';
@@ -206,9 +206,10 @@
 
   Field.prototype.step = function (dt) {
     var self = this, W = this.W, H = this.H, t = (this.t += dt), nodes = this.nodes;
-    // the walker wanders by itself: from place to place, curious about what is not yet seen
+    // no star moves across the screen (creator 15.11): the walker stays still and unseen, the points stay in their places
     var w = this.walker;
-    if (w.pause > 0) w.pause -= dt;
+    if (true) { /* the walker no longer wanders */ }
+    else if (w.pause > 0) w.pause -= dt;
     else {
       if (!w.tgt || dist(w, w.tgt) < 14) {
         var cands = nodes.filter(function (n) { var d = dist(w, n); return d > 60 && d < Math.max(W, H) * .4; });
@@ -222,7 +223,6 @@
       var last = w.trail[w.trail.length - 1];
       if (!last || Math.abs(last[0] - w.x) + Math.abs(last[1] - w.y) > 4) { w.trail.push([w.x, w.y, t]); if (w.trail.length > 260) w.trail.shift(); }
     }
-    this.attend(w.x, w.y, 90, dt * 1.1);
     if (this.pointer && t - this.pointer.at < 2.5) this.attend(this.pointer.x, this.pointer.y, 130, dt * 2.6);
     this.pulses = this.pulses.filter(function (p) { p.life -= dt; self.attend(p.x, p.y, p.R, dt * 2.2); return p.life > 0; });
     // attention fades slowly: what is not looked at loosens again
@@ -230,8 +230,7 @@
       n.seen = Math.max(0, n.seen - dt * .05);
       n.life += dt * n.blink;
       var calm = n.calm = lerp(n.calm, Math.min(1, n.seen), dt * .8);
-      var amp = 7 * (1 - calm * .8) * (.5 + n.z);
-      n.x = n.hx + Math.sin(t * n.fq * .5 + n.ph) * amp; n.y = n.hy + Math.cos(t * n.fq * .4 + n.ph * 1.3) * amp;
+      n.x = n.hx; n.y = n.hy;  // fixed places: points blink, they do not drift
     });
     // hidden relations are discovered where attention dwells on both ends
     this.groups.forEach(function (g) {
@@ -331,7 +330,7 @@
     });
     // the walker's trace
     var tr = this.walker.trail;
-    if (tr.length > 2) {
+    if (false && tr.length > 2) {
       x.save(); x.lineCap = 'round';
       if (dir === 'b') { x.setLineDash([1.5, 5.5]); x.lineWidth = 2.2; }
       else x.lineWidth = 1.4;
@@ -364,9 +363,7 @@
     });
     x.globalCompositeOperation = 'source-over';
     // the walker itself: a small light / an ink mark moving through the city
-    var w = this.walker;
-    x.drawImage(this.sprite(P.gold, P), w.x - 14, w.y - 14, 28, 28);
-    x.fillStyle = rgba(P.gold, 1); x.beginPath(); x.arc(w.x, w.y, 2.6, 0, TAU); x.fill();
+    // (the walker is not drawn: no moving star)
     // discoveries ripple outward
     this.ripples.forEach(function (r) { x.strokeStyle = rgba(dir === 'b' ? P.line : P.gold, r.life * .45); x.lineWidth = 1; x.beginPath(); x.arc(r.x, r.y, r.r, 0, TAU); x.stroke(); });
     // pointer lens: a soft circle of attention
