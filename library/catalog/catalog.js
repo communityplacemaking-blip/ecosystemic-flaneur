@@ -110,7 +110,7 @@
       purpose: t.purpose, categories: (t.purposes || []).map(function (i) { return 'p' + i; }), users: t.users || ['group'],
       intents: t.intents || [], contexts: t.contexts, size: t.size, time: t.time, materials: t.materials,
       steps: t.steps, principles: t.principles, hosting: t.hosting, harvest: t.harvest, outcomes: t.outcomes,
-      related: (t.contains || []).concat(t.related || []), tags: t.tags, keywords: t.keywords, discover: t.discover, credit: t.credit,
+      related: (t.contains || []).concat(t.related || []), tags: t.tags, keywords: t.keywords, discover: t.discover, credit: t.credit, from: t.from,
       stepsTitle: t.kind === 'method' ? 'המהלך' : 'איך עושים את זה', relTitle: t.kind === 'method' ? 'כלים שבתוכה' : 'קשור ל'
     };
   }

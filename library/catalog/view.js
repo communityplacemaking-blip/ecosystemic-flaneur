@@ -154,6 +154,10 @@
     if (parents.length) sec(body, r.collection === 'participatory' ? 'חלק מ' : 'מופיע גם ב', links(parents));
     var src = [r.credit, r.src ? 'מקור: ' + r.src : ''].filter(Boolean).join(' · ');
     if (src) body.appendChild(el('p', 'cv-src', src));
+    if (r.from && r.from.url) {
+      var fp = el('p', 'cv-src cv-from', 'המקור: '), fa = el('a', null, r.from.name);
+      fa.href = r.from.url; fa.target = '_blank'; fa.rel = 'noopener'; fp.appendChild(fa); body.appendChild(fp);
+    }
     var go = el('p', 'cv-go');
     var j = el('a', 'more', 'לבנות מסע שוטטות שהכלי הזה יכול להשתלב בו'); j.href = '../../journey/';
     go.appendChild(j);
