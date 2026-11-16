@@ -68,11 +68,12 @@
     { id: 'other', name: 'מקום אחר' }
   ];
 
-  /* Repository B: Participatory tools. Empty until the author adds documented entries. */
+  /* Repository B: Participatory tools. The records live in library/tools-data.js (window.TOOLS) and reach the
+     journey through the tool catalogs (library/catalog/catalog.js, 16.11); K.TOOLS is kept for older readers. */
   K.PURPOSES = ['הקשבה ושיח משותפים', 'העלאת ידע מבוזר ומקומי', 'למידה הדדית',
     'חקירה ורפלקציה משותפות', 'יצירה ועשייה משותפות', 'גילוי מה שנוצר בין אנשים'];
   K.ROLES = ['הקשבה', 'חקירה', 'שיח', 'יצירה', 'עשייה']; // secondary metadata only
-  K.TOOLS = []; // { id, name, type:'tool'|'method', purposes:[0..5], roles:[], source, steps, links:{ideas:[]} }
+  K.TOOLS = root.TOOLS || [];
 
   /* The seven topics for the facilitator's preparation (participatory). */
   K.PREP = ['המקום או הקהילה', 'הסיפור והזהות', 'הכוחות והקשרים', 'האתגרים והמתחים',

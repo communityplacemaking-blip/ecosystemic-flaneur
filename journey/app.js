@@ -384,6 +384,7 @@
       if (J.lenses && J.lenses.length) out.appendChild(h('div', { 'class': 'lenses' }, [h('b', { text: 'עדשות לקחת לדרך: ' })].concat(
         J.lenses.map(function (l) { return h('span', { 'class': 'lens', text: l.name.replace('עדשה: ', '') }); }),
         [h('span', { 'class': 'small quiet', text: ' רק השם מתועד, בלי תיאור.' })])));
+      out.appendChild(toolBlock(J));
       out.appendChild(fruits());
     } else {
       out.appendChild(h('div', { 'class': 'prep' }, [
@@ -397,16 +398,26 @@
         var mt = h('section', { 'class': 'meet' }, [h('h3', { text: 'מפגש ' + m.n }), h('span', { 'class': 'quiet small', text: m.minutes + ' דקות' })]);
         m.ideas.forEach(function (st, i) { mt.appendChild(stationCard(st, m.n + '.' + (i + 1), 'm' + mi + 'i' + i)); });
         var pur = m.tool.purposes.map(function (i) { return K.PURPOSES[i]; });
+        var tf = m.tool.found, t0 = tf[0];
         mt.appendChild(h('article', { 'class': 'stn tool' }, [
-          h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: 'כלי משתתף · מאגר ב' })]),
-          h('h4', { text: pur.length ? 'לפי המטרה: ' + pur.join(', ') : 'כלי שיתאים למטרה' }),
-          h('p', { 'class': 'inv', text: m.tool.found.length ? '' : 'מאגר הכלים המשתתפים עוד ריק. כאן ייכנס כלי מתועד, עם מקור, כשהמחבר יוסיף אותו. אפשר להשתמש בכלי שאתם מכירים.' })
+          h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: 'כלי השתתפותי' }),
+            pur.length ? h('span', { 'class': 'stn-min', text: 'לפי המטרה: ' + pur.join(', ') }) : null]),
+          h('h4', { text: t0 ? t0.name : 'כלי למפגש' }),
+          h('p', { 'class': 'inv', text: t0 ? t0.essence : 'לא בחרתם מטרה, ולא מצאתי במה שכתבתם כוונה ברורה שמובילה לכלי מסוים. אפשר לבחור כלי מהקטלוג, או להשתמש בכלי שאתם מכירים.' }),
+          t0 && t0.discover ? h('p', { 'class': 'note' }, [h('b', { text: 'מה הוא יכול לעזור לגלות: ' }), t0.discover]) : null,
+          t0 ? h('details', { 'class': 'why' }, [h('summary', { text: 'למה כאן?' }), h('ul', {}, t0.why.map(function (w) { return h('li', { text: w }); }))]) : null,
+          h('p', { 'class': 'tool-go' }, [
+            t0 ? h('a', { 'class': 'more', href: '../' + t0.href, target: '_blank', rel: 'noopener', text: 'לפתוח את הכלי המלא' }) : null,
+            tf.length > 1 ? h('span', { 'class': 'small quiet', text: ' או: ' }) : null
+          ].concat([].concat.apply([], tf.slice(1).map(function (x, i) { return [i ? h('span', { 'class': 'small quiet', text: '·' }) : null, h('a', { 'class': 'small', href: '../' + x.href, target: '_blank', rel: 'noopener', text: x.name })]; })))
+            .concat([h('a', { 'class': 'small quiet tool-all', href: '../library/participatory/', target: '_blank', rel: 'noopener', text: 'כל הכלים ההשתתפותיים' })]))
         ]));
         ms.appendChild(mt);
         if (m.harvestAfter) ms.appendChild(h('div', { 'class': 'harvest' }, [h('b', { text: 'קציר משותף' }),
           h('span', { text: 'מה עובר מהמפגש הזה לבא אחריו. עקבה אישית נכנסת לקציר רק אם מי שיצר אותה בחר לשתף.' })]));
       });
       out.appendChild(ms);
+      out.appendChild(toolBlock(J));
       out.appendChild(h('p', { 'class': 'small quiet', text: 'שום קציר לא נשמר באתר. כללי בעלות, גישה, הסכמה ושימור עוד לא נקבעו. גם הביטוי של ערך ושחרור בתהליך משתתף עוד פתוח.' }));
     }
 
@@ -425,6 +436,28 @@
       h('button', { type: 'button', 'class': 'linkish', onclick: restart }, ['להתחיל מחדש'])
     ]);
     out.appendChild(act);
+  }
+
+  /* Tools from the two catalogs that may serve this journey (16.11). Offered only when the person's own words point to them. */
+  function toolBlock(J) {
+    var g = J.mode === 'group', list = J.tools || [];
+    var box = h('section', { 'class': 'j-tools', 'aria-labelledby': 'jt-h' }, [
+      h('h3', { id: 'jt-h', text: list.length ? 'כלים שיכולים לשרת את הרגע' : 'כלי נוסף?' })]);
+    if (!list.length) box.appendChild(h('p', { 'class': 'small', text: 'הפעם לא הצעתי כלי נוסף: במה שכתבתם לא מצאתי כוונה שכלי מסוים משרת יותר מהמסע עצמו. ואם תרצו, אפשר לעיין בקטלוגים.' }));
+    list.forEach(function (t) {
+      box.appendChild(h('article', { 'class': 'stn jt' }, [
+        h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: t.collection === 'toolbox' ? 'ארגז הכלים של המשוטט' : 'כלי השתתפותי' })]),
+        h('h4', {}, [t.name, t.subtitle ? h('small', { text: ' · ' + t.subtitle }) : null]),
+        h('ul', { 'class': 'jt-why' }, t.why.map(function (w) { return h('li', { text: w }); })),
+        t.discover ? h('p', { 'class': 'note' }, [h('b', { text: 'מה הוא יכול לעזור לגלות: ' }), t.discover]) : null,
+        t.focus && t.focus.length ? h('p', { 'class': 'small' }, [h('b', { text: 'אפשר להתחיל מ: ' }), t.focus.join(', ')]) : null,
+        h('p', {}, [h('a', { 'class': 'more', href: '../' + t.href, target: '_blank', rel: 'noopener', text: 'לפתוח את הכלי המלא' })])
+      ]));
+    });
+    box.appendChild(h('p', { 'class': 'small quiet jt-all' }, ['לעיין בעוד כלים: ',
+      h('a', { href: '../library/toolbox/', target: '_blank', rel: 'noopener', text: 'ארגז הכלים של המשוטט' }), ' · ',
+      h('a', { href: '../library/participatory/', target: '_blank', rel: 'noopener', text: 'כלים השתתפותיים' })]));
+    return box;
   }
 
   function whyShape(l, n) {

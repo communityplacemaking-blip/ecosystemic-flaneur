@@ -106,6 +106,8 @@
     var u = E.understand(a);
     var themes = (a.themes || u.themes.map(function (t) { return t.id; }));
     var ctx = { ideas: ideas, words: u.words, themeWords: themeWords(themes), place: place, placeName: placeName, mode: mode };
+    var CAT = root.EF_CATALOG;   // the tool catalogs (library/catalog/catalog.js), when the page loads them
+    var said = [a.place, a.magic, a.challenge, a.curiosity, a.people, a.forces, a.purpose, a.done].join(' ');
     var J = { level: lv, mode: mode, place: a.place || '', placeName: placeName, intention: a.curiosity || '',
       magic: a.magic || '', challenge: a.challenge || '', boundaries: a.boundaries || '', stations: [], meetings: [], notes: [] };
 
@@ -141,13 +143,17 @@
           if (st) ideasHere.push(st);
         });
         J.meetings.push({ n: m + 1, minutes: len, ideas: ideasHere,
-          tool: { purposes: (a.purposes || []).slice(), found: K.TOOLS.filter(function (t) {
-            return (a.purposes || []).some(function (p) { return (t.purposes || []).indexOf(p) > -1; });
-          }) },
+          tool: { purposes: (a.purposes || []).slice(), found: [] },
           harvestAfter: m < n - 1 });
       }
+      // one participatory tool per meeting: by the chosen purposes first, then by the facilitator's own words
+      if (CAT) CAT.forMeetings(said, a.purposes || [], n).forEach(function (f, i) { J.meetings[i].tool.found = f; });
       J.template = 'participatory-dialogue';
     }
+    // tools from the two catalogs that may serve this journey; often none, and that is a fine answer
+    J.tools = CAT ? CAT.recommend(said, { mode: mode }) : [];
+    if (mode === 'group') { var inMeet = {}; J.meetings.forEach(function (m) { (m.tool.found[0] ? [m.tool.found[0]] : []).forEach(function (t) { inMeet[t.id] = 1; }); });
+      J.tools = J.tools.filter(function (t) { return !inMeet[t.id]; }); }
     J.depthQ = lv.depthQ;
     J.celebration = K.CELEBRATION;
     return J;

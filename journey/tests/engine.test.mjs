@@ -7,7 +7,7 @@ const IDEAS = globalThis.IDEAS; let n = 0; const t = (name, f) => { f(); n++; co
 const a = { place: 'שכונה', placeType: 'neighborhood', magic: 'סיפורים בכל פינה', challenge: 'בניינים נעלמים', curiosity: 'סיפורים של אנשים', minutes: 90 };
 t('four levels, names as given 30.10', () => assert.deepEqual(K.LEVELS.map(l => l.name), ['מתנסה', 'משוטט מתחיל', 'משוטט מיומן', 'משוטט אקוסיסטמי']));
 t('three readiness paths', () => assert.equal(K.PATHS.length, 3));
-t('six purposes, repository B empty', () => { assert.equal(K.PURPOSES.length, 6); assert.equal(K.TOOLS.length, 0); });
+t('six purposes; with no catalog loaded, no tool is invented', () => { assert.equal(K.PURPOSES.length, 6); assert.equal(K.TOOLS.length, 0); });
 t('repository A = 25 records, untouched', () => assert.equal(IDEAS.length, 25));
 t('level changes the structure', () => {
   const c = ['l1', 'l2', 'l3', 'l4'].map(l => E.compose({ level: l, mode: 'solo' }, a, IDEAS).stations.length);
@@ -31,7 +31,7 @@ t('every station explains itself and cites its source', () => {
 t('participatory: meetings, harvest between, tool slot by purpose', () => {
   const J = E.compose({ level: 'l3', mode: 'group' }, { ...a, meetings: 3, purposes: [0, 4] }, IDEAS);
   assert.equal(J.meetings.length, 3); assert.deepEqual(J.meetings.map(m => m.harvestAfter), [true, true, false]);
-  J.meetings.forEach(m => { assert.deepEqual(m.tool.purposes, [0, 4]); assert.equal(m.tool.found.length, 0); });
+  J.meetings.forEach(m => { assert.deepEqual(m.tool.purposes, [0, 4]); assert.equal(m.tool.found.length, 0); }); assert.deepEqual(J.tools, []);
 });
 t('mode is never inferred', () => assert.equal(E.compose({ level: 'l2' }, { ...a, people: 'קבוצה של 30' }, IDEAS).mode, 'solo'));
 t('understanding quotes the person\'s words', () => { const u = E.understand(a); assert.ok(u.themes.some(x => x.id === 'stories' && x.because === 'סיפורים')); });
