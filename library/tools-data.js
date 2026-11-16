@@ -2,6 +2,7 @@
    Original descriptions, written for this site. Each record names the method's known originators.
    purposes: indices into PURPOSES. kind: "method" (a whole approach) or "tool" (a structured activity).
    core: the practices at the heart of the work.
+   from (16.11): where the tool was found, shown as its source line.
    users, intents, discover (16.11): read by the tool catalogs and the journey's recommendations (see library/catalog/catalog.js). */
 var PURPOSES = [
   'הקשבה ושיח משותפים',
@@ -239,6 +240,7 @@ var TOOLS = [
     purposes: [0, 2],
     users: ['group'], intents: ['listen'],
     discover: 'מה זה להיות שם בשביל מישהו, בלי לתקן ובלי לייעץ.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/hear-see-respect/' },
     essence: 'תרגול הקשבה ואמפתיה: מספרים על רגע שבו לא הקשיבו לנו, והאחרים לומדים פשוט להיות שם, בלי לתקן ובלי לייעץ.',
     credit: 'מבוסס על אחד המבנים באסופת המבנים המשחררים של ליפמנוביץ ומקנדלס.',
     size: 'זוגות או שלישיות', time: 'כחצי שעה',
@@ -275,6 +277,7 @@ var TOOLS = [
     purposes: [1, 0],
     users: ['group'], intents: ['gather', 'decide', 'listen'],
     discover: 'רעיונות של כולם, גם בקבוצה גדולה, בזמן קצר.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/1-2-4-everyone/' },
     essence: 'דרך מהירה לשמוע את כולם, גם בקבוצה גדולה: חושבים לבד, מדברים בזוג, ברביעייה, ורק אז במליאה.',
     credit: 'מבוסס על אחד המבנים באסופת המבנים המשחררים של ליפמנוביץ ומקנדלס.',
     size: 'כל גודל', time: 'כשתים עשרה דקות',
@@ -293,6 +296,7 @@ var TOOLS = [
     purposes: [2, 3],
     users: ['group'], intents: ['complex', 'learn'],
     discover: 'עצה מיידית על אתגר אחד, מנקודות מבט של עמיתים.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/troika-consultation/' },
     essence: 'עזרה מיידית מעמיתים בשלישייה. אחד מציג אתגר, ושניים מתייעצים עליו בקול, כשהוא יושב עם הגב אליהם ומקשיב.',
     credit: 'מבוסס על אחד המבנים באסופת המבנים המשחררים של ליפמנוביץ ומקנדלס.',
     size: 'שלישיות', time: 'כעשר דקות לסבב',
@@ -311,6 +315,7 @@ var TOOLS = [
     purposes: [3, 4],
     users: ['group'], intents: ['complex', 'initiative'],
     discover: 'מה אנחנו עושים, בלי לשים לב, שמונע את מה שאנחנו רוצים.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/triz/' },
     essence: 'במקום לשאול איך נצליח, שואלים איך נבטיח את התוצאה הגרועה ביותר. הצחוק פותח את מה שקשה לומר: מה מכל זה אנחנו כבר עושים.',
     credit: 'מבוסס על אחד המבנים באסופת המבנים המשחררים של ליפמנוביץ ומקנדלס, בהשראת שיטת TRIZ של גנריך אלטשולר.',
     size: 'קבוצות קטנות', time: 'כחצי שעה',
@@ -328,6 +333,7 @@ var TOOLS = [
     purposes: [4, 2],
     users: ['group'], intents: ['decide', 'gather'],
     discover: 'מה כל צד צריך מהאחר, בגלוי.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/what-do-i-need-from-you/' },
     essence: 'קבוצות שעובדות יחד, כמו צוותים, ארגונים או ועדים, אומרות זו לזו במפורש מה הן צריכות, ועונות בכנות.',
     credit: 'מבוסס על אחד המבנים באסופת המבנים המשחררים של ליפמנוביץ ומקנדלס.',
     size: 'כמה קבוצות או צוותים', time: 'כשעה',
@@ -382,6 +388,7 @@ var TOOLS = [
     purposes: [4, 5],
     users: ['group'], intents: ['initiative', 'gather'],
     discover: 'חלום משותף שכל אחד מוצא בו את עצמו.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/dreaming-circle/' },
     essence: 'מעגל שבו החלום של אחד הופך לחלום של כולם. כל אחד מוסיף מה צריך לקרות כדי שירגיש שזה היה שווה את הזמן שלו.',
     credit: 'מבוסס על מעגל החלימה בשיטת חלימת דרקון של ג׳ון קרופט.',
     size: 'קבוצת פרויקט, עד עשרים בערך', time: 'כשעה',
@@ -401,6 +408,7 @@ var TOOLS = [
     purposes: [2, 3],
     users: ['group'], intents: ['complex', 'learn'],
     discover: 'דרכים אחרות לחשוב על דילמה אמיתית.',
+    from: { name: 'מאגר הכלים של הטריבונה למנהיגות השתתפותית', url: 'https://hatribuna.co.il/peer-consultation-protocol/' },
     essence: 'קבוצת עמיתים עוזרת לאחד מחבריה לחשוב על דילמה אמיתית, לפי מהלך קבוע שמגן על הזמן ועל ההקשבה.',
     credit: 'מבוסס על פרוטוקול ההיוועצות של National School Reform Faculty (NSRF).',
     size: 'ארבעה עד שמונה', time: 'כשעה',

@@ -343,3 +343,5 @@ html[data-sky="night"] .cv-open { color: var(--gold); }
 .cv-src { margin: 24px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font: 400 .88rem var(--f-sans); color: var(--muted); }
 .cv-go { margin: 14px 0 0; }
 @media (max-width: 760px) { .cv-browse .tl-pur { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin-inline: calc(-1 * var(--gut)); padding-inline: var(--gut); } .cv-browse .tl-pur button { flex: 0 0 auto; } .cv-bar .cv-n { flex-basis: 100%; margin: 0; } }
+.cv-from { border-top: 0; margin-top: 4px; padding-top: 0; }
+.cv-from a { color: inherit; }

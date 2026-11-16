@@ -58,7 +58,7 @@ window.EF_TOOLKIT = (window.EF_TOOLKIT || []).concat([
     related: ['six-hats', 'three-in-chaos', 'brown-green', 'whose-gaze', 'three-body-sensations', 'exhaust-place', 'field-notes'],
     tags: ['התבוננות', 'מבט', 'חושים', 'קשב', 'פרשנות', 'הנחות', 'נקודת מבט', 'תיעוד', 'מקום מוכר', 'שכונה', 'גילוי'],
     keywords: ['להתבונן', 'לראות מחדש', 'לשים לב', 'פרטים', 'דפוסים נסתרים'],
-    credit: 'כלי של המשוטט האקוסיסטמי.'
+    credit: 'כלי מקורי של המשוטט האקוסיסטמי.'
   },
   {
     id: 'six-hats', kind: 'framework',
