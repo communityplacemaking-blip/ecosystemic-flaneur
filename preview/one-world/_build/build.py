@@ -85,6 +85,26 @@ class Ctx(W.Ctx):
 
 W.Ctx = Ctx
 
+
+class NCtx(Ctx):
+    """A page one folder deeper, under /library/ (the tool catalogs, 16.11): every link climbs one more level."""
+    def __init__(self, d, page):
+        super().__init__(d, page)
+        n = page.count('/') + 1
+        self.depth = n if LIVE_BUILD else 2 + n
+        self.root = '../' * self.depth
+        self.assets = '../' * n + 'assets/'
+        self.img = self.root + 'img/'
+
+    def to(self, key, frag=''):
+        if key == self.page:
+            return frag or './'
+        return '../' * (self.page.count('/') + 1) + (key + '/' if key else '') + frag
+
+
+def make_ctx(key):
+    return (NCtx if '/' in key else Ctx)('w', key)
+
 _spine = W.spine
 
 
@@ -358,22 +378,77 @@ def wrap_site(key):
 _P = ['הקשבה ושיח משותפים', 'העלאת ידע מבוזר ומקומי', 'למידה הדדית', 'חקירה ורפלקציה משותפות', 'יצירה ועשייה משותפות', 'גילוי מה שנוצר בין אנשים']
 
 
+CATALOG_JS = ('library/ideas-snapshot.js', 'library/tools-data.js',  # ideas-flaneur.js is added after the snapshot on every page
+              'library/catalog/toolbox-data.js', 'library/catalog/catalog.js')
+
+
+def catalog_scripts(ctx, view=False):
+    js = ''.join(f'<script src="{ctx.root}{f}"></script>\n' for f in CATALOG_JS)
+    return js + (f'<script src="{ctx.root}library/catalog/view.js" defer></script>\n' if view else '')
+
+
 def p_library_tools(ctx):
-    html = W.p_library(ctx)
-    pur = '<button type="button" data-p="all" aria-pressed="true">כל המטרות</button>' + ''.join(
-        f'<button type="button" data-p="{i}" aria-pressed="false">{t}</button>' for i, t in enumerate(_P))
-    shelf = f'''<div class="tl-pur" role="group" aria-label="סינון לפי מטרה">{pur}</div>
-<div class="lib-tools tl-bar"><input id="tool-q" type="search" placeholder="חיפוש כלי" aria-label="חיפוש בכלים"><button type="button" data-tk="all" aria-pressed="true">הכול</button><button type="button" data-tk="method" aria-pressed="false">מתודולוגיות</button><button type="button" data-tk="tool" aria-pressed="false">כלים</button><span class="quiet small" id="tool-n" aria-live="polite"></span></div>
-<ol class="tool-list"></ol>
-<p class="tl-note">תרגילי ההקשבה והשוטטות של המשוטט עצמו נמצאים במאגר א. כאן נאספים כלים שמעוררים תבונה קולקטיבית בקבוצה, כל אחד עם שם מי שפיתח אותו. המאגר פתוח לתוספות.</p>'''
-    i = html.find('id="tools"')
-    j = html.find('</div></section>', i)
-    html = html[:j] + shelf + html[j:]
-    return html.replace(f'<script src="{ctx.root}library/ideas-snapshot.js"></script>',
-                        f'<script src="{ctx.root}library/ideas-snapshot.js"></script>\n<script src="{ctx.root}library/tools-data.js"></script>\n<script src="{ctx.root}library/tools-view.js" defer></script>', 1)
+    """/library/ is the entrance to the two tool catalogs (16.11): the toolbox of the Wanderer and the participatory tools.
+    The ideas list and the tools shelf moved into the catalogs; their old addresses (#pr-…, #tl-…) lead there."""
+    s = W.soup('library/index.html')
+    h = s.select_one('.lib-hero')
+    text = f'<p class="kick">הספרייה</p><h1>{W.txt(h.select_one("h1"))}</h1><p class="lead">שני קטלוגים של כלים, ותבניות מסע שמחברות ביניהם. אפשר לעיין, לחפש ולפתוח כל כלי במלואו, גם בלי לצאת למסע.</p>'
+    body = W.hero(ctx, 'library', ['מבט', 'שאלה', 'שולחן משותף', 'הקשבה', 'נקודת מבט', 'חלום'], text, anchor='.3,.7')
+    doors = (f'<a class="card rv cat-door" id="door-toolbox" href="toolbox/"><span class="k">לבד או בקבוצה</span><h3>ארגז הכלים של המשוטט</h3>'
+             f'<p>כלים להתבוננות ולתפיסה, לנקודות מבט, לחשיבה ולחקירת מקומות, לדפוסים ולסיפורים נסתרים. ולצידם התרגולים הקצרים שהמנגנון משבץ בדרך.</p>'
+             f'<span class="cat-n" data-count="toolbox"></span></a>'
+             f'<a class="card rv cat-door" id="door-participatory" href="participatory/"><span class="k">לקבוצה</span><h3>כלים השתתפותיים</h3>'
+             f'<p>כלים ומתודולוגיות שמעוררים תבונה קולקטיבית: הקשבה ושיח, חקירה משותפת, זיהוי נכסים וצרכים, פיתוח יוזמות והחלטה משותפת. כל כלי עם שם מי שפיתח אותו.</p>'
+             f'<span class="cat-n" data-count="participatory"></span></a>')
+    body += W.section('doors', f'<div class="sec-h rv"><p class="kick">שני קטלוגים</p><h2 id="doors-h">מה אפשר לקחת לדרך</h2>'
+                      f'<p class="lead">ההבדל ביניהם הוא במי שמשתמש בכלי: ארגז הכלים משרת את המשוטט, לבד או עם אחרים. הכלים ההשתתפותיים משרתים קבוצה וקהילה.</p></div>'
+                      f'<div class="cards cat-doors">{doors}</div>', label='doors-h')
+    c = s.select_one('#journeys')
+    ct = [p for p in c.select('p') if len(W.txt(p)) > 60][:2]
+    body += W.seam('journeys') + W.section('journeys', f'''<div class="sec-h rv"><p class="kick">ג</p><h2 id="journeys-h">{W.txt(c.select_one("h2"))}</h2>{''.join(f'<p class="lead">{W.txt(p)}</p>' for p in ct[:1])}</div>
+<div class="cards"><a class="card rv" href="{ctx.to('journey')}"><span class="k">המנגנון</span><h3>שוטטות אישית ושוטטות משתתפת</h3><p>{W.txt(ct[1]) if len(ct) > 1 else ''}</p></a><a class="card rv" href="{ctx.to('mechanism')}"><span class="k">מסע אישי</span><h3>יציאה אחת בחמישה שלבים</h3><p>כניסה · תנועה · הבחנה · עקבה · חזרה</p></a></div>''', cls='deep', label='journeys-h')
+    js = catalog_scripts(ctx) + ('<script>(function(){var m=/^#(pr|tl)-(.+)$/.exec(location.hash);if(m){location.replace((m[1]==="pr"?"toolbox/":"participatory/")+"#t-"+m[2]);return}if(location.hash==="#ideas"||location.hash==="#tools"){location.replace(location.hash==="#ideas"?"toolbox/":"participatory/");return}'
+                                 'var C=window.EF_CATALOG;if(!C)return;[].forEach.call(document.querySelectorAll("[data-count]"),function(e){var a=C.all(e.dataset.count),t=a.filter(function(r){return!r.practice}).length;'
+                                 'e.textContent=e.dataset.count==="toolbox"?t+" כלים · "+(a.length-t)+" תרגולים קצרים":t+" כלים ומתודולוגיות"})})()</script>\n')
+    return W.page(ctx, 'הספרייה', 'ספריית הכלים של המשוטט: ארגז הכלים של המשוטט, כלים השתתפותיים ותבניות מסע.', body,
+                  [('doors', 'שני קטלוגים'), ('journeys', 'תבניות מסע')], extra_js=js)
 
 
-W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'library': p_library_tools}
+CATALOGS = {
+    'toolbox': {'name': 'ארגז הכלים של המשוטט', 'other': 'participatory',
+                'lead': 'כלים לשוטטות לבד או בקבוצה: להתבונן ולקלוט, לשנות נקודת מבט, לחשוב ולהרהר, לחקור מקומות ולגלות דפוסים וסיפורים נסתרים. לצד הכלים נמצאים כאן גם התרגולים הקצרים שהמנגנון משבץ בדרך.',
+                'ph': 'חיפוש: שם, כוונה, הקשר, מילה', 'labels': ['מבט', 'חושים', 'שאלה', 'נקודת מבט', 'דפוס', 'סיפור', 'רעיון']},
+    'participatory': {'name': 'כלים השתתפותיים', 'other': 'toolbox',
+                      'lead': 'כלים ומתודולוגיות לקבוצה ולקהילה: הנחיה, הקשבה ושיח, חקירה משותפת, השתתפות, זיהוי נכסים וצרכים, פיתוח רעיונות ויוזמות והחלטה משותפת. כל כלי מופיע עם שם מי שפיתח אותו.',
+                      'ph': 'חיפוש: שם, מטרה, כוונה, מילה', 'labels': ['שולחן משותף', 'הקשבה', 'מעגל', 'שיחה', 'חלום', 'יוזמה']},
+}
+
+
+def p_catalog(col):
+    def build(ctx):
+        m = CATALOGS[col]
+        o = CATALOGS[m['other']]
+        text = (f'<p class="kick"><a href="{ctx.to("library")}">הספרייה</a></p><h1>{m["name"]}</h1><p class="lead">{m["lead"]}</p>'
+                f'<p class="quiet small"><a href="../{m["other"]}/">{"ומה עם קבוצה וקהילה? " if col == "toolbox" else "ולשוטטות עצמה, לבד או בקבוצה: "}{o["name"]}</a></p>')
+        body = W.hero(ctx, 'cat-' + col, m['labels'], text, anchor='.3,.7')
+        body += W.section('catalog', f'''<div class="cv-wrap" data-catalog="{col}">
+<div class="cv-browse">
+<div class="lib-tools cv-bar"><input class="cv-q" id="cv-q" type="search" placeholder="{m["ph"]}" aria-label="חיפוש ב{m["name"]}" autocomplete="off"><span class="quiet small cv-n" aria-live="polite"></span></div>
+<div class="tl-pur cv-kinds" role="group" aria-label="סוג"></div>
+<div class="tl-pur cv-cats" role="group" aria-label="{"מטרה" if col == "participatory" else "תחום"}"></div>
+<div class="tl-pur cv-users" role="group" aria-label="למי"></div>
+<ol class="cv-list"></ol>
+<noscript><p>הקטלוג נפתח עם JavaScript.</p></noscript>
+</div>
+<article class="cv-detail" hidden></article>
+</div>''', label=None)
+        body += W.seam('cat-end-' + col) + W.section('cat-more', f'''<div class="cards"><a class="card rv" href="{ctx.to('journey')}"><span class="k">המנגנון</span><h3>לתת למשוטט להציע כלי</h3><p>מספרים על המקום ועל הכוונה, והמנגנון מציע את מה שיכול לשרת את הרגע. לפעמים ההצעה הטובה היא בלי כלי נוסף.</p></a><a class="card rv" href="../{m["other"]}/"><span class="k">הקטלוג השני</span><h3>{o["name"]}</h3><p>{o["lead"].split(":")[0]}.</p></a></div>''', cls='deep')
+        return W.page(ctx, m['name'], m['lead'][:150], body, extra_js=catalog_scripts(ctx, True))
+    return build
+
+
+W.BUILDERS = {**W.BUILDERS, 'try': p_try, 'echoes': p_echoes, 'methodology': wrap_site('methodology'), 'library': p_library_tools,
+              'library/toolbox': p_catalog('toolbox'), 'library/participatory': p_catalog('participatory')}
 
 
 # ---------------------------------------------------------------- home: the two paths, right after the hero (author's clarification, 3.11)
@@ -426,6 +501,7 @@ DOORS = [('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', (
          ('academy', 'אקדמי ומקצועי', 'לעבוד יחד', (('methodology', 'המבוא המתודולוגי'),))]
 DOOR_OF = {k: k for k, *_ in DOORS}
 DOOR_OF.update({sk: k for k, _, _, subs in DOORS for sk, _ in subs})
+DOOR_OF.update({'library/toolbox': 'journey', 'library/participatory': 'journey'})  # the catalogs live under the library
 W.NAV = [(k, t) for k, t, _, _ in DOORS]
 
 
@@ -498,7 +574,7 @@ INSTALL = ('<div class="app-install" hidden><button type="button" aria-expanded=
 
 
 def app_shell(html, ctx, key):
-    up = '' if key == '' else '../'
+    up = '' if key == '' else '../' * (key.count('/') + 1)
     tags = (f'<link rel="icon" href="{up}favicon.ico" sizes="any">\n<link rel="icon" type="image/png" sizes="32x32" href="{up}img/app/favicon-32.png">\n'
             f'<link rel="icon" type="image/png" sizes="96x96" href="{up}img/app/favicon-96.png">\n'
             f'<link rel="manifest" href="{up}manifest.webmanifest">\n<meta name="theme-color" content="#0F2D4A">\n'
@@ -519,8 +595,8 @@ def live_head(html, key):
     src = _open(sp, encoding='utf-8').read() if os.path.exists(sp) else '</head>'  # a page with no source (echoes) is public
     shead = src[:src.find('</head>')]
     html = html.replace(MARK, '')
-    if key in PREVIEW_ONLY:
-        return html                       # proposals stay noindex until approved
+    if key in PREVIEW_ONLY or key.startswith('library/'):
+        return html                       # proposals stay noindex until approved; the catalogs follow the library (noindex)
     if NOINDEX not in shead.replace(MARK, ''):
         html = html.replace(NOINDEX + '\n', '', 1).replace(NOINDEX, '', 1)
     elif NOINDEX not in html:
@@ -550,7 +626,7 @@ def main():
         '/* generated by preview/one-world/_build/build.py from preview/worlds/assets/worlds.css + one.css + one-pages.css */\n' + base + layer + extra)
     open(os.path.join(ASSETS, 'chrome.css'), 'w', encoding='utf-8').write(W.chrome_css() + layer)
     for key, fn in W.BUILDERS.items():
-        ctx = Ctx('w', key)
+        ctx = make_ctx(key)
         html = fn(ctx).replace(OLD_FONTS, OSIM_FONTS).replace('@@ECHOES@@', ctx.to('echoes'))
         for a, b in (('#112B48', '#0F2D4A'), ('#B65E3E', '#9A4E2C'), ('#C2902A', '#D4A72C'), ('#E8B54D', '#D4A72C'), ('#F0C66A', '#E6C056'), ('#5BBDB3', '#6DB8AF'), ('#FFF4D6', '#FFF3D2')):
             html = html.replace(a, b)
@@ -569,6 +645,10 @@ def main():
             html = html[:j] + f'<a class="btn" href="{ctx.to("try")}">שוטטות של 10 דקות</a>' + html[j:]
         # repository A: the flâneur-research additions are appended after the Stage 2 snapshot
         html = re.sub(r'(<script src="([^"]*)library/ideas-snapshot\.js"></script>)', r'\1\n<script src="\2library/ideas-flaneur.js"></script>', html)
+        if key == 'journey':  # the journey recommends from both tool catalogs (16.11)
+            k = f'<script src="{ctx.root}journey/knowledge.js"></script>'
+            assert k in html
+            html = html.replace(k, ''.join(f'<script src="{ctx.root}{f}"></script>\n' for f in CATALOG_JS[1:]) + k, 1)
         html = re.sub(r'(<script src="([^"]*)worlds\.js"></script>)', r'\1\n<script src="\2drift.js"></script>', html, count=1)  # still, twinkling stars on every page
         html = re.sub(r'((?:field|drift)\.js)(?=")', r'\1?v=still', html)  # no moving stars (creator 15.11): a fresh address so no browser keeps an old drifting copy
         html = live_head(html, key) if LIVE_BUILD else html.replace(MARK, '')
@@ -576,7 +656,7 @@ def main():
             html = html.replace('</title>', f'</title>\n<link rel="canonical" href="https://ecosystemicflaneur.com/{key}/">', 1)
         if LIVE_BUILD:  # every page can be added to the home screen; the mechanism page invites it
             html = app_shell(html, ctx, key)
-            up = '' if key == '' else '../'  # the home page also speaks English and French (creator 13.11)
+            up = '' if key == '' else '../' * (key.count('/') + 1)  # the home page also speaks English and French (creator 13.11)
             html = html.replace('<button class="sky"', LANGS.format(he='<b aria-current="true">עב</b>', en=f'<a href="{up}en/" hreflang="en" lang="en">EN</a>', fr=f'<a href="{up}fr/" hreflang="fr" lang="fr">FR</a>') + '<button class="sky"', 1)
             if key == '':
                 html = html.replace('</head>', HREFLANG + '</head>', 1)

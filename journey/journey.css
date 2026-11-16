@@ -210,3 +210,11 @@
   body{background:#fff}
   .why{display:block} .why summary{display:none}
 }
+/* tools from the catalogs inside the journey (16.11) */
+.j-tools{margin-top:clamp(22px,4vw,36px);display:grid;gap:12px}
+.j-tools h3{margin:0;font-weight:500}
+.j-tools .jt h4 small{font-weight:400;color:var(--muted)}
+.jt-why{margin:0;padding-inline-start:1.2em;display:grid;gap:4px;font-size:.92rem}
+.jt-all a,.tool-go a{color:inherit}
+.tool-go{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;margin:0}
+.tool-go .tool-all{margin-inline-start:auto}
