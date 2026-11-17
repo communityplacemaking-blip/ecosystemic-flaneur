@@ -701,6 +701,11 @@ html[dir="ltr"] .hero-text, html[dir="ltr"] .sec-h, html[dir="ltr"] .prose, html
 }
 html[dir="ltr"] .more::after { content: " →"; }
 
+/* Illustrations by night: the night version has a transparent ground, so no paper card, frame or glow around it */
+img.ill-night { background: none !important; box-shadow: none !important; border-radius: 0 !important; filter: none !important; }
+.frame:has(> img.ill-night) { background: none; box-shadow: none; border-radius: 0; }
+.duo img.ill-night, .weave .art img.ill-night, .blob img.ill-night { -webkit-mask: none !important; mask: none !important; }
+
 /* ---------- star map as discovery (the Wanderer page) ---------- */
 .lights.disc .sky-map .route { display: none; }
 .sky-map .hist { fill: none; stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; opacity: 0; transition: opacity 2s var(--ease); }

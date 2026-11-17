@@ -10,11 +10,27 @@
   function T(w) { return I18N[w] || w; }
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
+  /* ---------- illustrations by night ----------
+     The cream-paper illustrations have a night version (img/night/*.webp): the paper is transparent and the dark ink is lifted,
+     so by night the drawing sits on the page itself instead of standing out as a bright card. The drawing does not change. */
+  var NIGHT_ILL = /(^|\/)img\/(night\/)?(ego-eco|machine-living|chaordic-original|getting-lost)\.(jpg|webp)(\?.*)?$/;
+  function nightIll(sky) {
+    $$('img').forEach(function (im) {
+      var src = im.getAttribute('src') || '', m = src.match(NIGHT_ILL);
+      if (!m) return;
+      var base = src.slice(0, src.length - m[0].length) + m[1] + 'img/';
+      var want = sky === 'night' ? base + 'night/' + m[3] + '.webp' : base + m[3] + '.jpg';
+      if (src !== want) im.setAttribute('src', want);
+      im.classList.toggle('ill-night', sky === 'night');
+    });
+  }
+
   /* ---------- day / night ---------- */
   function setSky(sky, silent) {
     H.setAttribute('data-sky', sky);
     H.setAttribute('data-theme', sky === 'day' ? 'light' : 'dark');
     if (!silent) store('ef-sky', sky);
+    nightIll(sky);
     $$('.sky').forEach(function (b) {
       b.setAttribute('aria-pressed', sky === 'night' ? 'true' : 'false');
       var l = $('.sky-l', b); if (l) l.textContent = sky === 'day' ? T('לילה') : T('יום');
