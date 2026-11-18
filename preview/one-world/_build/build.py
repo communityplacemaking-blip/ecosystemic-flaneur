@@ -437,6 +437,7 @@ def p_catalog(col):
 <div class="tl-pur cv-kinds" role="group" aria-label="סוג"></div>
 <div class="tl-pur cv-cats" role="group" aria-label="{"מטרה" if col == "participatory" else "תחום"}"></div>
 <div class="tl-pur cv-users" role="group" aria-label="למי"></div>
+<div class="tl-pur cv-scales" role="group" aria-label="היקף"></div>
 <ol class="cv-list"></ol>
 <noscript><p>הקטלוג נפתח עם JavaScript.</p></noscript>
 </div>

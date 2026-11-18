@@ -393,17 +393,23 @@
         h('dl', {}, [['האנשים', S.a.people], ['הכוחות והקשרים', S.a.forces], ['המטרה', S.a.purpose], ['מה כבר נעשה', S.a.done]]
           .filter(function (x) { return x[1]; }).map(function (x) { return h('div', {}, [h('dt', { text: x[0] }), h('dd', {}, [h('q', { text: x[1] })])]); }))
       ]));
+      if (J.frame) out.appendChild(h('div', { 'class': 'prep frame' }, [
+        h('b', { text: 'מסגרת אפשרית לתהליך כולו: ' + J.frame.name }),
+        h('p', { 'class': 'small', text: J.frame.essence }),
+        h('p', { 'class': 'small' }, [h('b', { text: 'היקף: ' }), [J.frame.scale, J.frame.time].filter(Boolean).join(' · ') + '. זה תהליך שלם ולא כלי למפגש אחד, ולכן הוא לא משובץ באף מפגש. אם בוחרים בו, הוא מעצב את כל התהליך.']),
+        h('p', { 'class': 'small' }, [h('a', { href: '../' + J.frame.href, target: '_blank', rel: 'noopener', text: 'לקרוא על התהליך המלא' })])
+      ]));
       var ms = h('div', { 'class': 'meetings' });
       J.meetings.forEach(function (m, mi) {
-        var mt = h('section', { 'class': 'meet' }, [h('h3', { text: 'מפגש ' + m.n }), h('span', { 'class': 'quiet small', text: m.minutes + ' דקות' })]);
+        var mt = h('section', { 'class': 'meet' + (m.closing ? ' closing' : '') }, [h('h3', { text: 'מפגש ' + m.n + (m.closing ? ': רפלקציה וחגיגה' : '') }), h('span', { 'class': 'quiet small', text: m.minutes + ' דקות' })]);
         m.ideas.forEach(function (st, i) { mt.appendChild(stationCard(st, m.n + '.' + (i + 1), 'm' + mi + 'i' + i)); });
         var pur = m.tool.purposes.map(function (i) { return K.PURPOSES[i]; });
         var tf = m.tool.found, t0 = tf[0];
         mt.appendChild(h('article', { 'class': 'stn tool' }, [
-          h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: 'כלי השתתפותי' }),
-            pur.length ? h('span', { 'class': 'stn-min', text: 'לפי המטרה: ' + pur.join(', ') }) : null]),
+          h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: m.closing ? 'סיום רפלקטיבי וחגיגי' : 'כלי השתתפותי' }),
+            t0 && t0.time ? h('span', { 'class': 'stn-min', text: t0.time }) : (!m.closing && pur.length ? h('span', { 'class': 'stn-min', text: 'לפי המטרה: ' + pur.join(', ') }) : null)]),
           h('h4', { text: t0 ? t0.name : 'כלי למפגש' }),
-          h('p', { 'class': 'inv', text: t0 ? t0.essence : 'לא בחרתם מטרה, ולא מצאתי במה שכתבתם כוונה ברורה שמובילה לכלי מסוים. אפשר לבחור כלי מהקטלוג, או להשתמש בכלי שאתם מכירים.' }),
+          h('p', { 'class': 'inv', text: t0 ? t0.essence : (m.tool.avail != null && m.tool.avail < 15 ? 'הרעיונות של המפגש ממלאים את רוב הזמן שלו, ולא נשאר מקום לכלי נוסף.' : 'לא מצאתי כלי שמתאים גם למטרה או למילים שכתבתם וגם לזמן שנשאר במפגש. אפשר לבחור כלי מהקטלוג, או להשתמש בכלי שאתם מכירים.') }),
           t0 && t0.discover ? h('p', { 'class': 'note' }, [h('b', { text: 'מה הוא יכול לעזור לגלות: ' }), t0.discover]) : null,
           t0 ? h('details', { 'class': 'why' }, [h('summary', { text: 'למה כאן?' }), h('ul', {}, t0.why.map(function (w) { return h('li', { text: w }); }))]) : null,
           h('p', { 'class': 'tool-go' }, [

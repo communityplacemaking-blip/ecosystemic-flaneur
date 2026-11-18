@@ -6,7 +6,7 @@
   var C = window.EF_CATALOG, box = document.querySelector('[data-catalog]');
   if (!C || !box) return;
   var col = box.dataset.catalog, COL = C.COLLECTIONS[col];
-  var st = { q: '', kind: 'all', cat: 'all', users: 'all' };
+  var st = { q: '', kind: 'all', cat: 'all', users: 'all', scale: 'all' };
   var listEl = box.querySelector('.cv-list'), countEl = box.querySelector('.cv-n'), q = box.querySelector('.cv-q');
   var browse = box.querySelector('.cv-browse'), detailEl = box.querySelector('.cv-detail');
   var lastY = 0;
@@ -40,12 +40,14 @@
   var cats = [{ id: 'all', name: col === 'participatory' ? 'כל המטרות' : 'כל התחומים' }].concat(present('categories', C.CATEGORIES[col] || []));
   var users = [{ id: 'all', name: 'לבד ובקבוצה' }].concat(present('users', [{ id: 'solo', name: 'לבד' }, { id: 'group', name: 'בקבוצה' }]));
   function sync() {
-    [['.cv-kinds', 'kind'], ['.cv-cats', 'cat'], ['.cv-users', 'users']].forEach(function (p) {
+    [['.cv-kinds', 'kind'], ['.cv-cats', 'cat'], ['.cv-users', 'users'], ['.cv-scales', 'scale']].forEach(function (p) {
       [].forEach.call(box.querySelectorAll(p[0] + ' button'), function (b) { b.setAttribute('aria-pressed', b.dataset.v === st[p[1]] ? 'true' : 'false'); });
     });
   }
   chipRow('.cv-kinds', 'kind', kinds); chipRow('.cv-cats', 'cat', cats);
   if (col === 'toolbox') chipRow('.cv-users', 'users', users); else { var u = box.querySelector('.cv-users'); if (u) u.hidden = true; }
+  var scales = [{ id: 'all', name: 'כל היקף' }].concat(C.SCALES.filter(function (x) { return all.some(function (r) { return r.scale === x.id; }); }));
+  chipRow('.cv-scales', 'scale', scales);
 
   /* ---------- cards ---------- */
   function card(r) {
@@ -54,6 +56,7 @@
     var a = el('a', 'cv-h'); a.href = '#t-' + r.id;
     var top = el('span', 'cv-k', C.KINDS[r.kind] || '');
     var w = who(r); if (w) top.appendChild(el('em', null, w));
+    if (r.scale) top.appendChild(el('em', null, C.scaleName(r.scale)));
     if (r.core) top.appendChild(el('em', 'cv-core', 'בלב העבודה'));
     a.appendChild(top);
     a.appendChild(el('b', null, r.name));
@@ -69,7 +72,7 @@
     return li;
   }
   function render() {
-    var res = C.search(col, { q: st.q, kind: st.kind, category: st.cat, users: st.users });
+    var res = C.search(col, { q: st.q, kind: st.kind, category: st.cat, users: st.users, scale: st.scale });
     listEl.textContent = '';
     res.forEach(function (r) { listEl.appendChild(card(r)); });
     if (!res.length) {
@@ -105,8 +108,10 @@
     var body = el('div', 'cv-db');
     if (r.purpose) sec(body, 'המטרה המתודולוגית', el('p', null, r.purpose));
     var facts = el('dl', 'cv-facts');
-    [['למי', who(r) && !r.practice ? who(r) : ''], ['מתי בשוטטות', r.practice ? r.when : ''], ['מרחב', r.place], ['משתתפים', r.size], ['זמן', r.time], ['חומרים', r.materials]]
+    [['למי', who(r) && !r.practice ? who(r) : ''], ['מתי בשוטטות', r.practice ? r.when : ''], ['מרחב', r.place], ['משתתפים', r.size], ['זמן', r.time], ['היקף', r.scale ? C.scaleName(r.scale) : ''],
+      ['מקום בתהליך', (r.stage || []).map(function (x) { return C.STAGES[x]; }).filter(Boolean).join(', ')], ['חומרים', r.materials]]
       .forEach(function (x) { if (!x[1]) return; var d = el('div'); d.appendChild(el('dt', null, x[0])); d.appendChild(el('dd', null, x[1])); facts.appendChild(d); });
+    if (r.timeFrom) { var tf = el('div'); tf.appendChild(el('dt', null, 'המשך לפי')); var dd = el('dd'); var ta = el('a', null, r.timeFrom.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]); ta.href = r.timeFrom; ta.target = '_blank'; ta.rel = 'noopener'; dd.appendChild(ta); tf.appendChild(dd); facts.appendChild(tf); }
     if (facts.children.length) body.appendChild(facts);
     if ((r.contexts || []).length) sec(body, 'מתי להציע אותו', items(r.contexts));
     if ((r.intents || []).length || (r.categories || []).length) {

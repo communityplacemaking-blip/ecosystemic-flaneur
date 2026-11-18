@@ -45,6 +45,19 @@
   };
   C.USERS = { solo: 'לבד', group: 'בקבוצה' };
 
+  /* Proportion (creator 18.11): a tool is offered only where it fits. "scale" says how big a tool is, "minutes" its
+     documented range [min, max] (null = not known), "stage" where in a process it belongs. A process of a day or more
+     is never squeezed into a slot of a meeting: it can only frame a whole process. The last meeting of a process of
+     several meetings is reflective and celebratory. */
+  C.SCALES = [
+    { id: 'short', name: 'חלק ממפגש' }, { id: 'meeting', name: 'חלק גדול ממפגש' }, { id: 'long', name: 'מפגש שלם' },
+    { id: 'closing', name: 'לסיום תהליך' }, { id: 'day', name: 'יום ומעלה' }, { id: 'process', name: 'תהליך שלם' }
+  ];
+  C.STAGES = { open: 'פתיחה', explore: 'חקירה', create: 'יצירה ועשייה', close: 'סיום', whole: 'לאורך כל התהליך' };
+  C.scaleName = function (id) { var x = C.SCALES.filter(function (s) { return s.id === id; })[0]; return x ? x.name : ''; };
+  var BIG = { day: 1, process: 1 };
+  function fits(r, avail) { return !BIG[r.scale] && r.scale !== 'closing' && (!r.minutes || r.minutes[0] == null || r.minutes[0] <= avail); }
+
   /* Intentions: what a person may be looking for. Each intention names, in a person's words, a need a tool can serve.
      The words are matched against what the person wrote in the journey, after the same light Hebrew normalization
      the engine uses. A tool is offered only when at least two of the person's own words point to its intentions. */
@@ -58,9 +71,11 @@
     { id: 'gather', name: 'לכנס אנשים סביב עניין משותף', w: ['תושבים', 'תושב', 'תושבות', 'שכנים', 'קהילה', 'קהילתי', 'קהילתית', 'לכנס', 'להפגיש', 'לחבר', 'ביחד', 'יחד', 'משותף', 'משותפת', 'משותפים', 'קבוצה', 'מפגש', 'שיתוף', 'השתתפות'] },
     { id: 'listen', name: 'להקשיב ולשוחח', w: ['הקשבה', 'להקשיב', 'מקשיבים', 'שיחה', 'שיחות', 'שיח', 'דיאלוג', 'קולות', 'להשמיע', 'נשמע', 'נשמעים'] },
     { id: 'assets', name: 'לזהות נכסים וצרכים', w: ['נכסים', 'נכס', 'משאבים', 'חוזקות', 'כוחות', 'צרכים', 'צורך', 'פוטנציאל', 'הזדמנויות', 'הזדמנות', 'אוצרות', 'לזהות'] },
-    { id: 'initiative', name: 'לפתח רעיונות ויוזמות', w: ['יוזמה', 'יוזמות', 'רעיון', 'רעיונות', 'פרויקט', 'לפתח', 'פיתוח', 'לתכנן', 'תוכנית', 'חלום', 'חלומות', 'פעולה', 'להוביל'] },
+    { id: 'initiative', name: 'לפתח רעיונות ויוזמות', w: ['יוזמה', 'יוזמות', 'רעיון', 'רעיונות', 'פרויקט', 'לפתח', 'פיתוח', 'לתכנן', 'תוכנית', 'פעולה', 'להוביל'] },
+    { id: 'dream', name: 'לחלום יחד', w: ['חלום', 'חלומות', 'לחלום', 'חולמים', 'חזון', 'לדמיין'] },
     { id: 'decide', name: 'להחליט יחד', w: ['להחליט', 'החלטה', 'החלטות', 'הסכמה', 'להסכים', 'לבחור', 'עדיפויות', 'לתעדף'] },
-    { id: 'learn', name: 'ללמוד זה מזה', w: ['ללמוד', 'למידה', 'ניסיון', 'עמיתים', 'ללמד', 'ידע'] }
+    { id: 'learn', name: 'ללמוד זה מזה', w: ['ללמוד', 'למידה', 'ניסיון', 'עמיתים', 'ללמד', 'ידע'] },
+    { id: 'celebrate', name: 'להוקיר, להודות ולסכם', w: ['תודה', 'להודות', 'הכרת', 'להוקיר', 'הוקרה', 'לחגוג', 'חגיגה', 'לסכם', 'סיכום', 'סיום', 'רפלקציה', 'לסגור'] }
   ];
   var INTENT = {}; C.INTENTS.forEach(function (x) { INTENT[x.id] = x; });
 
@@ -111,6 +126,7 @@
       intents: t.intents || [], contexts: t.contexts, size: t.size, time: t.time, materials: t.materials,
       steps: t.steps, principles: t.principles, hosting: t.hosting, harvest: t.harvest, outcomes: t.outcomes,
       related: (t.contains || []).concat(t.related || []), tags: t.tags, keywords: t.keywords, discover: t.discover, credit: t.credit, from: t.from,
+      scale: t.scale, minutes: t.minutes, stage: t.stage, timeFrom: t.timeFrom, from: t.from,
       stepsTitle: t.kind === 'method' ? 'המהלך' : 'איך עושים את זה', relTitle: t.kind === 'method' ? 'כלים שבתוכה' : 'קשור ל'
     };
   }
@@ -170,6 +186,7 @@
       if (o.kind && o.kind !== 'all' && !(o.kind === 'practice' ? r.practice : o.kind === 'tools' ? !r.practice : r.kind === o.kind)) return false;
       if (o.category && o.category !== 'all' && (r.categories || []).indexOf(o.category) < 0) return false;
       if (o.users && o.users !== 'all' && (r.users || []).indexOf(o.users) < 0) return false;
+      if (o.scale && o.scale !== 'all' && r.scale !== o.scale) return false;
       return C.matches(r, o.q);
     });
   };
@@ -193,18 +210,20 @@
   function present(x, ws) {
     var why = x.why.map(function (w) { return 'המילים שכתבתם, "' + w.words.slice(0, 3).join('", "') + '", מתחברות אל: ' + w.name + '.'; });
     if (x.purposes.length) why.push('מתאים למטרה שבחרתם: ' + x.purposes.map(function (p) { return (root.PURPOSES || [])[p]; }).filter(Boolean).join(', ') + '.');
+    if (x.stageWhy) why.push(x.stageWhy);
     return { id: x.r.id, collection: x.r.collection, name: x.r.name, subtitle: x.r.subtitle, essence: x.r.essence,
-      discover: x.r.discover || '', why: why, focus: focusParts(x.r, ws), href: C.COLLECTIONS[x.r.collection].path + '#t-' + x.r.id };
+      discover: x.r.discover || '', why: why, focus: focusParts(x.r, ws), href: C.COLLECTIONS[x.r.collection].path + '#t-' + x.r.id,
+      scale: x.r.scale ? C.scaleName(x.r.scale) : '', time: x.r.time || '' };
   }
   C.MIN_WORDS = 2;
-  /* text: everything the person wrote. o.mode: 'solo' | 'group'. o.purposes: the purposes chosen for a group.
-     Individual wandering: up to two tools from the toolbox. Participatory: one from the toolbox, two participatory.
-     Nothing is offered when fewer than two of the person's words point to a tool: no tool is better than a forced one. */
+  /* text: everything the person wrote. o.mode: 'solo' | 'group'. o.minutes: the length of one meeting.
+     Individual wandering: up to two tools from the toolbox. Participatory: one from the toolbox, two participatory
+     that fit inside a meeting. Nothing is offered when fewer than two of the person's words point to a tool. */
   C.recommend = function (text, o) {
     o = o || {};
-    var ws = tokens(text), group = o.mode === 'group';
+    var ws = tokens(text), group = o.mode === 'group', avail = o.minutes == null ? 90 : o.minutes;
     function ranked(col) {
-      return C.all(col).filter(function (r) { return !r.practice && (r.users || []).indexOf(group ? 'group' : 'solo') > -1; })
+      return C.all(col).filter(function (r) { return !r.practice && (r.users || []).indexOf(group ? 'group' : 'solo') > -1 && (col === 'toolbox' || fits(r, avail)); })
         .map(function (r, i) { var x = scoreTool(r, ws, []); x.i = i; return x; })
         .filter(function (x) { return x.words >= C.MIN_WORDS; })
         .sort(function (a, b) { return b.s - a.s || a.i - b.i; });
@@ -213,17 +232,40 @@
     if (group) out = out.concat(ranked('participatory').slice(0, 2));
     return out.map(function (x) { return present(x, ws); });
   };
-  /* The participatory tool for each meeting of a group journey: first by the purposes the facilitator chose,
-     then by the facilitator's own words. With no purpose and no clear words, no tool is chosen. */
-  C.forMeetings = function (text, purposes, n) {
+  /* A whole process (a day or more, or a framework of many meetings) that may frame the journey: offered once, beside
+     the meetings and never inside one, and only when the facilitator's words point to it. */
+  C.frame = function (text, purposes) {
     var ws = tokens(text);
-    var list = C.all('participatory').map(function (r, i) { var x = scoreTool(r, ws, purposes); x.i = i; return x; })
-      .filter(function (x) { return x.purposes.length || x.words >= C.MIN_WORDS; })
-      .sort(function (a, b) { return b.s - a.s || a.i - b.i; });
-    var out = [];
+    var x = C.all('participatory').filter(function (r) { return BIG[r.scale]; })
+      .map(function (r, i) { var y = scoreTool(r, ws, purposes); y.i = i; return y; })
+      .filter(function (y) { return y.words >= C.MIN_WORDS + 1; })   // a whole process asks for a clearer sign than a single tool
+      .sort(function (a, b) { return b.s - a.s || a.i - b.i; })[0];
+    return x ? present(x, ws) : null;
+  };
+  /* The participatory tool for each meeting of a group journey. Only tools that fit in the time the meeting leaves
+     (avail[m] minutes), first by the purposes chosen, then by the facilitator's words, with a preference for tools that
+     belong to that point of the process (opening, middle). With two meetings or more, the last meeting is reflective
+     and celebratory: it closes with the Four Seasons. */
+  C.forMeetings = function (text, purposes, n, avail) {
+    var ws = tokens(text), used = {}, out = [];
+    var closing = n > 1 ? C.find('four-seasons') : null;
     for (var m = 0; m < n; m++) {
-      var x = list[m];
-      out.push(x ? [present(x, ws)].concat(list.slice(n + m * 2, n + m * 2 + 2).map(function (y) { return present(y, ws); })) : []);
+      if (closing && m === n - 1) {
+        out.push([present({ r: closing, why: [], purposes: [], stageWhy: 'המפגש האחרון בתהליך של כמה מפגשים הוא מפגש רפלקטיבי וחגיגי.' }, ws)]);
+        continue;
+      }
+      var stage = m === 0 ? 'open' : 'explore', a = (avail && avail[m]) || 60;
+      var list = C.all('participatory').filter(function (r) { return !used[r.id] && fits(r, a); })
+        .map(function (r, i) {
+          var x = scoreTool(r, ws, purposes); x.i = i;
+          if ((r.stage || []).indexOf(stage) > -1 || (stage === 'explore' && (r.stage || []).indexOf('create') > -1)) { x.s += .75; x.stageWhy = 'מתאים ל' + (m === 0 ? 'מפגש פתיחה' : 'מפגש באמצע התהליך') + ', ונכנס בזמן שנשאר במפגש.'; }
+          else x.stageWhy = 'נכנס בזמן שנשאר במפגש.';
+          return x;
+        })
+        .filter(function (x) { return x.purposes.length || x.words >= C.MIN_WORDS; })
+        .sort(function (a, b) { return b.s - a.s || a.i - b.i; });
+      if (list[0]) used[list[0].r.id] = 1;
+      out.push(list.slice(0, 3).map(function (x) { return present(x, ws); }));
     }
     return out;
   };
