@@ -135,7 +135,7 @@
       var deep = level === 'l3' || level === 'l4';
       for (var m = 0; m < n; m++) {
         var roles = n === 1 ? ['entry', 'move', 'return'] :
-          m === 0 ? ['entry', 'move'] : m === n - 1 ? ['discern', 'return'] : ['move', 'discern'];
+          m === 0 ? (n === 2 ? ['entry', 'move', 'discern'] : ['entry', 'move']) : m === n - 1 ? ['return'] : ['move', 'discern'];  // the last meeting is reflective (creator 18.11)
         if (!deep) roles = [n === 1 || m === 0 ? 'move' : m === n - 1 ? 'return' : 'discern'];
         var ideasHere = [];
         roles.forEach(function (role) {
@@ -147,12 +147,17 @@
           harvestAfter: m < n - 1 });
       }
       // one participatory tool per meeting: by the chosen purposes first, then by the facilitator's own words
-      if (CAT) CAT.forMeetings(said, a.purposes || [], n).forEach(function (f, i) { J.meetings[i].tool.found = f; });
+      // proportion (creator 18.11): a meeting's tool must fit the time its ideas leave; the last meeting closes the process
+      var avail = J.meetings.map(function (mt) { return len - mt.ideas.reduce(function (t, st) { return t + (st.rec.min || 5); }, 0); });
+      if (CAT) CAT.forMeetings(said, a.purposes || [], n, avail).forEach(function (f, i) { J.meetings[i].tool.found = f; J.meetings[i].tool.avail = avail[i]; });
+      if (n > 1) J.meetings[n - 1].closing = true;
+      J.frame = CAT ? CAT.frame(said, a.purposes || []) : null;
       J.template = 'participatory-dialogue';
     }
     // tools from the two catalogs that may serve this journey; often none, and that is a fine answer
-    J.tools = CAT ? CAT.recommend(said, { mode: mode }) : [];
-    if (mode === 'group') { var inMeet = {}; J.meetings.forEach(function (m) { (m.tool.found[0] ? [m.tool.found[0]] : []).forEach(function (t) { inMeet[t.id] = 1; }); });
+    var room = mode === 'group' ? Math.max.apply(null, J.meetings.filter(function (m) { return !m.closing; }).map(function (m) { return m.tool.avail || 0; }).concat([0])) : 0;
+    J.tools = CAT ? CAT.recommend(said, { mode: mode, minutes: room }) : [];
+    if (mode === 'group') { var inMeet = {}; J.meetings.forEach(function (m) { m.tool.found.forEach(function (t) { inMeet[t.id] = 1; }); });
       J.tools = J.tools.filter(function (t) { return !inMeet[t.id]; }); }
     J.depthQ = lv.depthQ;
     J.celebration = K.CELEBRATION;

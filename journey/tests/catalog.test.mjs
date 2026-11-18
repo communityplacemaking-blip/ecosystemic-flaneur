@@ -12,7 +12,7 @@ let n = 0; const t = (name, f) => { f(); n++; console.log('✓', name); };
 const names = (list) => list.map(r => r.id);
 
 t('every participatory tool is in its catalog, nothing lost', () => {
-  const P = C.all('participatory'); assert.equal(P.length, TOOLS.length);
+  const P = C.all('participatory'); assert.equal(P.length, TOOLS.length); assert.ok(TOOLS.every(x => x.scale), 'every participatory tool has a scale');
   TOOLS.forEach(x => { const r = C.find(x.id); assert.equal(r.name, x.name); assert.equal(r.essence, x.essence); assert.deepEqual(r.steps, x.steps);
     assert.equal(r.hosting, x.hosting); assert.equal(r.harvest, x.harvest); assert.equal(r.credit, x.credit); assert.deepEqual(r.principles, x.principles);
     (x.contains || []).forEach(id => assert.ok(r.related.includes(id))); });
@@ -78,10 +78,33 @@ t('every recommendation explains itself and opens in full', () => {
 t('the journey: individual journeys may carry toolbox tools, groups get a participatory tool per meeting', () => {
   const a = { place: 'שכונה', placeType: 'neighborhood', curiosity: 'לשים לב למה שקורה ברחוב המוכר', minutes: 60 };
   const J = E.compose({ level: 'l2', mode: 'solo' }, a, IDEAS); assert.deepEqual(names(J.tools), ['five-layers']);
-  const G = E.compose({ level: 'l3', mode: 'group' }, { ...a, purpose: 'לחבר תושבים', meetings: 2, purposes: [0] }, IDEAS);
-  G.meetings.forEach(m => { assert.ok(m.tool.found.length); assert.ok(C.find(m.tool.found[0].id).categories.includes('p0')); });
+  const G = E.compose({ level: 'l3', mode: 'group' }, { ...a, purpose: 'לחבר תושבים', meetings: 3, meetingMinutes: 90, purposes: [0] }, IDEAS);
+  G.meetings.slice(0, -1).forEach(m => { assert.ok(m.tool.found.length); assert.ok(C.find(m.tool.found[0].id).categories.includes('p0')); });
   assert.notEqual(G.meetings[0].tool.found[0].id, G.meetings[1].tool.found[0].id);
-  const ids = G.meetings.map(m => m.tool.found[0].id); assert.ok(G.tools.every(x => !ids.includes(x.id)), 'no tool offered twice');
+  const ids = G.meetings.flatMap(m => m.tool.found.map(x => x.id)); assert.ok(G.tools.every(x => !ids.includes(x.id)), 'no tool offered twice');
+});
+t('proportion: a meeting only gets a tool that fits the time it leaves; days-long processes never sit inside a meeting', () => {
+  const big = C.all('participatory').filter(r => r.scale === 'day' || r.scale === 'process').map(r => r.id);
+  assert.ok(big.includes('dragon-dreaming') && big.includes('open-space') && big.includes('appreciative-inquiry'));
+  for (const len of [60, 90, 120, 180]) for (const p of [[0], [4], [4, 5], [1, 2]]) {
+    const G = E.compose({ level: 'l3', mode: 'group' }, { purpose: 'חלום משותף ויוזמה של תושבים', meetings: 3, meetingMinutes: len, purposes: p }, IDEAS);
+    G.meetings.forEach(m => m.tool.found.forEach(t => { const r = C.find(t.id); assert.ok(!big.includes(r.id), r.id + ' in a meeting');
+      if (!m.closing && r.minutes && r.minutes[0]) assert.ok(r.minutes[0] <= m.tool.avail, r.id + ' ' + r.minutes[0] + ' > ' + m.tool.avail); }));
+    G.tools.forEach(t => assert.ok(!big.includes(t.id)));
+  }
+});
+t('a process of several meetings ends reflective and celebratory, with the four seasons', () => {
+  const r = C.find('four-seasons'); assert.equal(r.steps.length, 4); assert.ok(/קיץ/.test(r.steps[0]) && /אביב/.test(r.steps[3]));
+  for (const n of [2, 3, 4]) { const G = E.compose({ level: 'l3', mode: 'group' }, { meetings: n, purposes: [4] }, IDEAS);
+    const last = G.meetings[n - 1]; assert.ok(last.closing); assert.equal(last.tool.found[0].id, 'four-seasons');
+    assert.deepEqual(last.ideas.map(s => s.role), ['return']);
+    G.meetings.slice(0, -1).forEach(m => assert.ok(!m.closing && (m.tool.found[0] || {}).id !== 'four-seasons')); }
+  const one = E.compose({ level: 'l3', mode: 'group' }, { meetings: 1, purposes: [4] }, IDEAS); assert.ok(!one.meetings[0].closing);
+});
+t('a whole process is offered as a frame, beside the meetings, only when the words point to it', () => {
+  const G = E.compose({ level: 'l3', mode: 'group' }, { purpose: 'לפתח יוזמה קהילתית מתוך חלום משותף של תושבים, ולתכנן פרויקט', meetings: 2, purposes: [4] }, IDEAS);
+  assert.ok(G.frame && ['dragon-dreaming', 'appreciative-inquiry', 'art-of-hosting', 'open-space', 'liberating-structures'].includes(G.frame.id));
+  assert.equal(E.compose({ level: 'l3', mode: 'group' }, { purpose: 'ים ושקיעה', meetings: 2 }, IDEAS).frame, null);
 });
 t('deterministic', () => assert.equal(JSON.stringify(C.recommend('לבחון אתגר מקומי', { mode: 'group' })), JSON.stringify(C.recommend('לבחון אתגר מקומי', { mode: 'group' }))));
 console.log(n + ' tests pass');
