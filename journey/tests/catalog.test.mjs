@@ -52,12 +52,24 @@ t('search: Hebrew name, description, intention, purpose and tags, with prefixes'
   assert.equal(C.search('toolbox', { q: 'קפה עולם' }).length, 0, 'each catalog searches itself');
 });
 t('filters: kind, category and users', () => {
-  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'six-hats']);
+  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'six-hats', 'flaneur-disguise', 'wander-and-gather', 'many-uses']);
   assert.equal(C.search('toolbox', { kind: 'practice' }).length, IDEAS.length);
   assert.ok(C.search('participatory', { category: 'p0' }).every(r => r.categories.includes('p0')));
-  assert.deepEqual(names(C.search('toolbox', { category: 'observe' })), ['five-layers']);
+  assert.deepEqual(names(C.search('toolbox', { category: 'observe' })), ['five-layers', 'wander-and-gather']);
 });
 const rec = (text, mode) => names(C.recommend(text, { mode }));
+t('the three creativity tools: solo and group, a full solo mode for the disguise, every study cited and linked to the article', () => {
+  ['flaneur-disguise', 'wander-and-gather', 'many-uses'].forEach(id => { const r = C.find(id);
+    assert.deepEqual(r.users, ['solo', 'group'], id); assert.ok(r.sources.length && r.sources.every(x => x.t && x.note), id);
+    assert.ok(/EOL/.test(r.from.name), id); assert.ok(r.time, id); });
+  const d = C.find('flaneur-disguise'); assert.equal(d.modes[0].name, 'המשוטט הבודד'); assert.ok(d.steps.length >= 6);
+  assert.ok(d.prompts.every(q => /^כיצד|^מה /.test(q)));
+  assert.ok(names(C.search('toolbox', { q: 'התחפשות' })).includes('flaneur-disguise'));
+});
+t('creativity wording → the disguise; mind-wandering wording → wander and gather', () => {
+  assert.equal(rec('אני לא מרגיש יצירתי, רוצה להתחפש לדמות אחרת', 'solo')[0], 'flaneur-disguise');
+  assert.ok(rec('יש לי רעיון שלא מתגבש, רוצה יצירתיות', 'solo').includes('wander-and-gather'));
+});
 t('a familiar neighborhood that is hard to notice → the five layers', () => assert.deepEqual(rec('קשה לי לשים לב למה שקורה בשכונה המוכרת שלי', 'solo'), ['five-layers']));
 t('a local challenge from several perspectives → six hats first', () => assert.equal(rec('לבחון אתגר מקומי מכמה נקודות מבט', 'solo')[0], 'six-hats'));
 t('bringing residents together → participatory tools, none in individual wandering', () => {
