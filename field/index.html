@@ -485,8 +485,12 @@ function fitScale(){return Math.min(innerWidth/W,(innerHeight-70)/H)*.96}
 const MAXS=2.4;function minS(){return Math.min(fitScale(),1)}
 function clampS(s){return Math.max(minS(),Math.min(MAXS,s))}
 function mg(){return[parseFloat(stage.style.marginLeft)||0,parseFloat(stage.style.marginTop)||0]}
-function setScale(s){scale=s;plane.style.transition='none';plane.style.transform='scale('+s+')';stage.style.width=W*s+'px';stage.style.height=H*s+'px';
-  stage.style.marginLeft=Math.max(0,(innerWidth-W*s)/2)+'px';stage.style.marginTop=Math.max(0,(innerHeight-H*s)/2)+'px';modeSync()}
+// free room around the field (19.11): the sky can always be moved left/right and up/down, also when it already fits the screen
+function slack(){return[Math.round(innerWidth*.4),Math.round(innerHeight*.3)]}
+function setScale(s){scale=s;plane.style.transition='none';plane.style.transform='scale('+s+')';const[px,py]=slack();
+  const ml=Math.max(px,(innerWidth-W*s)/2),mt=Math.max(py,(innerHeight-H*s)/2);
+  stage.style.width=(W*s+ml)+'px';stage.style.height=(H*s+mt)+'px';
+  stage.style.marginLeft=ml+'px';stage.style.marginTop=mt+'px';modeSync()}
 function view(){const[ml,mt]=mg();return{x:(sky.scrollLeft+innerWidth/2-ml)/scale,y:(sky.scrollTop+innerHeight/2-mt)/scale}}
 function place(cx,cy,sx,sy){const[ml,mt]=mg();sky.scrollLeft=cx*scale+ml-sx;sky.scrollTop=cy*scale+mt-sy}
 function zoomAt(s,sx,sy){s=clampS(s);if(Math.abs(s-scale)<1e-4)return;const[ml,mt]=mg();const cx=(sky.scrollLeft+sx-ml)/scale,cy=(sky.scrollTop+sy-mt)/scale;setScale(s);place(cx,cy,sx,sy)}
