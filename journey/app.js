@@ -24,6 +24,9 @@
   };
 
   var panel = $('#panel'), trail = $('#trail'), out = $('#out'), center = $('#f-center');
+  /* a plain progress bar above the question replaces the large circle (creator 19.11: the circle was unclear) */
+  var prog = h('div', { 'class': 'prog', id: 'prog' });
+  trail.parentNode.insertBefore(prog, trail);
   var field = new window.EF_Field($('#field'));
 
   /* -------- the steps -------- */
@@ -538,14 +541,32 @@
     trail.hidden = !items.length;
   }
 
+  var PHASES = ['הכניסה', 'המקום', 'הכוונה', 'לפני היציאה'];
+  function renderProg() {
+    prog.innerHTML = '';
+    var f = flow(), done = S.step === 'journey', i = done ? f.length : f.indexOf(S.step);
+    var cur = done ? 4 : RING[S.step];
+    var names = PHASES.slice(); if (S.mode === 'group') names[2] = 'המטרה';
+    prog.appendChild(h('p', { 'class': 'prog-t' }, done
+      ? [h('b', { text: 'המסע מוכן' })]
+      : [h('b', { text: SHORT[S.step] }), h('span', { text: ' · שלב ' + (i + 1) + ' מתוך ' + f.length })]));
+    var bar = h('div', { 'class': 'prog-bar', role: 'progressbar', 'aria-valuemin': '1', 'aria-valuemax': String(f.length),
+      'aria-valuenow': String(Math.min(i + 1, f.length)), 'aria-label': 'ההתקדמות במסע' });
+    f.forEach(function (st, k) { bar.appendChild(h('i', { 'class': (k < i ? 'done' : k === i ? 'now' : '') + ' r' + RING[st] })); });
+    prog.appendChild(bar);
+    prog.appendChild(h('ol', { 'class': 'prog-ph', 'aria-hidden': 'true' }, names.map(function (n, k) {
+      return h('li', { 'class': k < cur ? 'done' : k === cur ? 'now' : '', text: n });
+    })));
+  }
+
   function render(focus) {
     var step = S.step === 'journey' ? 'reflect' : S.step;
     panel.innerHTML = '';
     if (S.step === 'journey') {
       panel.appendChild(h('div', { 'class': 'q done' }, [
         h('p', { 'class': 'q-k', text: 'המסע התהווה' }),
-        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'המסע שלכם מוכן, מתחת לשדה.' }),
-        h('p', { 'class': 'q-sub', text: 'הקו בשדה נגזר מהתשובות שלכם ומהרעיונות שנבחרו. אותן תשובות יציירו אותו קו.' }),
+        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'המסע שלכם מוכן, כאן למטה.' }),
+        h('p', { 'class': 'q-sub', text: 'הוא נבנה מהתשובות שלכם ומהרעיונות שנבחרו. אותן תשובות יבנו אותו מסע.' }),
         h('div', { 'class': 'q-nav' }, [h('a', { 'class': 'btn primary', href: '#out' }, ['למסע']),
           h('button', { type: 'button', 'class': 'linkish', onclick: function () { go('reflect'); } }, ['לתקן תשובות'])])
       ]));
@@ -555,7 +576,7 @@
     center.querySelector('b').textContent = S.step === 'journey' ? 'המסע' : SHORT[step];
     var f = flow(), i = f.indexOf(step);
     center.querySelector('span').textContent = S.step === 'journey' ? '' : (i + 1) + ' / ' + f.length;
-    renderTrail();
+    renderTrail(); renderProg();
     if (focus) {
       var t = $('#q-t'); if (t) t.focus({ preventScroll: true });
       // on a phone the field sits above the question: bring the question back into view
