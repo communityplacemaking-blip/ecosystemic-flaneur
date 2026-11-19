@@ -17,7 +17,7 @@
   function byId(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
 
   var S = {
-    step: 'path', back: [], ret: null, path: null, level: null, mode: null, intro: 0,
+    step: 'mode', back: [], ret: null, path: null, level: null, mode: null, intro: 0,
     a: { place: '', placeType: '', magic: '', challenge: '', curiosity: '', minutes: 45, boundaries: '',
       people: '', groupSize: '', forces: '', purposes: [], purpose: '', done: '', meetings: 2, meetingMinutes: 90 },
     themes: null, journey: null, fruits: [], swaps: {}
@@ -30,16 +30,16 @@
   var SOLO = ['place', 'magic', 'challenge', 'curiosity', 'conditions'];
   var GROUP = ['place', 'magic', 'challenge', 'people', 'forces', 'purpose', 'done', 'gconditions'];
   function flow() {
-    var f = ['path'];
+    var f = ['mode', 'path'];  // one entrance: the two paths come first (19.11)
     if (S.path === 'meet') f.push('intro');
-    f.push('level', 'mode');
+    f.push('level');
     f = f.concat(S.mode === 'group' ? GROUP : SOLO);
     f.push('reflect');
     return f;
   }
   var RING = { path: 0, intro: 0, level: 0, mode: 0, place: 1, magic: 1, challenge: 1, people: 1, forces: 1,
     curiosity: 2, purpose: 2, done: 2, conditions: 3, gconditions: 3, reflect: 3 };
-  var SHORT = { path: 'מאיפה מתחילים', intro: 'להכיר את המשוטט', level: 'דרגת השוטטות', mode: 'אופן השוטטות',
+  var SHORT = { path: 'מאיפה מתחילים', intro: 'להכיר את המשוטט', level: 'דרגת השוטטות', mode: 'שני שבילים',
     place: 'המקום', magic: 'הקסם', challenge: 'האתגר', curiosity: 'מה מושך', conditions: 'התנאים',
     people: 'האנשים', forces: 'הכוחות והקשרים', purpose: 'המטרה', done: 'מה כבר נעשה', gconditions: 'התנאים', reflect: 'מה הבנתי' };
 
@@ -170,21 +170,26 @@
       return box;
     },
     mode: function () {
-      var box = h('div', { 'class': 'q' }, [
-        h('p', { 'class': 'q-k', text: 'אופן השוטטות' }),
-        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'איך המסע הזה ייראה?' }),
-        h('p', { 'class': 'q-sub', text: 'האופן נבחר כאן, ברמת המסע. הוא לא נגזר ממי שאתם או מגודל הקבוצה.' })
+      var box = h('div', { 'class': 'q q-door' }, [
+        h('p', { 'class': 'q-k', text: 'נקודת ההתחלה' }),
+        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'הכול מתחיל ביכולת לשהות באי־ידיעה.' }),
+        h('p', { 'class': 'q-sub', text: 'מגיעים עם שאלה, סקרנות, צורך או עניין, ומפנים מקום לחקירה. מכאן נפתחים שני שבילים. בוחרים אחד מהם, ואפשר להחליף בכל רגע.' })
       ]);
+      var ECO = { solo: 'האקוסיסטם העירוני', group: 'האקוסיסטם הקהילתי' };
       var list = h('div', { 'class': 'modes2' });
       K.MODES.forEach(function (m) {
         var on = S.mode === m.id;
         list.appendChild(h('button', { type: 'button', 'class': 'mode-b m-' + m.id + (on ? ' on' : ''), 'aria-pressed': on ? 'true' : 'false',
           onclick: function () { S.mode = m.id; field.set('mode', 0, m.id); next(); } }, [
+          h('small', { 'class': 'eco', text: ECO[m.id] }),
           h('b', { text: m.name }), h('span', { text: m.say }),
           m.id === 'group' ? h('small', { text: 'מי שמנחה מספר/ת על המקום ועל הקהילה. המידע נשאר בשליטתך: בדף הזה בלבד, בלי שמירה ובלי שליחה.' }) : h('small', { text: 'שום דבר ממה שתכתבו לא נשמר ולא נשלח.' })
         ]));
       });
       box.appendChild(list);
+      box.appendChild(h('p', { 'class': 'q-alt small' }, ['לשוטטות אישית יש גם דרך קצרה: ',
+        h('a', { href: '../mechanism/' }, ['יציאה אחת בחמישה שלבים, צעד אחר צעד']), '.']));
+      box.appendChild(h('p', { 'class': 'q-sub small' }, ['שני השבילים משלימים זה את זה ומובילים זה אל זה. המפה אינה התשובה. החקירה היא ההתחלה.']));
       return box;
     },
     place: function () {
@@ -497,6 +502,7 @@
     var i = f.indexOf(S.step);
     if (S.step !== 'intro' && S.step !== 'path' && STEP_KEY[S.step]) field.set(S.step, RING[S.step], STEP_KEY[S.step]());
     if (S.path === 'meet' && S.step === 'path' && S.introSeen) i++; // the introduction is offered once
+    if (S.step === 'mode' && S.path && S.level && !S.ret) { go(f[f.indexOf('level') + 1]); return; } // a changed path keeps the answers
     go(f[Math.min(i + 1, f.length - 1)]);
   }
   var STEP_KEY = {
@@ -514,7 +520,7 @@
   }
   function back() { var p = S.back.pop(); if (p) { S.step = p; render(true); } }
   function restart() {
-    S.step = 'path'; S.back = []; S.ret = null; S.path = null; S.level = null; S.mode = null; S.themes = null; S.journey = null; S.fruits = [];
+    S.step = 'mode'; S.back = []; S.ret = null; S.path = null; S.level = null; S.mode = null; S.themes = null; S.journey = null; S.fruits = [];
     Object.keys(S.a).forEach(function (k) { S.a[k] = Array.isArray(S.a[k]) ? [] : (k === 'minutes' ? 45 : k === 'meetings' ? 2 : k === 'meetingMinutes' ? 90 : ''); });
     field.reset(); out.hidden = true; render(true);
   }
@@ -522,9 +528,9 @@
   function renderTrail() {
     trail.innerHTML = '';
     var items = [];
+    if (S.mode) items.push(['שביל', byId(K.MODES, S.mode).name, 'mode']);
     if (S.path) items.push(['מסלול', byId(K.PATHS, S.path).label, 'path']);
     if (S.level) items.push(['דרגה', byId(K.LEVELS, S.level).name, 'level']);
-    if (S.mode) items.push(['אופן', byId(K.MODES, S.mode).name, 'mode']);
     items.forEach(function (it) {
       trail.appendChild(h('button', { type: 'button', 'class': 'tr', onclick: function () { if (S.step === 'journey' || S.step === 'reflect') S.ret = 'reflect'; go(it[2]); } },
         [h('small', { text: it[0] }), it[1]]));
@@ -560,5 +566,7 @@
     }
   }
 
+  var DOOR = { '#personal': 'solo', '#participatory': 'group' }[location.hash];
+  if (DOOR) { S.mode = DOOR; field.set('mode', 0, DOOR); S.back = ['mode']; S.step = 'path'; }
   render();
 })();

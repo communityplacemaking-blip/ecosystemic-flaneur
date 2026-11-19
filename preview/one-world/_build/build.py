@@ -498,11 +498,21 @@ def p_home(ctx):
 # The same four doors appear in the top menu, in the map window on every page and in the home page legend.
 DOORS = [('the-wanderer', 'המשוטט', 'הדמות, והאורות שלה', ()),
          ('method', 'הדרך', 'שבע התנועות, ומאיפה הן באות', (('flaneur', 'בקצרה'), ('echoes', 'הדים'))),
-         ('journey', 'לצאת לשוטט', 'מסע אישי או משותף', (('field', 'שדה המילים'), ('mechanism', 'חמישה שלבים'), ('library', 'הספרייה'))),
+         ('journey', 'לצאת לשוטט', 'מסע אישי או משותף', (('field', 'שדה המילים'), ('library', 'הספרייה'))),  # one entrance (19.11): the five stages open from the personal path
          ('academy', 'אקדמי ומקצועי', 'לעבוד יחד', (('methodology', 'המבוא המתודולוגי'),))]
 DOOR_OF = {k: k for k, *_ in DOORS}
 DOOR_OF.update({sk: k for k, _, _, subs in DOORS for sk, _ in subs})
 DOOR_OF.update({'library/toolbox': 'journey', 'library/participatory': 'journey'})  # the catalogs live under the library
+DOOR_OF['mechanism'] = 'journey'  # the five stages live inside the one entrance, under personal wandering (19.11)
+_footer_doors = W.footer
+
+
+def footer_one_entrance(ctx):
+    """One entrance (19.11): the footer no longer offers the five stages as a separate way in."""
+    return _footer_doors(ctx).replace(f'<a href="{ctx.to("mechanism")}">מסע בחמישה שלבים</a>', '', 1)
+
+
+W.footer = footer_one_entrance
 W.NAV = [(k, t) for k, t, _, _ in DOORS]
 
 

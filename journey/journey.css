@@ -100,6 +100,11 @@
 .mode-b small{font-size:.8rem;color:var(--muted);line-height:1.5}
 .mode-b.m-solo{border-top:4px solid var(--teal)} .mode-b.m-group{border-top:4px solid var(--terra)}
 .mode-b:hover,.mode-b.on{border-color:var(--ink)}
+.mode-b small.eco{font-size:.74rem;letter-spacing:.06em;color:var(--muted);text-transform:none}
+.q-door .mode-b{padding:20px 18px}
+.q-door .mode-b b{font-size:1.32rem}
+.q-alt{margin-top:12px;color:var(--muted)}
+.q-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 
 /* intro */
 .intro-img{border-radius:12px;max-height:260px;width:100%;object-fit:cover}

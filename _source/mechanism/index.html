@@ -140,6 +140,11 @@ textarea { resize: vertical; min-height: 64px; }
 .answers span { color: var(--accent); font-weight: 600; }
 .value-line { margin: 0; border-inline-start: 3px solid var(--seam); padding-inline-start: 10px; }
 .bounds { font-size: 13.5px; color: var(--muted); margin: 0; }
+.bank { margin: 22px 0 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; }
+.bank ul { list-style: none; margin: 8px 0 0; padding: 0; }
+.bank li { margin: 0 0 10px; }
+.bank li a { font-weight: 500; color: var(--accent); }
+.bank .why { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
 .rec-h { font-size: 13px; letter-spacing: .06em; color: var(--accent); margin: 22px 0 0; }
 .other { font: inherit; font-size: 12px; background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; cursor: pointer; margin-inline-start: auto; }
 .appx, details.more { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 12px; font-size: 13.5px; color: var(--muted); }
@@ -295,6 +300,7 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
 <div class="wrap" dir="rtl" lang="he">
   <header class="top">
     <div>
+      <p class="crumb" style="margin:0 0 6px;font-size:.88rem;opacity:.8"><a href="../journey/#personal">לצאת לשוטט</a> · שוטטות אישית · הדרך הקצרה</p>
       <h1>מסע בחמישה שלבים</h1>
       <p class="lede">מזינים מי יוצאים לשוטט, איזה ערך מנחה את השוטטות ומה הגבולות שלה, ומה הכוונה. המנגנון מרכיב תהליך מתוך ספריית התרגולים, ומשאיר מקום למה שיופיע בדרך.</p>
     </div>
@@ -470,6 +476,11 @@ header.top::after { content: ""; position: absolute; left: 0; bottom: 4px; width
   </section>
 </div>
 
+<!-- the one tool bank (19.11): the same records the journey and the catalogs read, so a new tool reaches here too -->
+<script src="../library/ideas-snapshot.js"></script>
+<script src="../library/tools-data.js"></script>
+<script src="../library/catalog/toolbox-data.js"></script>
+<script src="../library/catalog/catalog.js"></script>
 <script>
 document.documentElement.setAttribute('dir', 'rtl');
 document.documentElement.setAttribute('lang', 'he');
@@ -931,6 +942,18 @@ function kavanaText() {
   return state.question || say(UI.noQuestion);
 }
 
+/* The one tool bank (19.11): beside the five stages' own practices, the tools of the Wanderer's toolbox (and, for a
+   facilitated process, the participatory tools) that the person's own words point to. The same local recommender as
+   the adaptive journey; nothing is offered when fewer than two words point to a tool. */
+function bankHtml() {
+  const C = window.EF_CATALOG;
+  if (!C) return '';
+  const text = [state.question, state.value, state.geo, state.boundary].concat(state.contexts.map(id => ctxById[id].name)).join(' ');
+  const recs = C.recommend(text, { mode: isFacil() ? 'group' : 'solo', minutes: totalMinutes() });
+  if (!recs.length) return '';
+  return `<div class="bank"><h3 class="rec-h" style="margin:0">מבנק הכלים</h3><ul>${recs.map(r => `<li><a href="../${r.href}">${esc(r.name)}</a>${r.subtitle ? ` · <span>${esc(r.subtitle)}</span>` : ''}<p class="why">${esc(r.why[0] || '')}</p></li>`).join('')}</ul></div>`;
+}
+
 function renderCard() {
   const card = $('card');
   if (!state.plan) { card.innerHTML = `<p class="hint">${esc(say(UI.empty))}</p>`; return; }
@@ -969,7 +992,7 @@ function renderCard() {
     const tags = [creditOf(p), 'ציר: ' + p.axis, 'קשב ל' + (p.dim === 'בין' ? 'מה שבין' : p.dim)].filter(Boolean).join(' · ');
     appx.push(`<li><b>${s.name}, ${esc(p.name)}:</b> ${esc(why)}. <span class="src">${esc(tags)}</span></li>`);
   });
-  html += `</ol>
+  html += `</ol>${bankHtml()}
     ${isFacil() ? '<p class="ethics">לפני שאוספים סיפורים, ציטוטים או תמונות של אנשים, מבקשים רשות. מה שנאסף שייך גם להם.</p>' : ''}
     <details class="appx"><summary>הקשרים ומקורות</summary>
       <p>למה כל תרגול הוצע, ומאיפה הוא בא:</p>
