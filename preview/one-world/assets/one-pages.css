@@ -345,3 +345,6 @@ html[data-sky="night"] .cv-open { color: var(--gold); }
 @media (max-width: 760px) { .cv-browse .tl-pur { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin-inline: calc(-1 * var(--gut)); padding-inline: var(--gut); } .cv-browse .tl-pur button { flex: 0 0 auto; } .cv-bar .cv-n { flex-basis: 100%; margin: 0; } }
 .cv-from { border-top: 0; margin-top: 4px; padding-top: 0; }
 .cv-from a { color: inherit; }
+.cv-sources { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.cv-sources li > a, .cv-sources li > span { display: block; text-align: left; font-size: .9em; color: inherit; }
+.cv-sources li > p { margin: 4px 0 0; opacity: .85; }

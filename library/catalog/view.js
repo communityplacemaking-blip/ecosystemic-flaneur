@@ -157,6 +157,16 @@
     }
     if (rel.length) sec(body, r.relTitle || 'כלים ותרגולים קשורים', links(rel));
     if (parents.length) sec(body, r.collection === 'participatory' ? 'חלק מ' : 'מופיע גם ב', links(parents));
+    if ((r.sources || []).length) {
+      var ul = el('ul', 'cv-sources');
+      r.sources.forEach(function (x) {
+        var li = el('li'), c = el(x.url ? 'a' : 'span', null, x.t);
+        c.lang = 'en'; c.dir = 'ltr';
+        if (x.url) { c.href = x.url; c.target = '_blank'; c.rel = 'noopener'; }
+        li.appendChild(c); if (x.note) li.appendChild(el('p', null, x.note)); ul.appendChild(li);
+      });
+      sec(body, 'על מה הכלי נשען', ul);
+    }
     var src = [r.credit, r.src ? 'מקור: ' + r.src : ''].filter(Boolean).join(' · ');
     if (src) body.appendChild(el('p', 'cv-src', src));
     if (r.from && r.from.url) {
