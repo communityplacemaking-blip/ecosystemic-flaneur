@@ -225,3 +225,17 @@
 .tool-go .tool-all{margin-inline-start:auto}
 .meet.closing{border-color:var(--gold,#D4A72C)}
 .prep.frame{border-inline-start:3px solid var(--gold,#D4A72C)}
+
+/* 19.11: the large circle gives way to a plain progress bar above the question (creator: the circle was unclear) */
+.lc-stage .field-wrap,.stage .field-wrap{display:none}
+.stage .stage-in{grid-template-columns:minmax(0,1fr);max-width:820px;margin-inline:auto}
+.prog{display:grid;gap:8px}
+.prog-t{margin:0;font-size:.95rem;color:var(--muted)}
+.prog-t b{color:var(--ink);font-weight:500}
+.prog-bar{display:flex;gap:4px;direction:rtl}
+.prog-bar i{flex:1;height:6px;border-radius:3px;background:var(--line);opacity:.7}
+.prog-bar i.done{background:var(--gold,#C9A227);opacity:1}
+.prog-bar i.now{background:var(--gold,#C9A227);opacity:1;box-shadow:0 0 0 2px color-mix(in srgb,var(--gold,#C9A227) 35%,transparent)}
+.prog-ph{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--muted)}
+.prog-ph li.done{color:var(--ink);opacity:.75}
+.prog-ph li.now{color:var(--ink);font-weight:500}
