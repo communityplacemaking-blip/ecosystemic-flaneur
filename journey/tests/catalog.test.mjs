@@ -52,10 +52,10 @@ t('search: Hebrew name, description, intention, purpose and tags, with prefixes'
   assert.equal(C.search('toolbox', { q: 'קפה עולם' }).length, 0, 'each catalog searches itself');
 });
 t('filters: kind, category and users', () => {
-  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'six-hats', 'flaneur-disguise', 'wander-and-gather', 'many-uses']);
+  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'six-hats', 'flaneur-disguise', 'wander-and-gather', 'many-uses', 'pack-the-suitcase', 'word-check', 'quiet-walk']);
   assert.equal(C.search('toolbox', { kind: 'practice' }).length, IDEAS.length);
   assert.ok(C.search('participatory', { category: 'p0' }).every(r => r.categories.includes('p0')));
-  assert.deepEqual(names(C.search('toolbox', { category: 'observe' })), ['five-layers', 'wander-and-gather']);
+  assert.deepEqual(names(C.search('toolbox', { category: 'observe' })), ['five-layers', 'wander-and-gather', 'quiet-walk']);
 });
 const rec = (text, mode) => names(C.recommend(text, { mode }));
 t('the three creativity tools: solo and group, a full solo mode for the disguise, every study cited and linked to the article', () => {
@@ -65,6 +65,12 @@ t('the three creativity tools: solo and group, a full solo mode for the disguise
   const d = C.find('flaneur-disguise'); assert.equal(d.modes[0].name, 'המשוטט הבודד'); assert.ok(d.steps.length >= 6);
   assert.ok(d.prompts.every(q => /^כיצד|^מה /.test(q)));
   assert.ok(names(C.search('toolbox', { q: 'התחפשות' })).includes('flaneur-disguise'));
+});
+t('mental load tools: solo and group, the Baror & Bar study cited, the EOL article linked', () => {
+  ['pack-the-suitcase', 'word-check', 'quiet-walk'].forEach(id => { const r = C.find(id);
+    assert.deepEqual(r.users, ['solo', 'group'], id); assert.equal(r.modes[0].name, 'המשוטט הבודד', id);
+    assert.ok(r.sources.some(x => /Baror/.test(x.t)), id); assert.ok(/articles\/685/.test(r.from.url), id); assert.ok(r.time, id); });
+  assert.equal(rec('הראש שלי עמוס בדאגות ורעש, צריך לפנות מקום', 'solo')[0], 'pack-the-suitcase');
 });
 t('creativity wording → the disguise; mind-wandering wording → wander and gather', () => {
   assert.equal(rec('אני לא מרגיש יצירתי, רוצה להתחפש לדמות אחרת', 'solo')[0], 'flaneur-disguise');
