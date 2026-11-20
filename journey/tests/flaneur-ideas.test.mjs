@@ -5,10 +5,18 @@ const require = createRequire(import.meta.url);
 globalThis.window = globalThis;
 require('../../library/ideas-snapshot.js'); const base = globalThis.IDEAS.length;
 require('../../library/ideas-flaneur.js'); const K = require('../knowledge.js'); const E = require('../engine.js');
-const IDEAS = globalThis.IDEAS, added = IDEAS.slice(base); let n = 0; const t = (name, f) => { f(); n++; console.log('✓', name); };
+const IDEAS = globalThis.IDEAS, addedAll = IDEAS.slice(base), added = addedAll.filter(r => r.kind === 'practice'); let n = 0; const t = (name, f) => { f(); n++; console.log('✓', name); };
 const ROLES = ['entry', 'move', 'discern', 'trace', 'return'], PLACES = K.PLACES.map(p => p.id);
 t('snapshot untouched, additions appended', () => { assert.equal(base, 25); assert.ok(added.length > 0); });
 t('ids unique', () => assert.equal(new Set(IDEAS.map(r => r.id)).size, IDEAS.length));
+t('added lenses carry a name, an invitation and a source', () => addedAll.filter(r => r.kind !== 'practice').forEach(r => {
+  assert.equal(r.kind, 'lens', r.id); assert.ok(r.name && r.invite && r.src, r.id);
+}));
+t('completions reach the snapshot records', () => {
+  ['lens-transience', 'lens-rhythms', 'lens-traces'].forEach(id => { const r = IDEAS.find(x => x.id === id); assert.ok(r.invite && r.doc !== 'nameonly', id); });
+  assert.ok(!/לבירור/.test(IDEAS.find(x => x.id === 'count-ten').note));
+});
+t('no creator name in the library', () => assert.ok(!/תומר|בן חמו/.test(JSON.stringify(IDEAS))));
 t('every addition is a complete practice with a credit', () => added.forEach(r => {
   assert.equal(r.kind, 'practice', r.id); assert.ok(r.name && r.invite && r.src && r.credit, r.id);
   assert.ok(r.min > 0, r.id); assert.ok(r.slots.length && r.slots.every(s => ROLES.includes(s)), r.id);
