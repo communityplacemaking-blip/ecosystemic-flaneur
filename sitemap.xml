@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ecosystemicflaneur.com/</loc></url>
-  <url><loc>https://ecosystemicflaneur.com/en/</loc></url>
-  <url><loc>https://ecosystemicflaneur.com/fr/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ecosystemicflaneur.com/</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ecosystemicflaneur.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecosystemicflaneur.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/"/>
+  </url>
+  <url>
+    <loc>https://ecosystemicflaneur.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ecosystemicflaneur.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecosystemicflaneur.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/"/>
+  </url>
+  <url>
+    <loc>https://ecosystemicflaneur.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://ecosystemicflaneur.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ecosystemicflaneur.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/"/>
+  </url>
   <url><loc>https://ecosystemicflaneur.com/academy/</loc></url>
   <url><loc>https://ecosystemicflaneur.com/echoes/</loc></url>
   <url><loc>https://ecosystemicflaneur.com/flaneur/</loc></url>

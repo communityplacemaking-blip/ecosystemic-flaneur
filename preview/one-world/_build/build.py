@@ -735,7 +735,8 @@ def stars_story(html):
 # ---------- the home page in English and French (creator 13.11) ----------
 LANGS = '<nav class="langs" aria-label="שפה · Language">{he}{en}{fr}</nav>'
 HREFLANG = ('<link rel="alternate" hreflang="he" href="https://ecosystemicflaneur.com/">\n<link rel="alternate" hreflang="en" href="https://ecosystemicflaneur.com/en/">\n'
-            '<link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/">\n<link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/">\n')
+            '<link rel="alternate" hreflang="fr" href="https://ecosystemicflaneur.com/fr/">\n<link rel="alternate" hreflang="x-default" href="https://ecosystemicflaneur.com/">\n'
+            '<meta property="og:locale:alternate" content="en_GB">\n<meta property="og:locale:alternate" content="fr_FR">\n')
 
 
 def home_i18n():
@@ -770,6 +771,9 @@ def home_i18n():
             m['content'] = f'https://ecosystemicflaneur.com/{lang}/'
         for m in s.find_all('meta', attrs={'property': 'og:locale'}):
             m['content'] = {'en': 'en_GB', 'fr': 'fr_FR'}[lang]
+        others = [c for k, c in (('he', 'he_IL'), ('en', 'en_GB'), ('fr', 'fr_FR')) if k != lang]
+        for m, c in zip(s.find_all('meta', attrs={'property': 'og:locale:alternate'}), others):
+            m['content'] = c
         for m in s.find_all('link', attrs={'rel': 'canonical'}):
             m['href'] = f'https://ecosystemicflaneur.com/{lang}/'
         langs = s.find('nav', class_='langs')
