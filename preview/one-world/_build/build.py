@@ -574,7 +574,35 @@ def p_home_legend(ctx):
     return html.replace('<nav class="spine" aria-label="בעמוד הזה">', '<nav class="spine" aria-label="בעמוד הזה"><a href="#legend"><i></i><span>נצא לדרך</span></a>', 1)
 
 
-W.BUILDERS[''] = p_home_legend
+WHY_CSS = ('<style>.why .lineage{list-style:none;margin:0;padding:0;display:grid;gap:clamp(14px,2vw,22px);counter-reset:ln}'
+           '.why .lineage li{position:relative;padding:22px 22px 20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);counter-increment:ln}'
+           '.why .lineage li::before{content:counter(ln);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-t);font:500 .95rem var(--f-sans);margin-bottom:12px}'
+           '.why .lineage li:last-child{border-color:var(--gold);box-shadow:var(--glow)}'
+           '.why .lineage h3{margin:0 0 6px}.why .lineage p{margin:0;color:var(--ink-2);line-height:1.7}'
+           '.why .why-close{max-width:46ch;margin:clamp(26px,4vw,40px) 0 10px;font-size:clamp(1.12rem,1.8vw,1.32rem);line-height:1.6}'
+           '.why .why-close strong{font-weight:500}'
+           '@media (min-width:760px){.why .lineage{grid-template-columns:repeat(3,minmax(0,1fr))}'
+           '.why .lineage li:not(:last-child)::after{content:"";position:absolute;top:36px;inset-inline-end:calc(-1 * clamp(14px,2vw,22px));width:clamp(14px,2vw,22px);border-top:1.5px dashed var(--gold)}}</style>\n</head>')
+
+
+def p_home_why(ctx):
+    """Why the Ecosystemic Flaneur (author's text, condensed 24.11): modern, digital, ecosystemic. Right after the hero, before the two paths."""
+    html = p_home_legend(ctx)
+    s = W.soup('index.html')
+    sec = s.select_one('#why')
+    items = ''.join(f'<li class="rv"><h3>{W.txt(li.select_one("h3"))}</h3><p>{W.inner(li.select_one("p"))}</p></li>' for li in sec.select('.lineage li'))
+    more = sec.select_one('.quiet a')
+    block = W.seam('sw') + W.section('why', f'''<div class="sec-h rv"><p class="kick">{W.txt(sec.select_one(".kicker"))}</p><h2 id="why-h">{W.txt(sec.select_one("h2"))}</h2></div>
+<ol class="lineage">{items}</ol>
+<p class="why-close rv">{W.inner(sec.select_one(".why-close"))}</p>
+<p class="quiet small"><a href="{ctx.link(more["href"], "")}">{W.txt(more)}</a></p>''', cls='why', label='why-h')
+    i = html.index('<section class="hero'); j = html.index('</section>', i) + len('</section>')
+    html = html[:j] + '\n' + block + html[j:]
+    html = html.replace('</head>', WHY_CSS, 1)
+    return html.replace('<a href="#paths"><i></i>', '<a href="#why"><i></i><span>למה המשוטט האקוסיסטמי</span></a><a href="#paths"><i></i>', 1)
+
+
+W.BUILDERS[''] = p_home_why
 if not LIVE_BUILD:
     W.BUILDERS['system'] = p_system
 

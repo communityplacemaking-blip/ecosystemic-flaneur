@@ -3,6 +3,16 @@ Each Hebrew string of the generated home page maps to its translation. build.py 
 Hebrew home page, so a Hebrew text that changes and is not here stays in Hebrew there: add its translation here."""
 
 HOME = {
+    "למה המשוטט האקוסיסטמי": ("Why the Ecosystemic Flâneur", "Pourquoi le Flâneur écosystémique"),
+    "גלגולו של משוטט": ("A flâneur's lineage", "Les métamorphoses d'un flâneur"),
+    "למה המשוטט האקוסיסטמי?": ("Why the Ecosystemic Flâneur?", "Pourquoi le Flâneur écosystémique ?"),
+    "המשוטט המודרני": ("The modern flâneur", "Le flâneur moderne"),
+    "יוצא אל העיר כדי להתבונן בה, לקרוא את סימניה ולגלות את מה שמסתתר מתחת לפני השטח.": ("Goes out into the city to observe it, to read its signs and to discover what lies hidden beneath the surface.", "Sort dans la ville pour l'observer, lire ses signes et découvrir ce qui se cache sous la surface."),
+    "המשוטט הדיגיטלי": ("The digital flâneur", "Le flâneur numérique"),
+    "משוטט גם בין מסכים, רשתות וזרמי מידע, ומחפש דרך בתוך העודף.": ("Wanders also among screens, networks and streams of information, looking for a way through the excess.", "Flâne aussi entre écrans, réseaux et flux d'information, en cherchant un chemin dans l'excès."),
+    "יוצא לדרך מתוך הבנה שהוא עצמו חלק מהמערכת שאותה הוא מבקש להכיר, ושואף להתחבר להווה המתהווה.": ("Sets out knowing that they are part of the very system they seek to know, and strives to connect with the emerging present.", "Se met en route en sachant qu'il fait lui-même partie du système qu'il cherche à connaître, et aspire à se relier au présent qui émerge."),
+    "המשוטט האקוסיסטמי אינו רק מי שמתבונן במערכת. הוא חלק ממנה, ודרך השוטטות לומד לראות אותה אחרת.": ("The ecosystemic flâneur does not only observe the system. They are part of it, and through wandering they learn to see it differently.", "Le flâneur écosystémique n'observe pas seulement le système. Il en fait partie, et par la flânerie il apprend à le voir autrement."),
+    "הגלגול המלא, בעמוד המשוטט": ("The full lineage, on the Flâneur page (in Hebrew)", "La filiation complète, sur la page du Flâneur (en hébreu)"),
     "המשוטט האקוסיסטמי צמח כאמן קהילתי, חוקר, מנחה ומעצב תהליכים משתתפים. ניסיונות רבים בעשיית מקום (": ("The Ecosystemic Flâneur grew as a community artist, researcher, facilitator and designer of participatory processes. Many experiences in the making of places (", "Le Flâneur écosystémique a grandi comme artiste communautaire, chercheur, facilitateur et concepteur de processus participatifs. De nombreuses expériences de fabrique du lieu ("),
     ") הובילו להבנה כי בין אמנות, קהילה, מקום וחיים עירוניים חיונית דמותו של המשוטט, שנוצרה מתוך הקשב לאקולוגיה האנושית המתרחשת.": (") led to the understanding that, between art, community, place and urban life, the figure of the flâneur is essential: a figure born of attention to the human ecology as it unfolds.", ") ont conduit à comprendre qu'entre l'art, la communauté, le lieu et la vie urbaine, la figure du flâneur est essentielle : une figure née de l'attention à l'écologie humaine telle qu'elle se déploie."),
     "המשוטט · The Ecosystemic Flâneur": ("The Ecosystemic Flâneur", "Le Flâneur écosystémique"),
