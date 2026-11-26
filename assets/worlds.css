@@ -1070,3 +1070,12 @@ html[data-sky="night"] .cv-open { color: var(--gold); }
 .cv-sources { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .cv-sources li > a, .cv-sources li > span { display: block; text-align: left; font-size: .9em; color: inherit; }
 .cv-sources li > p { margin: 4px 0 0; opacity: .85; }
+/* /flaneur/ #roots: the three foundation illustrations as one thread, with bridge texts between them */
+.rthread { max-width: 760px; margin: 14px auto 0; display: grid; gap: 0; }
+.rthread > figure { margin: 0; }
+.rbridge { position: relative; margin: 0 auto; padding: 34px 0 34px; padding-inline-start: 26px; max-width: 640px; }
+.rbridge::before { content: ""; position: absolute; inset-inline-start: 6px; top: 8px; bottom: 8px; border-inline-start: 1.5px dashed var(--gold); opacity: .75; }
+.rbridge::after { content: ""; position: absolute; inset-inline-start: 2px; top: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); transform: translateY(-50%); box-shadow: var(--glow, none); }
+.rbridge p { margin: 0 0 12px; font-size: clamp(17px, 1.5vw, 19.5px); font-weight: 300; line-height: 1.7; color: var(--ink); }
+.rbridge p:last-child { margin-bottom: 0; }
+.rthread + p { margin-top: 28px; }
