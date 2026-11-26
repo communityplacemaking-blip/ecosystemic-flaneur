@@ -64,7 +64,7 @@ CLASSMAP = {
     'three-ways': 'cards', 'spaces': 'cards', 'caps': 'ticks', 'verbs': 'verbs', 'notes-board': 'ticks', 'h-sub': 'k', 'common': 'big',
     'ex': 'quiet', 'mrow': 'mrow', 'pr': 'card', 'constel': 'cards', 'mtable': 'mtable', 'mhead': 'mrow mh', 'time': 'ticks', 'qs': 'qs',
     'pro-story': 'ticks', 'for6': 'ticks', 'offer6': 'cards', 'pro-found': 'dlx', 'duo': 'split top', 'pair2': 'split top', 'sh-two': 'split top',
-    'roots3': 'cards', 'five5': 'cards', 'ac-two': 'split top', 'src-line': 'srcl', 'roots': 'srcl', 'bridge': 'big', 'f0': 'big', 'f1': 'big', 'f2': 'big',
+    'roots3': 'cards', 'rthread': 'rthread', 'rbridge': 'rbridge', 'five5': 'cards', 'ac-two': 'split top', 'src-line': 'srcl', 'roots': 'srcl', 'bridge': 'big', 'f0': 'big', 'f1': 'big', 'f2': 'big',
     'w-motto': 'subh', 'power': 'card', 'row': 'row', 'r2': 'row', 'honest': 'quiet', 'rd': 'rd', 'known': 'known', 'reading': 'reading',
     'w-gloss': 'quiet', 'btns': 'btns', 'light': 'card', 'mid': 'card m', 'light': 'card', 'dark': 'card', 'quote': 'pull',
 }
