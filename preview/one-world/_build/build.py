@@ -123,10 +123,12 @@ W.spine = spine
 
 # ---------------------------------------------------------------- the star map: discovering relationships
 # The only documented relations between lights are the ones the live page itself states:
-# Baudelaire translated Poe and recalls "The Man of the Crowd"; Benjamin returned to Baudelaire's flâneur.
+# Baudelaire translated Poe and recalls "The Man of the Crowd"; Benjamin returned to Baudelaire's flâneur;
+# Benjamin reviewed Hessel's Spazieren in Berlin ("Die Wiederkehr des Flaneurs", Die literarische Welt, 4.10.1929).
 DOCUMENTED = [
     ('אדגר אלן פו', 'שארל בודלר', 'בודלר גם תרגם לצרפתית את סיפוריו של פו, ובאותה מסה הוא נזכר ב"איש ההמון".'),
     ('שארל בודלר', 'ולטר בנימין', 'ולטר בנימין חזר אל הפלנר של בודלר במסותיו ובעבודת הפסאז\'ים.'),
+    ('פרנץ הסל', 'ולטר בנימין', 'ב־1929 כתב בנימין ביקורת על "לשוטט בברלין" של הסל, בשם "שובו של הפלנר". השניים גם תרגמו יחד את פרוסט.'),
 ]
 
 
