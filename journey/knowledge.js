@@ -102,6 +102,59 @@
     { id: 'possible', name: 'אפשרויות ויצירה', w: ['אפשרות', 'אפשרויות', 'ליצור', 'יצירה', 'פעולה', 'לעשות', 'להיוולד', 'פוטנציאל', 'רעיון'] }
   ];
 
+  /* Practices that need a group, a pair or a circle. A personal journey never offers them (creator 27.11:
+     "if it is personal wandering, find personal processes and tools, not group participatory ones"). */
+  K.GROUP_ONLY = ['count-ten', 'together-apart', 'five-r', 'tell-create', 'shared-map', 'one-photo',
+    'simultaneous-drift', 'describe-to-see', 'footsteps'];
+
+  /* Lenses for a personal journey (27.11). A lens is what the wanderer practices on the way: a point of view, a pace,
+     a character, traces, patterns. Each one says what you practice and where the idea comes from. The engine offers
+     the lenses that the person's own words point to. w: words that point to the lens; th: the themes that do. */
+  K.LENSES = [
+    { id: 'viewpoint', name: 'נקודת מבט',
+      practice: 'משנים עמדה ושואלים מה השתנה: מלמעלה או מלמטה, מקרוב או מרחוק, מהצד השני של הרחוב.',
+      source: 'מתוך "חמש שכבות של התבוננות" בארגז הכלים של המשוטט: המבט המשתנה.',
+      href: 'library/toolbox/#t-five-layers',
+      w: ['מבט', 'לראות', 'רואה', 'אחרת', 'זווית', 'נקודת', 'חדש', 'רעיון', 'להבין'], th: ['built', 'possible'] },
+    { id: 'pace', name: 'קצב',
+      practice: 'הולכים בקצב שהמקום מזמין ולא בקצב של משימה. מאטים כשמשהו מושך, ועוצרים בלי סיבה.',
+      source: 'ולטר בנימין מספר שבפריז, סביב 1840, היה לזמן קצר אופנתי לטייל בפסאז׳ים עם צב, ולתת לו לקבוע את הקצב.', refs: ['Walter Benjamin, Das Paris des Second Empire bei Baudelaire (1938)'],
+      w: ['לאט', 'האטה', 'מהר', 'קצב', 'עצירה', 'לעצור', 'שקט', 'רגוע', 'לחץ', 'עומס', 'זמן', 'מנוחה'], th: ['sound', 'nature'] },
+    { id: 'rhythms', name: 'מקצבי העיר',
+      practice: 'מקשיבים למה שחוזר במקום: מתי הוא מתמלא ומתי מתרוקן, מה קורה כל יום ומה קורה רק פעם אחת.',
+      source: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד". קווין לינץ׳ כתב על הזמן כפי שהוא נחווה במרחב: מחזורי היום, העונות, ומה שנשאר מן העבר. אנרי לפבר התבונן ברחוב מחלון ביתו בפריז וקרא אותו דרך המקצבים שלו, בספרו על "ריתמואנליזה".',
+      refs: ['Kevin Lynch, What Time Is This Place? (1972)', 'Henri Lefebvre, Éléments de rythmanalyse (1992)'],
+      field: 'time',
+      w: ['מקצב', 'קצב', 'בוקר', 'ערב', 'לילה', 'שגרה', 'יומיום', 'תנועה', 'רדום', 'ער', 'חוזר', 'שעות'], th: ['change', 'sound'] },
+    { id: 'transience', name: 'ארעיות',
+      practice: 'מחפשים את מה שלא יהיה כאן מחר: צל, מודעה, שיחה, ערימת עלים, רגע שעובר.',
+      source: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד". שארל בודלר כתב ב"צייר החיים המודרניים" שהמודרניות היא "החולף, הנמלט, המקרי" (בתרגום חופשי).', refs: ['Charles Baudelaire, Le Peintre de la vie moderne (1863)'],
+      field: 'time',
+      w: ['ארעי', 'ארעיות', 'רגע', 'חולף', 'משתנה', 'שינוי', 'נעלם', 'זמני', 'עובר', 'מתחלף'], th: ['change', 'wonder'] },
+    { id: 'traces', name: 'עקבות',
+      practice: 'מחפשים סימנים של מי שעבר כאן לפניכם: שביל רמוס בדשא, שם על קיר, כיסא שהוזז.',
+      source: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד". ולטר בנימין: "לחיות פירושו להשאיר עקבות".', refs: ['Walter Benjamin, Paris, die Hauptstadt des XIX. Jahrhunderts (1935)'],
+      field: 'memory',
+      w: ['עקבות', 'עקבה', 'סימן', 'סימנים', 'זיכרון', 'זכרון', 'עבר', 'היסטוריה', 'ישן', 'נעלם', 'סיפור', 'סיפורים'], th: ['stories'] },
+    { id: 'legibility', name: 'לקרוא את העיר',
+      practice: 'שמים לב איך אתם מתמצאים: באילו נתיבים הולכים, איפה עוברים גבול, באיזה רובע אתם, איפה צומת שאנשים מתכנסים בו, ומה ציון הדרך שלכם.',
+      source: 'קווין לינץ׳, "דימוי העיר": עד כמה עיר "קריאה" למי שהולך בה. לינץ׳ ביקש מתושבים לצייר את עירם מן הזיכרון, ומצא חמישה מרכיבים שמהם בונים מפה בראש: נתיבים, גבולות, רבעים, צמתים וציוני דרך.', refs: ['Kevin Lynch, The Image of the City (1960)'],
+      href: 'library/toolbox/#t-memory-map',
+      w: ['רחוב', 'רחובות', 'צומת', 'גבול', 'גבולות', 'שכונה', 'רובע', 'דרך', 'מפה', 'להתמצא', 'שביל', 'כיכר', 'מבנה', 'ללכת', 'הליכה'], th: ['built'] },
+    { id: 'character', name: 'דמות',
+      practice: 'יוצאים בעיניים של מישהו אחר: ילדה, אורח שהגיע הבוקר, ארכאולוג מהעתיד. בסוף יוצאים מהדמות ורושמים מה היא ראתה.',
+      source: 'מתוך "התחפשות המשוטט" בארגז הכלים של המשוטט.',
+      href: 'library/toolbox/#t-flaneur-disguise',
+      w: ['דמות', 'ילד', 'ילדים', 'זרים', 'זר', 'דמיון', 'משחק', 'יצירתי', 'יצירה', 'אנשים', 'תקוע'], th: ['people', 'wonder'] },
+    { id: 'patterns', name: 'דפוסים',
+      practice: 'שמים לב למה שחוזר ומתחבר: איפה אנשים עוצרים, איפה נוצר קשר, מה מוביל למה.',
+      source: 'קשב לדפוסים הוא לב "המרחב הכאורדי" בשיטה: סימנים של סדר חדש שמתחיל לצמוח. וברוח "שפת תבניות" של כריסטופר אלכסנדר.', refs: ['Christopher Alexander et al., A Pattern Language (1977)'],
+      href: 'flaneur/',
+      w: ['דפוס', 'דפוסים', 'חוזר', 'קשר', 'קשרים', 'חיבור', 'חיבורים', 'רשת', 'מערכת', 'שיתוף', 'קהילה', 'קהילתי', 'נפרד', 'מחובר'], th: ['people', 'built'] }
+  ];
+  /* How many lenses each level offers (proposal 27.11): one to start, more as the wanderer deepens. */
+  K.LENS_COUNT = { l1: 1, l2: 1, l3: 2, l4: 3 };
+
   root.EF_K = K;
   if (typeof module !== 'undefined') module.exports = K;
 })(typeof window !== 'undefined' ? window : globalThis);

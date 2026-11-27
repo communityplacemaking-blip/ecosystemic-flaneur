@@ -15,6 +15,15 @@
     return e;
   }
   function byId(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
+  /* The intention is always a "how" question (creator's ruling 31.10). The step shows the stem "כיצד אוכל" and
+     keeps only the person's continuation, so the engine reads their words without the stem. */
+  var STEM = 'כיצד אוכל';
+  function howQ(t) {
+    t = (t || '').trim().replace(/[.\s]+$/, '');
+    if (!t) return '';
+    if (!/^(כיצד|איך)[\s]/.test(t)) t = STEM + ' ' + t;
+    return /\?$/.test(t) ? t : t + '?';
+  }
 
   var S = {
     step: 'mode', back: [], ret: null, path: null, level: null, mode: null, intro: 0,
@@ -35,7 +44,7 @@
   function flow() {
     var f = ['mode', 'path'];  // one entrance: the two paths come first (19.11)
     if (S.path === 'meet') f.push('intro');
-    f.push('level');
+    // the path already suggests a level (27.11: one question fewer). The level stays one tap away, in the trail and in the result.
     f = f.concat(S.mode === 'group' ? GROUP : SOLO);
     f.push('reflect');
     return f;
@@ -84,7 +93,11 @@
       input.value = S.a[o.key] || '';
       input.addEventListener('input', function () { S.a[o.key] = input.value; });
       if (!o.area) input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); next(); } });
-      box.appendChild(input);
+      if (o.stem) {
+        input.setAttribute('aria-label', o.q + ' ' + o.stem);
+        input.removeAttribute('aria-labelledby');
+        box.appendChild(h('div', { 'class': 'stemmed' }, [h('span', { 'class': 'stem', 'aria-hidden': 'true', text: o.stem }), input]));
+      } else box.appendChild(input);
       if (o.key2) {
         var i2 = h('input', { 'class': 'ans small', type: 'text', placeholder: o.ph2, 'aria-label': o.ph2, autocomplete: 'off' });
         i2.value = S.a[o.key2] || ''; i2.addEventListener('input', function () { S.a[o.key2] = i2.value; });
@@ -109,7 +122,7 @@
       K.PATHS.forEach(function (p, i) {
         list.appendChild(h('button', { type: 'button', 'class': 'path p' + i + (S.path === p.id ? ' on' : ''), 'aria-pressed': S.path === p.id ? 'true' : 'false',
           onclick: function () {
-            S.path = p.id; S.level = S.level || null; S.levelSuggested = p.level;
+            S.path = p.id; S.levelSuggested = p.level; if (!S.levelChosen) S.level = p.level;
             field.set('path', 0, p.id);
             next();
           } }, [h('b', { text: p.label }), h('span', { text: p.say })]));
@@ -158,7 +171,7 @@
       K.LEVELS.forEach(function (l, i) {
         var on = S.level === l.id;
         list.appendChild(h('button', { type: 'button', 'class': 'lvl' + (on ? ' on' : '') + (l.id === sug && !S.level ? ' sug' : ''), 'aria-pressed': on ? 'true' : 'false',
-          onclick: function () { S.level = l.id; field.set('level', 0, l.id); next(); } }, [
+          onclick: function () { S.level = l.id; S.levelChosen = true; field.set('level', 0, l.id); next(); } }, [
           h('span', { 'class': 'lvl-rings', 'aria-hidden': 'true' }, [0, 1, 2, 3].map(function (k) { return h('i', { 'class': k <= i ? 'on' : '' }); })),
           h('b', { text: l.name }),
           l.id === sug ? h('em', { text: 'מוצע לפי המסלול' }) : null,
@@ -174,9 +187,9 @@
     },
     mode: function () {
       var box = h('div', { 'class': 'q q-door' }, [
-        h('p', { 'class': 'q-k', text: 'נקודת ההתחלה' }),
-        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'הכול מתחיל ביכולת לשהות באי־ידיעה.' }),
-        h('p', { 'class': 'q-sub', text: 'מגיעים עם שאלה, סקרנות, צורך או עניין, ומפנים מקום לחקירה. מכאן נפתחים שני שבילים. בוחרים אחד מהם, ואפשר להחליף בכל רגע.' })
+        h('p', { 'class': 'q-k', text: 'הכול מתחיל ביכולת לשהות באי־ידיעה' }),
+        h('h2', { 'class': 'q-t', id: 'q-t', tabindex: '-1', text: 'איך תרצו לשוטט?' }),
+        h('p', { 'class': 'q-sub', text: 'בחרו שביל אחד. אפשר להחליף בכל רגע.' })
       ]);
       var ECO = { solo: 'האקוסיסטם העירוני', group: 'האקוסיסטם הקהילתי' };
       var list = h('div', { 'class': 'modes2' });
@@ -186,13 +199,13 @@
           onclick: function () { S.mode = m.id; field.set('mode', 0, m.id); next(); } }, [
           h('small', { 'class': 'eco', text: ECO[m.id] }),
           h('b', { text: m.name }), h('span', { text: m.say }),
-          m.id === 'group' ? h('small', { text: 'מי שמנחה מספר/ת על המקום ועל הקהילה. המידע נשאר בשליטתך: בדף הזה בלבד, בלי שמירה ובלי שליחה.' }) : h('small', { text: 'שום דבר ממה שתכתבו לא נשמר ולא נשלח.' })
+          h('small', { 'class': 'who', text: m.id === 'group' ? 'למי שמנחה קבוצה או קהילה' : 'לבד, אתם והמקום' }),
+          h('span', { 'class': 'pick', 'aria-hidden': 'true', text: 'לבחור ←' })
         ]));
       });
       box.appendChild(list);
-      box.appendChild(h('p', { 'class': 'q-alt small' }, ['לשוטטות אישית יש גם דרך קצרה: ',
-        h('a', { href: '../mechanism/' }, ['יציאה אחת בחמישה שלבים, צעד אחר צעד']), '.']));
-      box.appendChild(h('p', { 'class': 'q-sub small' }, ['שני השבילים משלימים זה את זה ומובילים זה אל זה. המפה אינה התשובה. החקירה היא ההתחלה.']));
+      box.appendChild(h('p', { 'class': 'q-alt small' }, ['רוצים משהו קצר יותר? ',
+        h('a', { href: '../try/' }, ['שוטטות של 10 דקות']), ' או ', h('a', { href: '../mechanism/' }, ['יציאה אחת בחמישה שלבים']), '.']));
       return box;
     },
     place: function () {
@@ -213,9 +226,10 @@
         key: 'challenge', area: true, example: 'מה קשה שם, מה חסר, מה נמצא במתח?' });
     },
     curiosity: function () {
-      return ask({ q: 'מה מושך את תשומת הלב שלכם שם, ומה תרצו לגלות?', kicker: 'הכוונה',
-        sub: 'התשובה הזו תהיה הכוונה של המסע, במילים שלכם.', key: 'curiosity', area: true,
-        example: 'למשל: סיפורים של אנשים, מה משתנה ברחוב, איפה יש חיים שלא שמתי לב אליהם.' });
+      return ask({ q: 'איזו שאלה תיקחו איתכם לדרך?', kicker: 'הכוונה',
+        sub: 'הכוונה של המסע היא שאלה שמתחילה ב"כיצד". מה מושך אתכם שם, ומה תרצו לגלות? המשיכו את המשפט במילים שלכם.',
+        key: 'curiosity', area: true, stem: STEM, ph: 'לגלות…',
+        example: 'למשל: כיצד אוכל לגלות היכן נוצרים חיבורים בין אנשים בשכונה?' });
     },
     conditions: function () {
       return ask({ q: 'כמה זמן יש, ומה חשוב לשמור?', kicker: 'התנאים',
@@ -267,7 +281,6 @@
     ]);
     var lv = byId(K.LEVELS, S.level), md = byId(K.MODES, S.mode), pt = byId(K.PLACES, S.a.placeType);
     var rows = [
-      ['דרגה', lv && lv.name, 'level'], ['אופן', md && md.name, 'mode'],
       ['המקום', [S.a.place, pt && pt.name].filter(Boolean).join(' · '), 'place'],
       ['הקסם', S.a.magic, 'magic'], ['האתגר', S.a.challenge, 'challenge']
     ];
@@ -277,7 +290,7 @@
         ['מה כבר נעשה', S.a.done, 'done'],
         ['תנאים', S.a.meetings + ' מפגשים, ' + S.a.meetingMinutes + ' דקות כל אחד' + (S.a.boundaries ? ' · גבול: ' + S.a.boundaries : ''), 'gconditions']);
     } else {
-      rows.push(['הכוונה', S.a.curiosity, 'curiosity'],
+      rows.push(['הכוונה', howQ(S.a.curiosity), 'curiosity'],
         ['תנאים', 'כ-' + S.a.minutes + ' דקות' + (S.a.boundaries ? ' · גבול: ' + S.a.boundaries : ''), 'conditions']);
     }
     var dl = h('dl', { 'class': 'heard' });
@@ -375,23 +388,24 @@
     ]);
     out.appendChild(head);
     var story = h('div', { 'class': 'j-story' });
-    if (!g && J.intention) story.appendChild(h('p', { 'class': 'intent' }, [h('b', { text: 'הכוונה: ' }), h('q', { text: J.intention })]));
-    if (J.magic || J.challenge) story.appendChild(h('p', { 'class': 'mc' }, [
-      J.magic ? h('span', {}, [h('b', { text: 'הקסם ' }), h('q', { text: J.magic })]) : null,
-      J.challenge ? h('span', {}, [h('b', { text: 'האתגר ' }), h('q', { text: J.challenge })]) : null]));
-    if (J.boundaries) story.appendChild(h('p', { 'class': 'bound' }, [h('b', { text: 'גבול: ' }), J.boundaries]));
+    if (!g && J.intention) story.appendChild(h('div', { 'class': 'intent' }, [
+      h('span', { 'class': 'intent-k', text: 'שאלת הכוונה' }), h('p', { 'class': 'intent-q', text: howQ(J.intention) })]));
+    if (J.magic || J.challenge) story.appendChild(h('dl', { 'class': 'mc' }, [
+      h('p', { 'class': 'mc-k', text: 'סיפור המקום, במילים שלכם' }),
+      J.magic ? h('div', { 'class': 'mc-i magic' }, [h('dt', { text: 'הקסם' }), h('dd', { text: J.magic })]) : null,
+      J.challenge ? h('div', { 'class': 'mc-i challenge' }, [h('dt', { text: 'האתגר' }), h('dd', { text: J.challenge })]) : null]));
+    if (J.boundaries) story.appendChild(h('p', { 'class': 'bound' }, [h('b', { text: 'מה חשוב לשמור: ' }), J.boundaries]));
     out.appendChild(story);
     out.appendChild(band());
 
     if (!g) {
+      if (J.lenses && J.lenses.offered.length) out.appendChild(lensBlock(J.lenses));
+      out.appendChild(h('h3', { 'class': 'j-sec', text: 'המסע, צעד אחר צעד' }));
       out.appendChild(h('p', { 'class': 'j-why', text: whyShape(lv.id, J.stations.length) }));
       var list = h('div', { 'class': 'stations' });
       J.stations.forEach(function (st, i) { list.appendChild(stationCard(st, i + 1, 's' + i)); });
       if (!J.stations.length) list.appendChild(h('p', { text: 'לא מצאתי רעיון שמתאים לזמן ולמקום שתיארתם. אפשר להאריך את הזמן או לבחור מקום אחר.' }));
       out.appendChild(list);
-      if (J.lenses && J.lenses.length) out.appendChild(h('div', { 'class': 'lenses' }, [h('b', { text: 'עדשות לקחת לדרך: ' })].concat(
-        J.lenses.map(function (l) { return h('span', { 'class': 'lens', text: l.name.replace('עדשה: ', '') }); }),
-        [h('span', { 'class': 'small quiet', text: ' רק השם מתועד, בלי תיאור.' })])));
       out.appendChild(toolBlock(J));
       out.appendChild(fruits());
     } else {
@@ -452,12 +466,33 @@
     out.appendChild(act);
   }
 
+  /* The lenses come before setting out: they are what the wanderer practices on the way (creator 27.11). */
+  function lensCard(l, i) {
+    return h('article', { 'class': 'lens-c' }, [
+      h('h4', {}, [l.name, l.because && l.because.length ? h('small', { text: ' · כי כתבתם "' + l.because.join('", "') + '"' }) : null]),
+      h('p', { 'class': 'lens-p', text: l.practice }),
+      h('p', { 'class': 'lens-s' }, [h('b', { text: 'מאיפה זה בא: ' }), l.source,
+        l.href ? h('span', {}, [' ', h('a', { href: '../' + l.href, target: '_blank', rel: 'noopener', text: 'לקרוא עוד' })]) : null,
+        l.field ? h('span', {}, [' ', h('a', { href: '../field/#n-' + l.field, target: '_blank', rel: 'noopener', text: 'המילה בשדה המילים' })]) : null]),
+      l.refs ? h('p', { 'class': 'lens-r', dir: 'ltr', lang: 'en', text: l.refs.join(' · ') }) : null
+    ]);
+  }
+  function lensBlock(L) {
+    var one = L.offered.length === 1;
+    var box = h('section', { 'class': 'lenses', 'aria-labelledby': 'ln-h' }, [
+      h('h3', { id: 'ln-h', text: one ? 'העדשה שלכם לדרך' : 'העדשות שלכם לדרך' }),
+      h('p', { 'class': 'small', text: (one ? 'עדשה היא מה שמתרגלים בדרך' : 'עדשות הן מה שמתרגלים בדרך') + ': נקודת מבט, קצב, דמות, עקבות, דפוסים. ' + (one ? 'היא נבחרה' : 'הן נבחרו') + ' לפי מה שכתבתם. ' + (one ? 'קחו אותה איתכם' : 'קחו איתכם אחת או יותר') + ' לכל התחנות.' })
+    ].concat(L.offered.map(lensCard)));
+    if (L.more.length) box.appendChild(h('details', { 'class': 'lens-more' }, [h('summary', { text: 'להחליף או להוסיף עדשה' })].concat(L.more.map(lensCard))));
+    return box;
+  }
+
   /* Tools from the two catalogs that may serve this journey (16.11). Offered only when the person's own words point to them. */
   function toolBlock(J) {
     var g = J.mode === 'group', list = J.tools || [];
-    var box = h('section', { 'class': 'j-tools', 'aria-labelledby': 'jt-h' }, [
-      h('h3', { id: 'jt-h', text: list.length ? 'כלים שיכולים לשרת את הרגע' : 'כלי נוסף?' })]);
-    if (!list.length) box.appendChild(h('p', { 'class': 'small', text: 'הפעם לא הצעתי כלי נוסף: במה שכתבתם לא מצאתי כוונה שכלי מסוים משרת יותר מהמסע עצמו. ואם תרצו, אפשר לעיין בקטלוגים.' }));
+    /* No tool is also an answer: the journey itself is enough. Then only a quiet way to the catalogs remains, no empty heading. */
+    var box = h('section', list.length ? { 'class': 'j-tools', 'aria-labelledby': 'jt-h' } : { 'class': 'j-tools none' },
+      list.length ? [h('h3', { id: 'jt-h', text: 'כלים שיכולים לשרת את הרגע' })] : []);
     list.forEach(function (t) {
       box.appendChild(h('article', { 'class': 'stn jt' }, [
         h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-role', text: t.collection === 'toolbox' ? 'ארגז הכלים של המשוטט' : 'כלי השתתפותי' })]),
@@ -468,9 +503,9 @@
         h('p', {}, [h('a', { 'class': 'more', href: '../' + t.href, target: '_blank', rel: 'noopener', text: 'לפתוח את הכלי המלא' })])
       ]));
     });
-    box.appendChild(h('p', { 'class': 'small quiet jt-all' }, ['לעיין בעוד כלים: ',
-      h('a', { href: '../library/toolbox/', target: '_blank', rel: 'noopener', text: 'ארגז הכלים של המשוטט' }), ' · ',
-      h('a', { href: '../library/participatory/', target: '_blank', rel: 'noopener', text: 'כלים השתתפותיים' })]));
+    box.appendChild(h('p', { 'class': 'small quiet jt-all' }, [list.length ? 'לעיין בעוד כלים: ' : 'המסע עצמו מספיק. ומי שרוצה כלי לדרך: ',
+      h('a', { href: '../library/toolbox/', target: '_blank', rel: 'noopener', text: 'ארגז הכלים של המשוטט' })].concat(g ? [' · ',
+      h('a', { href: '../library/participatory/', target: '_blank', rel: 'noopener', text: 'כלים השתתפותיים' })] : [])));
     return box;
   }
 
@@ -501,13 +536,15 @@
   function next() {
     var f = flow();
     if (S.step === 'level' && !S.level) return;
+    if (S.step === 'level' && !S.ret) { go(f[firstAsk(f)]); return; }
     if (S.ret) { var r = S.ret; S.ret = null; go(r); return; }
     var i = f.indexOf(S.step);
     if (S.step !== 'intro' && S.step !== 'path' && STEP_KEY[S.step]) field.set(S.step, RING[S.step], STEP_KEY[S.step]());
     if (S.path === 'meet' && S.step === 'path' && S.introSeen) i++; // the introduction is offered once
-    if (S.step === 'mode' && S.path && S.level && !S.ret) { go(f[f.indexOf('level') + 1]); return; } // a changed path keeps the answers
+    if (S.step === 'mode' && S.path && S.level && !S.ret) { go(f[firstAsk(f)]); return; } // a changed path keeps the answers
     go(f[Math.min(i + 1, f.length - 1)]);
   }
+  function firstAsk(f) { return f.indexOf('place'); }
   var STEP_KEY = {
     place: function () { return S.a.place; }, magic: function () { return S.a.magic; }, challenge: function () { return S.a.challenge; },
     curiosity: function () { return S.a.curiosity; }, conditions: function () { return S.a.minutes + S.a.boundaries; },
@@ -523,7 +560,7 @@
   }
   function back() { var p = S.back.pop(); if (p) { S.step = p; render(true); } }
   function restart() {
-    S.step = 'mode'; S.back = []; S.ret = null; S.path = null; S.level = null; S.mode = null; S.themes = null; S.journey = null; S.fruits = [];
+    S.step = 'mode'; S.back = []; S.ret = null; S.path = null; S.level = null; S.levelChosen = false; S.mode = null; S.themes = null; S.journey = null; S.fruits = [];
     Object.keys(S.a).forEach(function (k) { S.a[k] = Array.isArray(S.a[k]) ? [] : (k === 'minutes' ? 45 : k === 'meetings' ? 2 : k === 'meetingMinutes' ? 90 : ''); });
     field.reset(); out.hidden = true; render(true);
   }
