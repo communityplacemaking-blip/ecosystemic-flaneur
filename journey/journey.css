@@ -105,7 +105,6 @@
 .q-door .mode-b b{font-size:1.32rem}
 .mode-b .who{font-weight:700;color:var(--ink)}
 .mode-b .pick{justify-self:end;margin-top:4px;font-weight:700;font-size:.92rem;padding:6px 16px;border-radius:999px;background:var(--mustard);color:#0F2D4A}
-.mode-b.m-group .pick{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
 .q-alt{margin-top:12px;color:var(--muted)}
 .q-alt a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 
