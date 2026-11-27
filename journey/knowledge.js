@@ -105,7 +105,8 @@
   /* Practices that need a group, a pair or a circle. A personal journey never offers them (creator 27.11:
      "if it is personal wandering, find personal processes and tools, not group participatory ones"). */
   K.GROUP_ONLY = ['count-ten', 'together-apart', 'five-r', 'tell-create', 'shared-map', 'one-photo',
-    'simultaneous-drift', 'describe-to-see', 'footsteps'];
+    'simultaneous-drift', 'describe-to-see', 'footsteps',
+    'drift-trios', 'photo-drift', 'monthly-drift'];
 
   /* Lenses for a personal journey (creator 27.11). A lens is a condition or quality of experience from which a route
      may emerge: an open invitation, never an instruction. Each lens has an invitation, an optional small action (try),
