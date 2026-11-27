@@ -52,7 +52,7 @@ t('search: Hebrew name, description, intention, purpose and tags, with prefixes'
   assert.equal(C.search('toolbox', { q: 'קפה עולם' }).length, 0, 'each catalog searches itself');
 });
 t('filters: kind, category and users', () => {
-  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'six-hats', 'flaneur-disguise', 'wander-and-gather', 'many-uses', 'pack-the-suitcase', 'word-check', 'quiet-walk']);
+  assert.deepEqual(names(C.search('toolbox', { kind: 'tools' })), ['five-layers', 'five-r-glasses', 'six-hats', 'flaneur-disguise', 'wander-and-gather', 'many-uses', 'pack-the-suitcase', 'word-check', 'quiet-walk']);
   assert.equal(C.search('toolbox', { kind: 'practice' }).length, IDEAS.length);
   assert.ok(C.search('participatory', { category: 'p0' }).every(r => r.categories.includes('p0')));
   assert.deepEqual(names(C.search('toolbox', { category: 'observe' })), ['five-layers', 'wander-and-gather', 'quiet-walk']);
