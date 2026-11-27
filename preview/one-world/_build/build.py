@@ -581,6 +581,8 @@ WHY_CSS = ('<style>.why .lineage{list-style:none;margin:0;padding:0;display:grid
            '.why .lineage li::before{content:counter(ln);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold-t);font:500 .95rem var(--f-sans);margin-bottom:12px}'
            '.why .lineage li:last-child{border-color:var(--gold);box-shadow:var(--glow)}'
            '.why .lineage h3{margin:0 0 6px}.why .lineage p{margin:0;color:var(--ink-2);line-height:1.7}'
+           '.why .lineage .why-src{margin-top:10px;font-size:.8rem;color:var(--muted);line-height:1.55}'
+           '.why .lineage .why-src span[lang]{display:block;margin-top:4px;text-align:right;opacity:.85}'
            '.why .why-close{max-width:46ch;margin:clamp(26px,4vw,40px) 0 10px;font-size:clamp(1.12rem,1.8vw,1.32rem);line-height:1.6}'
            '.why .why-close strong{font-weight:500}'
            '@media (min-width:760px){.why .lineage{grid-template-columns:repeat(3,minmax(0,1fr))}'
@@ -592,7 +594,10 @@ def p_home_why(ctx):
     html = p_home_legend(ctx)
     s = W.soup('index.html')
     sec = s.select_one('#why')
-    items = ''.join(f'<li class="rv"><h3>{W.txt(li.select_one("h3"))}</h3><p>{W.inner(li.select_one("p"))}</p></li>' for li in sec.select('.lineage li'))
+    # a stage may carry a quiet source line after its text (Featherstone for the digital flâneur, 27.11)
+    items = ''.join(f'<li class="rv"><h3>{W.txt(li.select_one("h3"))}</h3><p>{W.inner(li.select_one("p"))}</p>'
+                    + (f'<p class="why-src">{W.inner(li.select_one("p.quiet"))}</p>' if li.select_one("p.quiet") else '') + '</li>'
+                    for li in sec.select('.lineage li'))
     more = sec.select_one('.quiet a')
     block = W.seam('sw') + W.section('why', f'''<div class="sec-h rv"><p class="kick">{W.txt(sec.select_one(".kicker"))}</p><h2 id="why-h">{W.txt(sec.select_one("h2"))}</h2></div>
 <ol class="lineage">{items}</ol>
