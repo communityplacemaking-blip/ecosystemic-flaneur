@@ -337,7 +337,8 @@
       h('div', { 'class': 'stn-h' }, [h('span', { 'class': 'stn-n', text: idx }), h('span', { 'class': 'stn-role', text: st.roleName }),
         h('span', { 'class': 'stn-min', text: r.min ? 'כ-' + r.min + ' דקות' : '' })]),
       h('h4', { text: r.name }),
-      h('p', { 'class': 'inv', text: r.invite || '' })
+      h('p', { 'class': 'inv', text: r.invite || '' }),
+      S.mode !== 'group' && K.STOPS[st.role] ? h('p', { 'class': 'stop-at' }, [h('b', { text: 'איפה אפשר לעצור: ' }), K.STOPS[st.role]]) : null
     ]);
     if (r.note && (S.mode === 'group' || lv === 'l1')) card.appendChild(h('p', { 'class': 'note' }, [h('b', { text: S.mode === 'group' ? 'למנחה: ' : 'טיפ: ' }), r.note]));
     if (r.border && S.mode === 'group') card.appendChild(h('p', { 'class': 'small' }, [h('span', { 'class': 'verify', text: 'שיוך למאגר בבדיקה' })]));

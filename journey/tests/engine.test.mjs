@@ -55,4 +55,7 @@ t('lenses: every lens is an invitation with an origin or echo; one lens per leve
   assert.equal(E.compose({ level: 'l1', mode: 'solo' }, a, IDEAS).lenses.offered.length, 1);
   assert.deepEqual(E.compose({ level: 'l2', mode: 'solo' }, { place: 'x', minutes: 45 }, IDEAS).lenses.offered.map(l => l.because), [[]]);
 });
+t('stopping places: every station role has a gentle where-to-stop suggestion (27.11)', () => {
+  Object.keys(E.ROLE_NAME).forEach(r => assert.ok(K.STOPS[r], r));
+});
 console.log(n + ' tests pass');
