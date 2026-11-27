@@ -263,3 +263,6 @@
 .prog-ph{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--muted)}
 .prog-ph li.done{color:var(--ink);opacity:.75}
 .prog-ph li.now{color:var(--ink);font-weight:500}
+.lens-why{margin:0;font-size:.84rem;color:var(--muted)}
+.lens-t{margin:0;font-size:.95rem}
+.lens-play{margin:0;font-size:.9rem;color:var(--muted);font-style:italic}

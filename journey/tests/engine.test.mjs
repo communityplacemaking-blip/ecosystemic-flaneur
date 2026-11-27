@@ -43,10 +43,14 @@ t('a personal journey never offers a group practice, at any level or length (27.
   }));
   K.GROUP_ONLY.forEach(id => assert.ok(IDEAS.some(r => r.id === id), 'unknown id ' + id));
 });
-t('lenses: every lens says what you practice and where it comes from; the person\'s words choose them', () => {
-  K.LENSES.forEach(l => assert.ok(l.name && l.practice && l.source, l.id));
+t('lenses: every lens is an invitation with an origin or echo; one lens per level; the person\'s words choose it', () => {
+  K.LENSES.forEach(l => assert.ok(l.name && l.practice && (l.origin || l.source), l.id));
+  assert.equal(K.LENSES.length, 9); assert.ok(K.LENSES.some(l => l.name === 'לקרוא את המקום'));
+  ['l1', 'l2', 'l3', 'l4'].forEach(lv => assert.equal(K.LENS_COUNT[lv], 1));
+  const W = E.compose({ level: 'l2', mode: 'solo' }, { ...a, curiosity: 'להרגיש את העצים והציפורים ואת מה שחי כאן' }, IDEAS);
+  assert.equal(W.lenses.offered[0].id, 'web');
   const J = E.compose({ level: 'l4', mode: 'solo' }, { ...a, magic: 'די המוגונית אין יוצר מדי קשר בין האנשים', challenge: 'יצירת הקשרים לחיבורים קהילתיים כרגע רדום ונפרד', curiosity: 'לגלות הזדמנויות לחיבורים', minutes: 90 }, IDEAS);
-  assert.equal(J.lenses.offered.length, 3); assert.equal(J.lenses.offered[0].id, 'patterns'); assert.ok(J.lenses.offered[0].because.length);
+  assert.equal(J.lenses.offered.length, 1); assert.equal(J.lenses.offered[0].id, 'patterns'); assert.ok(J.lenses.offered[0].because.length);
   assert.equal(J.lenses.offered.length + J.lenses.more.length, K.LENSES.length);
   assert.equal(E.compose({ level: 'l1', mode: 'solo' }, a, IDEAS).lenses.offered.length, 1);
   assert.deepEqual(E.compose({ level: 'l2', mode: 'solo' }, { place: 'x', minutes: 45 }, IDEAS).lenses.offered.map(l => l.because), [[]]);

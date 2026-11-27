@@ -466,24 +466,30 @@
     out.appendChild(act);
   }
 
-  /* The lenses come before setting out: they are what the wanderer practices on the way (creator 27.11). */
-  function lensCard(l, i) {
+  /* The lenses come before setting out (creator 27.11). A lens is an open invitation, a quality of experience from which a
+     route may emerge. The matching stays soft: no word of the person is quoted back, only "from what you wrote, perhaps...".
+     Where the lens comes from in the method is kept apart from external echoes. */
+  function lensCard(l, i, soft) {
     return h('article', { 'class': 'lens-c' }, [
-      h('h4', {}, [l.name, l.because && l.because.length ? h('small', { text: ' · כי כתבתם "' + l.because.join('", "') + '"' }) : null]),
+      soft ? h('p', { 'class': 'lens-why', text: 'מתוך מה שכתבתם, אולי תעניין אתכם העדשה הזו:' }) : null,
+      h('h4', { text: l.name }),
       h('p', { 'class': 'lens-p', text: l.practice }),
-      h('p', { 'class': 'lens-s' }, [h('b', { text: 'מאיפה זה בא: ' }), l.source,
+      l.try ? h('p', { 'class': 'lens-t' }, [h('b', { text: 'אם תרצו: ' }), l.try]) : null,
+      l.origin || l.href || l.field ? h('p', { 'class': 'lens-s' }, [l.origin ? h('b', { text: 'מאיפה זה בא: ' }) : null, l.origin || '',
         l.href ? h('span', {}, [' ', h('a', { href: '../' + l.href, target: '_blank', rel: 'noopener', text: 'לקרוא עוד' })]) : null,
-        l.field ? h('span', {}, [' ', h('a', { href: '../field/#n-' + l.field, target: '_blank', rel: 'noopener', text: 'המילה בשדה המילים' })]) : null]),
+        l.field ? h('span', {}, [' ', h('a', { href: '../field/#n-' + l.field, target: '_blank', rel: 'noopener', text: 'המילה בשדה המילים' })]) : null]) : null,
+      l.source ? h('p', { 'class': 'lens-s' }, [l.source]) : null,
       l.refs ? h('p', { 'class': 'lens-r', dir: 'ltr', lang: 'en', text: l.refs.join(' · ') }) : null
     ]);
   }
   function lensBlock(L) {
     var one = L.offered.length === 1;
     var box = h('section', { 'class': 'lenses', 'aria-labelledby': 'ln-h' }, [
-      h('h3', { id: 'ln-h', text: one ? 'העדשה שלכם לדרך' : 'העדשות שלכם לדרך' }),
-      h('p', { 'class': 'small', text: (one ? 'עדשה היא מה שמתרגלים בדרך' : 'עדשות הן מה שמתרגלים בדרך') + ': נקודת מבט, קצב, דמות, עקבות, דפוסים. ' + (one ? 'היא נבחרה' : 'הן נבחרו') + ' לפי מה שכתבתם. ' + (one ? 'קחו אותה איתכם' : 'קחו איתכם אחת או יותר') + ' לכל התחנות.' })
-    ].concat(L.offered.map(lensCard)));
-    if (L.more.length) box.appendChild(h('details', { 'class': 'lens-more' }, [h('summary', { text: 'להחליף או להוסיף עדשה' })].concat(L.more.map(lensCard))));
+      h('h3', { id: 'ln-h', text: one ? 'עדשה לדרך' : 'עדשות לדרך' }),
+      h('p', { 'class': 'small', text: 'עדשה היא איכות של חוויה שממנה יכול לצמוח המסלול שלכם. היא הזמנה, לא הוראה, ואפשר לקחת אותה איתכם לכל התחנות.' })
+    ].concat(L.offered.map(function (l, i) { return lensCard(l, i, l.because && l.because.length); })));
+    box.appendChild(h('p', { 'class': 'lens-play', text: 'ואפשר גם לשחק עם זה. אין דרך נכונה.' }));
+    if (L.more.length) box.appendChild(h('details', { 'class': 'lens-more' }, [h('summary', { text: 'להחליף או להוסיף עדשה' })].concat(L.more.map(function (l, i) { return lensCard(l, i, false); }))));
     return box;
   }
 
