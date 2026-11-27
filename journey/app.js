@@ -338,7 +338,7 @@
         h('span', { 'class': 'stn-min', text: r.min ? 'כ-' + r.min + ' דקות' : '' })]),
       h('h4', { text: r.name }),
       h('p', { 'class': 'inv', text: r.invite || '' }),
-      S.mode !== 'group' && K.STOPS[st.role] ? h('p', { 'class': 'stop-at' }, [h('b', { text: 'איפה אפשר לעצור: ' }), K.STOPS[st.role]]) : null
+      S.mode !== 'group' && K.STOPS[st.role] ? h('p', { 'class': 'stop-at' }, [h('b', { text: 'איפה לעצור: ' }), K.STOPS[st.role]]) : null
     ]);
     if (r.note && (S.mode === 'group' || lv === 'l1')) card.appendChild(h('p', { 'class': 'note' }, [h('b', { text: S.mode === 'group' ? 'למנחה: ' : 'טיפ: ' }), r.note]));
     if (r.border && S.mode === 'group') card.appendChild(h('p', { 'class': 'small' }, [h('span', { 'class': 'verify', text: 'שיוך למאגר בבדיקה' })]));
@@ -471,23 +471,28 @@
      route may emerge. The matching stays soft: no word of the person is quoted back, only "from what you wrote, perhaps...".
      Where the lens comes from in the method is kept apart from external echoes. */
   function lensCard(l, i, soft) {
+    var more = l.origin || l.source || l.href || l.field;
     return h('article', { 'class': 'lens-c' }, [
       soft ? h('p', { 'class': 'lens-why', text: 'מתוך מה שכתבתם, אולי תעניין אתכם העדשה הזו:' }) : null,
       h('h4', { text: l.name }),
       h('p', { 'class': 'lens-p', text: l.practice }),
       l.try ? h('p', { 'class': 'lens-t' }, [h('b', { text: 'אם תרצו: ' }), l.try]) : null,
-      l.origin || l.href || l.field ? h('p', { 'class': 'lens-s' }, [l.origin ? h('b', { text: 'מאיפה זה בא: ' }) : null, l.origin || '',
-        l.href ? h('span', {}, [' ', h('a', { href: '../' + l.href, target: '_blank', rel: 'noopener', text: 'לקרוא עוד' })]) : null,
-        l.field ? h('span', {}, [' ', h('a', { href: '../field/#n-' + l.field, target: '_blank', rel: 'noopener', text: 'המילה בשדה המילים' })]) : null]) : null,
-      l.source ? h('p', { 'class': 'lens-s' }, [l.source]) : null,
-      l.refs ? h('p', { 'class': 'lens-r', dir: 'ltr', lang: 'en', text: l.refs.join(' · ') }) : null
+      /* Depth stays behind a tap (creator 27.11: "the tool short and clear, most content behind the scenes"). */
+      more ? h('details', { 'class': 'lens-src' }, [h('summary', { text: 'מאיפה זה בא' }),
+        l.origin ? h('p', { 'class': 'lens-s', text: l.origin }) : null,
+        l.source ? h('p', { 'class': 'lens-s', text: l.source }) : null,
+        l.refs ? h('p', { 'class': 'lens-r', dir: 'ltr', lang: 'en', text: l.refs.join(' · ') }) : null,
+        l.href || l.field ? h('p', { 'class': 'lens-s' }, [
+          l.href ? h('a', { href: '../' + l.href, target: '_blank', rel: 'noopener', text: 'לקרוא עוד' }) : null,
+          l.href && l.field ? ' · ' : null,
+          l.field ? h('a', { href: '../field/#n-' + l.field, target: '_blank', rel: 'noopener', text: 'המילה בשדה המילים' }) : null]) : null]) : null
     ]);
   }
   function lensBlock(L) {
     var one = L.offered.length === 1;
     var box = h('section', { 'class': 'lenses', 'aria-labelledby': 'ln-h' }, [
       h('h3', { id: 'ln-h', text: one ? 'עדשה לדרך' : 'עדשות לדרך' }),
-      h('p', { 'class': 'small', text: 'עדשה היא איכות של חוויה שממנה יכול לצמוח המסלול שלכם. היא הזמנה, לא הוראה, ואפשר לקחת אותה איתכם לכל התחנות.' })
+      h('p', { 'class': 'small', text: 'הזמנה לדרך, לא הוראה. קחו אותה איתכם לכל התחנות.' })
     ].concat(L.offered.map(function (l, i) { return lensCard(l, i, l.because && l.because.length); })));
     box.appendChild(h('p', { 'class': 'lens-play', text: 'ואפשר גם לשחק עם זה. אין דרך נכונה.' }));
     if (L.more.length) box.appendChild(h('details', { 'class': 'lens-more' }, [h('summary', { text: 'להחליף או להוסיף עדשה' })].concat(L.more.map(function (l, i) { return lensCard(l, i, false); }))));

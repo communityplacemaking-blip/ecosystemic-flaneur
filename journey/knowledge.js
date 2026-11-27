@@ -180,11 +180,11 @@
   /* Where one might stop, per station role (27.11, from the sources the creator brought: thresholds, edges, paths, meeting
      points and props, as in Lynch 1960 and Stevens 2007). A gentle suggestion for a personal journey, never a rule. */
   K.STOPS = {
-    entry: 'על סף: שער, פתח, המקום שבו נגמר משהו ומתחיל משהו אחר.',
-    move: 'לאורך שביל או מעבר שמושך אתכם, גם אם לא תכננתם ללכת בו.',
-    discern: 'במקום שבו דרכים ואנשים נפגשים: צומת, פינה, רחבה.',
-    trace: 'ליד משהו שנשאר או שמזמין לגעת: ספסל, מדרגה, קיר, מעקה.',
-    'return': 'בנקודה שתזכרו מהדרך, ציון דרך משלכם.'
+    entry: 'על סף או בפתח.',
+    move: 'לאורך שביל שמושך אתכם.',
+    discern: 'במקום שבו דרכים ואנשים נפגשים.',
+    trace: 'ליד ספסל, מדרגה או מעקה.',
+    'return': 'בנקודה שתזכרו מהדרך.'
   };
   /* One lens by default at every level, with "replace or add" (proposal 27.11). */
   K.LENS_COUNT = { l1: 1, l2: 1, l3: 1, l4: 1 };
