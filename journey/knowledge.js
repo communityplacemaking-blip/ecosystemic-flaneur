@@ -102,6 +102,84 @@
     { id: 'possible', name: 'אפשרויות ויצירה', w: ['אפשרות', 'אפשרויות', 'ליצור', 'יצירה', 'פעולה', 'לעשות', 'להיוולד', 'פוטנציאל', 'רעיון'] }
   ];
 
+  /* Practices that need a group, a pair or a circle. A personal journey never offers them (creator 27.11:
+     "if it is personal wandering, find personal processes and tools, not group participatory ones"). */
+  K.GROUP_ONLY = ['count-ten', 'together-apart', 'five-r', 'tell-create', 'shared-map', 'one-photo',
+    'simultaneous-drift', 'describe-to-see', 'footsteps'];
+
+  /* Lenses for a personal journey (creator 27.11). A lens is a condition or quality of experience from which a route
+     may emerge: an open invitation, never an instruction. Each lens has an invitation, an optional small action (try),
+     where the lens comes from in the method (origin), and, apart from it, external echoes (source + refs) that are
+     echoes only, not the origin of the concept. The engine offers the lens the person's own words point to.
+     w: words that point to the lens; th: the themes that do. Wording per the revised proposal of 27.11. */
+  K.LENSES = [
+    { id: 'viewpoint', name: 'נקודת מבט',
+      practice: 'העולם נראה אחרת מכל מקום שבו עומדים. עדשה שמזמינה לשים לב לעמדה שלכם, ולמה שנפתח כשהיא זזה.',
+      try: 'לעמוד רגע גבוה או נמוך, קרוב או רחוק.',
+      origin: 'מתוך עדשות השוטטות של השיטה, וקרובה ל"מבט המשתנה" ב"חמש שכבות של התבוננות".',
+      href: 'library/toolbox/#t-five-layers',
+      w: ['מבט', 'לראות', 'רואה', 'אחרת', 'זווית', 'נקודת', 'חדש', 'רעיון', 'להבין'], th: ['built', 'possible'] },
+    { id: 'pace', name: 'קצב',
+      practice: 'הקצב שלכם הוא חלק מהמפגש. עדשה שמזמינה ללכת בקצב שהגוף והמקום מבקשים, ולא בקצב של משימה.',
+      try: 'להאט כשמשהו מושך, ולעצור בלי סיבה.',
+      origin: 'מתוך עדשות השוטטות של השיטה.',
+      source: 'הד: ולטר בנימין מספר שבפריז, סביב 1840, היה לזמן קצר אופנתי לטייל בפסאז׳ים עם צב, ולתת לו לקבוע את הקצב.',
+      refs: ['Walter Benjamin, Das Paris des Second Empire bei Baudelaire (1938)'],
+      w: ['לאט', 'האטה', 'מהר', 'קצב', 'עצירה', 'לעצור', 'שקט', 'רגוע', 'לחץ', 'עומס', 'זמן', 'מנוחה'], th: ['sound'] },
+    { id: 'rhythms', name: 'מקצבי העיר',
+      practice: 'גם למקום יש נשימה: שעות של מלאות ושל ריקות, דברים שחוזרים כל יום. עדשה שמזמינה להקשיב למה שחוזר.',
+      try: 'לחזור לאותה נקודה בשעה אחרת.',
+      origin: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד".',
+      source: 'הדים: אנרי לפבר התבונן ברחוב מחלון ביתו בפריז וקרא אותו דרך המקצבים שלו, בספרו על "ריתמואנליזה". קווין לינץ׳ כתב על הזמן כפי שהוא נחווה במרחב: מחזורי היום, העונות, ומה שנשאר מן העבר.',
+      refs: ['Henri Lefebvre, Éléments de rythmanalyse (1992)', 'Kevin Lynch, What Time Is This Place? (1972)'],
+      field: 'time',
+      w: ['מקצב', 'מקצבים', 'בוקר', 'ערב', 'לילה', 'שגרה', 'יומיום', 'תנועה', 'רדום', 'ער', 'חוזר', 'חוזרים', 'שעות'], th: ['sound'] },
+    { id: 'transience', name: 'ארעיות',
+      practice: 'יש רגעים שלא יחזרו: צל, שיחה, אור של שעה אחת. עדשה שמזמינה לשים לב לחולף, דווקא מפני שהוא חולף.',
+      origin: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד".',
+      source: 'הד: שארל בודלר כתב ב"צייר החיים המודרניים" שהמודרניות היא "החולף, הנמלט, המקרי" (בתרגום חופשי).',
+      refs: ['Charles Baudelaire, Le Peintre de la vie moderne (1863)'],
+      field: 'time',
+      w: ['ארעי', 'ארעיות', 'רגע', 'חולף', 'משתנה', 'שינוי', 'נעלם', 'זמני', 'עובר', 'מתחלף'], th: ['change', 'wonder'] },
+    { id: 'traces', name: 'עקבות',
+      practice: 'כל מקום נושא סימנים של מי שעבר בו. עדשה שמזמינה להבחין במה שנשאר: שביל רמוס, שם על קיר, חפץ שהוזז.',
+      origin: 'אחת העדשות בסדנאות "הזמנה ללכת לאיבוד", ומעדשות השוטטות של השיטה.',
+      source: 'הד: ולטר בנימין כתב: "לגור פירושו להשאיר עקבות".',
+      refs: ['Walter Benjamin, Paris, die Hauptstadt des XIX. Jahrhunderts (1935)'],
+      field: 'memory',
+      w: ['עקבות', 'עקבה', 'סימן', 'סימנים', 'זיכרון', 'זכרון', 'עבר', 'היסטוריה', 'ישן', 'נעלם', 'סיפור', 'סיפורים'], th: ['stories'] },
+    { id: 'legibility', name: 'לקרוא את המקום',
+      practice: 'כל מקום מספר לגוף איך לנוע בו: לאן נמשכים, איפה עוצרים, איפה נגמר משהו ומתחיל משהו אחר. עדשה שמזמינה להרגיש את המקום כמו טקסט שנקרא ברגליים.',
+      try: 'לשים לב לשביל שמושך אתכם, לסף שאתם חוצים, לנקודה שבה אנשים נפגשים, ולמה שתזכרו מהדרך גם מחר.',
+      source: 'הד: קווין לינץ׳, "דימוי העיר", שאל עד כמה מקום "קריא" למי שהולך בו. לא צריך להכיר את עבודתו כדי לשוטט כך.',
+      refs: ['Kevin Lynch, The Image of the City (1960)'],
+      href: 'library/toolbox/#t-memory-map',
+      w: ['רחוב', 'רחובות', 'צומת', 'גבול', 'גבולות', 'סף', 'שכונה', 'רובע', 'דרך', 'מפה', 'להתמצא', 'שביל', 'כיכר', 'מבנה', 'ללכת', 'הליכה'], th: ['built'] },
+    { id: 'character', name: 'דמות',
+      practice: 'לפעמים קל יותר לראות דרך עיניים של מישהו אחר. עדשה שמזמינה לשוטט לרגע כמישהו אחר, ולגלות מה נראה משם.',
+      try: 'ילדה, אורח שהגיע הבוקר, ארכאולוג מהעתיד. ובסוף, לחזור לעצמכם.',
+      origin: 'מתוך עדשות השוטטות של השיטה, וקרובה לכלי "התחפשות המשוטט".',
+      href: 'library/toolbox/#t-flaneur-disguise',
+      w: ['דמות', 'ילד', 'ילדים', 'זרים', 'זר', 'דמיון', 'משחק', 'יצירתי', 'יצירה', 'תקוע'], th: ['people', 'wonder'] },
+    { id: 'patterns', name: 'דפוסים',
+      practice: 'במערכת חיה דברים מתחברים זה לזה. עדשה שמזמינה לשים לב לקשרים שמתגלים: איפה נוצר מפגש, מה מוביל למה, מה מתחיל לצמוח.',
+      origin: 'מתוך עדשות השוטטות של השיטה, ולב "המרחב הכאורדי": סימנים של סדר חדש שמתחיל לצמוח.',
+      href: 'flaneur/',
+      source: 'הד: "שפת תבניות" של כריסטופר אלכסנדר.',
+      refs: ['Christopher Alexander et al., A Pattern Language (1977)'],
+      w: ['דפוס', 'דפוסים', 'קשר', 'קשרים', 'חיבור', 'חיבורים', 'מערכת', 'שיתוף', 'קהילה', 'קהילתי', 'נפרד', 'מחובר', 'אנשים', 'מפגש'], th: ['people', 'built'] },
+    /* Ninth lens (proposal 27.11, name awaiting the creator: החיים / החי / רשת החיים). Human and non-human life and the
+       relations that sustain it, not only nature. Drawn from the journey's own foundations screen; no external source. */
+    { id: 'web', name: 'רשת החיים',
+      practice: 'המקום הזה חי: אנשים, עצים, ציפורים, נמלים, מים ואור, וכולם קשורים זה בזה. עדשה שמזמינה לפגוש את החיים שבמקום ואת מה שמאפשר להם להתקיים, ולהרגיש שגם אתם חלק מהם: משפיעים ומושפעים.',
+      try: 'לשים לב מה מאפשר כאן חיים (צל, מים, פינה מוגנת), ומי נעזר בו.',
+      origin: 'מתוך יסודות השיטה: "אנחנו חלק מרשת חיה של קשרים".',
+      field: 'livingplace',
+      w: ['חי', 'חיים', 'טבע', 'עץ', 'עצים', 'ציפור', 'ציפורים', 'צמחים', 'ירוק', 'אדמה', 'מים', 'בעלי', 'חיות', 'רשת', 'תלות', 'אקולוגי', 'אקוסיסטמי', 'מערכת'], th: ['nature'] }
+  ];
+  /* One lens by default at every level, with "replace or add" (proposal 27.11). */
+  K.LENS_COUNT = { l1: 1, l2: 1, l3: 1, l4: 1 };
+
   root.EF_K = K;
   if (typeof module !== 'undefined') module.exports = K;
 })(typeof window !== 'undefined' ? window : globalThis);

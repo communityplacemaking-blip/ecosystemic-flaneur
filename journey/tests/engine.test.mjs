@@ -35,4 +35,24 @@ t('participatory: meetings, harvest between, tool slot by purpose', () => {
 });
 t('mode is never inferred', () => assert.equal(E.compose({ level: 'l2' }, { ...a, people: 'קבוצה של 30' }, IDEAS).mode, 'solo'));
 t('understanding quotes the person\'s words', () => { const u = E.understand(a); assert.ok(u.themes.some(x => x.id === 'stories' && x.because === 'סיפורים')); });
+t('a personal journey never offers a group practice, at any level or length (27.11)', () => {
+  require('../../library/ideas-flaneur.js'); const IDEAS = globalThis.IDEAS;   // the page loads both repositories
+  ['l1', 'l2', 'l3', 'l4'].forEach(level => [20, 45, 90, 150].forEach(minutes => {
+    const J = E.compose({ level, mode: 'solo' }, { ...a, minutes, curiosity: 'לספר יחד במעגל ולשרטט מפה משותפת בקבוצה' }, IDEAS);
+    J.stations.forEach(st => [st.rec].concat(st.alts.map(x => x.rec)).forEach(r => assert.ok(!K.GROUP_ONLY.includes(r.id), level + ' ' + r.id)));
+  }));
+  K.GROUP_ONLY.forEach(id => assert.ok(IDEAS.some(r => r.id === id), 'unknown id ' + id));
+});
+t('lenses: every lens is an invitation with an origin or echo; one lens per level; the person\'s words choose it', () => {
+  K.LENSES.forEach(l => assert.ok(l.name && l.practice && (l.origin || l.source), l.id));
+  assert.equal(K.LENSES.length, 9); assert.ok(K.LENSES.some(l => l.name === 'לקרוא את המקום'));
+  ['l1', 'l2', 'l3', 'l4'].forEach(lv => assert.equal(K.LENS_COUNT[lv], 1));
+  const W = E.compose({ level: 'l2', mode: 'solo' }, { ...a, curiosity: 'להרגיש את העצים והציפורים ואת מה שחי כאן' }, IDEAS);
+  assert.equal(W.lenses.offered[0].id, 'web');
+  const J = E.compose({ level: 'l4', mode: 'solo' }, { ...a, magic: 'די המוגונית אין יוצר מדי קשר בין האנשים', challenge: 'יצירת הקשרים לחיבורים קהילתיים כרגע רדום ונפרד', curiosity: 'לגלות הזדמנויות לחיבורים', minutes: 90 }, IDEAS);
+  assert.equal(J.lenses.offered.length, 1); assert.equal(J.lenses.offered[0].id, 'patterns'); assert.ok(J.lenses.offered[0].because.length);
+  assert.equal(J.lenses.offered.length + J.lenses.more.length, K.LENSES.length);
+  assert.equal(E.compose({ level: 'l1', mode: 'solo' }, a, IDEAS).lenses.offered.length, 1);
+  assert.deepEqual(E.compose({ level: 'l2', mode: 'solo' }, { place: 'x', minutes: 45 }, IDEAS).lenses.offered.map(l => l.because), [[]]);
+});
 console.log(n + ' tests pass');

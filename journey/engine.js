@@ -70,6 +70,7 @@
   function pick(role, ctx, used, budget, n) {
     var c = ctx.ideas.filter(function (r) {
       return r.kind === 'practice' && (r.slots || []).indexOf(role) > -1 && used.indexOf(r.id) < 0 &&
+        !(ctx.mode === 'solo' && (K.GROUP_ONLY || []).indexOf(r.id) > -1) &&
         placeOk(r, ctx.place) && (r.min || 0) <= budget;
     }).map(function (r, i) { var sc = score(r, ctx); return { r: r, s: sc.s, why: sc.why, i: i }; });
     c.sort(function (x, y) { return y.s - x.s || x.i - y.i; });
@@ -98,6 +99,22 @@
       choose: level === 'l4' }, extra || {});
   }
 
+  /* Lenses for a personal journey: the ones the person's own words point to, each with the word that pointed to it.
+     With no sign in the words, the first lenses of the list (point of view, pace, ...) are offered as they are. */
+  E.lenses = function (text, themeIds, n) {
+    var ws = words(text), set = {};
+    ws.forEach(function (w) { set[w.n] = w.raw; });
+    var tw = {}; (themeIds || []).forEach(function (id) { tw[id] = 1; });
+    var ranked = (K.LENSES || []).map(function (l, i) {
+      var hits = [];
+      l.w.forEach(function (x) { var r = set[norm(x)]; if (r && hits.indexOf(r) < 0) hits.push(r); });
+      var th = l.th.filter(function (id) { return tw[id]; }).length;
+      return { lens: l, s: hits.length * 2 + th, because: hits.slice(0, 2), i: i };
+    }).sort(function (a, b) { return b.s - a.s || a.i - b.i; });
+    return { offered: ranked.slice(0, n).map(function (x) { return Object.assign({ because: x.s ? x.because : [] }, x.lens); }),
+      more: ranked.slice(n).map(function (x) { return x.lens; }) };
+  };
+
   E.compose = function (p, a, ideas) {
     var level = p.level || 'l2', mode = p.mode || 'solo';
     var lv = K.LEVELS.filter(function (l) { return l.id === level; })[0];
@@ -122,9 +139,7 @@
         if (!st && role === 'move') st = station(role, ctx, used, left, level);
         if (st) { J.stations.push(st); left -= (st.rec.min || 5); }
       });
-      if (level === 'l3' || level === 'l4') {
-        J.lenses = ideas.filter(function (r) { return r.kind === 'lens'; });
-      }
+      J.lenses = E.lenses(said, themes, K.LENS_COUNT[level] || 1);
       J.minutes = J.stations.reduce(function (t, s) { return t + (s.rec.min || 5); }, 0);
       J.budget = total;
       J.template = 'adaptive-solo';
